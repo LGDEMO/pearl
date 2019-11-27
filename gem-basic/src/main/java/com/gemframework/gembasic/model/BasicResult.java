@@ -33,11 +33,6 @@ public class BasicResult {
     // 响应中的数据
     private Object data;
 
-
-    public static BasicResult build(Integer status, String msg, Object data) {
-        return new BasicResult(status, msg, data);
-    }
-
     public BasicResult() {
 
     }
@@ -54,33 +49,52 @@ public class BasicResult {
         this.data = data;
     }
 
-
     /**
-     * @Title:
+     * @Title:  build
      * @MethodName:  build
-     * @Param: [status, msg]
+     * @Param: [status, msg, data]
      * @Retrun: com.gemframework.gembasic.model.BasicResult
      * @Description:
-     * @Date: 2019/11/24 14:11
+     * @Date: 2019/11/27 22:39
      */
-    public static BasicResult exception(Integer code, String msg) {
+    public static BasicResult build(Integer status, String msg, Object data) {
+        return new BasicResult(status, msg, data);
+    }
+
+    /**
+     * @Title:  ERROR
+     * @MethodName:  ERROR
+     * @Param: [code, msg]
+     * @Retrun: com.gemframework.gembasic.model.BasicResult
+     * @Description:
+     * @Date: 2019/11/27 22:40
+     */
+    public static BasicResult ERROR(Integer code, String msg) {
         return new BasicResult(code, msg, null);
     }
 
-    public static BasicResult success(Object data) {
+    /**
+     * @Title:  SUCCESS
+     * @MethodName:  SUCCESS
+     * @Param: [data]
+     * @Retrun: com.gemframework.gembasic.model.BasicResult
+     * @Description:
+     * @Date: 2019/11/27 22:40
+     */
+    public static BasicResult SUCCESS(Object data) {
         return new BasicResult(data);
     }
-    public static BasicResult success() {
-        return new BasicResult(null);
-    }
 
-    public static BasicResult error(String msg) {
-        return new BasicResult(999, msg, null);
-    }
-
-
-    public Boolean OK() {
-        return this.code == 0;
+    /**
+     * @Title:  SUCCESS
+     * @MethodName:  SUCCESS
+     * @Param: []
+     * @Retrun: com.gemframework.gembasic.model.BasicResult
+     * @Description:
+     * @Date: 2019/11/27 22:41
+     */
+    public static BasicResult SUCCESS() {
+        return SUCCESS(null);
     }
 
     /**
