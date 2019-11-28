@@ -15,7 +15,7 @@
     <description>parent project for gemframe</description>
 
     <modules>
-        <module>gem-basic</module>
+        <module>gem-base</module>
     </modules>
 
     <properties>

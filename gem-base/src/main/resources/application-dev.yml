@@ -1,0 +1,28 @@
+server:
+  port: 8088
+  servlet:
+    context-path: /gem
+
+
+
+gem:
+  min: 0.01
+  max: 999
+  desc: 这是自定义配置，最小值${gem.min},最大值${gem.max}
+
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/gem?characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2b8
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    # 是否打印sql
+    show-sql: true
+    hibernate:
+      # 开启自动建表功能，一般选update，每次启动会对比实体和数据表结构是否相同，不相同会更新
+      ddl-auto: update
+      format_sql: true
+    # 设置创表引擎为Innodb，不然默认为MyiSam
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
