@@ -1,4 +1,4 @@
-package com.gemframework.base.listener;
+package com.gemframework.base.common.listener;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;

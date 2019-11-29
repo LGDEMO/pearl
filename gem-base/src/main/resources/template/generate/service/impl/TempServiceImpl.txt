@@ -1,15 +1,14 @@
-package com.gemframework.base.service.impl;
+package ${package}.service.impl;
 
 import com.gemframework.base.common.enums.ResultCode;
 import com.gemframework.base.common.exception.GemException;
-import com.gemframework.base.model.po.User;
-import com.gemframework.base.model.vo.UserVo;
-import com.gemframework.base.repository.UserRepository;
-import com.gemframework.base.service.UserService;
 import com.gemframework.base.common.utils.GemBeanUtils;
+import ${package}.model.po.${Entity};
+import ${package}.model.vo.${Entity}Vo;
+import ${package}.repository.${Entity}Repository;
+import ${package}.service.${Entity}Service;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Example;
-import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -20,28 +19,25 @@ import java.util.Optional;
 
 @Slf4j
 @Service
-public class UserServiceImpl implements UserService {
+public class ${Entity}ServiceImpl implements ${Entity}Service {
 
     @Resource
-    private UserRepository userRepository;
+    private ${Entity}Repository ${entity}Repository;
 
     /**
      * @Title:  add
      * @MethodName:  add
      * @Param: [vo]
-     * @Retrun: com.gemframework.base.model.po.User
+     * @Retrun: ${package}.model.po.${Entity}
      * @Description: 添加
-     * @Date: 2019/11/29 20:44
+     * @Date: ${datetime}
      */
     @Override
-    public User add(UserVo vo) {
-        if(null != userRepository.findByPhone(vo.getUserPhone())){
-            throw new GemException(ResultCode.PARAM_EXCEPTION);
-        }
-        User user = new User();
-        GemBeanUtils.copyProperties(vo,user);
-        userRepository.save(user);
-        return user;
+    public ${Entity} add(${Entity}Vo vo) {
+        ${Entity} ${entity} = new ${Entity}();
+        GemBeanUtils.copyProperties(vo,${entity});
+        ${entity}Repository.save(${entity});
+        return ${entity};
     }
 
     /**
@@ -50,11 +46,11 @@ public class UserServiceImpl implements UserService {
      * @Param: []
      * @Retrun: java.util.List
      * @Description:  查询所有数据列表
-     * @Date: 2019/11/29 20:44
+     * @Date: ${datetime}
      */
     @Override
     public List findListAll() {
-        List<User> list = userRepository.findAll();
+        List<User> list = ${entity}Repository.findAll();
         return list;
     }
 
@@ -73,14 +69,14 @@ public class UserServiceImpl implements UserService {
      *         User user = new User();
      *         GemBeanUtils.copyProperties(vo,user);
      *         Example<User> example =Example.of(user,matcher);
-     * @Date: 2019/11/29 20:39
+     * @Date: ${datetime}
      */
     @Override
-    public List findListByParams(UserVo vo) {
-        User user = new User();
-        GemBeanUtils.copyProperties(vo,user);
-        Example<User> example =Example.of(user);
-        List<User> list = userRepository.findAll(example);
+    public List findListByParams(${Entity}Vo vo) {
+        ${Entity} ${entity} = new ${Entity}();
+        GemBeanUtils.copyProperties(vo,${entity});
+        Example<${Entity}> example =Example.of(${entity});
+        List<${Entity}> list = ${entity}Repository.findAll(example);
         return list;
     }
 
@@ -90,11 +86,11 @@ public class UserServiceImpl implements UserService {
      * @Param: [pageable]
      * @Retrun: org.springframework.data.domain.Page
      * @Description: 【分页】查询所有数据
-     * @Date: 2019/11/29 20:42
+     * @Date: ${datetime}
      */
     @Override
     public Page findPageAll(Pageable pageable) {
-        Page<User> page = userRepository.findAll(pageable);
+        Page<${Entity}> page = ${entity}Repository.findAll(pageable);
         return page;
     }
 
@@ -104,14 +100,14 @@ public class UserServiceImpl implements UserService {
      * @Param: [vo, pageable]
      * @Retrun: org.springframework.data.domain.Page
      * @Description: 【分页】根据条件动态查询
-     * @Date: 2019/11/29 20:42
+     * @Date: ${datetime}
      */
     @Override
-    public Page findPageByParams(UserVo vo,Pageable pageable) {
-        User user = new User();
-        GemBeanUtils.copyProperties(vo,user);
-        Example<User> example =Example.of(user);
-        Page<User> page = userRepository.findAll(example,pageable);
+    public Page findPageByParams(${Entity}Vo vo,Pageable pageable) {
+        ${Entity} ${entity} = new ${Entity}();
+        GemBeanUtils.copyProperties(vo,${entity});
+        Example<${Entity}> example =Example.of(${entity});
+        Page<${Entity}> page = ${entity}Repository.findAll(example,pageable);
         return page;
     }
 
@@ -121,16 +117,16 @@ public class UserServiceImpl implements UserService {
      * @Param: [vo]
      * @Retrun: com.gemframework.base.model.po.User
      * @Description: 更新数据
-     * @Date: 2019/11/29 20:42
+     * @Date: ${datetime}
      */
     @Override
-    public User update(UserVo vo) {
-        Optional<User> optional= userRepository.findById(vo.getId());
+    public ${Entity} update(${Entity}Vo vo) {
+        Optional<${Entity}> optional= ${entity}Repository.findById(vo.getId());
         if(optional.isPresent()){
-            User user = optional.get();
-            GemBeanUtils.copyProperties(vo,user);
-            userRepository.save(user);
-            return user;
+            ${Entity} ${entity} = optional.get();
+            GemBeanUtils.copyProperties(vo,${entity});
+            ${entity}Repository.save(${entity});
+            return ${entity};
         }
         return null;
 
@@ -142,10 +138,10 @@ public class UserServiceImpl implements UserService {
      * @Param: [id]
      * @Retrun: void
      * @Description: 根据ID删除数据
-     * @Date: 2019/11/29 20:43
+     * @Date: ${datetime}
      */
     @Override
     public void delete(Long id) {
-        userRepository.deleteById(id);
+        ${entity}Repository.deleteById(id);
     }
 }

@@ -1,6 +1,6 @@
-package com.gemframework.base.exception;
+package com.gemframework.base.common.exception;
 
-import com.gemframework.base.enums.ResultCode;
+import com.gemframework.base.common.enums.ResultCode;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -23,5 +23,10 @@ public class GemException extends RuntimeException {
     public GemException(ResultCode resultCode){
         super(resultCode.getMsg());
         this.code = resultCode.getCode();
+    }
+
+    public GemException(Integer code,String msg){
+        super(msg);
+        this.code = code;
     }
 }

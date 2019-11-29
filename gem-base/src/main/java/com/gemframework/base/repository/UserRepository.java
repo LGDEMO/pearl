@@ -2,6 +2,8 @@ package com.gemframework.base.repository;
 
 import com.gemframework.base.model.po.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 
 /**
  * @Title: UserRepository.java
@@ -15,4 +17,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @Company: www.gemframework.com
  */
 public interface UserRepository extends JpaRepository<User, Long> {
+
+    @Query("select user from User user where userPhone=?1")
+    User findByPhone(String phone);
 }

@@ -1,13 +1,14 @@
-package com.gemframework.base.controller;
+package ${package}.controller;
 
 import com.gemframework.base.common.enums.ResultCode;
 import com.gemframework.base.model.BaseResult;
-import com.gemframework.base.model.po.User;
-import com.gemframework.base.model.vo.UserVo;
-import com.gemframework.base.service.UserService;
+import ${package}.model.po.${Entity};
+import ${package}.model.vo.${Entity}Vo;
+import ${package}.service.${Entity}Service;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.*;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,23 +16,23 @@ import javax.validation.Valid;
 import java.util.List;
 
 /**
- * @Title: UserController.java
- * @Package: com.gemframework.gembasic.controller
- * @Date: 2019/11/28 18:03
+ * @Title: ${Entity}Controller.java
+ * @Package: ${package}.controller
+ * @Date: ${datetime}
  * @Version: v1.0
  * @Description: 这里写描述
- * @Author: zhangysh
+ * @Author: ${author}
  * @Copyright: Copyright (c) 2019 GemStudio
  * @Company: www.gemframework.com
  */
 
 @Slf4j
 @RestController
-@RequestMapping("user")
-public class UserController {
+@RequestMapping("${entity}")
+public class ${Entity}Controller {
 
     @Autowired
-    UserService userService;
+    ${Entity}Service ${entity}Service;
 
     /**
      * @Title:  add
@@ -39,16 +40,16 @@ public class UserController {
      * @Param: [vo, bindingResult]
      * @Retrun: com.gemframework.base.model.BaseResult
      * @Description:
-     * @Date: 2019/11/29 16:17
+     * @Date: ${datetime}
      */
     @PostMapping("add")
-    public BaseResult add(@Valid @RequestBody UserVo vo, BindingResult bindingResult){
+    public BaseResult add(@Valid @RequestBody ${Entity}Vo vo, BindingResult bindingResult){
 
         if(bindingResult.hasErrors()){
             return BaseResult.ERROR(ResultCode.PARAM_EXCEPTION.getCode(),bindingResult.getFieldError().getDefaultMessage());
         }
 
-        return BaseResult.SUCCESS(userService.add(vo));
+        return BaseResult.SUCCESS(${entity}Service.add(vo));
     }
 
     /**
@@ -57,11 +58,11 @@ public class UserController {
      * @Param: [id]
      * @Retrun: com.gemframework.base.model.BaseResult
      * @Description:
-     * @Date: 2019/11/29 16:18
+     * @Date: ${datetime}
      */
     @PostMapping("delete/{id}")
     public BaseResult delete(@PathVariable("id") Long id){
-        userService.delete(id);
+        ${entity}Service.delete(id);
         return BaseResult.SUCCESS();
     }
 
@@ -71,11 +72,11 @@ public class UserController {
      * @Param: [vo]
      * @Retrun: com.gemframework.base.model.BaseResult
      * @Description:
-     * @Date: 2019/11/29 16:17
+     * @Date: ${datetime}
      */
     @PostMapping("update")
-    public BaseResult update(UserVo vo){
-        return BaseResult.SUCCESS(userService.update(vo));
+    public BaseResult update(${Entity}Vo vo){
+        return BaseResult.SUCCESS(${entity}Service.update(vo));
     }
 
     /**
@@ -84,13 +85,14 @@ public class UserController {
      * @Param: []
      * @Retrun: com.gemframework.base.model.BaseResult
      * @Description:
-     * @Date: 2019/11/29 16:18
+     * @Date: ${datetime}
      */
     @GetMapping("list")
     public BaseResult list(){
-        List list = userService.findListAll();
+        List list = ${entity}Service.findListAll();
         return BaseResult.SUCCESS(list);
     }
+
 
     /**
      * @Title:  listByParams
@@ -98,11 +100,11 @@ public class UserController {
      * @Param: [vo]
      * @Retrun: com.gemframework.base.model.BaseResult
      * @Description:
-     * @Date: 2019/11/29 21:19
+     * @Date: ${datetime}
      */
     @GetMapping("listByParams")
-    public BaseResult listByParams(UserVo vo){
-        List list = userService.findListByParams(vo);
+    public BaseResult listByParams(${Entity}Vo vo){
+        List list = ${entity}Service.findListByParams(vo);
         return BaseResult.SUCCESS(null);
     }
 
@@ -118,11 +120,11 @@ public class UserController {
      * @SortDefault.SortDefaults({@SortDefault(sort = "userName", direction = Sort.Direction.DESC),
      *             @SortDefault(sort = "id", direction = Sort.Direction.ASC)})
      * @PageableDefault(page = 0, size = 2)
-     * @Date: 2019/11/29 16:38
+     * @Date: ${datetime}
      */
     @GetMapping("page")
     public BaseResult page(Pageable pageable){
-        Page<User> page =  userService.findPageAll(pageable);
+        Page<User> page =  ${entity}Service.findPageAll(pageable);
         List list = page.getContent();
         return BaseResult.SUCCESS(list);
     }
@@ -133,11 +135,11 @@ public class UserController {
      * @Param: [vo, pageable]
      * @Retrun: com.gemframework.base.model.BaseResult
      * @Description: 【分页】根据条件动态查询
-     * @Date: 2019/11/29 21:21
+     * @Date: ${datetime}
      */
     @GetMapping("pageByParams")
-    public BaseResult pageByParams(UserVo vo,Pageable pageable){
-        Page<User> page =  userService.findPageByParams(vo,pageable);
+    public BaseResult pageByParams(${Entity}Vo vo,Pageable pageable){
+        Page<${Entity}> page =  ${entity}Service.findPageByParams(vo,pageable);
         List list = page.getContent();
         return BaseResult.SUCCESS(list);
     }

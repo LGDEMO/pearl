@@ -1,4 +1,4 @@
-package com.gemframework.base.enums;
+package com.gemframework.base.common.enums;
 
 import lombok.Getter;
 
@@ -17,6 +17,7 @@ import lombok.Getter;
 public enum ResultCode {
 
     SUCCESS(0,"返回成功"),
+    PARAM_EXCEPTION(1,"参数错误"),
 
     SYSTEM_EXCEPTION(999999,"系统异常"),
     ;

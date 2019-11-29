@@ -1,4 +1,4 @@
-package com.gemframework.base.util;
+package com.gemframework.base.common.utils;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.BeanWrapper;

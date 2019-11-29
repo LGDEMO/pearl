@@ -1,9 +1,9 @@
 package com.gemframework.base.controller;
 
-import com.gemframework.base.config.GemConfig;
-import com.gemframework.base.enums.ResultCode;
-import com.gemframework.base.exception.GemException;
-import com.gemframework.base.model.BasicResult;
+import com.gemframework.base.common.config.GemConfig;
+import com.gemframework.base.common.enums.ResultCode;
+import com.gemframework.base.common.exception.GemException;
+import com.gemframework.base.model.BaseResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,17 +28,17 @@ public class HelloController {
     }
 
     @RequestMapping("body")
-    public BasicResult rbody(){
-        return BasicResult.SUCCESS("xxx");
+    public BaseResult rbody(){
+        return BaseResult.SUCCESS("xxx");
     }
 
     @GetMapping("ex_test")
-    public BasicResult exTest(){
+    public BaseResult exTest(){
         Integer a = 1/0;
         return null;
     }
     @GetMapping("ex_test2/{id}")
-    public BasicResult exTest2(@PathVariable Integer id){
+    public BaseResult exTest2(@PathVariable Integer id){
         if(id == 1){
             throw new GemException(ResultCode.SUCCESS);
         }
@@ -47,11 +47,11 @@ public class HelloController {
 
 
     @GetMapping("config_test/{id}")
-    public BasicResult conf(@PathVariable Integer id){
+    public BaseResult conf(@PathVariable Integer id){
         if(id == 1){
             throw new GemException(ResultCode.SUCCESS);
         }
-        return BasicResult.SUCCESS(gemConfig.getDesc());
+        return BaseResult.SUCCESS(gemConfig.getDesc());
     }
 
 }

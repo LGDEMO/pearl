@@ -1,4 +1,4 @@
-package com.gemframework.base.listener;
+package com.gemframework.base.common.listener;
 
 import java.sql.Timestamp;
 

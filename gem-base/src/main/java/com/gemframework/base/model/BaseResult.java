@@ -2,6 +2,7 @@ package com.gemframework.base.model;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.gemframework.base.common.enums.ResultCode;
 import lombok.Data;
 
 import java.util.List;
@@ -19,7 +20,7 @@ import java.util.List;
  */
 
 @Data
-public class BasicResult {
+public class BaseResult {
 
     // 定义jackson对象
     private static final ObjectMapper mapper = new ObjectMapper();
@@ -33,17 +34,17 @@ public class BasicResult {
     // 响应中的数据
     private Object data;
 
-    public BasicResult() {
+    public BaseResult() {
 
     }
 
-    public BasicResult(Integer code, String msg, Object data) {
+    public BaseResult(Integer code, String msg, Object data) {
         this.code = code;
         this.msg = msg;
         this.data = data;
     }
 
-    public BasicResult(Object data) {
+    public BaseResult(Object data) {
         this.code = 0;
         this.msg = "OK";
         this.data = data;
@@ -57,8 +58,8 @@ public class BasicResult {
      * @Description:
      * @Date: 2019/11/27 22:39
      */
-    public static BasicResult build(Integer status, String msg, Object data) {
-        return new BasicResult(status, msg, data);
+    public static BaseResult build(Integer status, String msg, Object data) {
+        return new BaseResult(status, msg, data);
     }
 
     /**
@@ -69,8 +70,21 @@ public class BasicResult {
      * @Description:
      * @Date: 2019/11/27 22:40
      */
-    public static BasicResult ERROR(Integer code, String msg) {
-        return new BasicResult(code, msg, null);
+    public static BaseResult ERROR(Integer code, String msg) {
+        return new BaseResult(code, msg, null);
+    }
+
+    /**
+     * @Title:  ERROR
+     * @MethodName:  ERROR
+     * @Param: [resultCode]
+     * @Retrun: com.gemframework.base.model.BaseResult
+     * @Description:
+     * @Date: 2019/11/29 14:37
+     */
+    public static BaseResult ERROR(ResultCode resultCode) {
+
+        return new BaseResult(resultCode.getCode(), resultCode.getMsg(), null);
     }
 
     /**
@@ -81,8 +95,8 @@ public class BasicResult {
      * @Description:
      * @Date: 2019/11/27 22:40
      */
-    public static BasicResult SUCCESS(Object data) {
-        return new BasicResult(data);
+    public static BaseResult SUCCESS(Object data) {
+        return new BaseResult(data);
     }
 
     /**
@@ -93,7 +107,7 @@ public class BasicResult {
      * @Description:
      * @Date: 2019/11/27 22:41
      */
-    public static BasicResult SUCCESS() {
+    public static BaseResult SUCCESS() {
         return SUCCESS(null);
     }
 
@@ -104,9 +118,9 @@ public class BasicResult {
      * @author leechenxiang
      * @date 2016年4月22日 下午8:35:21
      */
-    public static BasicResult format(String json) {
+    public static BaseResult format(String json) {
         try {
-            return mapper.readValue(json, BasicResult.class);
+            return mapper.readValue(json, BaseResult.class);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -121,11 +135,11 @@ public class BasicResult {
      * @Description: 将json转化为对象
      * @Date: 2019/11/25 13:44
      */
-    public static BasicResult formatToClazz(String jsonString, Class<?> clazz) {
+    public static BaseResult formatToClazz(String jsonString, Class<?> clazz) {
 
         try {
             if (clazz == null) {
-                return mapper.readValue(jsonString, BasicResult.class);
+                return mapper.readValue(jsonString, BaseResult.class);
             }
             JsonNode jsonNode = mapper.readTree(jsonString);
             JsonNode data = jsonNode.get("data");
@@ -151,7 +165,7 @@ public class BasicResult {
      * @Description: 将json转化为list clazz为list对象
      * @Date: 2019/11/25 13:45
      */
-    public static BasicResult formatToList(String jsonString, Class<?> clazz) {
+    public static BaseResult formatToList(String jsonString, Class<?> clazz) {
 
         try {
             JsonNode jsonNode = mapper.readTree(jsonString);

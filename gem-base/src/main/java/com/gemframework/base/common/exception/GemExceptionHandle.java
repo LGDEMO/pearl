@@ -1,7 +1,7 @@
-package com.gemframework.base.exception;
+package com.gemframework.base.common.exception;
 
-import com.gemframework.base.enums.ResultCode;
-import com.gemframework.base.model.BasicResult;
+import com.gemframework.base.common.enums.ResultCode;
+import com.gemframework.base.model.BaseResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -29,20 +29,20 @@ public class GemExceptionHandle {
 
     @ExceptionHandler(Exception.class)
     @ResponseBody
-    public BasicResult handleExp(HttpServletRequest request, Exception ex) {
+    public BaseResult handleExp(HttpServletRequest request, Exception ex) {
         if (ex instanceof GemException) {
             logger.error("GemException: {}" , ex.getMessage());
             GemException gemException = (GemException) ex;
-            return BasicResult.ERROR(gemException.getCode(), gemException.getMessage());
+            return BaseResult.ERROR(gemException.getCode(), gemException.getMessage());
         } else {
             logger.error("System Exception: {}" , ex.getMessage());
-            return BasicResult.ERROR(ResultCode.SYSTEM_EXCEPTION.getCode(), ResultCode.SYSTEM_EXCEPTION.getMsg());
+            return BaseResult.ERROR(ResultCode.SYSTEM_EXCEPTION.getCode(), ResultCode.SYSTEM_EXCEPTION.getMsg());
         }
     }
 
     @ExceptionHandler(SQLException.class)
     public ModelAndView handSql(Exception ex) {
-        logger.info("SQL Exception {}" , ex.getMessage());
+        logger.info("SQL Exception {}" , ex.getStackTrace());
         ModelAndView mv = new ModelAndView();
         mv.addObject("message", ex.getMessage());
         mv.setViewName("sql_error");
