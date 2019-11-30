@@ -13,7 +13,7 @@ import java.time.Instant;
  * @Package: com.gemframework.gembasic.listener
  * @Date: 2019/11/28 17:42
  * @Version: v1.0
- * @Description: 这里写描述
+ * @Description: 实体操作监听类
 
  * @Author: zhangysh
  * @Copyright: Copyright (c) 2019 GemStudio
@@ -29,13 +29,13 @@ public class GemEntityListener {
         Timestamp now = Timestamp.from(Instant.now());
         object.setDateCreated(now);
         object.setLastUpdated(now);
-        log.debug("save之前的操作");
+        log.info("save之前的操作");
     }
 
     @PostPersist
     public void postpersist(GemEntityOpt object) throws IllegalArgumentException, IllegalAccessException {
 
-        log.debug("save之后的操作");
+        log.info("save之后的操作");
     }
 
     @PreUpdate
@@ -43,24 +43,24 @@ public class GemEntityListener {
             throws IllegalArgumentException, IllegalAccessException {
         Timestamp now = Timestamp.from(Instant.now());
         object.setLastUpdated(now);
-        log.debug("update之前的操作");
+        log.info("update之前的操作");
     }
 
     @PostUpdate
     public void postUpdate(GemEntityOpt object)
             throws IllegalArgumentException, IllegalAccessException {
-        log.debug("update之后的操作");
+        log.info("update之后的操作");
     }
 
     @PreRemove
     public void preRemove(GemEntityOpt object) {
-        log.debug("del之前的操作");
+        log.info("del之前的操作");
 
     }
 
     @PostRemove
     public void postRemove(GemEntityOpt object) {
-        log.debug("del之后的操作");
+        log.info("del之后的操作");
 
     }
 }

@@ -6,7 +6,17 @@ import com.gemframework.base.common.exception.GemException;
 import com.gemframework.base.model.BaseResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+/**
+ * @Title: HelloController.java
+ * @Package: com.gemframework.base.controller
+ * @Date: 2019/11/30 15:49
+ * @Version: v1.0
+ * @Description: 学习第一步
 
+ * @Author: zhangysh
+ * @Copyright: Copyright (c) 2019 GemStudio
+ * @Company: www.gemframework.com
+ */
 @RestController
 @RequestMapping(value = "hello",method = {RequestMethod.GET,RequestMethod.POST})
 public class HelloController {

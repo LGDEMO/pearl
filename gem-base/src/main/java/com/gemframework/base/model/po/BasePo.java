@@ -35,13 +35,13 @@ import java.util.Date;
 public class BasePo implements Serializable {
 
 
-    @Column(name = "create_time", columnDefinition = "datetime")
-    @CreatedDate
+    @Column(columnDefinition = "datetime comment '创建时间'")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
-    private Date createTime;
+    @CreatedDate
+    private Date createtime;
 
-    @Column(name = "update_time", columnDefinition = "datetime")
+    @Column(columnDefinition = "datetime comment '更新时间'")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     @LastModifiedDate
-    private Date updateTime;
+    private Date updatetime;
 }

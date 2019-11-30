@@ -17,8 +17,14 @@ import lombok.Getter;
 public enum ResultCode {
 
     SUCCESS(0,"返回成功"),
-    PARAM_EXCEPTION(1,"参数错误"),
 
+    //系统错误码 1000-9999
+    PARAM_EXCEPTION(1000,"参数错误"),
+    DATA_EXIST(1001,"数据已存在"),
+    DATA_NOT_EXIST(1002,"数据不存在"),
+
+    //业务错误码 10000-99999
+    USER_EXIST(10000,"用户已存在"),
     SYSTEM_EXCEPTION(999999,"系统异常"),
     ;
 
@@ -26,7 +32,7 @@ public enum ResultCode {
     private Integer code;
     private String msg;
 
-    ResultCode(Integer code,String msg){
+    ResultCode(Integer code, String msg){
         this.code = code;
         this.msg = msg;
     }

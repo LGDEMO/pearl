@@ -8,13 +8,12 @@
         <version>0.0.1-SNAPSHOT</version>
         <relativePath/>
     </parent>
+    <groupId>com.gemframework.base</groupId>
     <artifactId>gem-base</artifactId>
     <name>gem-base</name>
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>jar</packaging>
     <description>basic module</description>
-
-    <properties>
-        <java.version>1.8</java.version>
-    </properties>
 
     <dependencies>
         <dependency>

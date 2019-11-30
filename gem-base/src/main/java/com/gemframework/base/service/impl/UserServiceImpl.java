@@ -9,7 +9,6 @@ import com.gemframework.base.service.UserService;
 import com.gemframework.base.common.utils.GemBeanUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Example;
-import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -36,7 +35,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User add(UserVo vo) {
         if(null != userRepository.findByPhone(vo.getUserPhone())){
-            throw new GemException(ResultCode.PARAM_EXCEPTION);
+            throw new GemException(ResultCode.USER_EXIST);
         }
         User user = new User();
         GemBeanUtils.copyProperties(vo,user);
@@ -146,6 +145,22 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public void delete(Long id) {
+        if(!userRepository.existsById(id)){
+            throw new GemException(ResultCode.DATA_NOT_EXIST);
+        }
         userRepository.deleteById(id);
+    }
+
+    /**
+     * @Title:  deleteAll
+     * @MethodName:  deleteAll
+     * @Param: [id]
+     * @Retrun: void
+     * @Description: 删除全部
+     * @Date: 2019/11/29 20:43
+     */
+    @Override
+    public void deleteAll() {
+        userRepository.deleteAll();
     }
 }

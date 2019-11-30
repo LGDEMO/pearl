@@ -1,16 +1,15 @@
-package com.gemframework.base.common.exception;
+package com.gemframework.admin.common.exception;
 
 import com.gemframework.base.common.enums.ResultCode;
+import com.gemframework.base.common.exception.GemException;
 import com.gemframework.base.model.BaseResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-import java.sql.SQLException;
 
 /**
  * @Title: GemException.java
@@ -38,14 +37,5 @@ public class GemExceptionHandle {
             logger.error("System Exception: code:{},msg:{}" , ex.getStackTrace(),ex.getMessage());
             return BaseResult.ERROR(ResultCode.SYSTEM_EXCEPTION.getCode(), ResultCode.SYSTEM_EXCEPTION.getMsg());
         }
-    }
-
-    @ExceptionHandler(SQLException.class)
-    public ModelAndView handSql(Exception ex) {
-        logger.info("SQL Exception {}" , ex.getStackTrace());
-        ModelAndView mv = new ModelAndView();
-        mv.addObject("message", ex.getMessage());
-        mv.setViewName("sql_error");
-        return mv;
     }
 }

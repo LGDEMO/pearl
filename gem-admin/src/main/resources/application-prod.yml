@@ -1,0 +1,9 @@
+server:
+  port: 8088
+  servlet:
+    context-path: gem
+
+gem:
+  min: 1
+  max: 999
+  desc: 这是自定义配置，最小值${gem.min},最大值${gem.max}
