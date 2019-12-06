@@ -1,0 +1,18 @@
+package com.gemframework.admin.repository;
+
+import com.gemframework.admin.model.po.Dept;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+/**
+ * @Title: DeptRepository.java
+ * @Package: com.gemframework.gembasic.repository
+ * @Date: 2019-12-05 22:07:32
+ * @Version: v1.0
+ * @Description: 这里写描述
+
+ * @Author: zhangys
+ * @Copyright: Copyright (c) 2019 GemStudio
+ * @Company: www.gemframework.com
+ */
+public interface DeptRepository extends JpaRepository<Dept, Long> {
+}

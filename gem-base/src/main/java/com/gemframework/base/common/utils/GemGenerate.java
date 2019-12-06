@@ -207,8 +207,50 @@ public class GemGenerate {
 
     public static void main(String[] args) {
         TempParas tempParas = TempParas.builder()
-                .packageName("com.gemframework.base")
-                .capsEntity("Demo")
+                .packageName("com.gemframework.admin")
+                .capsEntity("Dept")
+                .author("zhangys")
+                .output("D:\\xxx1")
+                .build();
+        generateCode(tempParas);
+        tempParas = TempParas.builder()
+                .packageName("com.gemframework.admin")
+                .capsEntity("Menu")
+                .author("zhangys")
+                .output("D:\\xxx1")
+                .build();
+        generateCode(tempParas);
+        tempParas = TempParas.builder()
+                .packageName("com.gemframework.admin")
+                .capsEntity("Org")
+                .author("zhangys")
+                .output("D:\\xxx1")
+                .build();
+        generateCode(tempParas);
+        tempParas = TempParas.builder()
+                .packageName("com.gemframework.admin")
+                .capsEntity("Role")
+                .author("zhangys")
+                .output("D:\\xxx1")
+                .build();
+        generateCode(tempParas);
+        tempParas = TempParas.builder()
+                .packageName("com.gemframework.admin")
+                .capsEntity("RoleMenus")
+                .author("zhangys")
+                .output("D:\\xxx1")
+                .build();
+        generateCode(tempParas);
+        tempParas = TempParas.builder()
+                .packageName("com.gemframework.admin")
+                .capsEntity("RoleOrgs")
+                .author("zhangys")
+                .output("D:\\xxx1")
+                .build();
+        generateCode(tempParas);
+        tempParas = TempParas.builder()
+                .packageName("com.gemframework.admin")
+                .capsEntity("UserRoles")
                 .author("zhangys")
                 .output("D:\\xxx1")
                 .build();

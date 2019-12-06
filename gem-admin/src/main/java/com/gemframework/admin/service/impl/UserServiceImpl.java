@@ -1,8 +1,12 @@
 package com.gemframework.admin.service.impl;
 
+import com.gemframework.admin.model.vo.RoleVo;
+import com.gemframework.admin.model.vo.UserRolesVo;
 import com.gemframework.admin.model.vo.UserVo;
 import com.gemframework.admin.model.po.User;
 import com.gemframework.admin.repository.UserRepository;
+import com.gemframework.admin.service.RoleService;
+import com.gemframework.admin.service.UserRolesService;
 import com.gemframework.admin.service.UserService;
 import com.gemframework.base.common.enums.ResultCode;
 import com.gemframework.base.common.exception.GemException;
@@ -12,20 +16,32 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+
 import javax.annotation.Resource;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Slf4j
 @Service
 public class UserServiceImpl implements UserService {
 
+    private final static String PASSWORD_FORMAT = "{%s}%s";
+
     @Resource
     private UserRepository userRepository;
+
+    @Resource
+    private RoleService roleService;
+
+    @Resource
+    private UserRolesService userRolesService;
 
     /**
      * @Title:  add
@@ -36,14 +52,20 @@ public class UserServiceImpl implements UserService {
      * @Date: 2019/11/29 20:44
      */
     @Override
-    public User add(UserVo vo) {
-        if(null != userRepository.findByPhone(vo.getPhone())){
+    public UserVo add(UserVo vo) {
+        if(null != userRepository.findByPhone(vo.getPhone()) ||
+                null != userRepository.findByUserName(vo.getUsername())){
             throw new GemException(ResultCode.USER_EXIST);
         }
         User user = new User();
         GemBeanUtils.copyProperties(vo,user);
-        userRepository.save(user);
-        return user;
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+//        user.setPassword(String.format(PASSWORD_FORMAT, "bcrypt",
+//                passwordEncoder.encode(vo.getPassword())));
+        user.setPassword(passwordEncoder.encode(vo.getPassword()));
+        user = userRepository.save(user);
+        GemBeanUtils.copyProperties(user,vo);
+        return vo;
     }
 
     /**
@@ -67,14 +89,6 @@ public class UserServiceImpl implements UserService {
      * @Retrun: java.util.List
      * @Description: 动态查询数据
      * //创建匹配器，即如何使用查询条件
-     *         ExampleMatcher matcher = ExampleMatcher.matching()
-     *                 .withMatcher("username", ExampleMatcher.GenericPropertyMatchers.startsWith())//模糊查询匹配开头，即{username}%
-     *                 .withMatcher("address" ,ExampleMatcher.GenericPropertyMatchers.contains())//全部模糊查询，即%{address}%
-     *                 .withIgnorePaths("password");//忽略字段，即不管password是什么值都不加入查询条件
-     *         //创建实例
-     *         User user = new User();
-     *         GemBeanUtils.copyProperties(vo,user);
-     *         Example<User> example =Example.of(user,matcher);
      * @Date: 2019/11/29 20:39
      */
     @Override
@@ -126,13 +140,14 @@ public class UserServiceImpl implements UserService {
      * @Date: 2019/11/29 20:42
      */
     @Override
-    public User update(UserVo vo) {
+    public UserVo update(UserVo vo) {
         Optional<User> optional= userRepository.findById(vo.getId());
         if(optional.isPresent()){
             User user = optional.get();
             GemBeanUtils.copyProperties(vo,user);
-            userRepository.save(user);
-            return user;
+            user = userRepository.save(user);
+            GemBeanUtils.copyProperties(user,vo);
+            return vo;
         }
         return null;
 
@@ -169,14 +184,38 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {
-        User user = userRepository.findByUserName(name);
-        if(user == null){
-            user = userRepository.findByPhone(name);
-            if(user == null){
-                throw new UsernameNotFoundException("未查询到用户："+name+"信息！");
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        log.info("登录的用户名: {}", username);
+        User gemuser = userRepository.findByUserName(username);
+        if(gemuser == null){
+            gemuser = userRepository.findByPhone(username);
+            if(gemuser == null){
+                throw new UsernameNotFoundException("未查询到用户："+username+"信息！");
             }
         }
+        //TODO: 查找用户权限
+        List<GrantedAuthority> auths = new ArrayList<>();
+        List<UserRolesVo> userRoles = userRolesService.findListByParams(new UserRolesVo(gemuser.getId()));
+        log.info("用户角色："+userRoles.toString());
+        for(UserRolesVo userRolesVo : userRoles){
+            RoleVo role = roleService.getById(userRolesVo.getRoleId());
+            log.info("权限列表================"+role);
+            if(role != null && role.getId() != null){
+                auths.add(new SimpleGrantedAuthority("ROLE_"+role.getFlag()));
+            }
+        }
+        // 封装用户信息，并返回。参数分别是：用户名，密码，用户权限
+        log.info("user:"+username);
+        log.info("pass:"+gemuser.getPassword());
+        org.springframework.security.core.userdetails.User user
+                = new org.springframework.security.core.userdetails.User(username,gemuser.getPassword(),
+                        true,
+                true,
+                true,
+                true,
+                auths);
+
         return user;
     }
+
 }

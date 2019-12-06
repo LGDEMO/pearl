@@ -27,10 +27,10 @@ spring:
     # 设置创表引擎为Innodb，不然默认为MyiSam
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
 
-  mvc:
-    view:
-      prefix: classpath:/templates/pages/
-      suffix: .html
+#  mvc:
+#    view:
+#      prefix: classpath:/templates/pages/
+#      suffix: .html
 
   thymeleaf:
     prefix: classpath:/templates/pages/
@@ -44,3 +44,4 @@ spring:
       enabled: true #开启热部署
       additional-paths: src/main/java
       exclude: static/**,public/**
+

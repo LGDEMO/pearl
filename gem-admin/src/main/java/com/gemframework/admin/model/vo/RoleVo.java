@@ -5,9 +5,9 @@ import com.gemframework.base.model.vo.BaseVo;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 /**
  * @Title: RoleVo.java
@@ -28,12 +28,16 @@ public class RoleVo extends BaseVo {
     private Long id;
 
     @NotBlank(message = "角色名不能为空！")
-    @Size(max = 2,min = 10,message = "角色名长度限制2~10个数字之间")
+    @Size(min = 2,max = 10,message = "角色名长度限制2~10个数字之间")
     private String rolename;
 
     @NotBlank(message = "角色标识不能为空！")
-    @Size(max = 2,min = 10,message = "角色标识长度限制2~10个数字之间")
+    @Size(min = 2,max = 10,message = "角色标识长度限制2~10个数字之间")
     private String flag;
+
+    private List<MenuVo> menus;
+
+    private List<OrgVo> orgs;
 
 
 

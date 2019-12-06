@@ -10,17 +10,19 @@ import java.util.List;
 public interface ${Entity}Service {
 
 
-    ${Entity} add(${Entity}Vo vo);
+    ${Entity}Vo add(${Entity}Vo vo);
 
-    List findListAll();
+    List<${Entity}Vo> findListAll();
 
-    List findListByParams(${Entity}Vo vo);
+    List<${Entity}Vo> findListByParams(${Entity}Vo vo);
 
-    Page findPageAll(Pageable pageable);
+    List<${Entity}Vo> findPageAll(Pageable pageable);
 
-    Page findPageByParams(${Entity}Vo vo, Pageable pageable);
+    List<${Entity}Vo> findPageByParams(${Entity}Vo vo, Pageable pageable);
 
-    ${Entity} update(${Entity}Vo vo);
+    ${Entity}Vo getOne(Long id);
+
+    ${Entity}Vo update(${Entity}Vo vo);
 
     void delete(Long id);
 }

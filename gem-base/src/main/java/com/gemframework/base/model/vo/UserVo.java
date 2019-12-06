@@ -24,7 +24,7 @@ public class UserVo extends BaseVo {
     private Integer userAge;
 
     @NotNull(message = "手机号不能为空！")
-    @Size(max = 15,min = 11,message = "手机号长度限制11~15个数字之间")
+    @Size(min = 2,max = 10,message = "手机号长度限制11~15个数字之间")
     @MobilePattern
     private String userPhone;
 

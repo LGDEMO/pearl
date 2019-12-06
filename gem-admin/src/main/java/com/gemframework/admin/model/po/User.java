@@ -1,15 +1,9 @@
 package com.gemframework.admin.model.po;
 
 import com.gemframework.base.model.po.BasePo;
-import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -23,11 +17,10 @@ import java.util.List;
  * @Copyright: Copyright (c) 2019 GemStudio
  * @Company: www.gemframework.com
  */
-@Data
-@NoArgsConstructor
 @Entity
 @Table(name = "gem_user")
-public class User extends BasePo implements UserDetails {
+@NoArgsConstructor
+public class User extends BasePo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,7 +29,7 @@ public class User extends BasePo implements UserDetails {
     @Column(columnDefinition = "varchar(10) not null comment '用户名'",nullable = false)
     private String username;
 
-    @Column(columnDefinition = "varchar(20) not null comment '密码'",nullable = false)
+    @Column(columnDefinition = "varchar(150) not null comment '密码'",nullable = false)
     private String password;
 
     @Column(columnDefinition = "varchar(10) not null comment '用户名'",nullable = false)
@@ -57,57 +50,126 @@ public class User extends BasePo implements UserDetails {
     @Column(columnDefinition = "varchar(80) comment '地址'",nullable = true, unique = true)
     private String address;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "gem_user_roles",
-            joinColumns = {
-                    @JoinColumn(name = "ur_user_id")
-            },
-            inverseJoinColumns = {
-                    @JoinColumn(name = "ur_role_id")
-            }
-    )
+    @Column(columnDefinition = "bigint(20) comment '部门ID'")
+    private Integer deptId;
+
+    @Transient
     private List<Role> roles;
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        List<GrantedAuthority> auths = new ArrayList<>();
-        List<Role> roles = getRoles();
-        for(Role role : roles)
-        {
-            auths.add(new SimpleGrantedAuthority(role.getFlag()));
-        }
-        return auths;
+    @Transient
+    private Dept dept;
+
+    public Long getId() {
+        return id;
     }
 
-    @Override
-    public String getPassword() {
-        return null;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    @Override
     public String getUsername() {
-        return null;
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getRealname() {
+        return realname;
+    }
+
+    public void setRealname(String realname) {
+        this.realname = realname;
+    }
+
+    public Integer getSex() {
+        return sex;
+    }
+
+    public void setSex(Integer sex) {
+        this.sex = sex;
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
+    }
+
+    public Dept getDept() {
+        return dept;
+    }
+
+    public void setDept(Dept dept) {
+        this.dept = dept;
+    }
+
+    public Integer getDeptId() {
+        return deptId;
+    }
+
+    public void setDeptId(Integer deptId) {
+        this.deptId = deptId;
     }
 
     @Override
-    public boolean isAccountNonExpired() {
-        return true;
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", realname='" + realname + '\'' +
+                ", sex=" + sex +
+                ", age=" + age +
+                ", phone='" + phone + '\'' +
+                ", email='" + email + '\'' +
+                ", address='" + address + '\'' +
+                ", deptId=" + deptId +
+                ", roles=" + roles +
+                ", dept=" + dept +
+                '}';
     }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
-
 }

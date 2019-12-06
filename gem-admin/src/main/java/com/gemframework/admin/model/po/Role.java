@@ -1,10 +1,10 @@
 package com.gemframework.admin.model.po;
 
 import com.gemframework.base.model.po.BasePo;
-import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * @Title: User.java
@@ -17,10 +17,9 @@ import javax.persistence.*;
  * @Copyright: Copyright (c) 2019 GemStudio
  * @Company: www.gemframework.com
  */
-@Data
-@NoArgsConstructor
 @Entity
 @Table(name = "gem_role")
+@NoArgsConstructor
 public class Role extends BasePo {
 
     @Id
@@ -33,6 +32,60 @@ public class Role extends BasePo {
     @Column(columnDefinition = "varchar(10) not null comment '标识'",nullable = false, unique = true)
     private String flag;
 
+    @Transient
+    private List<Menu> menus;
 
+    @Transient
+    private List<Org> orgs;
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getRolename() {
+        return rolename;
+    }
+
+    public void setRolename(String rolename) {
+        this.rolename = rolename;
+    }
+
+    public String getFlag() {
+        return flag;
+    }
+
+    public void setFlag(String flag) {
+        this.flag = flag;
+    }
+
+    public List<Menu> getMenus() {
+        return menus;
+    }
+
+    public void setMenus(List<Menu> menus) {
+        this.menus = menus;
+    }
+
+    public List<Org> getOrgs() {
+        return orgs;
+    }
+
+    public void setOrgs(List<Org> orgs) {
+        this.orgs = orgs;
+    }
+
+    @Override
+    public String toString() {
+        return "Role{" +
+                "id=" + id +
+                ", rolename='" + rolename + '\'' +
+                ", flag='" + flag + '\'' +
+                ", menus=" + menus +
+                ", orgs=" + orgs +
+                '}';
+    }
 }

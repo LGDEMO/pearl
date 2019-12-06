@@ -48,8 +48,8 @@ public class UserController {
         if(bindingResult.hasErrors()){
             return BaseResult.ERROR(ResultCode.PARAM_EXCEPTION.getCode(),bindingResult.getFieldError().getDefaultMessage());
         }
-
-        return BaseResult.SUCCESS(userService.add(vo));
+        vo = userService.add(vo);
+        return BaseResult.SUCCESS(vo);
     }
 
     /**

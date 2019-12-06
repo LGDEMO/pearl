@@ -1,22 +1,17 @@
 package com.gemframework.admin.controller;
 
-import com.gemframework.admin.model.po.User;
-import com.gemframework.admin.model.vo.UserVo;
 import com.gemframework.admin.service.UserService;
 import com.gemframework.base.common.enums.ResultCode;
+import com.gemframework.base.common.exception.GemException;
 import com.gemframework.base.model.BaseResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.session.SessionInformation;
 import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -39,17 +34,17 @@ public class LoginController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("home")
-    public String index(){
-        log.info("登录成功跳转首页");
-        return "adminindex";
-    }
+//    @GetMapping("/index")
+//    public String loginPage(String username) {
+//        return "login";
+//    }
+//
+//    @GetMapping("/home")
+//    public String home(@AuthenticationPrincipal Principal principal, Model model){
+//        model.addAttribute("username", principal.getName());
+//        return "home";
+//    }
 
-    @GetMapping("user")
-    public String user(){
-        log.info("userindex...");
-        return "userindex";
-    }
 
     @GetMapping("logout1")
     public void logout(String username) {
@@ -64,5 +59,4 @@ public class LoginController {
             }
         }
     }
-
 }

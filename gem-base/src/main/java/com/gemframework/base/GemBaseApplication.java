@@ -1,4 +1,4 @@
-package com.gemframework.base;
+package com.gemframework.bas;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
