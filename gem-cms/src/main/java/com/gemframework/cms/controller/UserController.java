@@ -38,7 +38,7 @@ public class UserController {
      * @Title:  add
      * @MethodName:  增
      * @Param: [vo, bindingResult]
-     * @Retrun: com.gemframework.base.model.BaseResult
+     * @Retrun: com.gemframework.bas.model.BaseResult
      * @Description:
      * @Date: 2019/11/29 16:17
      */
@@ -56,7 +56,7 @@ public class UserController {
      * @Title:  delete
      * @MethodName:  删
      * @Param: [id]
-     * @Retrun: com.gemframework.base.model.BaseResult
+     * @Retrun: com.gemframework.bas.model.BaseResult
      * @Description:
      * @Date: 2019/11/29 16:18
      */
@@ -70,7 +70,7 @@ public class UserController {
      * @Title:  deleteAll
      * @MethodName:  删-全部
      * @Param: [id]
-     * @Retrun: com.gemframework.base.model.BaseResult
+     * @Retrun: com.gemframework.bas.model.BaseResult
      * @Description:
      * @Date: 2019/11/29 16:18
      */
@@ -84,7 +84,7 @@ public class UserController {
      * @Title:  update
      * @MethodName:  改
      * @Param: [vo]
-     * @Retrun: com.gemframework.base.model.BaseResult
+     * @Retrun: com.gemframework.bas.model.BaseResult
      * @Description:
      * @Date: 2019/11/29 16:17
      */
@@ -97,7 +97,7 @@ public class UserController {
      * @Title:  list
      * @MethodName:  查-list
      * @Param: []
-     * @Retrun: com.gemframework.base.model.BaseResult
+     * @Retrun: com.gemframework.bas.model.BaseResult
      * @Description:
      * @Date: 2019/11/29 16:18
      */
@@ -111,7 +111,7 @@ public class UserController {
      * @Title:  listByParams
      * @MethodName:  listByParams
      * @Param: [vo]
-     * @Retrun: com.gemframework.base.model.BaseResult
+     * @Retrun: com.gemframework.bas.model.BaseResult
      * @Description:
      * @Date: 2019/11/29 21:19
      */
@@ -125,7 +125,7 @@ public class UserController {
      * @Title:  page
      * @MethodName:  page
      * @Param: [pageable]
-     * @Retrun: com.gemframework.base.model.BaseResult
+     * @Retrun: com.gemframework.bas.model.BaseResult
      * @Description:
      * page ：第几页，从0开始，默认为第0页
      * size ：每一页的大小，默认为10
@@ -146,7 +146,7 @@ public class UserController {
      * @Title:  pageByParams
      * @MethodName:  pageByParams
      * @Param: [vo, pageable]
-     * @Retrun: com.gemframework.base.model.BaseResult
+     * @Retrun: com.gemframework.bas.model.BaseResult
      * @Description: 【分页】根据条件动态查询
      * @Date: 2019/11/29 21:21
      */

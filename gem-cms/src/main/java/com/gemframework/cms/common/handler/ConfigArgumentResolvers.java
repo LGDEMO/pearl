@@ -13,7 +13,7 @@ import java.util.List;
 
 /**
  * @Title: ConfigArgumentResolvers.java
- * @Package: com.gemframework.base.handler
+ * @Package: com.gemframework.bas.handler
  * @Date: 2019/11/29 13:45
  * @Version: v1.0
  * @Description: 配置注册参数解析器

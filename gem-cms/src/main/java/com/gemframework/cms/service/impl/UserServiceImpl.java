@@ -47,7 +47,7 @@ public class UserServiceImpl implements UserService {
      * @Title:  add
      * @MethodName:  add
      * @Param: [vo]
-     * @Retrun: com.gemframework.base.model.po.User
+     * @Retrun: com.gemframework.bas.model.po.User
      * @Description: 添加
      * @Date: 2019/11/29 20:44
      */
@@ -135,7 +135,7 @@ public class UserServiceImpl implements UserService {
      * @Title:  update
      * @MethodName:  update
      * @Param: [vo]
-     * @Retrun: com.gemframework.base.model.po.User
+     * @Retrun: com.gemframework.bas.model.po.User
      * @Description: 更新数据
      * @Date: 2019/11/29 20:42
      */

@@ -114,7 +114,7 @@ public class RoleMenusServiceImpl implements RoleMenusService {
      * @Title:  update
      * @MethodName:  update
      * @Param: [vo]
-     * @Retrun: com.gemframework.base.model.po.User
+     * @Retrun: com.gemframework.bas.model.po.User
      * @Description: 更新数据
      * @Date: 2019-12-05 22:09:15
      */
