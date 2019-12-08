@@ -1,0 +1,143 @@
+package ${package}.controller;
+
+import com.gemframework.bas.common.enums.ResultCode;
+import com.gemframework.bas.model.BaseResult;
+import ${package}.model.vo.${Entity}Vo;
+import ${package}.service.${Entity}Service;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import java.util.List;
+
+/**
+ * @Title: ${Entity}Controller.java
+ * @Package: ${package}.controller
+ * @Date: ${datetime}
+ * @Version: v1.0
+ * @Description: 这里写描述
+ * @Author: ${author}
+ * @Copyright: Copyright (c) 2019 GemStudio
+ * @Company: www.gemframework.com
+ */
+
+@Slf4j
+@RestController
+@RequestMapping("${entity}")
+public class ${Entity}Controller {
+
+    @Autowired
+    ${Entity}Service ${entity}Service;
+
+    /**
+     * @Title:  add
+     * @MethodName:  增
+     * @Param: [vo, bindingResult]
+     * @Retrun: com.gemframework.bas.model.BaseResult
+     * @Description:
+     * @Date: ${datetime}
+     */
+    @PostMapping("add")
+    public BaseResult add(@Valid @RequestBody ${Entity}Vo vo, BindingResult bindingResult){
+
+        if(bindingResult.hasErrors()){
+            return BaseResult.ERROR(ResultCode.PARAM_EXCEPTION.getCode(),bindingResult.getFieldError().getDefaultMessage());
+        }
+
+        return BaseResult.SUCCESS(${entity}Service.add(vo));
+    }
+
+    /**
+     * @Title:  delete
+     * @MethodName:  删
+     * @Param: [id]
+     * @Retrun: com.gemframework.bas.model.BaseResult
+     * @Description:
+     * @Date: ${datetime}
+     */
+    @PostMapping("delete/{id}")
+    public BaseResult delete(@PathVariable("id") Long id){
+        ${entity}Service.delete(id);
+        return BaseResult.SUCCESS();
+    }
+
+    /**
+     * @Title:  update
+     * @MethodName:  改
+     * @Param: [vo]
+     * @Retrun: com.gemframework.bas.model.BaseResult
+     * @Description:
+     * @Date: ${datetime}
+     */
+    @PostMapping("update")
+    public BaseResult update(${Entity}Vo vo){
+        return BaseResult.SUCCESS(${entity}Service.update(vo));
+    }
+
+    /**
+     * @Title:  list
+     * @MethodName:  查-list
+     * @Param: []
+     * @Retrun: com.gemframework.bas.model.BaseResult
+     * @Description:
+     * @Date: ${datetime}
+     */
+    @GetMapping("list")
+    public BaseResult list(){
+        List list = ${entity}Service.findListAll();
+        return BaseResult.SUCCESS(list);
+    }
+
+
+    /**
+     * @Title:  listByParams
+     * @MethodName:  listByParams
+     * @Param: [vo]
+     * @Retrun: com.gemframework.bas.model.BaseResult
+     * @Description:
+     * @Date: ${datetime}
+     */
+    @GetMapping("listByParams")
+    public BaseResult listByParams(${Entity}Vo vo){
+        List<${Entity}Vo> list = ${entity}Service.findListByParams(vo);
+        return BaseResult.SUCCESS(list);
+    }
+
+    /**
+     * @Title:  page
+     * @MethodName:  page
+     * @Param: [pageable]
+     * @Retrun: com.gemframework.bas.model.BaseResult
+     * @Description:
+     * page ：第几页，从0开始，默认为第0页
+     * size ：每一页的大小，默认为10
+     * sort ：排序相关的信息，以`property[,ASC|DESC]`的方式组织，例如`sort=firstname&sort=lastname,desc`表示在按firstname正序排列基础上按lastname倒序排列。
+     * @SortDefault.SortDefaults({@SortDefault(sort = "userName", direction = Sort.Direction.DESC),
+     *             @SortDefault(sort = "id", direction = Sort.Direction.ASC)})
+     * @PageableDefault(page = 0, size = 2)
+     * @Date: ${datetime}
+     */
+    @GetMapping("page")
+    public BaseResult page(Pageable pageable){
+        List<${Entity}Vo> vo = ${entity}Service.findPageAll(pageable);
+        return BaseResult.SUCCESS(vo);
+    }
+
+    /**
+     * @Title:  pageByParams
+     * @MethodName:  pageByParams
+     * @Param: [vo, pageable]
+     * @Retrun: com.gemframework.bas.model.BaseResult
+     * @Description: 【分页】根据条件动态查询
+     * @Date: ${datetime}
+     */
+    @GetMapping("pageByParams")
+    public BaseResult pageByParams(${Entity}Vo vo,Pageable pageable){
+        List<${Entity}Vo> list =  ${entity}Service.findPageByParams(vo,pageable);
+        return BaseResult.SUCCESS(list);
+    }
+
+}

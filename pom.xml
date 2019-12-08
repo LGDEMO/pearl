@@ -16,8 +16,8 @@
     <description>parent project for gemframe</description>
 
     <modules>
-        <module>gem-base</module>
-        <module>gem-admin</module>
+        <module>gem-bas</module>
+        <module>gem-cms</module>
     </modules>
 
     <properties>
