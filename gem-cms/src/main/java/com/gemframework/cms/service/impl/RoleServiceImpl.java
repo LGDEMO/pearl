@@ -4,6 +4,8 @@ import com.gemframework.bas.common.enums.ResultCode;
 import com.gemframework.bas.common.exception.GemException;
 import com.gemframework.bas.common.utils.GemBeanUtils;
 import com.gemframework.cms.model.po.*;
+import com.gemframework.cms.model.vo.MenuVo;
+import com.gemframework.cms.model.vo.OrgVo;
 import com.gemframework.cms.model.vo.RoleVo;
 import com.gemframework.cms.repository.*;
 import com.gemframework.cms.service.RoleService;
@@ -61,29 +63,36 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public List<RoleVo> findListAll() {
         List<Role> list = roleRepository.findAll();
+        List<RoleVo> roleVos = new ArrayList<>();
         for(Role roles:list){
+            RoleVo roleVo = new RoleVo();
+            GemBeanUtils.copyProperties(roles,roleVo);
+            List<Org> orgsList = new ArrayList<>();
             List<RoleOrgs> roleOrgs = roleOrgsRepository.findListByRoleId(roles.getId());
             //查询roleOrgs
-            List<Org> orgsList = null;
             for(RoleOrgs orgs:roleOrgs){
                 Org org = orgRepository.getById(orgs.getOrgId());
-                orgsList = new ArrayList<>();
                 orgsList.add(org);
             }
             roles.setOrgs(orgsList);
+            List<OrgVo> orgVos = GemBeanUtils.copyCollections(orgsList,OrgVo.class);
+            roleVo.setOrgs(orgVos);
 
             //查询roleMenus
-            List<Menu> menusList = null;
+            List<Menu> menusList = new ArrayList<>();
             List<RoleMenus> roleMenus = roleMenusRepository.findListByRoleId(roles.getId());
             for(RoleMenus menus:roleMenus){
                 Menu menu = menuRepository.getById(menus.getRoleId());
-                menusList = new ArrayList<>();
                 menusList.add(menu);
             }
             roles.setMenus(menusList);
+
+            List<MenuVo> menuVos = GemBeanUtils.copyCollections(menusList,MenuVo.class);
+            roleVo.setMenus(menuVos);
+
+            roleVos.add(roleVo);
         }
-        List<RoleVo> vos = GemBeanUtils.copyCollections(list,RoleVo.class);
-        return vos;
+        return roleVos;
     }
 
     /**

@@ -19,7 +19,7 @@ import java.util.List;
  */
 public interface RoleOrgsRepository extends JpaRepository<RoleOrgs, Long> {
 
-    @Query("select roleOrgs from RoleOrgs where roleId = ?1")
+    @Query("select roleOrgs from RoleOrgs roleOrgs where roleId = ?1")
     List<RoleOrgs> findListByRoleId(Long roleId);
 
 }

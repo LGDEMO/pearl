@@ -3,7 +3,9 @@ package com.gemframework.cms.common.security.scheme;
 import com.alibaba.fastjson.JSON;
 import com.gemframework.bas.common.constant.GemConstant;
 import com.gemframework.cms.model.po.User;
+import com.gemframework.cms.model.vo.UserVo;
 import com.gemframework.cms.service.UserRolesService;
+import com.gemframework.cms.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +31,13 @@ import java.util.List;
 public class GemFilterSecurityInterceptor extends AbstractSecurityInterceptor implements Filter {
 
     @Resource
+    private UserService userService;
+
+    @Resource
     private UserRolesService userRolesService;
+
+    @Resource
+    private GemAuthenticationManager gemAuthenticationManager;
 
     @Resource
     private FilterInvocationSecurityMetadataSource securityMetadataSource;
@@ -39,12 +47,13 @@ public class GemFilterSecurityInterceptor extends AbstractSecurityInterceptor im
             "/webjars/",
             "/v2/",
             "/api/claims/",
-            "/metrics"
+            "/metrics",
+            "/login"
     };
 
     //设置自定义校验
     @Autowired
-    public void setMyAccessDecisionManager(GemAccessDecisionManager gemAccessDecisionManager) {
+    public void setGemAccessDecisionManager(GemAccessDecisionManager gemAccessDecisionManager) {
         super.setAccessDecisionManager(gemAccessDecisionManager);
     }
 
@@ -55,7 +64,6 @@ public class GemFilterSecurityInterceptor extends AbstractSecurityInterceptor im
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-
         FilterInvocation fi = new FilterInvocation(request, response, chain);
         invoke(fi);
     }
@@ -70,14 +78,16 @@ public class GemFilterSecurityInterceptor extends AbstractSecurityInterceptor im
             fi.getChain().doFilter(fi.getRequest(), fi.getResponse());
             return;
         }
-//        SecurityContextHolder.clearContext();
+        //SecurityContextHolder.clearContext();
         String principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
         log.info("[权限拦截] 当前登录用户 user:{}", principal);
         log.info("[权限拦截] 当前用户角色：{}", JSON.toJSON(SecurityContextHolder.getContext().getAuthentication().getAuthorities()));
-        if ("anonymousUser".equals(principal)) {
+        //如果是匿名用户
+        if (GemConstant.Auth.ANONY_MOUS_USER.equals(principal)) {
             log.info("[权限拦截] 给用户授权开始========url:{}", url);
             Cookie[] cookies = request.getCookies();
             String sessionId = null;
+            log.info("[权限拦截] cookies========:{}", cookies.toString());
             if (cookies != null) {
                 for (Cookie cookie : cookies) {
                     if (cookie.getName().equals(GemConstant.Auth.CAS_SESSION_ID)) {
@@ -86,28 +96,25 @@ public class GemFilterSecurityInterceptor extends AbstractSecurityInterceptor im
                     }
                 }
             }
-
-            //TODO:
-            User sessionUser = new User();
-//            SessionUser sessionUser = UserUtils.getUserBySessionId(sessionId);
-            if (sessionUser != null) {
-                Authentication authReq = new UsernamePasswordAuthenticationToken
-                        (sessionUser.getUsername(), sessionUser.getPassword());
-                GemAuthenticationManager am = new GemAuthenticationManager();
-                //TODO:
-                List<String> roles = null;
-                am.setRoles(roles);
-                Authentication result = am.authenticate(authReq);
-                SecurityContextHolder.getContext().setAuthentication(result);
-            } else {
-                log.info("[权限校验] 当前用户未登录");
+            log.info("[权限拦截] sessionId========:{}", sessionId);
+            if(sessionId != null){
+                //如果sessionId没有失效
+                UserVo sessionUser = userService.getByLoginName(sessionId);
+                if (sessionUser != null) {
+                    Authentication authReq = new UsernamePasswordAuthenticationToken(sessionUser.getUsername(), sessionUser.getPassword());
+                    gemAuthenticationManager.setRoles(sessionUser.getRoles());
+                    Authentication result = gemAuthenticationManager.authenticate(authReq);
+                    SecurityContextHolder.getContext().setAuthentication(result);
+                } else {
+                    log.info("[权限校验] 当前用户未登录");
+                }
+                log.info("[权限拦截] 当前用户角色：{}", JSON.toJSON(SecurityContextHolder.getContext().getAuthentication().getAuthorities()));
+                log.info("[权限拦截] 给用户授权结束========");
             }
-            log.info("[权限拦截] 当前用户角色：{}", JSON.toJSON(SecurityContextHolder.getContext().getAuthentication().getAuthorities()));
-            log.info("[权限拦截] 给用户授权结束========");
         }
         //fi里面有一个被拦截的url
-        //里面调用MyInvocationSecurityMetadataSource的getAttributes(Object object)这个方法获取fi对应的所有权限
-        //再调用MyAccessDecisionManager的decide方法来校验用户的权限是否足够
+        //里面调用GemInvocationSecurityMetadataSource的getAttributes(Object object)这个方法获取fi对应的所有权限
+        //再调用GemAccessDecisionManager的decide方法来校验用户的权限是否足够
         InterceptorStatusToken token = super.beforeInvocation(fi);
         if (token == null) {
             return;

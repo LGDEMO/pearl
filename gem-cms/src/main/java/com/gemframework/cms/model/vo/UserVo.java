@@ -43,6 +43,8 @@ public class UserVo extends BaseVo {
 
     private List<RoleVo> roles;
 
+    private List<String> rolesName;
+
     public Long getId() {
         return id;
     }

@@ -17,31 +17,33 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
 @Component
-public class GemMetadataSourceService implements
-        FilterInvocationSecurityMetadataSource {
+public class GemMetadataSourceService implements FilterInvocationSecurityMetadataSource {
 
-//    @Resource
-//    private PermissionDao permissionDao;
     @Resource
     private RoleService roleService;
 
-    private HashMap<String, Collection<ConfigAttribute>> map =null;
+    private HashMap<String, Collection<ConfigAttribute>> map = null;
 
     /**
-     * 加载权限表中所有权限
+     * @Title: 加载权限表中所有权限
+     * @Param: []
+     * @Retrun: void
+     * @Description:
+     * @Date: 2019/12/8 22:22
      */
-    public void loadResourceDefine(){
+    public void loadResourceDefine() {
         map = new HashMap<>();
         ConfigAttribute cfg;
         List<RoleVo> roles = roleService.findListAll();
-        for(RoleVo role : roles) {
+        for (RoleVo role : roles) {
             cfg = new SecurityConfig(role.getRolename());
             //此处只添加了用户的名字，其实还可以添加更多权限的信息，
-            // 例如请求方法到ConfigAttribute的集合中去。此处添加的信息将会作为MyAccessDecisionManager类的decide的第三个参数。
-            //用权限的getUrl() 作为map的key，用ConfigAttribute的集合作为 value，
+            // 例如请求方法到ConfigAttribute的集合中去。
+            // 此处添加的信息将会作为GemAccessDecisionManager类的decide的第三个参数。
+            //用权限的getLink() 作为map的key，用ConfigAttribute的集合作为 value，
             List<MenuVo> menus = role.getMenus();
-            for(MenuVo menu:menus){
-                setMap(menu.getLink(),cfg);
+            for (MenuVo menu : menus) {
+                setMap(menu.getLink(), cfg);
             }
         }
 
@@ -49,12 +51,13 @@ public class GemMetadataSourceService implements
 
     /**
      * 增加权限队列
+     *
      * @param url
      * @param cfg
      */
-    private void  setMap(String url,ConfigAttribute cfg){
-        Collection<ConfigAttribute> array=map.get(url);
-        if(CollectionUtils.isEmpty(array)){
+    private void setMap(String url, ConfigAttribute cfg) {
+        Collection<ConfigAttribute> array = map.get(url);
+        if (CollectionUtils.isEmpty(array)) {
             array = new ArrayList<>(6);
         }
         array.add(cfg);
@@ -62,23 +65,22 @@ public class GemMetadataSourceService implements
     }
 
     /**
-     *  此方法是为了判定用户请求的url 是否在权限表中，如果在权限表中，
-     // 则返回给 decide 方法，用来判定用户是否有此权限。如果不在权限表中则放行。
+     * 此方法是为了判定用户请求的url 是否在权限表中，如果在权限表中，
+     * // 则返回给 decide 方法，用来判定用户是否有此权限。如果不在权限表中则放行。
      */
     @Override
     public Collection<ConfigAttribute> getAttributes(Object object) throws IllegalArgumentException {
-        if(map ==null) {
-
+        if (map == null) {
             loadResourceDefine();
         }
         //object 中包含用户请求的request 信息
         HttpServletRequest request = ((FilterInvocation) object).getHttpRequest();
         AntPathRequestMatcher matcher;
         String resUrl;
-        for(Iterator<String> iter = map.keySet().iterator(); iter.hasNext(); ) {
+        for (Iterator<String> iter = map.keySet().iterator(); iter.hasNext(); ) {
             resUrl = iter.next();
             matcher = new AntPathRequestMatcher(resUrl);
-            if(matcher.matches(request)) {
+            if (matcher.matches(request)) {
                 return map.get(resUrl);
             }
         }

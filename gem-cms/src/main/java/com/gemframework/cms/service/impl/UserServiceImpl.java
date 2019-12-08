@@ -127,6 +127,17 @@ public class UserServiceImpl implements UserService {
         return page;
     }
 
+    @Override
+    public UserVo getByLoginName(String loginName) {
+        UserVo vo = new UserVo();
+        User user = userRepository.findByUserName(loginName);
+        if(user != null){
+            user = userRepository.findByPhone(loginName);
+        }
+        GemBeanUtils.copyProperties(user,vo);
+        return vo;
+    }
+
     /**
      * @Title:  update
      * @MethodName:  update

@@ -1,5 +1,6 @@
 package com.gemframework.cms.common.security.config;
 
+import com.gemframework.cms.common.security.scheme.GemFilterSecurityInterceptor;
 import com.gemframework.cms.model.vo.RoleVo;
 import com.gemframework.cms.service.RoleService;
 import com.gemframework.cms.service.UserService;
@@ -16,6 +17,7 @@ import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
@@ -34,9 +36,7 @@ import java.util.List;
  */
 @Slf4j
 @Configuration
-public class WebSecurityConfg extends WebSecurityConfigurerAdapter {
-
-
+public class GemWebSecurityConfg extends WebSecurityConfigurerAdapter {
 
 
     /**
@@ -56,7 +56,7 @@ public class WebSecurityConfg extends WebSecurityConfigurerAdapter {
                 .successHandler(gemLoginSuccessHandler)//使用自定义的成功结果处理器
                 .failureHandler(gemLoginFailureHandler)//使用自定义失败的结果处理器
                 .defaultSuccessUrl("/index")
-            .and()
+                .and()
                 .authorizeRequests()//开始定义哪些URL需要被保护、哪些不需要被保护
                 .antMatchers("/500").permitAll()
                 .antMatchers("/404").permitAll()
@@ -67,22 +67,21 @@ public class WebSecurityConfg extends WebSecurityConfigurerAdapter {
                 .antMatchers("/index").hasRole("ADMIN")//指定权限为ADMIN才能访问
                 .anyRequest()//除了上面的请求
                 .authenticated()//都需要认证访问
-            .and()
+                .and()
                 .csrf().disable()//关闭跨域防护
         ;
+        //拦截和校验请求
+        http.addFilterBefore(gemFilterSecurityInterceptor, FilterSecurityInterceptor.class);
         //开启自动注销 退出登录的地址为 "/logout"，退出成功后跳转到页面 "/login"
         http.logout().logoutUrl("/logout").logoutSuccessUrl("/login");
-        /*
-         * 登录成功以后，将cookie发给浏览器保存，以后访问页面会带上这个cookie,只要通过检查就可以实现免登陆
-         * 点击注销会删除cookie
-         */
-//        http.rememberMe().rememberMeParameter("remember");
-//        //设置session
-//        http
-//            .sessionManagement()
-//            .invalidSessionUrl("/login")
-//            .maximumSessions(-1)
-//            .sessionRegistry(getSessionRegistry());
+        //开启免认证（记住我）
+        http.rememberMe().rememberMeParameter("remember");
+        //设置session
+        http
+            .sessionManagement()
+            .invalidSessionUrl("/login")
+            .maximumSessions(-1)
+            .sessionRegistry(getSessionRegistry());
     }
 
     /**
@@ -100,14 +99,18 @@ public class WebSecurityConfg extends WebSecurityConfigurerAdapter {
     @Autowired
     private AuthenticationFailureHandler gemLoginFailureHandler; //认证失败结果处理器
 
+    @Autowired
+    private GemFilterSecurityInterceptor gemFilterSecurityInterceptor; //自定义拦截
+
 
     //完成自定义认证实体注入
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
     @Bean
-    UserDetailsService userService(){
+    UserDetailsService userService() {
         return new UserServiceImpl();
     }
 

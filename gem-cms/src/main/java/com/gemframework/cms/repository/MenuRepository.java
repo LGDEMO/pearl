@@ -17,6 +17,6 @@ import org.springframework.data.jpa.repository.Query;
  */
 public interface MenuRepository extends JpaRepository<Menu, Long> {
 
-    @Query("select menu from Menu role where id = ?1")
+    @Query("select menu from Menu menu where id = ?1")
     Menu getById(Long id);
 }

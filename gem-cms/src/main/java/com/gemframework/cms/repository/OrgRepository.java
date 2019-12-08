@@ -20,6 +20,6 @@ import java.util.List;
  */
 public interface OrgRepository extends JpaRepository<Org, Long> {
 
-    @Query("select org from Org role where id = ?1")
+    @Query("select org from Org org where id = ?1")
     Org getById(Long id);
 }
