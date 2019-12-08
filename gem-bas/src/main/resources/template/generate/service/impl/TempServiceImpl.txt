@@ -110,19 +110,20 @@ public class ${Entity}ServiceImpl implements ${Entity}Service {
         return vos;
     }
 
+
     /**
      * @Title: 根据ID获取对象
      * @Param: id
      * @Retrun: Entity
      * @Description:
-     * @Date: ${datetime}
+     * @Date: 2019/12/5 22:40
      */
     @Override
-    public RoleVo getOne(Long id) {
-        RoleVo roleVo = new RoleVo();
-        Role role = roleRepository.getOne(id);
-        GemBeanUtils.copyProperties(role,roleVo);
-        return roleVo;
+    public ${Entity}Vo getById(Long id) {
+        ${Entity}Vo ${entity}Vo = new ${Entity}Vo();
+        ${Entity} ${entity} = ${entity}Repository.getById(id);
+        GemBeanUtils.copyProperties(${entity},${entity}Vo);
+        return ${entity}Vo;
     }
 
     /**

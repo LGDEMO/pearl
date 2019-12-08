@@ -26,10 +26,10 @@ public class RoleOrgs extends BasePo {
     private Long id;
 
     @Column(columnDefinition = "bigint(20) not null comment '角色ID'")
-    private String roleId;
+    private Long roleId;
 
     @Column(columnDefinition = "bigint(20) not null comment '数据组织（域）ID'")
-    private String orgId;
+    private Long orgId;
 
     public Long getId() {
         return id;
@@ -39,19 +39,19 @@ public class RoleOrgs extends BasePo {
         this.id = id;
     }
 
-    public String getRoleId() {
+    public Long getRoleId() {
         return roleId;
     }
 
-    public void setRoleId(String roleId) {
+    public void setRoleId(Long roleId) {
         this.roleId = roleId;
     }
 
-    public String getOrgId() {
+    public Long getOrgId() {
         return orgId;
     }
 
-    public void setOrgId(String orgId) {
+    public void setOrgId(Long orgId) {
         this.orgId = orgId;
     }
 

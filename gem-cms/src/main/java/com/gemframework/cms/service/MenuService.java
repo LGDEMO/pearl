@@ -21,4 +21,7 @@ public interface MenuService {
     MenuVo update(MenuVo vo);
 
     void delete(Long id);
+
+    MenuVo getById(Long id);
+
 }

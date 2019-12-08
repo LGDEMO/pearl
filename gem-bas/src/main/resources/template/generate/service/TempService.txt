@@ -20,6 +20,8 @@ public interface ${Entity}Service {
 
     List<${Entity}Vo> findPageByParams(${Entity}Vo vo, Pageable pageable);
 
+    ${Entity}Vo getById(Long id);
+
     ${Entity}Vo getOne(Long id);
 
     ${Entity}Vo update(${Entity}Vo vo);

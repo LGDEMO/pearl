@@ -148,4 +148,19 @@ public class MenuServiceImpl implements MenuService {
         menuRepository.deleteById(id);
 
     }
+    /**
+     * @Title: 根据ID获取对象
+     * @Param: id
+     * @Retrun: Entity
+     * @Description:
+     * @Date: 2019/12/5 22:40
+     */
+    @Override
+    public MenuVo getById(Long id) {
+        MenuVo vo = new MenuVo();
+        Menu entity = menuRepository.getById(id);
+        GemBeanUtils.copyProperties(entity,vo);
+        return vo;
+    }
+
 }

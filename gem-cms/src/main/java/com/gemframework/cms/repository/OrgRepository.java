@@ -1,7 +1,11 @@
 package com.gemframework.cms.repository;
 
+import com.gemframework.cms.model.po.Menu;
 import com.gemframework.cms.model.po.Org;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+
+import java.util.List;
 
 /**
  * @Title: OrgRepository.java
@@ -15,4 +19,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @Company: www.gemframework.com
  */
 public interface OrgRepository extends JpaRepository<Org, Long> {
+
+    @Query("select org from Org role where id = ?1")
+    Org getById(Long id);
 }

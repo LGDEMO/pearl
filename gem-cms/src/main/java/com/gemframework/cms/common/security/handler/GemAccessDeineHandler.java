@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
  * @Package: com.gemframework.cms.common.security.handler
  * @Date: 2019/12/5 20:47
  * @Version: v1.0
- * @Description: 这里写描述
+ * @Description: 自定义权限校验统一格式
 
  * @Author: zhangysh
  * @Copyright: Copyright (c) 2019 GemStudio

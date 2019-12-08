@@ -16,4 +16,8 @@ import org.springframework.data.jpa.repository.Query;
  * @Company: www.gemframework.com
  */
 public interface ${Entity}Repository extends JpaRepository<${Entity}, Long> {
+
+    @Query("select ${entity} from ${Entity} role where id = ?1")
+    ${Entity} getById(Long id);
+
 }

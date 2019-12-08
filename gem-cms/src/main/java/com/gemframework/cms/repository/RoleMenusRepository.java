@@ -2,6 +2,9 @@ package com.gemframework.cms.repository;
 
 import com.gemframework.cms.model.po.RoleMenus;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+
+import java.util.List;
 
 /**
  * @Title: RoleMenusRepository.java
@@ -15,4 +18,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @Company: www.gemframework.com
  */
 public interface RoleMenusRepository extends JpaRepository<RoleMenus, Long> {
+
+    @Query("select roleMenus from RoleMenus where roleId = ?1")
+    List<RoleMenus> findListByRoleId(Long roleId);
+
 }

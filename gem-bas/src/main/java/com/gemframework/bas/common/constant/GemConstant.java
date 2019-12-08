@@ -15,6 +15,8 @@ public interface GemConstant {
 		// 匿名的字符出
 		public String ANONY_MOUS_USER = "anonymousUser";
 		public String HEADER_AUTHOR = "Authorization";
+
+		public String CAS_SESSION_ID = "1";
 	}
 
 	//常用的字符集编码类型

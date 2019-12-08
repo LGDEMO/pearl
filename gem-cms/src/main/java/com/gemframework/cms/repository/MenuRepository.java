@@ -2,6 +2,7 @@ package com.gemframework.cms.repository;
 
 import com.gemframework.cms.model.po.Menu;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 /**
  * @Title: MenuRepository.java
@@ -15,4 +16,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @Company: www.gemframework.com
  */
 public interface MenuRepository extends JpaRepository<Menu, Long> {
+
+    @Query("select menu from Menu role where id = ?1")
+    Menu getById(Long id);
 }

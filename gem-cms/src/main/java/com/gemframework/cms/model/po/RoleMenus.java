@@ -26,10 +26,10 @@ public class RoleMenus extends BasePo {
     private Long id;
 
     @Column(columnDefinition = "bigint(20) not null comment '角色ID'")
-    private String roleId;
+    private Long roleId;
 
     @Column(columnDefinition = "bigint(20) not null comment '菜单ID'")
-    private String menuId;
+    private Long menuId;
 
 
     public Long getId() {
@@ -40,19 +40,19 @@ public class RoleMenus extends BasePo {
         this.id = id;
     }
 
-    public String getRoleId() {
+    public Long getRoleId() {
         return roleId;
     }
 
-    public void setRoleId(String roleId) {
+    public void setRoleId(Long roleId) {
         this.roleId = roleId;
     }
 
-    public String getMenuId() {
+    public Long getMenuId() {
         return menuId;
     }
 
-    public void setMenuId(String menuId) {
+    public void setMenuId(Long menuId) {
         this.menuId = menuId;
     }
 

@@ -32,8 +32,6 @@ import java.util.*;
 @Service
 public class UserServiceImpl implements UserService {
 
-    private final static String PASSWORD_FORMAT = "{%s}%s";
-
     @Resource
     private UserRepository userRepository;
 
@@ -60,8 +58,6 @@ public class UserServiceImpl implements UserService {
         User user = new User();
         GemBeanUtils.copyProperties(vo,user);
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-//        user.setPassword(String.format(PASSWORD_FORMAT, "bcrypt",
-//                passwordEncoder.encode(vo.getPassword())));
         user.setPassword(passwordEncoder.encode(vo.getPassword()));
         user = userRepository.save(user);
         GemBeanUtils.copyProperties(user,vo);

@@ -3,9 +3,9 @@ package com.gemframework.cms.service.impl;
 import com.gemframework.bas.common.enums.ResultCode;
 import com.gemframework.bas.common.exception.GemException;
 import com.gemframework.bas.common.utils.GemBeanUtils;
-import com.gemframework.cms.model.po.Role;
+import com.gemframework.cms.model.po.*;
 import com.gemframework.cms.model.vo.RoleVo;
-import com.gemframework.cms.repository.RoleRepository;
+import com.gemframework.cms.repository.*;
 import com.gemframework.cms.service.RoleService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Example;
@@ -14,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,6 +24,14 @@ public class RoleServiceImpl implements RoleService {
 
     @Resource
     private RoleRepository roleRepository;
+    @Resource
+    private OrgRepository orgRepository;
+    @Resource
+    private MenuRepository menuRepository;
+    @Resource
+    private RoleOrgsRepository roleOrgsRepository;
+    @Resource
+    private RoleMenusRepository roleMenusRepository;
 
     /**
      * @Title:  add
@@ -52,6 +61,27 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public List<RoleVo> findListAll() {
         List<Role> list = roleRepository.findAll();
+        for(Role roles:list){
+            List<RoleOrgs> roleOrgs = roleOrgsRepository.findListByRoleId(roles.getId());
+            //查询roleOrgs
+            List<Org> orgsList = null;
+            for(RoleOrgs orgs:roleOrgs){
+                Org org = orgRepository.getById(orgs.getOrgId());
+                orgsList = new ArrayList<>();
+                orgsList.add(org);
+            }
+            roles.setOrgs(orgsList);
+
+            //查询roleMenus
+            List<Menu> menusList = null;
+            List<RoleMenus> roleMenus = roleMenusRepository.findListByRoleId(roles.getId());
+            for(RoleMenus menus:roleMenus){
+                Menu menu = menuRepository.getById(menus.getRoleId());
+                menusList = new ArrayList<>();
+                menusList.add(menu);
+            }
+            roles.setMenus(menusList);
+        }
         List<RoleVo> vos = GemBeanUtils.copyCollections(list,RoleVo.class);
         return vos;
     }
@@ -160,6 +190,24 @@ public class RoleServiceImpl implements RoleService {
     public RoleVo getById(Long id) {
         RoleVo roleVo = new RoleVo();
         Role role = roleRepository.getById(id);
+        //查询roleOrgs
+        List<Org> orgsList = null;
+        List<RoleOrgs> roleOrgs = roleOrgsRepository.findListByRoleId(id);
+        for(RoleOrgs orgs:roleOrgs){
+            Org org = orgRepository.getById(orgs.getOrgId());
+            orgsList = new ArrayList<>();
+            orgsList.add(org);
+        }
+        role.setOrgs(orgsList);
+        //查询roleMenus
+        List<Menu> menusList = null;
+        List<RoleMenus> roleMenus = roleMenusRepository.findListByRoleId(id);
+        for(RoleMenus menus:roleMenus){
+            Menu menu = menuRepository.getById(menus.getRoleId());
+            menusList = new ArrayList<>();
+            menusList.add(menu);
+        }
+        role.setMenus(menusList);
         GemBeanUtils.copyProperties(role,roleVo);
         return roleVo;
     }
