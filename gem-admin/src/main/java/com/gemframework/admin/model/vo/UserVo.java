@@ -1,7 +1,7 @@
 package com.gemframework.admin.model.vo;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.gemframework.base.model.validation.MobilePattern;
+import com.gemframework.base.common.annotation.ValidMoblie;
 import com.gemframework.base.model.vo.BaseVo;
 import lombok.NoArgsConstructor;
 
@@ -32,7 +32,7 @@ public class UserVo extends BaseVo {
     private Integer age;
 
     @NotNull(message = "手机号不能为空！")
-    @MobilePattern
+    @ValidMoblie
     private String phone;
 
     @Email(message = "邮箱格式不正确！")

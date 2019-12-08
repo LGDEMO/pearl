@@ -1,6 +1,6 @@
 package com.gemframework.base.model.vo;
 
-import com.gemframework.base.model.validation.MobilePattern;
+import com.gemframework.base.common.annotation.ValidMoblie;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -25,7 +25,7 @@ public class UserVo extends BaseVo {
 
     @NotNull(message = "手机号不能为空！")
     @Size(min = 2,max = 10,message = "手机号长度限制11~15个数字之间")
-    @MobilePattern
+    @ValidMoblie
     private String userPhone;
 
 }

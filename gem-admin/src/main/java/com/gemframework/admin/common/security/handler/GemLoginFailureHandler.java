@@ -25,5 +25,16 @@ public class GemLoginFailureHandler extends SimpleUrlAuthenticationFailureHandle
         log.info("登录失败");
         //这里写登录失败的逻辑
         // 判断是用哪一种方式进行登录的
+
+//        response.setHeader("Access-Control-Allow-Origin", "*");
+//        response.setContentType(GemConstant.MediaType.JSON_UTF_8);
+//        if(exception instanceof BadCredentialsException){
+//            response.getWriter().write(GemJsonUtils.objectToJson(ResultData.getResultWithCode(GemErrorStatus.PASSWORD_ERROR)));
+//        }else if(exception instanceof InternalAuthenticationServiceException){
+//            response.getWriter().write(GemJsonUtils.objectToJson(ResultData.getResultWithCode(GemErrorStatus.NOT_USER)));
+//        }else{
+//            log.error("---auth error:{}","GemLoginFailureHandler");
+//            response.getWriter().write(GemJsonUtils.objectToJson(ResultData.getResultWithCode(GemErrorStatus.AUTHENTICATION_FAILED)));
+//        }
     }
 }

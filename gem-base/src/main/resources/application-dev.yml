@@ -10,6 +10,12 @@ gem:
   max: 999
   desc: 这是自定义配置，最小值${gem.min},最大值${gem.max}
 
+  redis:
+    open: false
+
+  swagger:
+    web-package-path: com.gemframework.base.controller
+
 
 spring:
   datasource:
