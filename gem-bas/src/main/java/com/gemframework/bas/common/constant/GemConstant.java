@@ -12,11 +12,14 @@ public interface GemConstant {
 	public interface Auth{
 		public String CLIENT_ID_NAME = "client_id_name";
 		public String CLIENT_ID_PASS = "client_id_pass";
-		// 匿名的字符出
-		public String ANONY_MOUS_USER = "anonymousUser";
 		public String HEADER_AUTHOR = "Authorization";
 
-		public String CAS_SESSION_ID = "xxx";
+		public String ROLE_PREFIX = "ROLE_";
+
+		// 匿名的字符出
+		public String ANONY_MOUS_USER = "anonymousUser";
+
+		public String COOKIES_TOKEN_NAME = "access_token";
 	}
 
 	//常用的字符集编码类型

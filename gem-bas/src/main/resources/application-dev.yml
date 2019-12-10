@@ -17,6 +17,7 @@ gem:
     web-package-path: com.gemframework.bas.controller
 
 
+
 spring:
   datasource:
     url: jdbc:mysql://localhost:3306/gem?characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2b8

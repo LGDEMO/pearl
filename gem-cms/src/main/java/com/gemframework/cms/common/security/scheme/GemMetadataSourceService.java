@@ -1,9 +1,11 @@
 package com.gemframework.cms.common.security.scheme;
 
+import com.gemframework.bas.common.constant.GemConstant;
 import com.gemframework.cms.model.po.Menu;
 import com.gemframework.cms.model.vo.MenuVo;
 import com.gemframework.cms.model.vo.RoleVo;
 import com.gemframework.cms.service.RoleService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.access.SecurityConfig;
 import org.springframework.security.web.FilterInvocation;
@@ -16,6 +18,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
+@Slf4j
 @Component
 public class GemMetadataSourceService implements FilterInvocationSecurityMetadataSource {
 
@@ -36,13 +39,15 @@ public class GemMetadataSourceService implements FilterInvocationSecurityMetadat
         ConfigAttribute cfg;
         List<RoleVo> roles = roleService.findListAll();
         for (RoleVo role : roles) {
-            cfg = new SecurityConfig(role.getRolename());
+            cfg = new SecurityConfig(GemConstant.Auth.ROLE_PREFIX + role.getFlag());
             //此处只添加了用户的名字，其实还可以添加更多权限的信息，
             // 例如请求方法到ConfigAttribute的集合中去。
             // 此处添加的信息将会作为GemAccessDecisionManager类的decide的第三个参数。
             //用权限的getLink() 作为map的key，用ConfigAttribute的集合作为 value，
+            log.info("设置用户角色==========={}",role.toString());
             List<MenuVo> menus = role.getMenus();
             for (MenuVo menu : menus) {
+                log.info("设置用户URL==========="+menu.toString()+":"+cfg);
                 setMap(menu.getLink(), cfg);
             }
         }

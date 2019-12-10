@@ -22,16 +22,12 @@ public class HomeController {
 
     @GetMapping({"/", "/index", "/home"})
     public String root(){
-
+        log.info("拒绝访问..");
         log.info("=========主页");
         return "index";
     }
 
-    @GetMapping("/login")
-    public String login(){
-        log.info("=========自定义登录");
-        return "login";
-    }
+
 
     @GetMapping("/getuser")
     public String ster(){

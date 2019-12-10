@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties("gem.redis")
 public class GemRedisProperties {
 
-	//是否开启Kafka消息队列  true开启   false关闭
+	//是否开启redis消息队列  true开启   false关闭
 	private boolean open;
 
 }

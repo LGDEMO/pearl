@@ -7,10 +7,10 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 @SpringBootApplication
 //开启jpa审计功能
 @EnableJpaAuditing
-public class GemAdminApplication {
+public class GemCmsApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(GemAdminApplication.class, args);
+        SpringApplication.run(GemCmsApplication.class, args);
     }
 
 }

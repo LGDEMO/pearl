@@ -31,29 +31,27 @@ public class LoginController {
     @Autowired
     private UserService userService;
 
-//    @GetMapping("/index")
-//    public String loginPage(String username) {
-//        return "login";
-//    }
-//
-//    @GetMapping("/home")
-//    public String home(@AuthenticationPrincipal Principal principal, Model model){
-//        model.addAttribute("username", principal.getName());
-//        return "home";
-//    }
-
-
-    @GetMapping("logout1")
-    public void logout(String username) {
-        log.info("==================注销登录："+username);
-        UserDetails user = userService.loadUserByUsername(username);
-        List<SessionInformation> allSessions = sessionRegistry.getAllSessions(user, false);
-        if (allSessions != null) {
-            for (int i = 0; i < allSessions.size(); i++) {
-                SessionInformation sessionInformation = allSessions.get(i);
-                sessionInformation.getSessionId();
-                sessionInformation.expireNow();
-            }
-        }
+    @GetMapping("/login")
+    public String login(){
+        log.info("=========自定义登录");
+        return "login";
     }
+
+    @GetMapping("/error")
+    public String error(){
+        return "eroor";
+    }
+
+    @GetMapping("/403")
+    public String denied(){
+        log.info("拒绝访问..");
+        return "403";
+    }
+
+    @GetMapping("/404")
+    public String notFound(){
+        return "404";
+    }
+
+
 }

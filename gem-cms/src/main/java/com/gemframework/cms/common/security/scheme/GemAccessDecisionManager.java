@@ -1,5 +1,6 @@
 package com.gemframework.cms.common.security.scheme;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.AccessDecisionManager;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.ConfigAttribute;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Component;
 import java.util.Collection;
 import java.util.Iterator;
 
+@Slf4j
 @Component
 public class GemAccessDecisionManager implements AccessDecisionManager {
 
@@ -45,6 +47,8 @@ public class GemAccessDecisionManager implements AccessDecisionManager {
             for (GrantedAuthority ga : authentication.getAuthorities()) {
                 //authentication 为在注释1 中循环添加到 GrantedAuthority 对象中的权限信息集合
                 if (needRole.trim().equals(ga.getAuthority())) {
+                log.info("needRole================"+needRole);
+                log.info("ga================"+ga.getAuthority());
                     return;
                 }
             }

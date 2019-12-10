@@ -50,28 +50,18 @@ public class GemWebSecurityConfg extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         List<RoleVo> list = new ArrayList<RoleVo>();
+        //拦截和校验请求
+        http.addFilterBefore(gemFilterSecurityInterceptor, FilterSecurityInterceptor.class);
         http
                 .formLogin()//定义本系统使用表单认证方式
                 .loginPage("/login")//定义登录时的login页面
+                .defaultSuccessUrl("/index")
                 .successHandler(gemLoginSuccessHandler)//使用自定义的成功结果处理器
                 .failureHandler(gemLoginFailureHandler)//使用自定义失败的结果处理器
-                .defaultSuccessUrl("/index")
-                .and()
-                .authorizeRequests()//开始定义哪些URL需要被保护、哪些不需要被保护
-                .antMatchers("/500").permitAll()
-                .antMatchers("/404").permitAll()
-                .antMatchers("/403").permitAll()
-                .antMatchers("/login").permitAll()
-                .antMatchers("/user/**").permitAll()
-                .antMatchers("/admin/**").hasRole("ADMIN")//指定权限为ADMIN才能访问
-                .antMatchers("/index").hasRole("ADMIN")//指定权限为ADMIN才能访问
-                .anyRequest()//除了上面的请求
-                .authenticated()//都需要认证访问
                 .and()
                 .csrf().disable()//关闭跨域防护
         ;
-        //拦截和校验请求
-        http.addFilterBefore(gemFilterSecurityInterceptor, FilterSecurityInterceptor.class);
+
         //开启自动注销 退出登录的地址为 "/logout"，退出成功后跳转到页面 "/login"
         http.logout().logoutUrl("/logout").logoutSuccessUrl("/login");
         //开启免认证（记住我）
@@ -110,7 +100,7 @@ public class GemWebSecurityConfg extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    UserDetailsService userService() {
+    public UserDetailsService userService() {
         return new UserServiceImpl();
     }
 
@@ -119,9 +109,4 @@ public class GemWebSecurityConfg extends WebSecurityConfigurerAdapter {
         return new SessionRegistryImpl();
     }
 
-    @Autowired
-    private UserService userService;
-
-    @Autowired
-    private RoleService roleService;
 }

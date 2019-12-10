@@ -1,5 +1,6 @@
 package com.gemframework.cms.service.impl;
 
+import com.gemframework.bas.common.constant.GemConstant;
 import com.gemframework.cms.model.vo.RoleVo;
 import com.gemframework.cms.model.vo.UserRolesVo;
 import com.gemframework.cms.model.vo.UserVo;
@@ -200,17 +201,8 @@ public class UserServiceImpl implements UserService {
                 throw new UsernameNotFoundException("未查询到用户："+username+"信息！");
             }
         }
-        //TODO: 查找用户权限
-        List<GrantedAuthority> auths = new ArrayList<>();
-        List<UserRolesVo> userRoles = userRolesService.findListByParams(new UserRolesVo(gemuser.getId()));
-        log.info("用户角色："+userRoles.toString());
-        for(UserRolesVo userRolesVo : userRoles){
-            RoleVo role = roleService.getById(userRolesVo.getRoleId());
-            log.info("权限列表================"+role);
-            if(role != null && role.getId() != null){
-                auths.add(new SimpleGrantedAuthority("ROLE_"+role.getFlag()));
-            }
-        }
+        //查询权限信息
+        List<SimpleGrantedAuthority> simpleGrantedAuthorities = createAuthorities(gemuser.getId());
         // 封装用户信息，并返回。参数分别是：用户名，密码，用户权限
         log.info("user:"+username);
         log.info("pass:"+gemuser.getPassword());
@@ -220,9 +212,27 @@ public class UserServiceImpl implements UserService {
                 true,
                 true,
                 true,
-                auths);
+                simpleGrantedAuthorities);
 
         return user;
+    }
+
+
+    /**
+     * @Title: 查询权限列表
+     * @Param: [userId]
+     * @Retrun: java.util.List<org.springframework.security.core.authority.SimpleGrantedAuthority>
+     * @Description:
+     * @Date: 2019/12/10 11:22
+     */
+    private List<SimpleGrantedAuthority> createAuthorities(Long userId){
+        List<UserRolesVo> userRoles = userRolesService.findListByParams(new UserRolesVo(userId));
+        List<SimpleGrantedAuthority> simpleGrantedAuthorities = new ArrayList<>();
+        for (UserRolesVo userRolesVo : userRoles) {
+            RoleVo role = roleService.getById(userRolesVo.getRoleId());
+            simpleGrantedAuthorities.add(new SimpleGrantedAuthority(GemConstant.Auth.ROLE_PREFIX +role.getFlag()));
+        }
+        return simpleGrantedAuthorities;
     }
 
 }
