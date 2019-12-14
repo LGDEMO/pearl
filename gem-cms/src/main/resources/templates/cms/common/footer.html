@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="zh-cn" class="fullscreen-bg" xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="foot_links">
+    <script th:src="@{static/cms/assets/vendor/jQuery/jquery.min.js}"></script>
+    <script th:src="@{static/cms/assets/vendor/bootstrap/js/bootstrap.min.js}"></script>
+    <script th:src="@{static/cms/assets/vendor/jquery-slimscroll/jquery.slimscroll.min.js}"></script>
+    <script th:src="@{static/cms/assets/vendor/jquery.easy-pie-chart/jquery.easypiechart.min.js}"></script>
+    <script th:src="@{static/cms/assets/vendor/chartist/js/chartist.min.js}"></script>
+    <script th:src="@{static/cms/assets/scripts/klorofil-common.js}"></script>
+</div>
+<footer th:fragment="footer">
+    <div class="container-fluid">
+
+        <p class="copyright">&copy; [[${#dates.format(new java.util.Date().getTime(), 'yyyy')}]]</span>
+            <a href="http://www.gemframework.com" target="_blank" title="访问官网">GemFrame</a>
+            - 国产优秀的企业级微服务框架
+            <a href="http://www.gemframework.com/bbs" title="GemFrame官网" target="_blank">GemFrame社区</a></p>
+    </div>
+</footer>
+</html>

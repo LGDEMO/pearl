@@ -15,6 +15,7 @@ gem:
     error-page: /error
     denied-page: /403
     nofound-page: /404
+    index-page: /index
 
 
 #
@@ -46,7 +47,7 @@ spring:
 #      suffix: .html
 
   thymeleaf:
-    prefix: classpath:/templates/pages/
+    prefix: classpath:/templates/cms/
     suffix: .html
     encoding: UTF-8
     mode: HTML
