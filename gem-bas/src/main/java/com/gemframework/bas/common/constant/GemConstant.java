@@ -20,6 +20,8 @@ public interface GemConstant {
 		public String ANONY_MOUS_USER = "anonymousUser";
 
 		public String COOKIES_TOKEN_NAME = "access_token";
+
+		public String SESSION_USERKEY = "SPRING_SECURITY_CONTEXT";
 	}
 
 	//常用的字符集编码类型

@@ -50,6 +50,12 @@ public class BaseResult {
         this.data = data;
     }
 
+    public BaseResult(ResultCode resultCode) {
+        this.code = resultCode.getCode();
+        this.msg = resultCode.getMsg();
+        this.data = null;
+    }
+
     /**
      * @Title:  build
      * @MethodName:  build
