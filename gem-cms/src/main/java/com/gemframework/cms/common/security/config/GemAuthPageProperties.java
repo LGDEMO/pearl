@@ -9,6 +9,8 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties("gem.auth")
 public class GemAuthPageProperties {
 
+	private String indexPage;
+
 	private String loginPage;
 
 	private String errorPage;

@@ -9,9 +9,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.access.SecurityMetadataSource;
 import org.springframework.security.access.intercept.AbstractSecurityInterceptor;
 import org.springframework.security.access.intercept.InterceptorStatusToken;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,6 +21,7 @@ import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.FilterInvocation;
 import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;
+import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -28,9 +31,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * @Title: 核心抽象接口
+ * @Package: com.gemframework.cms.common.security.scheme
+ * @Date: 2019/12/11 15:26
+ * @Version: v1.0
+ * @Description: 核心接口
+ * @Author: zhangysh
+ * @Copyright: Copyright (c) 2019 GemStudio
+ * @Company: www.gemframework.com
+ */
 @Slf4j
 @Component
-public class GemFilterSecurityInterceptor extends AbstractSecurityInterceptor implements Filter {
+//@Order(15)
+public class GemFilterSecurityInterceptor extends  AbstractSecurityInterceptor implements Filter{
 
     @Resource
     private UserService userService;
@@ -46,22 +60,13 @@ public class GemFilterSecurityInterceptor extends AbstractSecurityInterceptor im
 
     //针对某些接口放白名单
     private String[] ignoreStartUris = new String[]{
-            "/swagger",
-            "/webjars/",
-            "/v2/",
-            "/api/claims/",
-            "/metrics",
+            "/static/",
             "/403",
             "/404",
             "/500",
             "/error",
             "/login"
     };
-
-    @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
-
-    }
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
@@ -81,9 +86,12 @@ public class GemFilterSecurityInterceptor extends AbstractSecurityInterceptor im
             return;
         }
         //SecurityContextHolder.clearContext();
-        String principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
+        String principal = "";
+        if(SecurityContextHolder.getContext().getAuthentication()!= null){
+            principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
+        }
         log.info("[权限拦截] 当前登录用户 user:{}", principal);
-        log.info("[权限拦截] 当前用户角色：{}", JSON.toJSON(SecurityContextHolder.getContext().getAuthentication().getAuthorities()));
+//        log.info("[权限拦截] 当前用户角色：{}", JSON.toJSON(SecurityContextHolder.getContext().getAuthentication().getAuthorities()));
         //如果是匿名用户
         if (GemConstant.Auth.ANONY_MOUS_USER.equals(principal)) {
             Cookie[] cookies = request.getCookies();

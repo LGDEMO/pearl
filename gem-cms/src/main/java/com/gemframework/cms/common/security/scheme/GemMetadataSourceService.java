@@ -18,6 +18,17 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
+/**
+ * @Title: 权限配置数据库加载
+ * @Package: com.gemframework.cms.common.security.scheme
+ * @Date: 2019/12/11 15:30
+ * @Version: v1.0
+ * @Description: 权限配置数据库加载
+
+ * @Author: zhangysh
+ * @Copyright: Copyright (c) 2019 GemStudio
+ * @Company: www.gemframework.com
+ */
 @Slf4j
 @Component
 public class GemMetadataSourceService implements FilterInvocationSecurityMetadataSource {
@@ -29,7 +40,6 @@ public class GemMetadataSourceService implements FilterInvocationSecurityMetadat
 
     /**
      * @Title: 加载权限表中所有权限
-     * @Param: []
      * @Retrun: void
      * @Description:
      * @Date: 2019/12/8 22:22
@@ -51,12 +61,10 @@ public class GemMetadataSourceService implements FilterInvocationSecurityMetadat
                 setMap(menu.getLink(), cfg);
             }
         }
-
     }
 
     /**
      * 增加权限队列
-     *
      * @param url
      * @param cfg
      */
@@ -70,8 +78,12 @@ public class GemMetadataSourceService implements FilterInvocationSecurityMetadat
     }
 
     /**
-     * 此方法是为了判定用户请求的url 是否在权限表中，如果在权限表中，
-     * // 则返回给 decide 方法，用来判定用户是否有此权限。如果不在权限表中则放行。
+     * @Title: 此方法是为了判定用户请求的url 是否在权限表中，如果在权限表中，
+     * 则返回给 decide 方法，用来判定用户是否有此权限。如果不在权限表中则放行。
+     * @Param: [object]
+     * @Retrun: java.util.Collection<org.springframework.security.access.ConfigAttribute>
+     * @Description:
+     * @Date: 2019/12/11 15:32
      */
     @Override
     public Collection<ConfigAttribute> getAttributes(Object object) throws IllegalArgumentException {

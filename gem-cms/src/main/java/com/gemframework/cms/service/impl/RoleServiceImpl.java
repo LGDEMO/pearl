@@ -62,8 +62,8 @@ public class RoleServiceImpl implements RoleService {
      */
     @Override
     public List<RoleVo> findListAll() {
-        List<Role> list = roleRepository.findAll();
         List<RoleVo> roleVos = new ArrayList<>();
+        List<Role> list = roleRepository.findAll();
         for(Role roles:list){
             RoleVo roleVo = new RoleVo();
             GemBeanUtils.copyProperties(roles,roleVo);
@@ -82,7 +82,7 @@ public class RoleServiceImpl implements RoleService {
             List<Menu> menusList = new ArrayList<>();
             List<RoleMenus> roleMenus = roleMenusRepository.findListByRoleId(roles.getId());
             for(RoleMenus menus:roleMenus){
-                Menu menu = menuRepository.getById(menus.getRoleId());
+                Menu menu = menuRepository.getById(menus.getMenuId());
                 menusList.add(menu);
             }
             roles.setMenus(menusList);

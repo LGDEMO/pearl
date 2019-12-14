@@ -1,5 +1,6 @@
 package com.gemframework.cms.controller;
 
+import com.gemframework.cms.common.security.scheme.GemMetadataSourceService;
 import com.gemframework.cms.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,10 +27,12 @@ import java.util.List;
 @Controller
 public class LoginController {
 
+
     @Autowired
-    SessionRegistry sessionRegistry;
-    @Autowired
-    private UserService userService;
+    GemMetadataSourceService gemMetadataSourceService;
+//
+//    @Autowired
+//    SessionRegistry sessionRegistry;
 
     @GetMapping("/login")
     public String login(){
@@ -50,8 +53,14 @@ public class LoginController {
 
     @GetMapping("/404")
     public String notFound(){
+        gemMetadataSourceService.loadResourceDefine();
         return "404";
     }
 
+    @GetMapping({"/index", "/home"})
+    public String index(){
+        log.info("=========主页");
+        return "index";
+    }
 
 }

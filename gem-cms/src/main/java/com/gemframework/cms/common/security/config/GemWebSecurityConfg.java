@@ -1,9 +1,6 @@
 package com.gemframework.cms.common.security.config;
 
 import com.gemframework.cms.common.security.scheme.GemFilterSecurityInterceptor;
-import com.gemframework.cms.model.vo.RoleVo;
-import com.gemframework.cms.service.RoleService;
-import com.gemframework.cms.service.UserService;
 import com.gemframework.cms.service.impl.UserServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.security.core.session.SessionRegistryImpl;
@@ -21,6 +19,7 @@ import org.springframework.security.web.access.intercept.FilterSecurityIntercept
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,19 +48,17 @@ public class GemWebSecurityConfg extends WebSecurityConfigurerAdapter {
      */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        List<RoleVo> list = new ArrayList<RoleVo>();
         //拦截和校验请求
-        http.addFilterBefore(gemFilterSecurityInterceptor, FilterSecurityInterceptor.class);
+        http.addFilterAfter(gemFilterSecurityInterceptor,FilterSecurityInterceptor.class);
         http
                 .formLogin()//定义本系统使用表单认证方式
-                .loginPage("/login")//定义登录时的login页面
-                .defaultSuccessUrl("/index")
+                .loginPage("/login")
                 .successHandler(gemLoginSuccessHandler)//使用自定义的成功结果处理器
                 .failureHandler(gemLoginFailureHandler)//使用自定义失败的结果处理器
                 .and()
                 .csrf().disable()//关闭跨域防护
         ;
-
+        http.headers().frameOptions().sameOrigin();
         //开启自动注销 退出登录的地址为 "/logout"，退出成功后跳转到页面 "/login"
         http.logout().logoutUrl("/logout").logoutSuccessUrl("/login");
         //开启免认证（记住我）
@@ -79,7 +76,6 @@ public class GemWebSecurityConfg extends WebSecurityConfigurerAdapter {
      */
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        log.info("验证..");
         auth.userDetailsService(userService()).passwordEncoder(passwordEncoder());
     }
 
@@ -89,9 +85,8 @@ public class GemWebSecurityConfg extends WebSecurityConfigurerAdapter {
     @Autowired
     private AuthenticationFailureHandler gemLoginFailureHandler; //认证失败结果处理器
 
-    @Autowired
+    @Resource
     private GemFilterSecurityInterceptor gemFilterSecurityInterceptor; //自定义拦截
-
 
     //完成自定义认证实体注入
     @Bean

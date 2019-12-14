@@ -12,6 +12,17 @@ import org.springframework.stereotype.Component;
 import java.util.Collection;
 import java.util.Iterator;
 
+/**
+ * @Title: 权限校验
+ * @Package: com.gemframework.cms.common.security.scheme
+ * @Date: 2019/12/11 15:23
+ * @Version: v1.0
+ * @Description: 这里写描述
+ * @Author: zhangysh
+ * @Copyright: Copyright (c) 2019 GemStudio
+ * @Company: www.gemframework.com
+ */
+
 @Slf4j
 @Component
 public class GemAccessDecisionManager implements AccessDecisionManager {
@@ -47,8 +58,6 @@ public class GemAccessDecisionManager implements AccessDecisionManager {
             for (GrantedAuthority ga : authentication.getAuthorities()) {
                 //authentication 为在注释1 中循环添加到 GrantedAuthority 对象中的权限信息集合
                 if (needRole.trim().equals(ga.getAuthority())) {
-                log.info("needRole================"+needRole);
-                log.info("ga================"+ga.getAuthority());
                     return;
                 }
             }

@@ -132,7 +132,7 @@ public class UserServiceImpl implements UserService {
     public UserVo getByLoginName(String loginName) {
         UserVo vo = new UserVo();
         User user = userRepository.findByUserName(loginName);
-        if(user != null){
+        if(user == null){
             user = userRepository.findByPhone(loginName);
         }
         GemBeanUtils.copyProperties(user,vo);
@@ -204,8 +204,6 @@ public class UserServiceImpl implements UserService {
         //查询权限信息
         List<SimpleGrantedAuthority> simpleGrantedAuthorities = createAuthorities(gemuser.getId());
         // 封装用户信息，并返回。参数分别是：用户名，密码，用户权限
-        log.info("user:"+username);
-        log.info("pass:"+gemuser.getPassword());
         org.springframework.security.core.userdetails.User user
                 = new org.springframework.security.core.userdetails.User(username,gemuser.getPassword(),
                         true,

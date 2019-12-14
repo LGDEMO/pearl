@@ -22,7 +22,7 @@ public class GemLoginFailureHandler extends SimpleUrlAuthenticationFailureHandle
             throws IOException, ServletException {
         super.onAuthenticationFailure(request,response,exception);
         response.setContentType("application/json;charset=UTF-8");
-        log.info("登录失败");
+        log.info("登录失败"+exception.getMessage());
         //这里写登录失败的逻辑
         // 判断是用哪一种方式进行登录的
 

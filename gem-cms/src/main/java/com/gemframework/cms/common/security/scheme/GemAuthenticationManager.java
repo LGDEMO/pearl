@@ -2,6 +2,7 @@ package com.gemframework.cms.common.security.scheme;
 
 import com.gemframework.cms.model.vo.RoleVo;
 import lombok.Data;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -14,6 +15,16 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @Title: 自定义角色数据
+ * @Package: com.gemframework.cms.common.security.scheme
+ * @Date: 2019/12/11 15:24
+ * @Version: v1.0
+ * @Description: 自定义角色数据
+ * @Author: zhangysh
+ * @Copyright: Copyright (c) 2019 GemStudio
+ * @Company: www.gemframework.com
+ */
 @Data
 @Component
 public class GemAuthenticationManager implements AuthenticationManager {
@@ -37,4 +48,7 @@ public class GemAuthenticationManager implements AuthenticationManager {
         }
         throw new BadCredentialsException("Bad Credentials");
     }
+
+
+
 }
