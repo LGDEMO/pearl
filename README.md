@@ -1,5 +1,7 @@
 #### 项目简介
 GemFrame基于SpringBoot、SpringSecurity及Spring周边的生态技术开发。是一款稳定，高效的企业级微服务架构，更是致力面向中小型企业提供的一套全面微服务架构的解决方案。并且其具有代码规范，学习成本极低，开箱即用等特点，方便开发者快速上手。官方网址：http://www.gemframework.com
+
+```
    ______                          ________
  .' ___  |                        |_   __  |
 / .'   \_|   .---.   _ .--..--.     | |_ \_|  _ .--.   ,--.    _ .--..--.    .---.
@@ -8,6 +10,8 @@ GemFrame基于SpringBoot、SpringSecurity及Spring周边的生态技术开发。
  `._____.'   '.__.' [___||__||__] |_____|    [___]    \'-;__/ [___||__||__]  '.__.'
 
          GemFrame一款基于SpringBoot优秀的国产开源框架 http://www.gemframework.com
+```
+
 
 #### 软件架构
 ![Gem架构图](https://images.gitee.com/uploads/images/2019/1215/223822_6d41d924_1388237.png "屏幕截图.png")
