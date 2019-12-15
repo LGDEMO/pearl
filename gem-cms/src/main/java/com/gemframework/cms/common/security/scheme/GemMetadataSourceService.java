@@ -58,7 +58,7 @@ public class GemMetadataSourceService implements FilterInvocationSecurityMetadat
             List<MenuVo> menus = role.getMenus();
             for (MenuVo menu : menus) {
                 log.info("设置用户URL==========="+menu.toString()+":"+cfg);
-                setMap(menu.getLink(), cfg);
+                setMap("/"+menu.getLink(), cfg);
             }
         }
     }

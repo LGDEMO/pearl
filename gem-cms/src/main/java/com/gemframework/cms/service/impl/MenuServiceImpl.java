@@ -4,18 +4,22 @@ import com.gemframework.bas.common.enums.ResultCode;
 import com.gemframework.bas.common.exception.GemException;
 import com.gemframework.bas.common.utils.GemBeanUtils;
 import com.gemframework.cms.model.po.Menu;
+import com.gemframework.cms.model.po.Role;
+import com.gemframework.cms.model.po.RoleMenus;
 import com.gemframework.cms.model.vo.MenuVo;
+import com.gemframework.cms.model.vo.RoleVo;
 import com.gemframework.cms.repository.MenuRepository;
+import com.gemframework.cms.repository.RoleMenusRepository;
 import com.gemframework.cms.service.MenuService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Slf4j
 @Service
@@ -23,6 +27,8 @@ public class MenuServiceImpl implements MenuService {
 
     @Resource
     private MenuRepository menuRepository;
+    @Resource
+    private RoleMenusRepository roleMenusRepository;
 
     /**
      * @Title:  add
@@ -73,6 +79,41 @@ public class MenuServiceImpl implements MenuService {
         List<Menu> list = menuRepository.findAll(example);
         List<MenuVo> vos = GemBeanUtils.copyCollections(list,MenuVo.class);
         return vos;
+    }
+
+    @Override
+    public List<MenuVo> findListByRoleId(Long roleId) {
+        List<MenuVo> list = new ArrayList<>();
+        List<RoleMenus> roleMenus = roleMenusRepository.findListByRoleId(roleId);
+        for(RoleMenus role:roleMenus){
+            Long menuId = role.getMenuId();
+            MenuVo vo = GemBeanUtils.copyProperties(menuRepository.getById(menuId),MenuVo.class);
+            list.add(vo);
+        }
+        return menusToTree(list);
+    }
+
+    @Override
+    public List<MenuVo> findListByRoles(List<RoleVo> roles) {
+        List<MenuVo> list = new ArrayList<>();
+        List<Long> roleIds = new ArrayList<>();
+        for(RoleVo role:roles){
+            roleIds.add(role.getId());
+        }
+        log.info("====================="+roleIds);
+        List<RoleMenus> roleMenus = roleMenusRepository.findListByRoleIds(roleIds);
+        for(RoleMenus role:roleMenus){
+            Long menuId = role.getMenuId();
+            MenuVo vo = GemBeanUtils.copyProperties(menuRepository.getById(menuId),MenuVo.class);
+            list.add(vo);
+        }
+        //list去重
+        Set set = new HashSet();
+        set.addAll(list);
+        list.clear();
+        list.addAll(set);
+        Collections.sort(list);
+        return menusToTree(list);
     }
 
     /**
@@ -163,4 +204,36 @@ public class MenuServiceImpl implements MenuService {
         return vo;
     }
 
+
+    /**
+     * @Title: 将list格式是权限数据，转化成tree格式的权限数据。
+     * @Param: [vos]
+     * @Retrun: java.util.List<com.gemframework.cms.model.vo.MenuVo>
+     * @Description:
+     * @Date: 2019/12/15 13:24
+     */
+    private List<MenuVo> menusToTree(List<MenuVo> vos){
+
+        List<MenuVo> menuVos = new ArrayList<MenuVo>();
+        //list to tree
+        for (MenuVo menus : vos) {
+            if(menus.getPid() == null){
+                menuVos.add(menus);
+            }
+            for (MenuVo subMenus : vos) {
+                if(subMenus.getPid()!=null){
+                    if(subMenus.getPid().equals(menus.getId())){
+                        if(menus.getChilds() == null){
+                            List<MenuVo> childs = new ArrayList<MenuVo>();
+                            childs.add(subMenus);
+                            menus.setChilds(childs);
+                        }else{
+                            menus.getChilds().add(subMenus);
+                        }
+                    }
+                }
+            }
+        }
+        return menuVos;
+    }
 }

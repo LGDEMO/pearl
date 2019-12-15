@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="zh-cn" class="fullscreen-bg" xmlns:th="http://www.thymeleaf.org">
 <head th:fragment="header(title,links,styles)">
     <!--将title部分修改为对应的页面内容-->
@@ -6,155 +6,19 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-
-    <!-- VENDOR CSS -->
-    <link rel="stylesheet" th:href="@{static/cms/assets/vendor/bootstrap/css/bootstrap.min.css}">
-    <link rel="stylesheet" th:href="@{static/cms/assets/vendor/font-awesome/css/font-awesome.min.css}">
-    <link rel="stylesheet" th:href="@{static/cms/assets/vendor/linearicons/style.css}">
-    <link rel="stylesheet" th:href="@{static/cms/assets/vendor/chartist/css/chartist-custom.css}">
-    <!-- MAIN CSS -->
-    <link rel="stylesheet" th:href="@{static/cms/assets/css/main.css}">
-    <!-- FOR DEMO PURPOSES ONLY. You should remove this in your project -->
-    <link rel="stylesheet" th:href="@{static/cms/assets/css/demo.css}">
-    <!-- GOOGLE FONTS -->
-    <link rel="stylesheet" th:href="@{https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700}">
-    <!-- ICONS -->
-    <link rel="apple-touch-icon" sizes="76x76" th:href="@{static/cms/assets/img/apple-icon.png}">
-    <link rel="icon" type="image/png" sizes="96x96" th:href="@{static/cms/assets/img/favicon.png}">
+    <meta name="keywords" content="JAVA SpringBoot SpringSecurity GemFrame admin"/>
+    <meta name="description" content="基于SpringBoot2.0+的国产优秀的框架&GemFrame开源权限管理系统v1.0.0">
+    <meta name="author" content="gemframework.com">
+    <!-- Google Web Fonts -->
+    <link rel="stylesheet" th:href="@{https://fonts.googleapis.com/css?family=Ubuntu}">
+    <!-- Bootstrap CSS CDN -->
+    <link rel="stylesheet" th:href="@{http://cdn.bootstrapmb.com/bootstrap/4.1.0/css/bootstrap.min.css}">
+    <!-- Fonts CSS -->
+    <link rel="stylesheet" th:href="@{static/cms/assets/css/fonts/fonts-style.css}">
 
     <th:block th:replace="${links}"/>
     <th:block th:replace="${styles}"/>
 </head>
 <body>
-<!-- NAVBAR -->
-<nav th:fragment="nav" class="navbar navbar-default navbar-fixed-top">
-    <div class="brand">
-        <a href="index.html">
-            <img th:src="@{static/cms/assets/img/logo-dark.png}" alt="Klorofil Logo" class="img-responsive logo">
-        </a>
-    </div>
-    <div class="container-fluid">
-        <!--伸缩侧栏-->
-        <div class="navbar-btn">
-            <button type="button" class="btn-toggle-fullwidth">
-                <i class="lnr lnr-arrow-left-circle"></i>
-            </button>
-        </div>
-        <!--查询-->
-        <form class="navbar-form navbar-left">
-            <div class="input-group">
-                <input type="text" value="" class="form-control" placeholder="输入关键字">
-                <span class="input-group-btn">
-                    <button type="button" class="btn btn-primary">搜索</button>
-                </span>
-            </div>
-        </form>
-
-        <!--访问官网-->
-        <div class="navbar-btn">
-            <a class="btn btn-success update-pro" th:href=@{http://www.gemframework.com}
-               title="访问官网" target="_blank">
-                <i class="fa fa-rocket"></i>
-                <span>访问官网</span>
-            </a>
-        </div>
-        <div id="navbar-menu">
-            <ul class="nav navbar-nav navbar-right">
-                <!--系统消息-->
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle icon-menu" data-toggle="dropdown">
-                        <i class="lnr lnr-alarm"></i>
-                        <!--消息数量-->
-                        <span class="badge bg-danger">5</span>
-                    </a>
-                    <ul class="dropdown-menu notifications">
-                        <li>
-                            <a href="#" class="notification-item">
-                                <span class="dot bg-warning"></span>
-                                第一条消息
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" class="notification-item">
-                                <span class="dot bg-danger"></span>
-                                第二条消息
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" class="notification-item">
-                                <span class="dot bg-success"></span>
-                                第三条消息
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" class="notification-item">
-                                <span class="dot bg-warning"></span>
-                                第四条消息
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" class="notification-item">
-                                <span class="dot bg-success"></span>
-                                第五条消息
-                            </a>
-                        </li>
-                        <li><a href="#" class="more">查看更多消息</a></li>
-                    </ul>
-                </li>
-                <!--帮助中心-->
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="lnr lnr-question-circle"></i>
-                        <span>帮助中心</span> <i class="icon-submenu lnr lnr-chevron-down"></i></a>
-                    <ul class="dropdown-menu">
-                        <li><a>基本用途</a></li>
-                        <li><a>使用数据</a></li>
-                        <li><a>安全性</a></li>
-                        <li><a>故障排除</a></li>
-                    </ul>
-                </li>
-                <!--个人中心-->
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <!--头像-->
-                        <img src="static/cms/assets/img/user.png"class="img-circle" alt="Avatar">
-                        <!--昵称-->
-                        <span>Samuel</span>
-                        <i class="icon-submenu lnr lnr-chevron-down"></i>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <a href="#">
-                                <i class="lnr lnr-user"></i>
-                                <span>我的资料</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <i class="lnr lnr-envelope"></i>
-                                <span>我的消息</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <i class="lnr lnr-cog"></i>
-                                <span>系统设置</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" th:href="@{/logout}">
-                                <i class="lnr lnr-exit"></i>
-                                <span>退出登录</span>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <!-- <li>
-                    <a class="update-pro" href="#downloads/klorofil-pro-bootstrap-admin-dashboard-template/?utm_source=klorofil&utm_medium=template&utm_campaign=KlorofilPro" title="Upgrade to Pro" target="_blank"><i class="fa fa-rocket"></i> <span>UPGRADE TO PRO</span></a>
-                </li> -->
-            </ul>
-        </div>
-    </div>
-</nav>
-<!-- END NAVBAR -->
 </body>
 </html>

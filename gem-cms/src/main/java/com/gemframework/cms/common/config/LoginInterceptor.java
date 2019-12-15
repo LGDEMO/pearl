@@ -20,12 +20,12 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-		log.info("进入LoginInterceptor拦截器==============");
+//		log.info("进入LoginInterceptor拦截器==============");
 		String basePath = request.getContextPath();
 		String path = request.getRequestURI();
-		log.info("basePath:" + basePath);
-		log.info("path:" + path);
-		log.info("userkey:"+request.getSession().getAttribute("SPRING_SECURITY_CONTEXT"));
+//		log.info("basePath:" + basePath);
+//		log.info("path:" + path);
+//		log.info("userkey:"+request.getSession().getAttribute("SPRING_SECURITY_CONTEXT"));
 
 		//1.从HttpServletRequest中获取SecurityContextImpl对象
 		SecurityContextImpl securityContextImpl = (SecurityContextImpl) request.getSession().getAttribute(SESSION_USERKEY);

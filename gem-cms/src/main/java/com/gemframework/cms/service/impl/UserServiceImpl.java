@@ -224,12 +224,15 @@ public class UserServiceImpl implements UserService {
      * @Date: 2019/12/10 11:22
      */
     private List<SimpleGrantedAuthority> createAuthorities(Long userId){
-        List<UserRolesVo> userRoles = userRolesService.findListByParams(new UserRolesVo(userId));
+        List<UserRolesVo> userRoles = userRolesService.findListByUserId(userId);
         List<SimpleGrantedAuthority> simpleGrantedAuthorities = new ArrayList<>();
         for (UserRolesVo userRolesVo : userRoles) {
             RoleVo role = roleService.getById(userRolesVo.getRoleId());
-            simpleGrantedAuthorities.add(new SimpleGrantedAuthority(GemConstant.Auth.ROLE_PREFIX +role.getFlag()));
+            if(role != null){
+                simpleGrantedAuthorities.add(new SimpleGrantedAuthority(GemConstant.Auth.ROLE_PREFIX +role.getFlag()));
+            }
         }
+        log.info("当前登录用户角色:{}",simpleGrantedAuthorities);
         return simpleGrantedAuthorities;
     }
 

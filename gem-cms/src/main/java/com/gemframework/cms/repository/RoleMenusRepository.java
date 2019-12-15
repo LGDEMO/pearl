@@ -22,4 +22,7 @@ public interface RoleMenusRepository extends JpaRepository<RoleMenus, Long> {
     @Query("select roleMenus from RoleMenus roleMenus where roleId = ?1")
     List<RoleMenus> findListByRoleId(Long roleId);
 
+    @Query("select roleMenus from RoleMenus roleMenus where roleId in ?1")
+    List<RoleMenus> findListByRoleIds(List<Long> roleIds);
+
 }

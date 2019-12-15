@@ -15,7 +15,7 @@ public class WebMvcConfig implements WebMvcConfigurer  {
      * 不需要登录拦截的url
      */
 //    final String[] notLoginInterceptPaths = {"/static/**","/admin/login","/error/**","/login"};
-    final String[] notLoginInterceptPaths = {"/static/**","/login"};
+    final String[] notLoginInterceptPaths = {"/static/**","/login","/error","/user/add"};
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {

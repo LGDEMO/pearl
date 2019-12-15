@@ -76,6 +76,21 @@ public class UserRolesServiceImpl implements UserRolesService {
     }
 
     /**
+     * @Title:  findListByUserId
+     * @MethodName:  findListByUserId
+     * @Param: [vo]
+     * @Retrun: java.util.List
+     * @Description: 根据用户ID查权限列表
+     * @Date: 2019-12-05 22:09:48
+     */
+    @Override
+    public List<UserRolesVo> findListByUserId(Long userId) {
+        List<UserRoles> list = userRolesRepository.findListByUserId(userId);
+        List<UserRolesVo> vos = GemBeanUtils.copyCollections(list,UserRolesVo.class);
+        return vos;
+    }
+
+    /**
      * @Title:  findPageAll
      * @MethodName:  findPageAll
      * @Param: [pageable]

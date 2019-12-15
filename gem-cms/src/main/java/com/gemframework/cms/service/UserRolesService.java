@@ -14,6 +14,8 @@ public interface UserRolesService {
 
     List<UserRolesVo> findListByParams(UserRolesVo vo);
 
+    List<UserRolesVo> findListByUserId(Long userId);
+
     List<UserRolesVo> findPageAll(Pageable pageable);
 
     List<UserRolesVo> findPageByParams(UserRolesVo vo, Pageable pageable);

@@ -1,14 +1,48 @@
 <!DOCTYPE html>
-<html lang="zh-cn" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-
-<head>
-    <meta charset="UTF-8">
-    <title>403</title>
+<html lang="zh-cn" class="fullscreen-bg" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/header::header(~{::title},~{::link},~{})">
+	<meta charset="UTF-8">
+	<title>403 | GemFrame开源权限管理系统v1.0.0</title>
+	<!-- Page CSS -->
+	<link rel="stylesheet" th:href="@{static/cms/assets/css/custompages/500.css}">
 </head>
+
 <body>
-<h2>403</h2>
-<div align="center">
-    没有权限~~~~~~~~
-</div>
+    <div class="wrapper">
+		<!-- Page Content Starts-->
+		<div class="content-wrapper">
+			<div class="mx-auto error-page">
+				<section class="container">
+					<div class="error-page text-center">
+						<h1 class="headline text-red"> 403</h1>
+						<div class="error-content">
+							<h3><i class="fa fa-warning text-red"></i> 哎呀！出了问题。</h3>
+							<p>
+								你没有权限访问！
+							</p>
+							<form class="search-form">
+								<div class="input-group">
+									<input name="search" class="form-control" placeholder="Search" type="text">
+									<div class="input-group-btn">
+										<button type="submit" name="submit" class="btn btn-danger btn-flat">
+											<i class="fa fa-search"></i>
+										</button>
+									</div>
+								</div>
+								<!-- /.input-group -->
+							</form>
+							<a href="index" class="btn btn-danger text-uppercase">返回首页</a>
+						</div>
+						<!-- /.error-content -->
+					</div>
+					<!-- /.error-page -->
+				</section>
+			</div>
+		</div>
+		<!-- Page Content Ends-->
+	</div>
+	<!-- Bootstrap JS -->
+	<div th:include="common/footer::foot_links"></div>
 </body>
+
 </html>

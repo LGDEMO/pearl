@@ -8,12 +8,13 @@ import org.springframework.security.core.session.SessionInformation;
 import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 /**
- * @Title: UserController.java
+ * @Title: LoginController.java
  * @Package: com.gemframework.gembasic.controller
  * @Date: 2019/11/28 18:03
  * @Version: v1.0
@@ -41,7 +42,8 @@ public class LoginController {
     }
 
     @GetMapping("/error")
-    public String error(){
+    public String error(Model model){
+        model.addAttribute("code","cc");
         return "eroor";
     }
 
@@ -61,6 +63,12 @@ public class LoginController {
     public String index(){
         log.info("=========主页");
         return "index";
+    }
+
+    @GetMapping({"/index2"})
+    public String index2(){
+        log.info("=========主页2");
+        return "index2";
     }
 
 }

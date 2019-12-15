@@ -197,27 +197,59 @@ public class RoleServiceImpl implements RoleService {
      */
     @Override
     public RoleVo getById(Long id) {
-        RoleVo roleVo = new RoleVo();
+        RoleVo roleVo = null;
         Role role = roleRepository.getById(id);
-        //查询roleOrgs
-        List<Org> orgsList = null;
-        List<RoleOrgs> roleOrgs = roleOrgsRepository.findListByRoleId(id);
-        for(RoleOrgs orgs:roleOrgs){
-            Org org = orgRepository.getById(orgs.getOrgId());
-            orgsList = new ArrayList<>();
-            orgsList.add(org);
+        if(role != null){
+            roleVo =  new RoleVo();
+            //查询roleOrgs
+            List<Org> orgsList = null;
+            List<RoleOrgs> roleOrgs = roleOrgsRepository.findListByRoleId(id);
+            for(RoleOrgs orgs:roleOrgs){
+                Org org = orgRepository.getById(orgs.getOrgId());
+                orgsList = new ArrayList<>();
+                orgsList.add(org);
+            }
+            role.setOrgs(orgsList);
+            //查询roleMenus
+            List<Menu> menusList = null;
+            List<RoleMenus> roleMenus = roleMenusRepository.findListByRoleId(id);
+            for(RoleMenus menus:roleMenus){
+                Menu menu = menuRepository.getById(menus.getRoleId());
+                menusList = new ArrayList<>();
+                menusList.add(menu);
+            }
+            role.setMenus(menusList);
+            GemBeanUtils.copyProperties(role,roleVo);
         }
-        role.setOrgs(orgsList);
-        //查询roleMenus
-        List<Menu> menusList = null;
-        List<RoleMenus> roleMenus = roleMenusRepository.findListByRoleId(id);
-        for(RoleMenus menus:roleMenus){
-            Menu menu = menuRepository.getById(menus.getRoleId());
-            menusList = new ArrayList<>();
-            menusList.add(menu);
+        return roleVo;
+    }
+
+    @Override
+    public RoleVo getByFlag(String flag) {
+        RoleVo roleVo = null;
+        Role role = roleRepository.getByFlag(flag);
+        if(role != null){
+            roleVo =  new RoleVo();
+            //查询roleOrgs
+            List<Org> orgsList = null;
+            List<RoleOrgs> roleOrgs = roleOrgsRepository.findListByRoleId(role.getId());
+            for(RoleOrgs orgs:roleOrgs){
+                Org org = orgRepository.getById(orgs.getOrgId());
+                orgsList = new ArrayList<>();
+                orgsList.add(org);
+            }
+            role.setOrgs(orgsList);
+            //查询roleMenus
+            List<Menu> menusList = null;
+            List<RoleMenus> roleMenus = roleMenusRepository.findListByRoleId(role.getId());
+            for(RoleMenus menus:roleMenus){
+                Menu menu = menuRepository.getById(menus.getRoleId());
+                menusList = new ArrayList<>();
+                menusList.add(menu);
+            }
+            role.setMenus(menusList);
+            GemBeanUtils.copyProperties(role,roleVo);
         }
-        role.setMenus(menusList);
-        GemBeanUtils.copyProperties(role,roleVo);
         return roleVo;
     }
 

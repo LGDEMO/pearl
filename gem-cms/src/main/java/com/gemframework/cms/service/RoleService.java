@@ -24,4 +24,6 @@ public interface RoleService {
 
     RoleVo getById(Long id);
 
+    RoleVo getByFlag(String flag);
+
 }

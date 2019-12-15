@@ -65,6 +65,7 @@ public class GemFilterSecurityInterceptor extends  AbstractSecurityInterceptor i
             "/404",
             "/500",
             "/error",
+            "/user/add",
             "/login"
     };
 
@@ -90,8 +91,7 @@ public class GemFilterSecurityInterceptor extends  AbstractSecurityInterceptor i
         if(SecurityContextHolder.getContext().getAuthentication()!= null){
             principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
         }
-        log.info("[权限拦截] 当前登录用户 user:{}", principal);
-//        log.info("[权限拦截] 当前用户角色：{}", JSON.toJSON(SecurityContextHolder.getContext().getAuthentication().getAuthorities()));
+        log.info("[权限拦截] 当前用户角色：{}", JSON.toJSON(SecurityContextHolder.getContext().getAuthentication().getAuthorities()));
         //如果是匿名用户
         if (GemConstant.Auth.ANONY_MOUS_USER.equals(principal)) {
             Cookie[] cookies = request.getCookies();

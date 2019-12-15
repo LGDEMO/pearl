@@ -1,11 +1,14 @@
 package com.gemframework.cms.service.impl;
 
 import com.gemframework.cms.model.po.User;
+import com.gemframework.cms.model.po.UserRoles;
+import com.gemframework.cms.model.vo.UserRolesVo;
 import com.gemframework.cms.model.vo.UserVo;
 import com.gemframework.cms.repository.UserRepository;
 import com.gemframework.bas.common.enums.ResultCode;
 import com.gemframework.bas.common.exception.GemException;
 import com.gemframework.bas.common.utils.GemBeanUtils;
+import com.gemframework.cms.repository.UserRolesRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -19,9 +22,7 @@ import org.springframework.security.crypto.scrypt.SCryptPasswordEncoder;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 /**
  * @Title: UserServiceImplTest.java
@@ -45,6 +46,8 @@ class UserServiceImplTest {
     private final static String PASSWORD_FORMAT = "{%s}%s";
     @Resource
     private UserRepository userRepository;
+    @Resource
+    private UserRolesRepository userRolesRepository;
     @Test
     void add() {
         UserVo vo = new UserVo();
@@ -82,5 +85,12 @@ class UserServiceImplTest {
         ENCODER_MAP.put("pbkdf2", new Pbkdf2PasswordEncoder());
         ENCODER_MAP.put("scrypt", new SCryptPasswordEncoder());
         ENCODER_MAP.put("sha256", new StandardPasswordEncoder());
+    }
+
+    @Test
+    List<UserRoles> findListByUserId(){
+        List<UserRoles> list = new ArrayList<>();
+        list = userRolesRepository.findListByUserId(1L);
+        return list;
     }
 }
