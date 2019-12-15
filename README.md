@@ -18,9 +18,13 @@ GemFrame基于SpringBoot、SpringSecurity及Spring周边的生态技术开发。
 
 #### 代码结构
 
-gem
- |——gem-bas 项目基础包
- |——gem-cms Web管理后台（含，权限管理，内容管理等）
+
+```
+gem 
+ |--gem-bas项目基础包
+ |--gem-cms Web管理后台（含，权限管理，内容管理等）
+
+```
 
 #### 项目特点
 - 基于最新的SpringCloud、Spring Boot生态技术，高度整合封装稳定、高效、安全的微服务解决方案
