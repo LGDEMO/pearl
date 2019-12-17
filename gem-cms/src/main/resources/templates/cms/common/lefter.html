@@ -15,7 +15,7 @@
                 <!--主菜单-->
                 <li th:each="menu,menuStat : ${session.menus}" th:class="${menu.childs}==null?'':'treeview'" th:classappend="${menu.active}=='1'?'active':''" >
                     <!--主菜单链接-->
-                    <a th:href="${menu.link}">
+                    <a th:href="${menu.link}" th:data-id="${menu.id}" th:data-pid="${menu.pid}">
                         <!--主菜单图标-->
                         <i th:classappend="${menu.icon}==null?'fa fa-circle-o':${menu.icon}"></i>
                         <!--主菜单名称-->
@@ -30,7 +30,7 @@
                         <!--二级子菜单-->
                         <li th:each="submenu,submenuStat : ${menu.childs}" th:class="${submenu.childs}==null?'':'treeview'" th:classappend="${submenu.active}=='1'?'active':''" >
                             <!--二级子菜单链接-->
-                            <a th:href="${submenu.link}">
+                            <a th:href="${submenu.link}" th:data-id="${submenu.id}" th:data-pid="${submenu.pid}" >
                                 <!--二级子菜单图标-->
                                 <i th:classappend="${menu.icon}==null?'fa fa-circle-o':${menu.icon}"></i>
                                 <!--二级子菜单名称-->
@@ -45,7 +45,7 @@
                                 <!--三级子菜单-->
                                 <li th:each="threeMenu,threeMenuStat : ${submenu.childs}" th:class="${threeMenu.childs}==null?'':'treeview'" th:classappend="${threeMenu.active}=='1'?'active':''" >
                                     <!--三级子菜单链接-->
-                                    <a th:href="${threeMenu.link}">
+                                    <a th:href="${threeMenu.link}" th:data-id="${threeMenu.id}" th:data-pid="${threeMenu.pid}" >
                                         <!--三级子菜单图标-->
                                         <i th:classappend="${threeMenu.icon}==null?'fa fa-circle-o':${threeMenu.icon}"></i>
                                         <!--三级子菜单名称-->
@@ -60,7 +60,7 @@
                                         <!--四级子菜单-->
                                         <li th:each="fourMenu,fourMenuStat : ${threeMenu.childs}" th:class="${fourMenu.childs}==null?'':'treeview'" th:classappend="${fourMenu.active}=='1'?'active':''" >
                                             <!--四级子菜单链接-->
-                                            <a th:href="${fourMenu.link}">
+                                            <a th:href="${fourMenu.link}" th:data-id="${fourMenu.id}" th:data-pid="${fourMenu.pid}" >
                                                 <!--四级子菜单图标-->
                                                 <i th:classappend="${fourMenu.icon}==null?'fa fa-circle-o':${fourMenu.icon}"></i>
                                                 <!--四级子菜单名称-->

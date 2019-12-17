@@ -5,7 +5,7 @@
 <body>
 <!-- MAIN -->
 <!-- Page Content Starts -->
-<div th:fragment="main" class="content-wrapper">
+<div th:fragment="userinfo" class="content-wrapper">
 
     <section class="content-header">
         <h1>
@@ -313,16 +313,16 @@
             <!-- Social Section Ends -->
         </div>
     </div>
-
-    <div class="main_links">
-        <!-- main Page JS -->
-        <script th:src="@{static/cms/assets/js/charts/Chart.bundle.min.js}"></script>
-        <script th:src="@{static/cms/assets/js/charts/bar/grouped-bar-chart.js}"></script>
-        <script th:src="@{static/cms/assets/js/charts/pie/doughnut-chart-multiline.js}"></script>
-        <script th:src="@{static/cms/assets/js/dashboard/dashboard1.js}"></script>
-    </div>
 </div>
 <!-- Page Content Ends -->
 <!-- END MAIN -->
+
+<div th:fragment="main_links">
+    <!-- Page JS -->
+    <script th:src="@{static/cms/assets/js/charts/Chart.bundle.min.js}"></script>
+    <script th:src="@{static/cms/assets/js/charts/bar/grouped-bar-chart.js}"></script>
+    <script th:src="@{static/cms/assets/js/charts/pie/doughnut-chart-multiline.js}"></script>
+    <script th:src="@{static/cms/assets/js/dashboard/dashboard1.js}"></script>
+</div>
 </body>
 </html>

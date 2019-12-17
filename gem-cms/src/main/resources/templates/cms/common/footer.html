@@ -1,16 +1,10 @@
 <!doctype html>
 <html lang="zh-cn" class="fullscreen-bg" xmlns:th="http://www.thymeleaf.org">
 <!--公共js-->
-<div th:fragment="foot_links">
+<div th:fragment="common_links">
     <!-- Bootstrap JS -->
     <script th:src="@{static/cms/assets/js/jquery/jquery.min.js}"></script>
     <script th:src="@{http://cdn.bootstrapmb.com/bootstrap/4.1.0/js/bootstrap.min.js}"></script>
-
-    <!-- jQuery CDN - Slim version (=without AJAX) -->
-    <script src="static/cms/assets/js/jquery/slim.min.js"></script>
-    <!-- Theme JS -->
-    <script src="static/cms/assets/js/nanoscroller/nanoscroller.js"></script>
-    <script src="static/cms/assets/js/custom/theme.js"></script>
 </div>
 <!--底部版权-->
 <!-- Footer Section Starts -->
@@ -20,7 +14,7 @@
     </div>
     <p class="mb-0">Copyright © [[${#dates.format(new java.util.Date().getTime(), 'yyyy')}]]
         <a target="_blank" href="http://www.gemframework.com/">GemFrame</a>. All rights
-        reserved.</p>
+        reserved.<span th:text="${haha}" ></span></p>
 </footer>
 <!-- Footer Section Ends -->
 </html>

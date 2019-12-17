@@ -20,5 +20,14 @@
     <th:block th:replace="${styles}"/>
 </head>
 <body>
+<!--公共js-->
+<div th:fragment="head_links">
+    <!-- Custom CSS Starts -->
+    <link rel="stylesheet" th:href="@{static/cms/assets/css/skin/all-skins.css}">
+    <link rel="stylesheet" th:href="@{static/cms/assets/css/general/style.css}">
+    <link rel="stylesheet" th:href="@{static/cms/assets/css/sidebar/side-nav.css}">
+    <link rel="stylesheet" th:href="@{static/cms/assets/css/fonts/fonts-style.css}">
+    <link rel="stylesheet" th:href="@{static/cms/assets/css/nanoscroller/nanoscroller.css}">
+</div>
 </body>
 </html>

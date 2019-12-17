@@ -44,7 +44,7 @@ public class LoginController {
     @GetMapping("/error")
     public String error(Model model){
         model.addAttribute("code","cc");
-        return "eroor";
+        return "error";
     }
 
     @GetMapping("/403")
@@ -69,6 +69,19 @@ public class LoginController {
     public String index2(){
         log.info("=========主页2");
         return "index2";
+    }
+
+    @GetMapping({"/boxed"})
+    public String layout(){
+        log.info("=========主页3");
+        return "layout/boxed";
+    }
+
+    @GetMapping({"/user"})
+    public String userInfo(Model model){
+        model.addAttribute("haha","user/user::userinfo");
+//        model.addAttribute("page","~{user/user::userinfo}");
+        return "index";
     }
 
 }

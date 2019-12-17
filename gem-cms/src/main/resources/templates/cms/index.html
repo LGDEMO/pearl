@@ -1,16 +1,18 @@
 ﻿<!DOCTYPE html>
 <html lang="zh-cn" class="fullscreen-bg" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="common/header::header(~{::title},~{::link},~{})">
-	<meta charset="UTF-8">
 	<title>首页 | GemFrame开源权限管理系统v1.0.0</title>
 	<!-- Page CSS -->
 	<link rel="stylesheet" href="static/cms/assets/css/dashboard/dashboard1.css">
-	<!-- Custom CSS Starts -->
-	<link rel="stylesheet" th:href="@{static/cms/assets/css/skin/all-skins.css}">
-	<link rel="stylesheet" th:href="@{static/cms/assets/css/general/style.css}">
-	<link rel="stylesheet" th:href="@{static/cms/assets/css/sidebar/side-nav.css}">
-	<link rel="stylesheet" th:href="@{static/cms/assets/css/fonts/fonts-style.css}">
-	<link rel="stylesheet" th:href="@{static/cms/assets/css/nanoscroller/nanoscroller.css}">
+	<div th:replace="common/header::head_links"></div>
+	<!--JS加载开始-->
+	<!-- jQuery CDN - Slim version (=without AJAX) -->
+	<script th:src="@{static/cms/assets/js/jquery/slim.min.js}"></script>
+	<!-- Popper.JS -->
+	<script th:src="@{static/cms/assets/js/jquery/popper.min.js}"></script>
+	<!-- Bootstrap JS -->
+	<div th:include="common/footer::common_links"></div>
+
 </head>
 
 <body class="sidebar-mini fixed skin-blue">
@@ -18,21 +20,26 @@
 
 		<div th:replace="~{common/topbar::nav}"></div>
         <div th:replace="~{common/lefter::left_sidebar}"></div>
-        <div th:replace="~{common/main::main}"></div>
+
+        <!--<div id="page_main2" th:if="page != null" th:replace="~{user/user::userinfo}"></div>-->
+        <!--<div id="page_main2" th:if="${haha} != null" th:replace=[[${haha}]]></div>-->
+        <div th:if="${haha} == null">
+        	<div th:replace="~{common/main::main}"></div>
+		</div>
+        <div th:if="${haha} != null">
+        	<div th:replace="user/user::userinfo"></div>
+		</div>
 		<!-- Back to Top Starts -->
 		<a href="javascript:" id="return-to-top"><i class="fa fa-arrow-up" aria-hidden="true"></i></a>
 		<!-- Back to Top Ends -->
-		<div th:replace="~{common/footer::foot}"></div>
+		<div th:replace="~{common/footer::foot}">
+
+		</div>
 	</div>
 
-	<div th:include="common/footer::foot_links"></div>
-	<!-- Popper.JS -->
-	<script src="static/cms/assets/js/jquery/popper.min.js"></script>
-	<!-- Page JS -->
-	<script src="static/cms/assets/js/charts/Chart.bundle.min.js"></script>
-	<script src="static/cms/assets/js/charts/bar/grouped-bar-chart.js"></script>
-	<script src="static/cms/assets/js/charts/pie/doughnut-chart-multiline.js"></script>
-	<script src="static/cms/assets/js/dashboard/dashboard1.js"></script>
+	<!-- Theme JS -->
+	<script src="static/cms/assets/js/nanoscroller/nanoscroller.js"></script>
+	<script src="static/cms/assets/js/custom/theme.js"></script>
+	<script src="static/cms/assets/js/custom/utils.js"></script>
 </body>
-
 </html>
