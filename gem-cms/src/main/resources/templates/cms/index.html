@@ -13,30 +13,20 @@
 	<!-- Bootstrap JS -->
 	<div th:include="common/footer::common_links"></div>
 
+
 </head>
 
 <body class="sidebar-mini fixed skin-blue">
     <div class="wrapper">
-
 		<div th:replace="~{common/topbar::nav}"></div>
         <div th:replace="~{common/lefter::left_sidebar}"></div>
-
-        <!--<div id="page_main2" th:if="page != null" th:replace="~{user/user::userinfo}"></div>-->
-        <!--<div id="page_main2" th:if="${haha} != null" th:replace=[[${haha}]]></div>-->
-        <div th:if="${haha} == null">
-        	<div th:replace="~{common/main::main}"></div>
-		</div>
-        <div th:if="${haha} != null">
-        	<div th:replace="user/user::userinfo"></div>
-		</div>
+        <div th:replace="~{common/main::main}"></div>
 		<!-- Back to Top Starts -->
 		<a href="javascript:" id="return-to-top"><i class="fa fa-arrow-up" aria-hidden="true"></i></a>
 		<!-- Back to Top Ends -->
 		<div th:replace="~{common/footer::foot}">
-
 		</div>
 	</div>
-
 	<!-- Theme JS -->
 	<script src="static/cms/assets/js/nanoscroller/nanoscroller.js"></script>
 	<script src="static/cms/assets/js/custom/theme.js"></script>

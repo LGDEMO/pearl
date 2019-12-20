@@ -3,6 +3,7 @@ package com.gemframework.cms.service.impl;
 import com.gemframework.bas.common.enums.ResultCode;
 import com.gemframework.bas.common.exception.GemException;
 import com.gemframework.bas.common.utils.GemBeanUtils;
+import com.gemframework.cms.common.enums.MenuType;
 import com.gemframework.cms.model.po.Menu;
 import com.gemframework.cms.model.po.Role;
 import com.gemframework.cms.model.po.RoleMenus;
@@ -43,6 +44,14 @@ public class MenuServiceImpl implements MenuService {
         Menu menu = new Menu();
         GemBeanUtils.copyProperties(vo,menu);
         menu = menuRepository.save(menu);
+        MenuVo parentVo = getById(vo.getPid());
+        if(parentVo != null && parentVo.getIdPath() != null){
+            menu.setIdPath(parentVo.getIdPath()+"-"+vo.getId());
+        }else{
+            menu.setIdPath(String.valueOf(vo.getId()));
+        }
+        //更新idpath
+        menu = menuRepository.save(menu);
         GemBeanUtils.copyProperties(menu,vo);
         return vo;
     }
@@ -59,8 +68,14 @@ public class MenuServiceImpl implements MenuService {
     public List<MenuVo> findListAll() {
         List<Menu> list = menuRepository.findAll();
         List<MenuVo> vos = GemBeanUtils.copyCollections(list,MenuVo.class);
+        for(MenuVo vo :vos){
+            if(vo.getIdPath().lastIndexOf("-")>0){
+                vo.setParentIdPath(vo.getIdPath().substring(0,vo.getIdPath().lastIndexOf("-")));
+            }
+        }
         return vos;
     }
+
 
     /**
      * @Title:  findListByParams
@@ -93,6 +108,11 @@ public class MenuServiceImpl implements MenuService {
         return menusToTree(list);
     }
 
+    /**
+     * 获取资源列表
+     * @param roles
+     * @return
+     */
     @Override
     public List<MenuVo> findListByRoles(List<RoleVo> roles) {
         List<MenuVo> list = new ArrayList<>();
@@ -100,12 +120,44 @@ public class MenuServiceImpl implements MenuService {
         for(RoleVo role:roles){
             roleIds.add(role.getId());
         }
-        log.info("====================="+roleIds);
         List<RoleMenus> roleMenus = roleMenusRepository.findListByRoleIds(roleIds);
         for(RoleMenus role:roleMenus){
             Long menuId = role.getMenuId();
-            MenuVo vo = GemBeanUtils.copyProperties(menuRepository.getById(menuId),MenuVo.class);
-            list.add(vo);
+            Menu menu = menuRepository.getById(menuId, MenuType.MENU.getCode());
+            if(menu != null){
+                MenuVo vo = GemBeanUtils.copyProperties(menu,MenuVo.class);
+                list.add(vo);
+            }
+        }
+        //list去重
+        Set set = new HashSet();
+        set.addAll(list);
+        list.clear();
+        list.addAll(set);
+        Collections.sort(list);
+        return list;
+    }
+
+    /**
+     * 获取树列表
+     * @param roles
+     * @return
+     */
+    @Override
+    public List<MenuVo> findTreeByRoles(List<RoleVo> roles) {
+        List<MenuVo> list = new ArrayList<>();
+        List<Long> roleIds = new ArrayList<>();
+        for(RoleVo role:roles){
+            roleIds.add(role.getId());
+        }
+        List<RoleMenus> roleMenus = roleMenusRepository.findListByRoleIds(roleIds);
+        for(RoleMenus role:roleMenus){
+            Long menuId = role.getMenuId();
+            Menu menu = menuRepository.getById(menuId, MenuType.MENU.getCode());
+            if(menu != null){
+                MenuVo vo = GemBeanUtils.copyProperties(menu,MenuVo.class);
+                list.add(vo);
+            }
         }
         //list去重
         Set set = new HashSet();
@@ -212,24 +264,26 @@ public class MenuServiceImpl implements MenuService {
      * @Description:
      * @Date: 2019/12/15 13:24
      */
-    private List<MenuVo> menusToTree(List<MenuVo> vos){
+    public static List<MenuVo> menusToTree(List<MenuVo> vos){
 
         List<MenuVo> menuVos = new ArrayList<MenuVo>();
         //list to tree
         for (MenuVo menus : vos) {
-            if(menus.getPid() == null){
+            if(menus.getPid() == null || menus.getPid() == 0){
                 menuVos.add(menus);
             }
             for (MenuVo subMenus : vos) {
-                if(subMenus.getPid()!=null){
+                if(subMenus.getPid() != null && subMenus.getPid() != 0){
                     if(subMenus.getPid().equals(menus.getId())){
+                        List<MenuVo> childs = new ArrayList<MenuVo>();
                         if(menus.getChilds() == null){
-                            List<MenuVo> childs = new ArrayList<MenuVo>();
                             childs.add(subMenus);
                             menus.setChilds(childs);
                         }else{
                             menus.getChilds().add(subMenus);
                         }
+                    }else{
+                        menus.setChilds(new ArrayList<MenuVo>());
                     }
                 }
             }

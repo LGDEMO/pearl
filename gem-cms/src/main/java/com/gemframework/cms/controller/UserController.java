@@ -9,6 +9,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,8 +29,8 @@ import java.util.List;
  */
 
 @Slf4j
-@RestController
-@RequestMapping("user")
+@Controller
+//@RequestMapping("user")
 public class UserController {
 
     @Autowired
@@ -135,11 +137,13 @@ public class UserController {
      * @PageableDefault(page = 0, size = 2)
      * @Date: 2019/11/29 16:38
      */
-    @GetMapping("page")
-    public BaseResult page(Pageable pageable){
+    @GetMapping("/user")
+    public String page(Pageable pageable, Model model){
         Page<User> page =  userService.findPageAll(pageable);
         List list = page.getContent();
-        return BaseResult.SUCCESS(list);
+        log.info("=================="+list);
+        model.addAttribute("users",list);
+        return "user/user";
     }
 
     /**

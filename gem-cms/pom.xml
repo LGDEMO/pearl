@@ -106,8 +106,24 @@
                 </configuration>
             </plugin>
         </plugins>
+        <!-- 解决字体文件 -->
+        <resources>
+            <resource>
+                <directory>/src/main/resources</directory>
+                <filtering>true</filtering>
+                <excludes>
+                    <exclude>static/**/fonts/**</exclude>
+                </excludes>
+            </resource>
+            <resource>
+                <directory>/src/main/resources</directory>
+                <filtering>false</filtering>
+                <includes>
+                    <include>static/**/fonts/**</include>
+                </includes>
+            </resource>
+        </resources>
     </build>
-
 
     <!-- 使用aliyun maven -->
     <repositories>
@@ -117,4 +133,5 @@
             <url>http://maven.aliyun.com/nexus/content/groups/public</url>
         </repository>
     </repositories>
+
 </project>

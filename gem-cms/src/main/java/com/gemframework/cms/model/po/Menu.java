@@ -38,10 +38,10 @@ public class Menu extends BasePo {
     @Column(columnDefinition = "tinyint(1) comment '级别，最大支持三级'")
     private Integer level;
     //图标
-    @Column(columnDefinition = "varchar(10) comment '图标'")
+    @Column(columnDefinition = "varchar(30) comment '图标'")
     private String icon;
     //父级ID
-    @Column(columnDefinition = "bigint(20) comment '父级ID'")
+    @Column(columnDefinition = "bigint(20) default 0 comment '父级ID'" )
     private Long pid;
     //是否选中 0 未选中 1 选中
     @Column(columnDefinition = "tinyint(1) comment '是否选中 0 未选中 1 选中'")
@@ -49,6 +49,10 @@ public class Menu extends BasePo {
     //排序
     @Column(columnDefinition = "int(10) comment '排序编号'")
     private Integer sortNumber;
+    //排序
+    @Column(columnDefinition = "varchar(20) comment 'ID路径'")
+    //路径 1-2-1
+    private String idPath;
 
     @Transient
     List<Menu> childs;
@@ -113,21 +117,12 @@ public class Menu extends BasePo {
         return icon;
     }
 
-    @Override
-    public String toString() {
-        return "Menu{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", tag='" + tag + '\'' +
-                ", link='" + link + '\'' +
-                ", type='" + type + '\'' +
-                ", level=" + level +
-                ", icon='" + icon + '\'' +
-                ", pid=" + pid +
-                ", active=" + active +
-                ", sortNumber=" + sortNumber +
-                ", childs=" + childs +
-                '}';
+    public String getIdPath() {
+        return idPath;
+    }
+
+    public void setIdPath(String idPath) {
+        this.idPath = idPath;
     }
 
     public void setIcon(String icon) {
@@ -156,5 +151,23 @@ public class Menu extends BasePo {
 
     public void setChilds(List<Menu> childs) {
         this.childs = childs;
+    }
+
+    @Override
+    public String toString() {
+        return "Menu{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", tag='" + tag + '\'' +
+                ", link='" + link + '\'' +
+                ", type=" + type +
+                ", level=" + level +
+                ", icon='" + icon + '\'' +
+                ", pid=" + pid +
+                ", active=" + active +
+                ", sortNumber=" + sortNumber +
+                ", idPath='" + idPath + '\'' +
+                ", childs=" + childs +
+                '}';
     }
 }

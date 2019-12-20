@@ -1,0 +1,26 @@
+﻿<!DOCTYPE html>
+<html lang="zh-cn" class="fullscreen-bg" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>首页 | GemFrame开源权限管理系统v1.0.0</title>
+    <div th:replace="common/links::common_links"></div>
+    <link rel="stylesheet" href="static/access/css/font-awesome.min.css">
+    <link rel="stylesheet" href="static/access/css/index.css">
+    <link rel="stylesheet" href="static/access/css/skins/_all-skins.css">
+</head>
+<body class="hold-transition skin-blue sidebar-mini" style="overflow:hidden;">
+    <div id="ajax-loader" style="cursor: progress; position: fixed; top: -50%; left: -50%; width: 200%; height: 200%; background: #fff; z-index: 10000; overflow: hidden;">
+        <img src="static/access/img/ajax-loader.gif" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; margin: auto;" />
+    </div>
+    <div class="wrapper">
+        <!--头部信息-->
+        <div th:replace="common/header::head_navbar"></div>
+        <!--左边导航-->
+        <div th:replace="common/lefter::left_sidebar"></div>
+        <!--中间内容-->
+        <div th:replace="common/main::main"></div>
+
+    </div>
+    <div th:replace="common/links::common_script"></div>
+    <script src="static/access/js/index.js"></script>
+</body>
+</html>

@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html lang="zh-cn" class="fullscreen-bg" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>首页 | GemFrame开源权限管理系统v1.0.0</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+</head>
+
+<body>
+    <!--头部信息-->
+    <header th:fragment="head_navbar" class="main-header">
+        <a href="javascript:void (0)" class="logo">
+            <span class="logo-mini"><b>G</b>em</span>
+            <span class="logo-lg">Gem权限管理系统</span>
+        </a>
+        <nav class="navbar navbar-static-top" data-toggle="push-menu" role="button">
+            <div class="sidebar-toggle">
+                <span class="sr-only">切换导航</span>
+            </div>
+            <!--<input id="menus" type="text" th:value=${session.menus}/>-->
+            <span class="index_top"><strong></strong></span>
+            <div class="navbar-custom-menu">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown messages-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa fa-envelope-o "></i>
+                            <span class="label label-success">4</span>
+                        </a>
+                    </li>
+                    <li class="dropdown notifications-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa fa-bell-o"></i>
+                            <span class="label label-warning">10</span>
+                        </a>
+                    </li>
+                    <li class="dropdown tasks-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa fa-flag-o"></i>
+                            <span class="label label-danger">9</span>
+                        </a>
+                    </li>
+                    <li class="dropdown user user-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <img src="static/access/img/user2-160x160.jpg" class="user-image" alt="User Image">
+                            <span class="hidden-xs" th:text=${session.session_username}></span>
+
+                        </a>
+                        <ul class="dropdown-menu pull-right">
+                            <li><a class="menuItem" data-id="userInfo" href=""><i class="fa fa-user"></i>个人信息</a></li>
+                            <li><a><i class="fa fa-trash-o"></i>清空缓存</a></li>
+                            <li id="color"><a><i class="fa fa-paint-brush"></i>皮肤设置</a>
+                                <div style="position: absolute;left:-90px;top:50px;border: 1px #eee solid;box-shadow: 0 6px 12px
+                                rgba(0,0,0,.175);display: none" id="color_div">
+                                    <ul class="color_ul">
+                                        <li style="background-color: #faff70;color:green"></li>
+                                        <li style="background-color: #3c8dbc;color: #3c8dbc"></li>
+                                        <li style="background-color: red;color: red"></li>
+                                        <li style="background-color: green;color:green"></li>
+                                        <li style="background-color: #3c8dbc;color: #3c8dbc"></li>
+                                        <li style="background-color: red;color: red"></li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <script src="static/access/js/jquery/jQuery-2.2.0.min.js"></script>
+
+                            <style>
+
+                            </style>
+                            <li class="divider"></li>
+                            <li><a th:href="@{/logout}"><i class="ace-icon fa fa-power-off"></i>安全退出</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+</body>
+</html>

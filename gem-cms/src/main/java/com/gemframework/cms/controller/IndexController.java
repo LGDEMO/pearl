@@ -1,6 +1,7 @@
 package com.gemframework.cms.controller;
 
 import com.gemframework.bas.model.BaseResult;
+import com.gemframework.cms.model.vo.MenuData;
 import com.gemframework.cms.model.vo.MenuVo;
 import com.gemframework.cms.model.vo.RoleVo;
 import com.gemframework.cms.service.MenuService;
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,11 +36,13 @@ public class IndexController {
     @Resource
     private MenuService menuService;
 
-    @GetMapping("/initMenus1")
-    public BaseResult initMenus(){
-        return BaseResult.SUCCESS(menuService.findListByRoleId(1L));
-    }
     @GetMapping("/initMenus")
+    public BaseResult initMenus(HttpServletRequest request){
+        List<MenuData> list = (List<MenuData>) request.getSession().getAttribute("session_menus");
+        log.info("返回="+BaseResult.SUCCESS(list));
+        return BaseResult.SUCCESS(list);
+    }
+    @GetMapping("/initMenus1")
     public BaseResult initMenus2(){
         List<RoleVo> roles = new ArrayList<>();
         RoleVo a = new RoleVo();

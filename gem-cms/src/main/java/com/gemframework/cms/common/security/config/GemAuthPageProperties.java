@@ -7,15 +7,20 @@ import org.springframework.stereotype.Component;
 @Data
 @Component
 @ConfigurationProperties("gem.auth")
-public class GemAuthPageProperties {
+public class GemAuthPageProperties{
 
-	private String indexPage;
+	//首页路径
+	private String indexPage = "/index";;
 
-	private String loginPage;
+	//登录页路径
+	private String loginPage = "/login";;
 
-	private String errorPage;
+	//错误页面路径
+	private String errorPage = "/error";;
 
-	private String deniedPage;
+	//拒绝访问路径
+	private String deniedPage = "/403";;
 
-	private String nofoundPage;
+	//找不到路径
+	private String nofoundPage = "/404";;
 }

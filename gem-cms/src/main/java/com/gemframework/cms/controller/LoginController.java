@@ -49,7 +49,6 @@ public class LoginController {
 
     @GetMapping("/403")
     public String denied(){
-        log.info("拒绝访问..");
         return "403";
     }
 
@@ -59,16 +58,16 @@ public class LoginController {
         return "404";
     }
 
-    @GetMapping({"/index", "/home"})
+    @GetMapping({"/index"})
     public String index(){
         log.info("=========主页");
         return "index";
     }
 
-    @GetMapping({"/index2"})
+    @GetMapping({"/home"})
     public String index2(){
         log.info("=========主页2");
-        return "index2";
+        return "home";
     }
 
     @GetMapping({"/boxed"})
@@ -77,11 +76,10 @@ public class LoginController {
         return "layout/boxed";
     }
 
-    @GetMapping({"/user"})
-    public String userInfo(Model model){
-        model.addAttribute("haha","user/user::userinfo");
-//        model.addAttribute("page","~{user/user::userinfo}");
-        return "index";
-    }
+//    @GetMapping({"/user"})
+//    public String userInfo(Model model){
+//
+//        return "user/user";
+//    }
 
 }

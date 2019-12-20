@@ -49,9 +49,6 @@ public class GemFilterSecurityInterceptor extends  AbstractSecurityInterceptor i
     @Resource
     private UserService userService;
 
-    @Autowired
-    private GemAuthPageProperties gemAuthPageProperties;
-
     @Resource
     private GemAuthenticationManager gemAuthenticationManager;
 
@@ -60,13 +57,21 @@ public class GemFilterSecurityInterceptor extends  AbstractSecurityInterceptor i
 
     //针对某些接口放白名单
     private String[] ignoreStartUris = new String[]{
-            "/static/",
+//            "/static",
+//            getGemAuthPageProperties().getDeniedPage(),
+//            getGemAuthPageProperties().getNofoundPage(),
+//            getGemAuthPageProperties().getErrorPage(),
+//            getGemAuthPageProperties().getLoginPage(),
+//            getGemAuthPageProperties().getIndexPage(),
+            "/static",
             "/403",
             "/404",
-            "/500",
             "/error",
+            "/login",
+            "/index",
             "/user/add",
-            "/login"
+            "/initMenus",
+            "/menu/list",
     };
 
     @Override
@@ -81,6 +86,7 @@ public class GemFilterSecurityInterceptor extends  AbstractSecurityInterceptor i
         HttpServletRequest request = fi.getHttpRequest();
         HttpServletResponse response = fi.getHttpResponse();
         String url = request.getServletPath();
+        log.info("请求url=="+url);
         if (StringUtils.startsWithAny(url, ignoreStartUris)) {
             //执行下一个拦截器
             fi.getChain().doFilter(fi.getRequest(), fi.getResponse());
@@ -91,16 +97,14 @@ public class GemFilterSecurityInterceptor extends  AbstractSecurityInterceptor i
         if(SecurityContextHolder.getContext().getAuthentication()!= null){
             principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
         }
-        log.info("[权限拦截] 当前用户角色：{}", JSON.toJSON(SecurityContextHolder.getContext().getAuthentication().getAuthorities()));
         //如果是匿名用户
         if (GemConstant.Auth.ANONY_MOUS_USER.equals(principal)) {
             Cookie[] cookies = request.getCookies();
             if (cookies == null) {
                 //如果没有登录，跳转登录
-                getRedirectStrategy().sendRedirect(request, response, gemAuthPageProperties.getLoginPage());
+                getRedirectStrategy().sendRedirect(request, response, "/login");
                 return;
             }
-            log.info("[权限拦截] cookies========:{}", cookies);
             String sessionId = null;
             for (Cookie cookie : cookies) {
                 if (cookie.getName().equals(GemConstant.Auth.COOKIES_TOKEN_NAME)) {
@@ -108,10 +112,9 @@ public class GemFilterSecurityInterceptor extends  AbstractSecurityInterceptor i
                     break;
                 }
             }
-            log.info("[权限拦截] sessionId========:{}", sessionId);
             if(sessionId == null){
                 //如果没有登录，跳转登录
-                getRedirectStrategy().sendRedirect(request, response, gemAuthPageProperties.getLoginPage());
+                getRedirectStrategy().sendRedirect(request, response, "/login");
                 return;
             }
 
@@ -125,11 +128,10 @@ public class GemFilterSecurityInterceptor extends  AbstractSecurityInterceptor i
             } else {
                 log.info("[权限校验] 当前用户未登录");
                 //跳转到登录页
-                getRedirectStrategy().sendRedirect(request,response,gemAuthPageProperties.getLoginPage());
+                getRedirectStrategy().sendRedirect(request,response,"/login");
                 return;
 
             }
-            log.info("[权限拦截] 给用户授权结束========");
         }
 
         //fi里面有一个被拦截的url
@@ -139,7 +141,7 @@ public class GemFilterSecurityInterceptor extends  AbstractSecurityInterceptor i
         //没有权限跳转403
         if (token == null) {
             log.info("[权限拦截] token空跳转拒绝访问========:{}", token);
-            getRedirectStrategy().sendRedirect(request, response, gemAuthPageProperties.getDeniedPage());
+            getRedirectStrategy().sendRedirect(request, response, "/login");
             return;
         }
 

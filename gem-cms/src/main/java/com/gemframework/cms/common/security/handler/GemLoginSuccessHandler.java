@@ -1,8 +1,10 @@
 package com.gemframework.cms.common.security.handler;
 
+import com.alibaba.fastjson.JSON;
 import com.gemframework.bas.common.constant.GemConstant;
 import com.gemframework.bas.model.BaseResult;
 import com.gemframework.cms.common.security.config.GemAuthPageProperties;
+import com.gemframework.cms.model.vo.MenuData;
 import com.gemframework.cms.model.vo.MenuVo;
 import com.gemframework.cms.model.vo.RoleVo;
 import com.gemframework.cms.service.MenuService;
@@ -18,6 +20,7 @@ import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
+import springfox.documentation.spring.web.json.Json;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -63,10 +66,27 @@ public class GemLoginSuccessHandler extends SavedRequestAwareAuthenticationSucce
         }
         if(roles != null && roles.size() > 0){
             List<MenuVo> menus = menuService.findListByRoles(roles);
-            request.getSession().setAttribute("menus",menus);
-            log.info("=========================>"+menus);
+            List<MenuVo> menusTree = menuService.findTreeByRoles(roles);
+            if(menus!=null && menus.size()>0){
+                List<MenuData> menuDatas = new ArrayList<>();
+                for(MenuVo menuVo:menus){
+                    MenuData menuData = MenuData.builder()
+                            .F_ModuleId(String.valueOf(menuVo.getId()))
+                            .F_ParentId(String.valueOf(menuVo.getPid()))
+                            .F_EnCode(menuVo.getTag())
+                            .F_FullName(menuVo.getName())
+                            .F_Icon(menuVo.getIcon())
+                            .F_UrlAddress(menuVo.getLink()).build();
+                    menuDatas.add(menuData);
+                }
+                request.getSession().setAttribute("session_menus",menuDatas);
+            }
+                log.info("JSON.toJSONString(menus)==========================>"+JSON.toJSONString(menus));
+                log.info("JSON.toJSONString(menusTree)==========================>"+JSON.toJSONString(menusTree));
+                request.getSession().setAttribute("session_menus_list", menus);
+                request.getSession().setAttribute("session_menus_tree", menusTree);
         }
-        request.getSession().setAttribute("username",getCurrentUsername());
+        request.getSession().setAttribute("session_username",getCurrentUsername());
         //如果没有登录，跳转登录
         getRedirectStrategy().sendRedirect(request, response, gemAuthPageProperties.getIndexPage());
     }

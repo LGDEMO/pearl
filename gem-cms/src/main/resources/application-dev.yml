@@ -17,7 +17,6 @@ gem:
     nofound-page: /404
     index-page: /index
 
-
 #
 #  redis:
 #    open: false
@@ -47,7 +46,7 @@ spring:
 #      suffix: .html
 
   thymeleaf:
-    prefix: classpath:/templates/cms/
+    prefix: classpath:/templates/access/
     suffix: .html
     encoding: UTF-8
     mode: HTML

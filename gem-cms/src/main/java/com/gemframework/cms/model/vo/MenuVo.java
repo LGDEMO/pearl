@@ -2,11 +2,13 @@ package com.gemframework.cms.model.vo;
 
 import com.gemframework.bas.model.vo.BaseVo;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,6 +25,7 @@ import java.util.List;
 
 @Data
 @NoArgsConstructor
+@EqualsAndHashCode(callSuper = false)
 public class MenuVo extends BaseVo implements Comparable<MenuVo>{
 
     private Long id;
@@ -47,7 +50,10 @@ public class MenuVo extends BaseVo implements Comparable<MenuVo>{
     private Integer sortNumber;
 
     List<MenuVo> childs;
-
+    //路径 1-2-1
+    private String idPath;
+    //父级的路径 1-2-1
+    private String parentIdPath;
 
     @Override
     public int compareTo(MenuVo o) {

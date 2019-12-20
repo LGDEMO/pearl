@@ -19,6 +19,8 @@ public interface MenuService {
 
     List<MenuVo> findListByRoles(List<RoleVo> roles);
 
+    List<MenuVo> findTreeByRoles(List<RoleVo> roles);
+
     List<MenuVo> findPageAll(Pageable pageable);
 
     List<MenuVo> findPageByParams(MenuVo vo, Pageable pageable);

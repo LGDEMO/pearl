@@ -34,7 +34,7 @@
                                 <!--二级子菜单图标-->
                                 <i th:classappend="${menu.icon}==null?'fa fa-circle-o':${menu.icon}"></i>
                                 <!--二级子菜单名称-->
-                                <span th:text="${submenu.name}"></span>
+                                <font th:text="${submenu.name}"></font>
                                 <!--打开三级子菜单箭头-->
                                 <span th:if="${submenu.childs}==null?false:${submenu.childs.size()} gt 0" class="pull-right-container">
                                     <i class="fa fa-angle-left pull-right"></i>
@@ -49,7 +49,7 @@
                                         <!--三级子菜单图标-->
                                         <i th:classappend="${threeMenu.icon}==null?'fa fa-circle-o':${threeMenu.icon}"></i>
                                         <!--三级子菜单名称-->
-                                        <span th:text="${threeMenu.name}"></span>
+                                        <font th:text="${threeMenu.name}"></font>
                                         <!--打开四级子菜单箭头-->
                                         <span th:if="${threeMenu.childs}==null?false:${threeMenu.childs.size()} gt 0" class="pull-right-container">
                                             <i class="fa fa-angle-left pull-right"></i>
@@ -64,7 +64,7 @@
                                                 <!--四级子菜单图标-->
                                                 <i th:classappend="${fourMenu.icon}==null?'fa fa-circle-o':${fourMenu.icon}"></i>
                                                 <!--四级子菜单名称-->
-                                                <span th:text="${fourMenu.name}"></span>
+                                                <font th:text="${fourMenu.name}"></font>
                                             </a>
                                         </li>
                                     </ul>

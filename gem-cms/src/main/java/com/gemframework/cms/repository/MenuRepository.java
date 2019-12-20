@@ -4,6 +4,8 @@ import com.gemframework.cms.model.po.Menu;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import java.util.List;
+
 /**
  * @Title: MenuRepository.java
  * @Package: com.gemframework.gembasic.repository
@@ -19,4 +21,10 @@ public interface MenuRepository extends JpaRepository<Menu, Long> {
 
     @Query("select menu from Menu menu where id = ?1")
     Menu getById(Long id);
+
+    @Query("select menu from Menu menu where id = ?1 and type = ?2")
+    Menu getById(Long id,Integer type);
+
+    @Query("select menu from Menu menu  ORDER BY idPath ASC")
+    List<Menu> findAll();
 }
