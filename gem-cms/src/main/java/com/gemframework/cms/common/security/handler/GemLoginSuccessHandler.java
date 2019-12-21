@@ -81,8 +81,6 @@ public class GemLoginSuccessHandler extends SavedRequestAwareAuthenticationSucce
                 }
                 request.getSession().setAttribute("session_menus",menuDatas);
             }
-                log.info("JSON.toJSONString(menus)==========================>"+JSON.toJSONString(menus));
-                log.info("JSON.toJSONString(menusTree)==========================>"+JSON.toJSONString(menusTree));
                 request.getSession().setAttribute("session_menus_list", menus);
                 request.getSession().setAttribute("session_menus_tree", menusTree);
         }

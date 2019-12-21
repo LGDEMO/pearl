@@ -77,8 +77,8 @@ public class MenuController {
      * @Description:
      * @Date: 2019-12-05 22:22:32
      */
-    @PostMapping("update")
-    public BaseResult update(MenuVo vo){
+    @PostMapping("edit")
+    public BaseResult edit(MenuVo vo){
         return BaseResult.SUCCESS(menuService.update(vo));
     }
 
@@ -91,10 +91,9 @@ public class MenuController {
      * @Date: 2019-12-05 22:22:32
      */
     @GetMapping("list")
-    public String list(Model model, HttpServletRequest request){
-        List list = menuService.findListAll();
-        model.addAttribute("menuList",list);
-        return "menu/list";
+    public BaseResult list(){
+        List<MenuVo> list = menuService.findListAll();
+        return BaseResult.SUCCESS(list);
     }
 
 
@@ -146,4 +145,20 @@ public class MenuController {
         return BaseResult.SUCCESS(list);
     }
 
+
+    @GetMapping("add.html")
+    public String addHtml(){
+        return "menu/add";
+    }
+    @GetMapping("edit.html")
+    public String editHtml(){
+        return "menu/edit";
+    }
+
+    @GetMapping("list.html")
+    public String list(Model model, HttpServletRequest request){
+        List list = menuService.findListAll();
+        model.addAttribute("menuList",list);
+        return "menu/list";
+    }
 }

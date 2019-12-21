@@ -3,13 +3,42 @@
 <head>
 </head>
 <body>
+    <!--css部分-->
     <div th:fragment="common_links">
-        <link rel="stylesheet" th:href="@{/static/access/js/bootstrap/css/bootstrap.min.css}">
+        <!--bootstrap-->
+        <link rel="stylesheet" type="text/css" th:href="@{/static/access/js/bootstrap/css/bootstrap.min.css}">
     </div>
+    <div th:fragment="font_links">
+        <!--字体图标-->
+        <link rel="stylesheet" type="text/css" th:href="@{/static/access/css/font-awesome.min.css}">
+    </div>
+
+    <div th:fragment="treetable_list_links">
+        <link rel="stylesheet" type="text/css" th:href="@{/static/access/js/bstable/css/bootstrap-table.css}">
+        <link rel="stylesheet" type="text/css" th:href="@{/static/access/css/jquery.treetable.css}">
+        <link rel="stylesheet" type="text/css" th:href="@{/static/access/css/jquery.treetable.theme.default.css}">
+        <link rel="stylesheet" type="text/css" th:href="@{/static/access/css/table.css}">
+    </div>
+
+
+    <!--js部分-->
     <div th:fragment="common_script">
-        <script th:src="@{/static/access/js/jquery/jQuery-2.2.0.min.js}"></script>
-        <script th:src="@{/static/access/js/bootstrap/js/bootstrap.min.js}"></script>
-        <script th:src="@{/static/access/js/layer_v2.1/layer/layer.js}"></script>
+        <!--通用-->
+        <script type="text/javascript" th:src="@{/static/access/js/jquery/jQuery-2.2.0.min.js}"></script>
+        <script type="text/javascript" th:src="@{/static/access/js/bootstrap/js/bootstrap.min.js}"></script>
+        <script type="text/javascript" th:src="@{/static/access/js/layer_v2.1/layer/layer.js}"></script>
+    </div>
+
+    <div th:fragment="table_script">
+        <!--有table页面-->
+        <script type="text/javascript" th:src="@{/static/access/js/bstable/js/bootstrap-table.js}"></script>
+        <script type="text/javascript" th:src="@{/static/access/js/bstable/js/bootstrap-table-zh-CN.min.js}"></script>
+    </div>
+
+    <div th:fragment="ztree_script">
+        <script type="text/javascript" th:src="@{/static/access/js/demo/jquery.ztree.core-3.5.js}"></script>
+        <script type="text/javascript" th:src="@{/static/access/js/ztree/jquery.ztree.excheck-3.5.js}"></script>
+        <script type="text/javascript" th:src="@{/static/access/js/ztree/jquery.ztree.exedit-3.5.js}"></script>
     </div>
 </body>
 </html>

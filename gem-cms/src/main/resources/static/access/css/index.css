@@ -70,7 +70,7 @@ a:hover,a:active,a:focus{outline:none;text-decoration:none;color:#72afd2}
 .user-panel > .info > a > .glyphicon{margin-right: 5px;}
 .sidebar-menu{list-style:none;margin:0;padding:0}
 .sidebar-menu>li{position:relative;margin:0;padding:0}
-.sidebar-menu>li>a{padding:12px 5px 12px 15px;display:block;font-size:12px;}
+.sidebar-menu>li>a{padding:12px 5px 12px 15px;display:block;font-size:14px;}
 .sidebar-menu>li>a>.fa,.sidebar-menu>li>a>.glyphicon,.sidebar-menu>li>a>.ion{width:20px;}
 .sidebar-menu>li .label,.sidebar-menu>li .badge{margin-top:3px;margin-right:5px}
 .sidebar-menu li.header{padding:10px 25px 10px 15px;font-size:12px}
@@ -277,16 +277,24 @@ td{border: none !important;}
 .notice_bot>div input{margin:0 2px 0 0;vertical-align: middle}
 .div_form>div{margin: 5px}
 .but_p{margin-right: 10px}
-.but_p button{width: 58px;height: 28px;line-height: 28px;border: none;background-color: #5cb85c;color: #fff;border-radius: 4px;cursor: pointer}
+.but_p button{width: 58px;height: 28px;line-height: 28px;border: none;background-color: #337ab7;color: #fff;border-radius: 4px;cursor: pointer}
 .but_p .but_close{background-color: #d9534f;margin-left: 10px}
 .top .td_select{width: 78px;margin-right: 2px}
 .dropdown_select{border: 1px #ccc solid;width: 247px;height: 28px;border-radius: 4px;position: relative;cursor: pointer;font-size: 12px}
-.caret{position: relative;left: 230px;top:-14px}
+.caret{position: relative;
+    margin-left: -20px;
+    vertical-align: middle;
+    border-top: 4px dashed;
+    border-right: 4px solid
+    transparent;
+    border-left: 4px solid
+    transparent;
+}
 
-.skin-blue .main-header .logo1{background-color: #009688;color: #ffffff;border-bottom: 0 solid transparent;}
-.skin-blue .main-header .navbar1{background-color: #009688;}
+.skin-blue .main-header .logo1{background-color: #337ab7;color: #ffffff;border-bottom: 0 solid transparent;}
+.skin-blue .main-header .navbar1{background-color: #337ab7;}
 .skin-blue .left-side1{background-color: #222d32;}
-.skin-blue .sidebar-menu > li.header1{color: #4b646f;background: #1a2226;font-size: 14px;}
+.skin-blue .sidebar-menu > li.header1{color: #f2fafd;background: #1a2226;font-size: 14px;}
 .skin-blue .sidebar-menu > li.active > a .a0{color: #ffffff;background: #1e282c;border-left-color: #3c8dbc;}
 .skin-blue .sidebar-menu > li > .treeview-menu1{margin: 0 1px;background: #2c3b41;}
 .content-wrapper .content-tabs .page-tabs a.active{background: #222d32;color: #fff;border-right: solid 1px #2c3e50;}

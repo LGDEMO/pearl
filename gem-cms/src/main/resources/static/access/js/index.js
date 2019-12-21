@@ -314,7 +314,7 @@
                     "f_EnCode": "MenuManage",
                     "f_FullName": "菜单管理",
                     "f_Icon": "fa fa-sitemap",
-                    "f_UrlAddress": "menu/list",
+                    "f_UrlAddress": "menu/list.html",
                 } ];
             var _html = "";
             var mdata  ="";
@@ -344,12 +344,15 @@
                                 } else {
                                     _html += '<li class="treeview">';
                                 }
-                                _html += '<a class="menuItem" data-id="' + row.f_ModuleId + '" href="'+ row.f_UrlAddress +'">'
-                                _html += '<i class="' + row.f_Icon + '"></i><span>' + row.f_FullName;
                                 //如果有二级菜单
                                 var childNodes = $.learunindex.jsonWhere(mdata, function (v) { return v.f_ParentId == row.f_ModuleId });
                                 if(childNodes.length>0){
+                                    _html += '<a class="menuItem" data-id="' + row.f_ModuleId + '">'
+                                    _html += '<i class="' + row.f_Icon + '"></i><span>' + row.f_FullName;
                                     _html += '</span><i class="fa fa-angle-left pull-right"></i>';
+                                }else{
+                                    _html += '<a class="menuItem" data-id="' + row.f_ModuleId + '" href="'+ row.f_UrlAddress +'">'
+                                    _html += '<i class="' + row.f_Icon + '"></i><span>' + row.f_FullName;
                                 }
                                 _html += '</a>'
                                 if (childNodes.length > 0) {
@@ -361,7 +364,7 @@
                                         var subchildNodes = $.learunindex.jsonWhere(mdata, function (v) { return v.f_ParentId == subrow.f_ModuleId });
                                         _html += '<li>';
                                         if (subchildNodes.length > 0) {
-                                            _html += '<a href="#"><i class="' + subrow.f_Icon + '"></i>' + subrow.f_FullName + '';
+                                            _html += '<a><i class="' + subrow.f_Icon + '"></i>' + subrow.f_FullName + '';
                                             _html += '<i class="fa fa-angle-left pull-right"></i></a>';
                                             _html += '<ul class="treeview-menu">';
                                             $.each(subchildNodes, function (i) {

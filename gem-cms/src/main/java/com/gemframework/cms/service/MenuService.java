@@ -8,7 +8,6 @@ import java.util.List;
 
 public interface MenuService {
 
-
     MenuVo add(MenuVo vo);
 
     List<MenuVo> findListAll();

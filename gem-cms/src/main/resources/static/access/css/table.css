@@ -709,7 +709,7 @@
 .div_form{margin:4% auto 0 auto;width: 90% }
 .div_form>div{margin: 5px}
 .but_p{margin-right: 10px}
-.but_p button{width: 58px;height: 28px;line-height: 28px;border: none;background-color: #5cb85c;color: #fff;border-radius: 4px;cursor: pointer}
+.but_p button{width: 58px;height: 28px;line-height: 28px;border: none;background-color: #337ab7;color: #fff;border-radius: 4px;cursor: pointer}
 .but_p .but_close{background-color: #d9534f;margin-left: 10px}
 
 .notice_nav a{height: 28px;line-height: 28px;padding: 0 12px;border-radius: 0;float: left;font-size: 13px}
@@ -732,7 +732,7 @@ th{background-color: #e7f0f6 !important;}
 .notice_check p label{text-align: right;font-size: 12px;display: inline-block;}
 .find_input{width: 198px;height: 30px;border:solid 1px #ccc;border-radius: 4px;}
 .find_input1{width: 64px;height: 30px;border:solid 1px #ccc;border-radius: 4px;}
-.notice_check .check_btn{height: 30px;border: none;margin-left: 5px;width: 65px;border-radius: 4px;background-color: #5cb85c;color: #fff;padding-left: 18px;
+.notice_check .check_btn{height: 30px;border: none;margin-left: 5px;width: 65px;border-radius: 4px;background-color: #337ab7;color: #fff;padding-left: 18px;
     background-image: url(../img/1_03.png);background-repeat: no-repeat;background-position: 11px 8px}
 .dropdown-menu {min-width: 120px !important;margin-top: 4px;font-size: 12px}
 .dropdown-menu li {padding:5px 15px;cursor: pointer}
@@ -752,10 +752,10 @@ ul{list-style: none}
 .l_left{float: left}
 .r_right{float: right}
 .clear{clear: both}
-th{background-color: #e7f0f6 !important;}
+th{background-color: #337ab7 !important;}
 .nav_active{;background-image: url(../img/ccc_03.png);background-repeat: no-repeat;background-position: top left;background-color: #f5f5f5}
 .news_main{height: 98%;width: 100%}
-.layui-layer-title{background-color: #5cb85c !important;font-weight:bold;color:#fff !important; border:none !important;height: 33px;line-height: 33px;}
+.layui-layer-title{background-color: #3c8dbc !important;font-weight:bold;color:#fff !important; border:none !important;height: 33px;line-height: 33px;}
 .news_main h6{font-weight: bold;padding-left: 10px;line-height: 31px;border-bottom: 1px #ccc solid}
 .news_left{width: 16%;height: 100%;border: 1px #ccc solid;margin-right: 0.5%;background-color: #fff}
 .news_right{width: 83.5%;height: 100%;border: 1px #ccc solid;background-color: #fff;overflow: auto}

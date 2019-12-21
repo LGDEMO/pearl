@@ -19,7 +19,7 @@ ul{list-style: none}
 .notice_bot>div input{margin-right: 2px;vertical-align: middle}
 .div_form>div{margin: 5px}
 .but_p{margin-right: 10px}
-.but_p button{width: 58px;height: 28px;line-height: 28px;border: none;background-color: #5cb85c;color: #fff;border-radius: 4px;cursor: pointer}
+.but_p button{width: 58px;height: 28px;line-height: 28px;border: none;background-color: #337ab7;color: #fff;border-radius: 4px;cursor: pointer}
 .but_p .but_close{background-color: #d9534f;margin-left: 10px}
 .tree_left{margin-top: 10px}
 .tree_left{display: none}
@@ -106,7 +106,7 @@ ul{list-style: none}
 .div_form{margin:4% auto 0 auto;width: 90% }
 .div_form>div{margin: 5px}
 .but_p{margin-right: 10px}
-.but_p button{width: 58px;height: 28px;line-height: 28px;border: none;background-color: #5cb85c;color: #fff;border-radius: 4px;cursor: pointer}
+.but_p button{width: 58px;height: 28px;line-height: 28px;border: none;background-color: #337ab7;color: #fff;border-radius: 4px;cursor: pointer}
 .but_p .but_close{background-color: #d9534f;margin-left: 10px}
 .form_label{
     line-height: 26px;

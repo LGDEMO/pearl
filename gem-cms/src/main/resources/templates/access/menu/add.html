@@ -1,0 +1,93 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>无标题文档</title>
+        <div th:replace="common/links::common_links"></div>
+        <link rel="stylesheet" type="text/css" th:href="@{/static/access/css/index.css}">
+        <link rel="stylesheet" type="text/css" th:href="@{/static/access/css/checkbox/build.css}">
+        <link rel="stylesheet" type="text/css" th:href="@{/static/access/css/zTreeStyle/zTreeStyle.css}">
+    </head>
+    <body style="border-radius: 8px;width: 480px;overflow: hidden">
+        <form>
+            <div class="top">
+                <div>
+                    <div class="top_out">
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <td>所属上级<span class="span"></span></td>
+                                    <td>
+                                        <div class="dropdown">
+                                            <input class="dropdown_select"  id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" placeholder="--请选择--" >
+                                            <span class="caret"></span>
+                                            <div class="dropdown-menu" aria-labelledby="dropdownMenu1" style="width: 247px">
+                                                <div class=" order_ztree l_left organize_ztree" style="width: 100%;background-color: #fff;padding-bottom: 10px;height: 240px;overflow: auto;">
+                                                    <ul id="treeDemo" class="ztree"  style=" overflow:auto;margin-left: 20px"></ul>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>资源类型<span class="span"></span></td>
+                                    <td>
+                                        <div class="radio radio-info radio-inline">
+                                            <input type="radio" id="inlineRadio1"
+                                                   value="0" name="radioInline" checked>
+                                            <label for="inlineRadio1"> 菜单 </label>
+                                        </div>
+                                        <div class="radio radio-inline radio-inline">
+                                            <input type="radio" id="inlineRadio2"
+                                                   value="1" name="radioInline">
+                                            <label for="inlineRadio2">  按钮 </label>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>资源名称<span class="span">*</span></td>
+                                    <td><input type="text" required   minlength ="2"></td>
+                                </tr>
+                                <tr>
+                                    <td>资源标识<span class="span">*</span></td>
+                                    <td><input type="text" required></td>
+                                </tr>
+                                <tr>
+                                    <td>资源图标<span class="span"></span></td>
+                                    <td><input type="text"></td>
+                                </tr>
+                                <tr>
+                                    <td>跳转路由<span class="span"></span></td>
+                                    <td><input type="text"></td>
+                                </tr>
+                                <tr>
+                                    <td>排序序号<span class="span"></span></td>
+                                    <td><input type="email" required></td>
+                                </tr>
+                                <tr>
+                                    <td>邮箱<span class="span"></span></td>
+                                    <td><input type="email" required></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="notice_bot">
+                    <div class="l_left"><input type="checkbox" checked="checked"/>保存并关闭窗口</div>
+                    <div class="r_right but_p"><button class="but_save" type="submit">保存</button><button class="but_close" onclick="Cancel()">关闭</button></div>
+                </div>
+            </div>
+        </form>
+        <div th:replace="common/links::common_script"></div>
+        <div th:replace="common/links::table_script"></div>
+        <div th:replace="common/links::ztree_script"></div>
+        <script type="text/javascript" th:src="@{/static/access/js/organize.js}"></script>
+        <script>
+            function Cancel() {
+                var index = parent.layer.getFrameIndex(window.name);
+                parent.layer.close(index);
+            }
+        </script>
+    </body>
+</html>

@@ -25,12 +25,6 @@ public class WebMvcConfigurerAdapter implements WebMvcConfigurer  {
      * 不需要登录拦截的url
      */
     final String[] notLoginInterceptPaths = {
-//            gemPathProperties.getStaticPath()+"/**",
-//            gemAuthPageProperties.getDeniedPage(),
-//            gemAuthPageProperties.getNofoundPage(),
-//            gemAuthPageProperties.getErrorPage(),
-//            gemAuthPageProperties.getLoginPage(),
-//            gemAuthPageProperties.getIndexPage(),
             "/static/**",
             "/403",
             "/404",
@@ -39,7 +33,11 @@ public class WebMvcConfigurerAdapter implements WebMvcConfigurer  {
             "/index",
             "initMenus",
             "/user/add",
+            "/menu/add",
+            "/menu/delete",
+            "/menu/update",
             "/menu/list",
+            "*.html",
     };
 
     @Override

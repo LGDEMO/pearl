@@ -4,12 +4,10 @@
     <meta http-equiv="Content-Type" content="text/html"; charset="utf-8" />
     <title></title>
     <div th:replace="common/links::common_links"></div>
-    <link rel="stylesheet" type="text/css" th:href="@{/static/access/js/bstable/css/bootstrap-table.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/static/access/css/jquery.treetable.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/static/access/css/jquery.treetable.theme.default.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/static/access/css/table.css}">
+    <div th:replace="common/links::font_links"></div>
+    <div th:replace="common/links::treetable_list_links"></div>
     <style>
-        th,td{text-align: center !important;height: 34px;color: #475059 }
+        th{text-align: center !important;height: 34px;color: #FFF }
     </style>
 </head>
 <body style="background-color: #ecf0f5;font-family: 微软雅黑;color: #475059;min-width: 1000px;overflow: auto">
@@ -35,7 +33,7 @@
 
 
         <div class="notice_nav r_right">
-            <a class="btn btn-default" onclick=""><span class="glyphicon glyphicon-plus"></span>新增</a>
+            <a class="btn btn-default" onclick="add()"><span class="glyphicon glyphicon-plus"></span>新增</a>
             <a class="btn btn-default"><span class="glyphicon glyphicon-remove"></span>删除</a>
             <a class="btn btn-default" onclick=""><span class="glyphicon glyphicon-pencil"></span>编辑</a>
         </div>
@@ -51,6 +49,7 @@
                      <th>所属级别</th>
                      <th>资源图标</th>
                      <th>排序序号</th>
+                     <th>操作</th>
                  </tr>
             </thead>
             <tbody>
@@ -58,29 +57,43 @@
                     th:data-tt-id="${menu.idPath}"
                     th:data-tt-parent-id="${menu.parentIdPath}">
                     <td >
-                        <!--<span class="folder"></span>-->
-                        <i th:class="${menu.icon}"></i>
+                        <span class="folder"></span>
                         <span th:text="${menu.name}"></span>
                     </td>
                     <td><span th:text="${menu.type}"></span></td>
                     <td><span th:text="${menu.tag}"></span></td>
                     <td><span th:text="${menu.link}"></span></td>
                     <td><span th:text="${menu.level}"></span></td>
-                    <td><span th:text="${menu.icon}"></span></td>
+                    <td><i th:class="${menu.icon}"></i><span th:text="${menu.icon}"></span></td>
                     <td><span th:text="${menu.sortNumber}"></span></td>
+                    <td>
+                        <button type="button" class="btn btn-primary btn-xs">删除</button>
+                    </td>
                 </tr>
             </tbody>
         </table>
 </div>
 <div th:replace="common/links::common_script"></div>
 <script th:src="@{/static/access/js/jquery.treetable.js}"></script>
-<script th:src="@{/static/access/js/bstable/js/bootstrap-table.js}"></script>
-<script th:src="@{/static/access/js/bstable/js/bootstrap-table-zh-CN.min.js}"></script>
 <script language="javascript">
     $("#example-advanced").treetable({
         expandable: true,
         pagination: true //分页
     });
+
+    //添加
+    function add(){
+        layer.open({
+            type: 2,
+            title: '添加菜单',
+            shadeClose: true,
+            shade: 0.5,
+            skin: 'layui-layer-rim',
+            closeBtn:1,
+            area: ['600px', '400px'],
+            content: 'add.html'
+        });
+    }
 </script>
 </body>
 </html>

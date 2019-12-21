@@ -71,7 +71,14 @@ public class GemFilterSecurityInterceptor extends  AbstractSecurityInterceptor i
             "/index",
             "/user/add",
             "/initMenus",
+            "/menu/add",
+            "/menu/delete",
+            "/menu/update",
             "/menu/list",
+    };
+    //针对某些接口放白名单
+    private String[] ignoreSuffixUris = new String[]{
+            ".html",
     };
 
     @Override
@@ -87,7 +94,8 @@ public class GemFilterSecurityInterceptor extends  AbstractSecurityInterceptor i
         HttpServletResponse response = fi.getHttpResponse();
         String url = request.getServletPath();
         log.info("请求url=="+url);
-        if (StringUtils.startsWithAny(url, ignoreStartUris)) {
+        if (StringUtils.startsWithAny(url, ignoreStartUris)
+                || StringUtils.endsWithAny(url,ignoreSuffixUris)) {
             //执行下一个拦截器
             fi.getChain().doFilter(fi.getRequest(), fi.getResponse());
             return;
