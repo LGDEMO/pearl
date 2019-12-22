@@ -1,6 +1,5 @@
 package com.gemframework.cms.common.handler;
 
-import com.gemframework.bas.common.handler.GemHandlerMethodArgumentResolver;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;

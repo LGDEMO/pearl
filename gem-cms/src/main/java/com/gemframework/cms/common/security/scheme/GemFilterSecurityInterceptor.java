@@ -71,6 +71,7 @@ public class GemFilterSecurityInterceptor extends  AbstractSecurityInterceptor i
             "/index",
             "/user/add",
             "/initMenus",
+            "/findAllMenusTree",
             "/menu/add",
             "/menu/delete",
             "/menu/update",

@@ -1,4 +1,4 @@
-package com.gemframework.cms.model.vo;
+package com.gemframework.cms.model.vo.ztree;
 
 import com.gemframework.bas.model.vo.BaseVo;
 import lombok.Builder;
@@ -9,7 +9,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 /**
- * @Title: MenuData.java
+ * @Title: MenuSide.java
  * @Package: com.gemframework.cms.model.vo
  * @Date: 2019/11/30 22:40
  * @Version: v1.0
@@ -22,7 +22,7 @@ import javax.validation.constraints.Size;
 
 @Data
 @Builder
-public class MenuData {
+public class MenuSide {
 
 //   "F_ModuleId": "1",
 //   "F_ParentId": "0",

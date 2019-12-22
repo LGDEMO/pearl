@@ -32,6 +32,7 @@ public class WebMvcConfigurerAdapter implements WebMvcConfigurer  {
             "/login",
             "/index",
             "initMenus",
+            "/findAllMenusTree",
             "/user/add",
             "/menu/add",
             "/menu/delete",

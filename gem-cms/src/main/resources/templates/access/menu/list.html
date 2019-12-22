@@ -16,20 +16,22 @@
     <div class="notice_check">
         <div class="btn-group l_left" style="margin-right: 4px">
             <button type="button" class="btn btn-default change" style="height: 30px;line-height: 30px;padding: 0 12px !important;font-size: 12px">选择条件</button>
-            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="height: 30px;line-height: 30px">
+            <button type="button" class="btn btn-default dropdown-toggle"
+                    data-toggle="dropdown" aria-haspopup="true"
+                    aria-expanded="false" style="height: 30px;line-height: 30px">
                 <span class="caret"></span>
                 <span class="sr-only"></span>
             </button>
             <ul class="dropdown-menu">
-                <li>角色名称</li>
-                <li>角色描述</li>
+                <li>资源名称</li>
+                <li>资源类型</li>
             </ul>
         </div>
         <div class="l_left">
             <input type="text" class="find_input">
 
         </div>
-        <button class="check_btn">查询</button>
+        <button class="check_btn" type="button" onclick="javascript:void(0);">查询</button>
 
 
         <div class="notice_nav r_right">
@@ -46,7 +48,7 @@
                      <th>资源类型</th>
                      <th>资源标识</th>
                      <th>跳转路由</th>
-                     <th>所属级别</th>
+                     <!--<th>所属级别</th>-->
                      <th>资源图标</th>
                      <th>排序序号</th>
                      <th>操作</th>
@@ -56,15 +58,20 @@
                 <tr th:each="menu,menuStat:${menuList}"
                     th:data-tt-id="${menu.idPath}"
                     th:data-tt-parent-id="${menu.parentIdPath}">
-                    <td >
+                    <td class="align_left_col">
                         <span class="folder"></span>
                         <span th:text="${menu.name}"></span>
                     </td>
                     <td><span th:text="${menu.type}"></span></td>
                     <td><span th:text="${menu.tag}"></span></td>
-                    <td><span th:text="${menu.link}"></span></td>
-                    <td><span th:text="${menu.level}"></span></td>
-                    <td><i th:class="${menu.icon}"></i><span th:text="${menu.icon}"></span></td>
+                    <td class="align_left_col">
+                        <span th:text="${menu.link}"></span>
+                    </td>
+                    <!--<td><span th:text="${menu.level}"></span></td>-->
+                    <td class="align_left_col">
+                        <i th:class="${menu.icon}"></i>
+                        <span th:text="${menu.icon}"></span>
+                    </td>
                     <td><span th:text="${menu.sortNumber}"></span></td>
                     <td>
                         <button type="button" class="btn btn-primary btn-xs">删除</button>
@@ -78,7 +85,6 @@
 <script language="javascript">
     $("#example-advanced").treetable({
         expandable: true,
-        pagination: true //分页
     });
 
     //添加
@@ -90,7 +96,7 @@
             shade: 0.5,
             skin: 'layui-layer-rim',
             closeBtn:1,
-            area: ['600px', '400px'],
+            area: ['690px', '440px'],
             content: 'add.html'
         });
     }

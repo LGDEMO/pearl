@@ -46,6 +46,7 @@ public class MenuController {
      * @Date: 2019-12-05 22:22:32
      */
     @PostMapping("add")
+    @ResponseBody
     public BaseResult add(@Valid @RequestBody MenuVo vo, BindingResult bindingResult){
 
         if(bindingResult.hasErrors()){
@@ -150,6 +151,7 @@ public class MenuController {
     public String addHtml(){
         return "menu/add";
     }
+
     @GetMapping("edit.html")
     public String editHtml(){
         return "menu/edit";

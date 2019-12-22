@@ -1,19 +1,16 @@
 package com.gemframework.cms.controller;
 
 import com.gemframework.bas.model.BaseResult;
-import com.gemframework.cms.model.vo.MenuData;
 import com.gemframework.cms.model.vo.MenuVo;
+import com.gemframework.cms.model.vo.ztree.MenuSide;
 import com.gemframework.cms.model.vo.RoleVo;
 import com.gemframework.cms.service.MenuService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,24 +33,36 @@ public class IndexController {
     @Resource
     private MenuService menuService;
 
+    /***
+     * 加载全部用户的左侧菜单栏MenuSide
+     * @return
+     */
+    @GetMapping("/initAllMenus")
+    public BaseResult initAllMenus(){
+        List<MenuVo> menus = menuService.findListAll();
+        List<MenuSide> menuSides = new ArrayList<>();
+        for(MenuVo menuVo:menus){
+            MenuSide menuSide = MenuSide.builder()
+                    .F_ModuleId(String.valueOf(menuVo.getId()))
+                    .F_ParentId(String.valueOf(menuVo.getPid()))
+                    .F_EnCode(menuVo.getTag())
+                    .F_FullName(menuVo.getName())
+                    .F_Icon(menuVo.getIcon())
+                    .F_UrlAddress(menuVo.getLink()).build();
+            menuSides.add(menuSide);
+        }
+        return BaseResult.SUCCESS(menuSides);
+    }
+
+    /***
+     * 加载当前权限用户的左侧菜单栏MenuSide
+     * @param request
+     * @return
+     */
     @GetMapping("/initMenus")
     public BaseResult initMenus(HttpServletRequest request){
-        List<MenuData> list = (List<MenuData>) request.getSession().getAttribute("session_menus");
-        log.info("返回="+BaseResult.SUCCESS(list));
+        List<MenuSide> list = (List<MenuSide>) request.getSession().getAttribute("session_sidebar_menus");
         return BaseResult.SUCCESS(list);
-    }
-    @GetMapping("/initMenus1")
-    public BaseResult initMenus2(){
-        List<RoleVo> roles = new ArrayList<>();
-        RoleVo a = new RoleVo();
-        a.setFlag("admin");
-        a.setId(1L);
-        RoleVo b = new RoleVo();
-        b.setId(2L);
-        b.setFlag("user");
-        roles.add(a);
-        roles.add(b);
-        return BaseResult.SUCCESS(menuService.findListByRoles(roles));
     }
 
 }

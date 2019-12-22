@@ -30,15 +30,17 @@ public class MenuVo extends BaseVo implements Comparable<MenuVo>{
 
     private Long id;
     //名称
+    @NotBlank(message = "名称不能为空")
     private String name;
     //标签
     private String tag;
     //链接
+    @NotBlank(message = "跳转路由不能为空")
     private String link;
     //类型 0 菜单 1 按钮 2 其他
     private Integer type;
     //级别 菜单级别 最大支持三级
-    @Max(value = 3, message = "级别最大支持三级")
+    @Max(value = 4, message = "级别最大支持三级")
     private Integer level;
     //图标
     private String icon;

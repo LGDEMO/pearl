@@ -53,7 +53,9 @@ public class Menu extends BasePo {
     @Column(columnDefinition = "varchar(20) comment 'ID路径'")
     //路径 1-2-1
     private String idPath;
-
+    //父级的路径 1-2-1
+    @Transient
+    private String parentIdPath;
     @Transient
     List<Menu> childs;
 
