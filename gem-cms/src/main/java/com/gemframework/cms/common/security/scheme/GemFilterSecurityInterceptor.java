@@ -53,6 +53,9 @@ public class GemFilterSecurityInterceptor extends  AbstractSecurityInterceptor i
     private GemAuthenticationManager gemAuthenticationManager;
 
     @Resource
+    private GemAuthPageProperties gemAuthPageProperties;
+
+    @Resource
     private FilterInvocationSecurityMetadataSource securityMetadataSource;
 
     //针对某些接口放白名单
@@ -94,14 +97,21 @@ public class GemFilterSecurityInterceptor extends  AbstractSecurityInterceptor i
         HttpServletRequest request = fi.getHttpRequest();
         HttpServletResponse response = fi.getHttpResponse();
         String url = request.getServletPath();
-        log.info("请求url=="+url);
-        if (StringUtils.startsWithAny(url, ignoreStartUris)
-                || StringUtils.endsWithAny(url,ignoreSuffixUris)) {
+        log.info("权限校验开关=="+gemAuthPageProperties.isOpen());
+        if(gemAuthPageProperties.isOpen()){
+            log.info("请求url=="+url);
+            if (StringUtils.startsWithAny(url, ignoreStartUris)
+                    || StringUtils.endsWithAny(url,ignoreSuffixUris)) {
+                //执行下一个拦截器
+                fi.getChain().doFilter(fi.getRequest(), fi.getResponse());
+                return;
+            }
+        }else{
             //执行下一个拦截器
             fi.getChain().doFilter(fi.getRequest(), fi.getResponse());
             return;
         }
-        //SecurityContextHolder.clearContext();
+
         String principal = "";
         if(SecurityContextHolder.getContext().getAuthentication()!= null){
             principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();

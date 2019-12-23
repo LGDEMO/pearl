@@ -1,5 +1,6 @@
 package com.gemframework.cms.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.gemframework.bas.common.enums.ResultCode;
 import com.gemframework.bas.model.BaseResult;
 import com.gemframework.cms.model.vo.MenuVo;
@@ -65,6 +66,7 @@ public class MenuController {
      * @Date: 2019-12-05 22:22:32
      */
     @PostMapping("delete/{id}")
+    @ResponseBody
     public BaseResult delete(@PathVariable("id") Long id){
         menuService.delete(id);
         return BaseResult.SUCCESS();
@@ -153,14 +155,18 @@ public class MenuController {
     }
 
     @GetMapping("edit.html")
-    public String editHtml(){
+    public String editHtml(Model model, Long id){
+        MenuVo menuVo = menuService.getById(id);
+        model.addAttribute("edit_menu",menuVo);
         return "menu/edit";
     }
 
     @GetMapping("list.html")
-    public String list(Model model, HttpServletRequest request){
-        List list = menuService.findListAll();
-        model.addAttribute("menuList",list);
+
+    public String list(Model model){
+        List<MenuVo> list = menuService.findListAll();
+        log.info("===>"+JSON.toJSONString(list));
+        model.addAttribute("list_menus",list);
         return "menu/list";
     }
 }

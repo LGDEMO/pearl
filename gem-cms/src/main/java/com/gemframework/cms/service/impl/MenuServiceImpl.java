@@ -47,11 +47,14 @@ public class MenuServiceImpl implements MenuService {
         menu = menuRepository.save(menu);
         MenuVo parentVo = getById(vo.getPid());
 
-        if(parentVo != null && parentVo.getIdPath() != null){
-            menu.setIdPath(parentVo.getIdPath()+"-"+menu.getId());
-        }else{
-            menu.setIdPath(String.valueOf(menu.getId()));
+        String idPath = "";
+        if(menu.getId()<10){
+            idPath = "0"+menu.getId();
         }
+        if(parentVo != null && parentVo.getIdPath() != null){
+            idPath = parentVo.getIdPath()+"-"+idPath;
+        }
+        menu.setIdPath(idPath);
         //更新idpath
         menu = menuRepository.save(menu);
         GemBeanUtils.copyProperties(menu,vo);
@@ -70,9 +73,11 @@ public class MenuServiceImpl implements MenuService {
     public List<MenuVo> findListAll() {
         List<Menu> list = menuRepository.findAll();
         List<MenuVo> vos = GemBeanUtils.copyCollections(list,MenuVo.class);
-        for(MenuVo vo :vos){
-            if(vo.getIdPath().lastIndexOf("-")>0){
-                vo.setParentIdPath(vo.getIdPath().substring(0,vo.getIdPath().lastIndexOf("-")));
+        for(MenuVo menuVo :vos){
+            if(menuVo!=null && menuVo.getIdPath()!=null){
+                if(menuVo.getIdPath().lastIndexOf("-")>0){
+                    menuVo.setParentIdPath(menuVo.getIdPath().substring(0,menuVo.getIdPath().lastIndexOf("-")));
+                }
             }
         }
         return vos;
@@ -95,6 +100,13 @@ public class MenuServiceImpl implements MenuService {
         Example<Menu> example =Example.of(menu);
         List<Menu> list = menuRepository.findAll(example);
         List<MenuVo> vos = GemBeanUtils.copyCollections(list,MenuVo.class);
+        for(MenuVo menuVo :vos){
+            if(menuVo!=null && menuVo.getIdPath()!=null){
+                if(menuVo.getIdPath().lastIndexOf("-")>0){
+                    menuVo.setParentIdPath(vo.getIdPath().substring(0,vo.getIdPath().lastIndexOf("-")));
+                }
+            }
+        }
         return vos;
     }
 
@@ -236,6 +248,14 @@ public class MenuServiceImpl implements MenuService {
         Menu entity = menuRepository.getById(id);
         if(entity!=null){
             GemBeanUtils.copyProperties(entity,vo);
+            if(vo.getPid()!=null){
+                vo.setPname("根目录");
+                //父级信息
+                entity = menuRepository.getById(vo.getPid());
+                if(entity!=null){
+                    vo.setPname(entity.getName());
+                }
+            }
         }
         return vo;
     }

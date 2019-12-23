@@ -10,7 +10,10 @@
     </div>
     <div th:fragment="font_links">
         <!--字体图标-->
-        <link rel="stylesheet" type="text/css" th:href="@{/static/access/css/font-awesome.min.css}">
+        <link rel="stylesheet" type="text/css" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
+        <link rel="stylesheet" type="text/css" th:href="@{/static/access/css/font-awesome.css}">
+        <!--<link rel="stylesheet" type="text/css" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" >-->
+        <!--<link rel="stylesheet" type="text/css" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">-->
     </div>
 
     <div th:fragment="treetable_list_links">
@@ -27,6 +30,7 @@
         <script type="text/javascript" th:src="@{/static/access/js/jquery/jQuery-2.2.0.min.js}"></script>
         <script type="text/javascript" th:src="@{/static/access/js/bootstrap/js/bootstrap.min.js}"></script>
         <script type="text/javascript" th:src="@{/static/access/js/layer_v2.1/layer/layer.js}"></script>
+        <script type="text/javascript" th:src="@{/static/access/js/common.js}"></script>
         <script type="text/javascript">
             //定义serializeObject方法，序列化表单
             $.fn.serializeObject = function() {

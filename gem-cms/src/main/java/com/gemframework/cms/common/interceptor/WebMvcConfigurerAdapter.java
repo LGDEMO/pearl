@@ -1,6 +1,7 @@
 package com.gemframework.cms.common.interceptor;
 
 import com.gemframework.cms.common.security.config.GemAuthPageProperties;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,6 +13,7 @@ import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.Map;
 
+@Slf4j
 @Configuration   //表示配置
 public class WebMvcConfigurerAdapter implements WebMvcConfigurer  {
 
@@ -38,15 +40,19 @@ public class WebMvcConfigurerAdapter implements WebMvcConfigurer  {
             "/menu/delete",
             "/menu/update",
             "/menu/list",
-            "*.html",
+            "*.html*",
     };
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        // 这里添加多个拦截器
-        // 登录拦截器
-        registry.addInterceptor(loginInterceptor).addPathPatterns("/**")
-                .excludePathPatterns(notLoginInterceptPaths);
+        log.info("mvc拦截器，检测权限校验开关="+gemAuthPageProperties.isOpen());
+        if(gemAuthPageProperties.isOpen()){
+            // 这里添加多个拦截器
+            // 登录拦截器
+            registry.addInterceptor(loginInterceptor)
+                    .addPathPatterns("/**")
+                    .excludePathPatterns(notLoginInterceptPaths);
+        }
     }
 
     @Override

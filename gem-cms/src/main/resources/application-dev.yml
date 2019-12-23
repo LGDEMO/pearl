@@ -11,12 +11,12 @@ gem:
   max: 999
   desc: 这是自定义配置，最小值${gem.min},最大值${gem.max}
   auth:
+    is-open: false
     login-page: /login
     error-page: /error
     denied-page: /403
     nofound-page: /404
     index-page: /index
-
 #
 #  redis:
 #    open: false

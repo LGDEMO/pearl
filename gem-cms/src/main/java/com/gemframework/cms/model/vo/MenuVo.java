@@ -44,6 +44,8 @@ public class MenuVo extends BaseVo implements Comparable<MenuVo>{
     private Integer level;
     //图标
     private String icon;
+    //父级名称
+    private String pname;
     //父级ID
     private Long pid;
     //是否选中 0 未选中 1 选中

@@ -13,93 +13,142 @@
 <body style="background-color: #ecf0f5;font-family: 微软雅黑;color: #475059;min-width: 1000px;overflow: auto">
 <div class="notice_main">
     <h6>菜单管理</h6>
-    <div class="notice_check">
-        <div class="btn-group l_left" style="margin-right: 4px">
-            <button type="button" class="btn btn-default change" style="height: 30px;line-height: 30px;padding: 0 12px !important;font-size: 12px">选择条件</button>
-            <button type="button" class="btn btn-default dropdown-toggle"
-                    data-toggle="dropdown" aria-haspopup="true"
-                    aria-expanded="false" style="height: 30px;line-height: 30px">
-                <span class="caret"></span>
-                <span class="sr-only"></span>
-            </button>
-            <ul class="dropdown-menu">
-                <li>资源名称</li>
-                <li>资源类型</li>
-            </ul>
-        </div>
-        <div class="l_left">
-            <input type="text" class="find_input">
-
-        </div>
-        <button class="check_btn" type="button" onclick="javascript:void(0);">查询</button>
-
-
+    <div class="notice_check  notice_check_last">
         <div class="notice_nav r_right">
-            <a class="btn btn-default" onclick="add()"><span class="glyphicon glyphicon-plus"></span>新增</a>
-            <a class="btn btn-default"><span class="glyphicon glyphicon-remove"></span>删除</a>
-            <a class="btn btn-default" onclick=""><span class="glyphicon glyphicon-pencil"></span>编辑</a>
+            <a class="btn btn-default" onclick="addData()"><span class="glyphicon glyphicon-plus"></span>新增</a>
         </div>
+        <div class="clear"></div>
     </div>
 
-        <table id="example-advanced" class="table table-bordered">
-            <thead>
-                 <tr>
-                     <th width="220px">资源名称</th>
-                     <th>资源类型</th>
-                     <th>资源标识</th>
-                     <th>跳转路由</th>
-                     <!--<th>所属级别</th>-->
-                     <th>资源图标</th>
-                     <th>排序序号</th>
-                     <th>操作</th>
-                 </tr>
-            </thead>
-            <tbody>
-                <tr th:each="menu,menuStat:${menuList}"
-                    th:data-tt-id="${menu.idPath}"
-                    th:data-tt-parent-id="${menu.parentIdPath}">
-                    <td class="align_left_col">
-                        <span class="folder"></span>
-                        <span th:text="${menu.name}"></span>
-                    </td>
-                    <td><span th:text="${menu.type}"></span></td>
-                    <td><span th:text="${menu.tag}"></span></td>
-                    <td class="align_left_col">
-                        <span th:text="${menu.link}"></span>
-                    </td>
-                    <!--<td><span th:text="${menu.level}"></span></td>-->
-                    <td class="align_left_col">
-                        <i th:class="${menu.icon}"></i>
-                        <span th:text="${menu.icon}"></span>
-                    </td>
-                    <td><span th:text="${menu.sortNumber}"></span></td>
-                    <td>
-                        <button type="button" class="btn btn-primary btn-xs">删除</button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+    <table id="example-advanced" class="table table-bordered">
+        <thead>
+             <tr>
+                 <th width="220px">资源名称</th>
+                 <th>资源类型</th>
+                 <th>资源标识</th>
+                 <th>跳转路由</th>
+                 <!--<th>所属级别</th>-->
+                 <th>资源图标</th>
+                 <th>排序序号</th>
+                 <th>操作</th>
+             </tr>
+        </thead>
+        <tbody>
+            <tr th:each="menu:${list_menus}"
+                th:data-tt-id="${menu.idPath}"
+                th:data-tt-parent-id="${menu.parentIdPath}">
+                <td class="align_left_col">
+                    <!--<span class="folder"></span>-->
+                    <span th:text="${menu.name}"></span>
+                </td>
+                <td th:switch="${menu.type}">
+                    <span th:case="0">菜单</span>
+                    <span th:case="1">按钮</span>
+                </td>
+                <td class="align_left_col"><span th:text="${menu.tag}"></span></td>
+                <td class="align_left_col">
+                    <span th:text="${menu.link}"></span>
+                </td>
+                <!--<td><span th:text="${menu.level}"></span></td>-->
+                <td class="align_left_col">
+                    <i th:class="${menu.icon}"></i>
+                    <span th:text="${menu.icon}"></span>
+                </td>
+                <td><span th:text="${menu.sortNumber}"></span></td>
+                <td>
+                    <button type="button" id="btn_edit" class="btn btn-primary btn-xs"
+                            th:onclick="|editData(${menu.id})|">编辑</button>
+                    <button type="button" id="btn_del" class="btn btn-danger btn-xs"
+                            th:onclick="|deleteData(${menu.id})|">删除</button>
+                    <!--<button type="button" id="btn_add" class="btn btn-warning btn-xs"-->
+                            <!--th:onclick="|deleteData(${menu.id})|">添加子节点</button>-->
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </div>
 <div th:replace="common/links::common_script"></div>
 <script th:src="@{/static/access/js/jquery.treetable.js}"></script>
 <script language="javascript">
     $("#example-advanced").treetable({
         expandable: true,
+        initialState:"expanded",
+        //expandable : true
+        clickableNodeNames:true,//点击节点名称也打开子节点.
+        indent : 30//每个分支缩进的像素数。
     });
 
     //添加
-    function add(){
+    function addData(){
         layer.open({
             type: 2,
-            title: '添加菜单',
+            title: '添加资源',
             shadeClose: true,
             shade: 0.5,
             skin: 'layui-layer-rim',
             closeBtn:1,
             area: ['690px', '440px'],
-            content: 'add.html'
+            content: 'add.html',
+            end:function () {
+                location.reload();
+            }
         });
     }
+
+
+    //编辑
+    function editData(id){
+        window.id = id;
+        layer.open({
+            type: 2,
+            title: '编辑资源',
+            shadeClose: true,
+            shade: 0.5,
+            skin: 'layui-layer-rim',
+            closeBtn:1,
+            area: ['690px', '440px'],
+            content: 'edit.html?id='+id,
+            end:function () {
+                location.reload();
+            }
+        });
+    }
+
+    function deleteData(id){
+        layer.confirm('确定删除吗？哥们？', {
+            btn: ['确定','再想想'] //按钮
+        }, function(){
+            $.ajax({
+                type: "post",
+                url: "delete/"+id,
+                async:true, // 异步请求
+                cache:false, // 设置为 false 将不缓存此页面
+                dataType: "json", // 返回对象
+                contentType:"application/json;charset=UTF-8",
+                success: function(res) {
+                    console.log("res:"+JSON.stringify(res));
+                    if (res.code == "0") {
+                        //$("#example-advanced").bootstrapTable('refresh');
+                        layer.msg('删除成功！', {icon: 1});
+                        location.reload();
+                    }else {
+                        layer.alert("["+res.code+"]"+res.msg, {
+                            skin: 'layui-layer-lan'
+                            ,closeBtn: 0
+                            ,anim: 4 //动画类型
+                        });
+                    }
+                },
+                error: function(e) {
+                    // 请求失败函数
+                    console.log("error:"+JSON.stringify(e));
+                }
+            })
+        }, function(){
+            return;
+        });
+    }
+
 </script>
 </body>
 </html>

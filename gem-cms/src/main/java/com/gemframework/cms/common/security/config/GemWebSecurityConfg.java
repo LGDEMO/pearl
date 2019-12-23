@@ -37,6 +37,8 @@ import java.util.List;
 @Configuration
 public class GemWebSecurityConfg extends WebSecurityConfigurerAdapter {
 
+    @Resource
+    private GemAuthPageProperties gemAuthPageProperties;
 
     /**
      * 实现HttpSecurity的configure方法
@@ -47,9 +49,11 @@ public class GemWebSecurityConfg extends WebSecurityConfigurerAdapter {
      * 默认启用 CSRF
      */
     @Override
-    protected void configure(HttpSecurity http) throws Exception {
+    public void configure(HttpSecurity http) throws Exception {
+
         //拦截和校验请求
         http.addFilterAfter(gemFilterSecurityInterceptor,FilterSecurityInterceptor.class);
+
         http
                 .formLogin()//定义本系统使用表单认证方式
                 .loginPage("/login")
@@ -65,10 +69,17 @@ public class GemWebSecurityConfg extends WebSecurityConfigurerAdapter {
         http.rememberMe().rememberMeParameter("remember");
         //设置session
         http
-            .sessionManagement()
-            .invalidSessionUrl("/login")
-            .maximumSessions(-1)
-            .sessionRegistry(getSessionRegistry());
+                .sessionManagement()
+                .invalidSessionUrl("/login")
+                .maximumSessions(-1)
+                .sessionRegistry(getSessionRegistry());
+    }
+
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        if(!gemAuthPageProperties.isOpen()){
+            web.ignoring().antMatchers("/**");
+        }
     }
 
     /**
