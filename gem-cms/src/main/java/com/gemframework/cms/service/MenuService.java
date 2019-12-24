@@ -14,11 +14,13 @@ public interface MenuService {
 
     List<MenuVo> findListByParams(MenuVo vo);
 
-    List<MenuVo> findListByRoleId(Long roleId);
+    List<MenuVo> findMenusListByRoleId(Long roleId);
 
-    List<MenuVo> findListByRoles(List<RoleVo> roles);
+    List<MenuVo> findMenusListAll();
 
-    List<MenuVo> findTreeByRoles(List<RoleVo> roles);
+    List<MenuVo> findMenusListByRoles(List<RoleVo> roles);
+
+    List<MenuVo> findMenusTreeByRoles(List<RoleVo> roles);
 
     List<MenuVo> findPageAll(Pageable pageable);
 

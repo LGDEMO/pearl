@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 /**
  * @Title: RoleVo.java
@@ -25,14 +26,25 @@ public class DeptVo extends BaseVo {
 
     private Long id;
 
-    @NotBlank(message = "角色名不能为空！")
-    @Size(min = 2,max = 10,message = "角色名长度限制2~10个数字之间")
-    private String rolename;
+    @NotBlank(message = "部门名称不能为空！")
+    @Size(min = 2,max = 10,message = "部门名称长度限制2~10个数字之间")
+    private String name;
 
-    @NotBlank(message = "角色标识不能为空！")
-    @Size(min = 2,max = 10,message = "角色标识长度限制2~10个数字之间")
-    private String flag;
+    private Long pid;
 
+    private String path;
 
+    private Integer level;
 
+    private String desp;
+    //排序
+    private Integer sortNumber;
+    //系列 用于归类 存放家族一级分类ID 一级分类存自己ID
+    private String series;
+    //路径 1-2-1
+    private String idPath;
+    //父级的路径 1-2-1
+    private String parentIdPath;
+
+    List<DeptVo> childs;
 }

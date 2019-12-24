@@ -1,7 +1,7 @@
 package com.gemframework.cms.common.security.handler;
 
-import com.gemframework.cms.common.security.config.GemAuthPageProperties;
-import com.gemframework.cms.model.vo.ztree.MenuSide;
+import com.gemframework.cms.common.security.config.GemSecurityProperties;
+import com.gemframework.cms.model.vo.tree.MenuSide;
 import com.gemframework.cms.model.vo.MenuVo;
 import com.gemframework.cms.model.vo.RoleVo;
 import com.gemframework.cms.service.MenuService;
@@ -35,7 +35,7 @@ public class GemLoginSuccessHandler extends SavedRequestAwareAuthenticationSucce
     private MenuService menuService;
 
     @Autowired
-    private GemAuthPageProperties gemAuthPageProperties;
+    private GemSecurityProperties gemSecurityProperties;
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws ServletException, IOException {
@@ -57,7 +57,10 @@ public class GemLoginSuccessHandler extends SavedRequestAwareAuthenticationSucce
             }
         }
         if(roles != null && roles.size() > 0){
-            List<MenuVo> menus = menuService.findListByRoles(roles);
+            List<MenuVo> menus = menuService.findMenusListByRoles(roles);
+            if(roles.contains("admin")){
+                menus = menuService.findListAll();
+            }
             if(menus!=null && menus.size()>0){
                 List<MenuSide> menuSides = new ArrayList<>();
                 for(MenuVo menuVo:menus){
@@ -75,7 +78,7 @@ public class GemLoginSuccessHandler extends SavedRequestAwareAuthenticationSucce
         }
         request.getSession().setAttribute("session_username",getCurrentUsername());
         //如果没有登录，跳转登录
-        getRedirectStrategy().sendRedirect(request, response, gemAuthPageProperties.getIndexPage());
+        getRedirectStrategy().sendRedirect(request, response, gemSecurityProperties.getIndexPage());
     }
 
 

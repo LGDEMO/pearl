@@ -1,12 +1,7 @@
-package com.gemframework.cms.model.vo.ztree;
+package com.gemframework.cms.model.vo.tree;
 
-import com.gemframework.bas.model.vo.BaseVo;
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
 
 /**
  * @Title: MenuSide.java

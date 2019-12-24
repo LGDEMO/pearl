@@ -148,7 +148,6 @@ public class MenuController {
         return BaseResult.SUCCESS(list);
     }
 
-
     @GetMapping("add.html")
     public String addHtml(){
         return "menu/add";

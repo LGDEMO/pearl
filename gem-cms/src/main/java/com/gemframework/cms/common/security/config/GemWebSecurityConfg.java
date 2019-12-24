@@ -20,8 +20,6 @@ import org.springframework.security.web.authentication.AuthenticationFailureHand
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @Title: WebSecurityConfg.java
@@ -38,7 +36,7 @@ import java.util.List;
 public class GemWebSecurityConfg extends WebSecurityConfigurerAdapter {
 
     @Resource
-    private GemAuthPageProperties gemAuthPageProperties;
+    private GemSecurityProperties gemSecurityProperties;
 
     /**
      * 实现HttpSecurity的configure方法
@@ -77,7 +75,7 @@ public class GemWebSecurityConfg extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        if(!gemAuthPageProperties.isOpen()){
+        if(!gemSecurityProperties.isOpen()){
             web.ignoring().antMatchers("/**");
         }
     }

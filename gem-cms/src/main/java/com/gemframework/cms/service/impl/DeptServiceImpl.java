@@ -4,7 +4,9 @@ import com.gemframework.bas.common.enums.ResultCode;
 import com.gemframework.bas.common.exception.GemException;
 import com.gemframework.bas.common.utils.GemBeanUtils;
 import com.gemframework.cms.model.po.Dept;
+import com.gemframework.cms.model.po.Menu;
 import com.gemframework.cms.model.vo.DeptVo;
+import com.gemframework.cms.model.vo.MenuVo;
 import com.gemframework.cms.repository.DeptRepository;
 import com.gemframework.cms.service.DeptService;
 import lombok.extern.slf4j.Slf4j;
@@ -147,5 +149,22 @@ public class DeptServiceImpl implements DeptService {
         }
         deptRepository.deleteById(id);
 
+    }
+
+    /**
+     * @Title: 根据ID获取对象
+     * @Param: id
+     * @Retrun: Entity
+     * @Description:
+     * @Date: 2019/12/5 22:40
+     */
+    @Override
+    public DeptVo getById(Long id) {
+        DeptVo vo = new DeptVo();
+        Dept entity = deptRepository.getById(id);
+        if(entity!=null){
+            GemBeanUtils.copyProperties(entity,vo);
+        }
+        return vo;
     }
 }

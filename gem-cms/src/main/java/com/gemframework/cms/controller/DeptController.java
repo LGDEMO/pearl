@@ -1,12 +1,16 @@
 package com.gemframework.cms.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.gemframework.bas.common.enums.ResultCode;
 import com.gemframework.bas.model.BaseResult;
 import com.gemframework.cms.model.vo.DeptVo;
+import com.gemframework.cms.model.vo.MenuVo;
 import com.gemframework.cms.service.DeptService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,7 +29,7 @@ import java.util.List;
  */
 
 @Slf4j
-@RestController
+@Controller
 @RequestMapping("dept")
 public class DeptController {
 
@@ -140,4 +144,23 @@ public class DeptController {
         return BaseResult.SUCCESS(list);
     }
 
+    @GetMapping("add.html")
+    public String addHtml(){
+        return "dept/add";
+    }
+
+    @GetMapping("edit.html")
+    public String editHtml(Model model, Long id){
+        DeptVo deptVo = deptService.getById(id);
+        model.addAttribute("edit_dept",deptVo);
+        return "dept/edit";
+    }
+
+    @GetMapping("list.html")
+    public String list(Model model){
+        List<DeptVo> list = deptService.findListAll();
+        log.info("===>"+ JSON.toJSONString(list));
+        model.addAttribute("list_depts",list);
+        return "dept/list";
+    }
 }

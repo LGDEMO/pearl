@@ -1,19 +1,16 @@
 package com.gemframework.cms.common.security.scheme;
 
-import com.alibaba.fastjson.JSON;
 import com.gemframework.bas.common.constant.GemConstant;
-import com.gemframework.cms.common.security.config.GemAuthPageProperties;
+import com.gemframework.cms.common.security.config.GemSecurityProperties;
 import com.gemframework.cms.model.vo.UserVo;
 import com.gemframework.cms.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.core.annotation.Order;
 import org.springframework.security.access.SecurityMetadataSource;
 import org.springframework.security.access.intercept.AbstractSecurityInterceptor;
 import org.springframework.security.access.intercept.InterceptorStatusToken;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -21,7 +18,6 @@ import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.FilterInvocation;
 import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;
-import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -53,7 +49,7 @@ public class GemFilterSecurityInterceptor extends  AbstractSecurityInterceptor i
     private GemAuthenticationManager gemAuthenticationManager;
 
     @Resource
-    private GemAuthPageProperties gemAuthPageProperties;
+    private GemSecurityProperties gemSecurityProperties;
 
     @Resource
     private FilterInvocationSecurityMetadataSource securityMetadataSource;
@@ -97,8 +93,8 @@ public class GemFilterSecurityInterceptor extends  AbstractSecurityInterceptor i
         HttpServletRequest request = fi.getHttpRequest();
         HttpServletResponse response = fi.getHttpResponse();
         String url = request.getServletPath();
-        log.info("权限校验开关=="+gemAuthPageProperties.isOpen());
-        if(gemAuthPageProperties.isOpen()){
+        log.info("权限校验开关=="+ gemSecurityProperties.isOpen());
+        if(gemSecurityProperties.isOpen()){
             log.info("请求url=="+url);
             if (StringUtils.startsWithAny(url, ignoreStartUris)
                     || StringUtils.endsWithAny(url,ignoreSuffixUris)) {

@@ -1,9 +1,10 @@
 package com.gemframework.cms.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.gemframework.bas.model.BaseResult;
+import com.gemframework.cms.common.security.config.GemSecurityProperties;
 import com.gemframework.cms.model.vo.MenuVo;
-import com.gemframework.cms.model.vo.ztree.MenuSide;
-import com.gemframework.cms.model.vo.RoleVo;
+import com.gemframework.cms.model.vo.tree.MenuSide;
 import com.gemframework.cms.service.MenuService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,6 +33,8 @@ public class IndexController {
 
     @Resource
     private MenuService menuService;
+    @Resource
+    private GemSecurityProperties GemSecurityProperties;
 
     /***
      * 加载全部用户的左侧菜单栏MenuSide
@@ -61,8 +64,27 @@ public class IndexController {
      */
     @GetMapping("/initMenus")
     public BaseResult initMenus(HttpServletRequest request){
-        List<MenuSide> list = (List<MenuSide>) request.getSession().getAttribute("session_sidebar_menus");
-        return BaseResult.SUCCESS(list);
+        List<MenuSide> menuSides = (List<MenuSide>) request.getSession().getAttribute("session_sidebar_menus");
+
+        if(!GemSecurityProperties.isOpen()){
+            List<MenuVo> menus = menuService.findMenusListAll();
+            log.info("menus===>"+JSON.toJSONString(menus));
+            if(menus!=null && menus.size()>0){
+                menuSides = new ArrayList<>();
+                for(MenuVo menuVo:menus){
+                    MenuSide menuSide = MenuSide.builder()
+                            .F_ModuleId(String.valueOf(menuVo.getId()))
+                            .F_ParentId(String.valueOf(menuVo.getPid()))
+                            .F_EnCode(menuVo.getTag())
+                            .F_FullName(menuVo.getName())
+                            .F_Icon(menuVo.getIcon())
+                            .F_UrlAddress(menuVo.getLink()).build();
+                    menuSides.add(menuSide);
+                }
+            }
+        }
+        log.info("menus===>"+JSON.toJSONString(menuSides));
+        return BaseResult.SUCCESS(menuSides);
     }
 
 }

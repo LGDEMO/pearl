@@ -5,16 +5,13 @@ import com.gemframework.bas.common.exception.GemException;
 import com.gemframework.bas.common.utils.GemBeanUtils;
 import com.gemframework.cms.common.enums.MenuType;
 import com.gemframework.cms.model.po.Menu;
-import com.gemframework.cms.model.po.Role;
 import com.gemframework.cms.model.po.RoleMenus;
 import com.gemframework.cms.model.vo.MenuVo;
 import com.gemframework.cms.model.vo.RoleVo;
-import com.gemframework.cms.model.vo.ztree.MenuTree;
 import com.gemframework.cms.repository.MenuRepository;
 import com.gemframework.cms.repository.RoleMenusRepository;
 import com.gemframework.cms.service.MenuService;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang.StringUtils;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -47,15 +44,23 @@ public class MenuServiceImpl implements MenuService {
         menu = menuRepository.save(menu);
         MenuVo parentVo = getById(vo.getPid());
 
-        String idPath = "";
+        String idPath = String.valueOf(menu.getId());
         if(menu.getId()<10){
             idPath = "0"+menu.getId();
         }
         if(parentVo != null && parentVo.getIdPath() != null){
             idPath = parentVo.getIdPath()+"-"+idPath;
         }
+        //设置idpath
         menu.setIdPath(idPath);
-        //更新idpath
+
+        //设置series
+        String series = menu.getIdPath();
+        if(series.indexOf("-")>0){
+            series = series.substring(0,series.indexOf("-"));
+        }
+        menu.setSeries(series);
+        //更新
         menu = menuRepository.save(menu);
         GemBeanUtils.copyProperties(menu,vo);
         return vo;
@@ -111,7 +116,7 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
-    public List<MenuVo> findListByRoleId(Long roleId) {
+    public List<MenuVo> findMenusListByRoleId(Long roleId) {
         List<RoleMenus> roleMenus = roleMenusRepository.findListByRoleId(roleId);
         List<MenuVo> list = findMenusByRole(roleMenus);
         Collections.sort(list);
@@ -120,11 +125,24 @@ public class MenuServiceImpl implements MenuService {
 
     /**
      * 获取资源列表
+     * @return
+     */
+    @Override
+    public List<MenuVo> findMenusListAll() {
+        List<Menu> list = menuRepository.findListByType(MenuType.MENU.getCode());
+        List<MenuVo> vos = GemBeanUtils.copyCollections(list,MenuVo.class);
+        //list去重
+        Collections.sort(vos);
+        return vos;
+    }
+
+    /**
+     * 获取资源列表
      * @param roles
      * @return
      */
     @Override
-    public List<MenuVo> findListByRoles(List<RoleVo> roles) {
+    public List<MenuVo> findMenusListByRoles(List<RoleVo> roles) {
         List<Long> roleIds = new ArrayList<>();
         for(RoleVo role:roles){
             roleIds.add(role.getId());
@@ -146,7 +164,7 @@ public class MenuServiceImpl implements MenuService {
      * @return
      */
     @Override
-    public List<MenuVo> findTreeByRoles(List<RoleVo> roles) {
+    public List<MenuVo> findMenusTreeByRoles(List<RoleVo> roles) {
         List<Long> roleIds = new ArrayList<>();
         for(RoleVo role:roles){
             roleIds.add(role.getId());
@@ -298,5 +316,11 @@ public class MenuServiceImpl implements MenuService {
             }
         }
         return list;
+    }
+
+
+    public static void main(String[] args) {
+        String aa = "00-01-12-33";
+        System.out.println("=="+aa.indexOf("#"));
     }
 }

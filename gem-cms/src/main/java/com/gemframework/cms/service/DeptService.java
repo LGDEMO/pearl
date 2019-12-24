@@ -21,4 +21,6 @@ public interface DeptService {
     DeptVo update(DeptVo vo);
 
     void delete(Long id);
+
+    DeptVo getById(Long id);
 }

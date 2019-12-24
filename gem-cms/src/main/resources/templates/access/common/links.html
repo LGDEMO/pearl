@@ -16,11 +16,19 @@
         <!--<link rel="stylesheet" type="text/css" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">-->
     </div>
 
+    <div th:fragment="table_list_links">
+        <link rel="stylesheet" type="text/css" th:href="@{/static/access/js/bstable/css/bootstrap-table.css}">
+        <link rel="stylesheet" type="text/css" th:href="@{/static/access/css/table.css}">
+    </div>
     <div th:fragment="treetable_list_links">
         <link rel="stylesheet" type="text/css" th:href="@{/static/access/js/bstable/css/bootstrap-table.css}">
+        <link rel="stylesheet" type="text/css" th:href="@{/static/access/css/table.css}">
         <link rel="stylesheet" type="text/css" th:href="@{/static/access/css/jquery.treetable.css}">
         <link rel="stylesheet" type="text/css" th:href="@{/static/access/css/jquery.treetable.theme.default.css}">
-        <link rel="stylesheet" type="text/css" th:href="@{/static/access/css/table.css}">
+    </div>
+
+    <div th:fragment="ztree_links">
+        <link rel="stylesheet" type="text/css" th:href="@{/static/access/css/zTreeStyle/zTreeStyle.css}">
     </div>
 
 

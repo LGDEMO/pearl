@@ -1,8 +1,7 @@
-package com.gemframework.cms.model.vo.ztree;
+package com.gemframework.cms.model.vo.tree;
 
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.util.List;
 
@@ -20,7 +19,7 @@ import java.util.List;
 
 @Data
 @Builder
-public class MenuTree {
+public class ZtreeEntity {
 
 //    id:	10	,
 //    name:"	父级—",
@@ -37,5 +36,5 @@ public class MenuTree {
     private boolean nocheck;
     //级别
     private Integer level;
-    private List<MenuTree> children;
+    private List<ZtreeEntity> children;
 }

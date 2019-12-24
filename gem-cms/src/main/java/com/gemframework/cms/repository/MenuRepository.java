@@ -25,6 +25,13 @@ public interface MenuRepository extends JpaRepository<Menu, Long> {
     @Query("select menu from Menu menu where id = ?1 and type = ?2")
     Menu getById(Long id,Integer type);
 
-    @Query("select menu from Menu menu  ORDER BY idPath ASC")
+    @Query("select menu from Menu menu  ORDER BY series,sortNumber ASC")
     List<Menu> findAll();
+//
+//    @Query("select menu from Menu menu  ORDER BY idPath ASC")
+//    List<Menu> findAll();
+
+    @Query("select menu from Menu menu  where type = ?1 ORDER BY idPath ASC")
+    List<Menu> findListByType(Integer type);
+
 }

@@ -1,9 +1,8 @@
 package com.gemframework.cms.common.interceptor;
 
-import com.gemframework.cms.common.security.config.GemAuthPageProperties;
+import com.gemframework.cms.common.security.config.GemSecurityProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.servlet.config.annotation.*;
@@ -21,7 +20,7 @@ public class WebMvcConfigurerAdapter implements WebMvcConfigurer  {
     LoginInterceptor loginInterceptor;
 
     @Resource
-    GemAuthPageProperties gemAuthPageProperties;
+    GemSecurityProperties gemSecurityProperties;
 
     /**
      * 不需要登录拦截的url
@@ -45,8 +44,8 @@ public class WebMvcConfigurerAdapter implements WebMvcConfigurer  {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        log.info("mvc拦截器，检测权限校验开关="+gemAuthPageProperties.isOpen());
-        if(gemAuthPageProperties.isOpen()){
+        log.info("mvc拦截器，检测权限校验开关="+ gemSecurityProperties.isOpen());
+        if(gemSecurityProperties.isOpen()){
             // 这里添加多个拦截器
             // 登录拦截器
             registry.addInterceptor(loginInterceptor)

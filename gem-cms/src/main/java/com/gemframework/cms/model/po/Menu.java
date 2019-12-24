@@ -49,11 +49,16 @@ public class Menu extends BasePo {
     //排序
     @Column(columnDefinition = "int(10) comment '排序编号'")
     private Integer sortNumber;
-    //排序
+
+    //路径 1-2-1 用于treetable页面渲染
     @Column(columnDefinition = "varchar(20) comment 'ID路径'")
-    //路径 1-2-1
     private String idPath;
-    //父级的路径 1-2-1
+
+    //系列 用于归类 存放家族一级分类ID 一级分类存自己ID
+    @Column(columnDefinition = "varchar(20) comment '所属系列'")
+    private String series;
+
+    //父级的路径 1-2-1 用于treetable页面渲染
     @Transient
     private String parentIdPath;
     @Transient
@@ -155,6 +160,22 @@ public class Menu extends BasePo {
         this.childs = childs;
     }
 
+    public String getParentIdPath() {
+        return parentIdPath;
+    }
+
+    public void setParentIdPath(String parentIdPath) {
+        this.parentIdPath = parentIdPath;
+    }
+
+    public String getSeries() {
+        return series;
+    }
+
+    public void setSeries(String series) {
+        this.series = series;
+    }
+
     @Override
     public String toString() {
         return "Menu{" +
@@ -169,6 +190,8 @@ public class Menu extends BasePo {
                 ", active=" + active +
                 ", sortNumber=" + sortNumber +
                 ", idPath='" + idPath + '\'' +
+                ", parentIdPath='" + parentIdPath + '\'' +
+                ", series='" + series + '\'' +
                 ", childs=" + childs +
                 '}';
     }

@@ -10,7 +10,8 @@
         <link rel="stylesheet" type="text/css" th:href="@{/static/access/css/zTreeStyle/zTreeStyle.css}">
 
         <!--图标选择器-->
-        <link href="https://farbelous.io/fontawesome-iconpicker/dist/css/fontawesome-iconpicker.min.css" rel="stylesheet">
+        <!--<link href="https://farbelous.io/fontawesome-iconpicker/dist/css/fontawesome-iconpicker.min.css" rel="stylesheet">-->
+        <link rel="stylesheet" type="text/css" th:href="@{/static/access/css/fontawesome-iconpicker.css}">
 
         <link href="https://cdn.bootcss.com/jquery.bootstrapvalidator/0.5.3/css/bootstrapValidator.css" rel="stylesheet">
 
@@ -50,11 +51,10 @@
                                     <td>所属上级<span class="span">*</span></td>
                                     <td>
                                         <div class="dropdown">
-                                            <input type="hidden" name="id" id="id" th:value="${edit_menu.id}" />
-                                            <input type="hidden" name="pid" id="pid" th:value="${edit_menu.pid}" />
-                                            <input type="hidden" name="level" id="level" th:value="${edit_menu.level}"/>
+                                            <input type="hidden" name="pid" id="pid" value="0" />
+                                            <input type="hidden" name="level" id="level" />
                                             <input class="dropdown_select"  id="dropdownMenu1"
-                                                   data-toggle="dropdown" aria-haspopup="true" th:value="${edit_menu.pname}"
+                                                   data-toggle="dropdown" aria-haspopup="true"
                                                    aria-expanded="true" placeholder="--请选择--" readonly required />
                                             <span class="caret"></span>
                                             <div class="dropdown-menu" aria-labelledby="dropdownMenu1" style="width: 247px">
@@ -68,7 +68,7 @@
                                 </tr>
                                 <tr>
                                     <td>资源类型<span class="span">*</span></td>
-                                    <td th:if="${edit_menu.type}==0">
+                                    <td>
                                         <div class="radio radio-info radio-inline">
                                             <input type="radio" name="type" id="type1"
                                                    value="0" checked />
@@ -76,45 +76,21 @@
                                         </div>
                                         <div class="radio radio-info radio-inline">
                                             <input type="radio" name="type" id="type2"
-                                                   value="1"/>
+                                                   value="1" />
                                             <label for="type2">按钮</label>
-                                        </div>
-                                    </td>
-                                    <td th:if="${edit_menu.type}==1">
-                                        <div class="radio radio-info radio-inline">
-                                            <input type="radio" name="type" id="type3"
-                                                   value="0"/>
-                                            <label for="type3">菜单</label>
-                                        </div>
-                                        <div class="radio radio-info radio-inline">
-                                            <input type="radio" name="type" id="type4"
-                                                   value="1" checked/>
-                                            <label for="type4">按钮</label>
-                                        </div>
-                                    </td>
-                                    <td th:if="${edit_menu.type}==null">
-                                        <div class="radio radio-info radio-inline">
-                                            <input type="radio" name="type" id="type5"
-                                                   value="0" checked/>
-                                            <label for="type5">菜单1</label>
-                                        </div>
-                                        <div class="radio radio-info radio-inline">
-                                            <input type="radio" name="type" id="type6"
-                                                   value="1"/>
-                                            <label for="type6">按钮</label>
                                         </div>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>资源名称<span class="span">*</span></td>
                                     <td>
-                                        <input type="text" name="name" id="name" required minlength ="2" th:value="${edit_menu.name}"/>
+                                        <input type="text" name="name" id="name" required minlength ="2" />
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>资源标识<span class="span">*</span></td>
                                     <td>
-                                        <input type="text" name="tag" id="tag"  required th:value="${edit_menu.tag}"/>
+                                        <input type="text" name="tag" id="tag"  required />
                                     </td>
                                 </tr>
                                 <tr>
@@ -122,19 +98,19 @@
                                     <td>
                                         <input type="text" name="icon" id="icon" required
                                                data-placement="bottomRight" readonly
-                                               class="form-control icp icp-auto" th:value="${edit_menu.icon}" />
+                                               class="form-control icp icp-auto" />
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>跳转路由<span class="span">*</span></td>
                                     <td>
-                                        <input type="text" name="link" id="link" required th:value="${edit_menu.link}" />
+                                        <input type="text" name="link" id="link" required />
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>排序序号<span class="span">*</span></td>
                                     <td>
-                                        <input type="text" name="sortNumber" id="sortNumber"  th:value="${edit_menu.sortNumber}" required />
+                                        <input type="text" name="sortNumber" id="sortNumber" value="99" required />
                                     </td>
                                 </tr>
                             </tbody>
@@ -158,7 +134,8 @@
         <!--<script type="text/javascript" th:src="@{/static/access/js/organize.js}"></script>-->
         <script type="text/javascript" th:src="@{/static/access/js/custom/menutree.js}"></script>
         <!--图标选择器-->
-        <script src="https://farbelous.io/fontawesome-iconpicker/dist/js/fontawesome-iconpicker.js"></script>
+        <!--<script src="https://farbelous.io/fontawesome-iconpicker/dist/js/fontawesome-iconpicker.js"></script>-->
+        <script type="text/javascript" th:src="@{/static/access/js/fontawesome-iconpicker.js}"></script>
         <script src="https://cdn.bootcss.com/jquery.bootstrapvalidator/0.5.3/js/bootstrapValidator.min.js"></script>
         <script>
             $(function () {
@@ -182,6 +159,7 @@
                 })
             });
 
+
             $('#btn_save').on('click', function() {
                 $.ajax({
                     type: "post",
@@ -194,13 +172,7 @@
                     success: function(res) {
                         if (res.code == "0") {
                             if($("#btn_save_close").is(':checked')){
-                                alert("编辑成功",Colse);
-                            }else{
-                                layer.alert("编辑成功", {
-                                    skin: 'layui-layer-lan'
-                                    ,closeBtn: 0
-                                    ,anim: 4 //动画类型
-                                });
+                                alert("保存成功",Colse);
                             }
                         }else {
                             layer.alert("["+res.code+"]"+res.msg, {

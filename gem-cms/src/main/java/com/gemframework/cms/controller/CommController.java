@@ -1,19 +1,16 @@
 package com.gemframework.cms.controller;
 
-import com.alibaba.fastjson.JSON;
 import com.gemframework.bas.model.BaseResult;
+import com.gemframework.cms.model.vo.DeptVo;
 import com.gemframework.cms.model.vo.MenuVo;
-import com.gemframework.cms.model.vo.ztree.MenuSide;
-import com.gemframework.cms.model.vo.ztree.MenuTree;
+import com.gemframework.cms.model.vo.tree.ZtreeEntity;
+import com.gemframework.cms.service.DeptService;
 import com.gemframework.cms.service.MenuService;
-import com.gemframework.cms.service.impl.MenuServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,6 +32,9 @@ public class CommController {
     @Autowired
     private MenuService menuService;
 
+    @Autowired
+    private DeptService deptService;
+
     /***
      * 加载当前权限用户的左侧菜单栏MenuSide
      * @return
@@ -42,8 +42,8 @@ public class CommController {
     @GetMapping("/findAllMenusTree")
     public BaseResult findAllMenusTree(){
         List<MenuVo> menus = menuService.findListAll();
-        List<MenuTree> menuTrees = new ArrayList<>();
-        MenuTree menuTree = MenuTree.builder()
+        List<ZtreeEntity> ztreeEntities = new ArrayList<>();
+        ZtreeEntity ztreeEntity = ZtreeEntity.builder()
                 .id(0L)
                 .pid(-1L)
                 .name("根目录")
@@ -52,9 +52,9 @@ public class CommController {
                 .open(true)
                 .nocheck(true)
                 .build();
-        menuTrees.add(menuTree);
+        ztreeEntities.add(ztreeEntity);
         for(MenuVo menuVo:menus){
-            menuTree = MenuTree.builder()
+            ztreeEntity = ZtreeEntity.builder()
                     .id(menuVo.getId())
                     .pid(menuVo.getPid())
                     .name(menuVo.getName())
@@ -63,9 +63,42 @@ public class CommController {
                     .open(true)
                     .nocheck(true)
                     .build();
-            menuTrees.add(menuTree);
+            ztreeEntities.add(ztreeEntity);
         }
-        return BaseResult.SUCCESS(toTree(menuTrees));
+        return BaseResult.SUCCESS(toTree(ztreeEntities));
+    }
+
+    /***
+     * 加载当前权限用户的左侧菜单栏MenuSide
+     * @return
+     */
+    @GetMapping("/findAllDeptTree")
+    public BaseResult findAllDeptTree(){
+        List<DeptVo> depts = deptService.findListAll();
+        List<ZtreeEntity> ztreeEntities = new ArrayList<>();
+        ZtreeEntity ztreeEntity = ZtreeEntity.builder()
+                .id(0L)
+                .pid(-1L)
+                .name("公司总部")
+                .title("公司总部")
+                .level(0)
+                .open(true)
+                .nocheck(true)
+                .build();
+        ztreeEntities.add(ztreeEntity);
+        for(DeptVo deptVo:depts){
+            ztreeEntity = ZtreeEntity.builder()
+                    .id(deptVo.getId())
+                    .pid(deptVo.getPid())
+                    .name(deptVo.getName())
+                    .title(deptVo.getName())
+                    .level(deptVo.getLevel())
+                    .open(true)
+                    .nocheck(true)
+                    .build();
+            ztreeEntities.add(ztreeEntity);
+        }
+        return BaseResult.SUCCESS(toTree(ztreeEntities));
     }
 
 
@@ -76,16 +109,16 @@ public class CommController {
      * @param treeNodes 传入的树节点列表
      * @return
      */
-    public static List<MenuTree> toTree(List<MenuTree> treeNodes) {
-        List<MenuTree> trees = new ArrayList<MenuTree>();
-        for (MenuTree treeNode : treeNodes) {
+    public static List<ZtreeEntity> toTree(List<ZtreeEntity> treeNodes) {
+        List<ZtreeEntity> trees = new ArrayList<ZtreeEntity>();
+        for (ZtreeEntity treeNode : treeNodes) {
             if (-1 == (treeNode.getPid())) {
                 trees.add(treeNode);
             }
-            for (MenuTree it : treeNodes) {
+            for (ZtreeEntity it : treeNodes) {
                 if (it.getPid() == treeNode.getId()) {
                     if (treeNode.getChildren() == null) {
-                        treeNode.setChildren(new ArrayList<MenuTree>());
+                        treeNode.setChildren(new ArrayList<ZtreeEntity>());
                     }
                     treeNode.getChildren().add(it);
                 }

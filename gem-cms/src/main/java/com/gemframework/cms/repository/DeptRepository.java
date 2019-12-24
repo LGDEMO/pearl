@@ -2,6 +2,7 @@ package com.gemframework.cms.repository;
 
 import com.gemframework.cms.model.po.Dept;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 /**
  * @Title: DeptRepository.java
@@ -15,4 +16,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @Company: www.gemframework.com
  */
 public interface DeptRepository extends JpaRepository<Dept, Long> {
+
+    @Query("select dept from Dept dept where id = ?1")
+    Dept getById(Long id);
 }

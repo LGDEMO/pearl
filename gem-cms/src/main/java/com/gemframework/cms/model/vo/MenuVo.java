@@ -54,10 +54,12 @@ public class MenuVo extends BaseVo implements Comparable<MenuVo>{
     private Integer sortNumber;
 
     List<MenuVo> childs;
-    //路径 1-2-1
+    //路径 1-2-1 用于treetable页面渲染
     private String idPath;
-    //父级的路径 1-2-1
+    //父级的路径 1-2 用于treetable页面渲染
     private String parentIdPath;
+    //系列 用于归类 存放家族一级分类ID 一级分类存自己ID
+    private String series;
 
     @Override
     public int compareTo(MenuVo o) {
