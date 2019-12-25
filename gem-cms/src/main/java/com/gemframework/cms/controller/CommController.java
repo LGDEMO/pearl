@@ -1,6 +1,7 @@
 package com.gemframework.cms.controller;
 
 import com.gemframework.bas.model.BaseResult;
+import com.gemframework.cms.common.enums.MenuType;
 import com.gemframework.cms.model.vo.DeptVo;
 import com.gemframework.cms.model.vo.MenuVo;
 import com.gemframework.cms.model.vo.tree.ZtreeEntity;
@@ -36,12 +37,12 @@ public class CommController {
     private DeptService deptService;
 
     /***
-     * 加载当前权限用户的左侧菜单栏MenuSide
+     * 加载当前权限用户的菜单树
      * @return
      */
     @GetMapping("/findAllMenusTree")
     public BaseResult findAllMenusTree(){
-        List<MenuVo> menus = menuService.findListAll();
+        List<MenuVo> menus = menuService.findListAllByType(MenuType.MENU);
         List<ZtreeEntity> ztreeEntities = new ArrayList<>();
         ZtreeEntity ztreeEntity = ZtreeEntity.builder()
                 .id(0L)
@@ -69,7 +70,7 @@ public class CommController {
     }
 
     /***
-     * 加载当前权限用户的左侧菜单栏MenuSide
+     * 加载当前权限用户的部门树
      * @return
      */
     @GetMapping("/findAllDeptTree")

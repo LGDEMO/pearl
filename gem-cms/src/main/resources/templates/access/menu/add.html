@@ -52,10 +52,10 @@
                                 <td>
                                     <div class="dropdown">
                                         <input type="hidden" name="pid" id="pid" value="0" />
-                                        <input type="hidden" name="level" id="level" />
+                                        <input type="hidden" name="level" id="level" value="1" />
                                         <input class="dropdown_select"  id="dropdownMenu1"
                                                data-toggle="dropdown" aria-haspopup="true"
-                                               aria-expanded="true" placeholder="--请选择--" readonly required />
+                                               aria-expanded="true" placeholder="--根目录--" readonly required />
                                         <span class="caret"></span>
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenu1" style="width: 247px">
                                             <div class=" order_ztree l_left organize_ztree" style="width: 100%;background-color: #fff;
@@ -96,8 +96,8 @@
                             <tr>
                                 <td>资源图标<span class="span">*</span></td>
                                 <td>
-                                    <input type="text" name="icon" id="icon" required
-                                           data-placement="bottomRight" readonly
+                                    <input type="text" name="icon" id="icon" required minlength ="2"
+                                           data-placement="bottomRight"
                                            class="form-control icp icp-auto" />
                                 </td>
                             </tr>
@@ -122,7 +122,8 @@
                     <input id="btn_save_close" type="checkbox" checked="checked"/>保存并关闭窗口
                 </div>
                 <div class="r_right but_p">
-                    <button id="btn_save" class="but_save">保存</button>
+                    <!--<button id="btn_save" class="but_save">保存</button>-->
+                    <button type="submit" class="but_save">保存</button>
                     <button id="btn_close"class="but_close" onclick="Colse()">关闭</button>
                 </div>
             </div>
@@ -161,7 +162,7 @@
         });
 
 
-        $('#btn_save').on('click', function() {
+        $("#form").submit(function () {
             $.ajax({
                 type: "post",
                 url: "add",
@@ -188,7 +189,8 @@
                     console.log("error:"+JSON.stringify(e));
                 }
             })
-        });
+        })
+
 
         function Colse() {
             var index = parent.layer.getFrameIndex(window.name);

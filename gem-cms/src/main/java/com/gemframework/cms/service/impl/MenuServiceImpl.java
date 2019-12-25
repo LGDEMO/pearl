@@ -16,6 +16,7 @@ import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.thymeleaf.util.ListUtils;
 
 import javax.annotation.Resource;
 import java.util.*;
@@ -88,6 +89,30 @@ public class MenuServiceImpl implements MenuService {
         return vos;
     }
 
+    /**
+     * @Title:  findListAll
+     * @MethodName:  findListAll
+     * @Param: []
+     * @Retrun: java.util.List
+     * @Description:  查询所有数据列表
+     * @Date: 2019-12-05 22:10:15
+     */
+    @Override
+    public List<MenuVo> findLinkedListAll() {
+        List<Menu> list = menuRepository.findAll();
+        List<MenuVo> vos = GemBeanUtils.copyCollections(list,MenuVo.class);
+        for(MenuVo menuVo :vos){
+            if(menuVo!=null && menuVo.getIdPath()!=null){
+                if(menuVo.getIdPath().lastIndexOf("-")>0){
+                    menuVo.setParentIdPath(menuVo.getIdPath().substring(0,menuVo.getIdPath().lastIndexOf("-")));
+                }
+            }
+        }
+        //通过链表重新排序
+        vos = getMenuLinkedList(vos);
+        return vos;
+    }
+
 
     /**
      * @Title:  findListByParams
@@ -116,7 +141,7 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
-    public List<MenuVo> findMenusListByRoleId(Long roleId) {
+    public List<MenuVo> findListByRoleId(Long roleId) {
         List<RoleMenus> roleMenus = roleMenusRepository.findListByRoleId(roleId);
         List<MenuVo> list = findMenusByRole(roleMenus);
         Collections.sort(list);
@@ -124,14 +149,14 @@ public class MenuServiceImpl implements MenuService {
     }
 
     /**
-     * 获取资源列表
+     * 获取菜单列表
      * @return
      */
     @Override
-    public List<MenuVo> findMenusListAll() {
-        List<Menu> list = menuRepository.findListByType(MenuType.MENU.getCode());
+    public List<MenuVo> findListAllByType(MenuType type) {
+        List<Menu> list = menuRepository.findListByType(type.getCode());
         List<MenuVo> vos = GemBeanUtils.copyCollections(list,MenuVo.class);
-        //list去重
+        //list排序
         Collections.sort(vos);
         return vos;
     }
@@ -142,7 +167,7 @@ public class MenuServiceImpl implements MenuService {
      * @return
      */
     @Override
-    public List<MenuVo> findMenusListByRoles(List<RoleVo> roles) {
+    public List<MenuVo> findListByRoles(List<RoleVo> roles) {
         List<Long> roleIds = new ArrayList<>();
         for(RoleVo role:roles){
             roleIds.add(role.getId());
@@ -164,7 +189,7 @@ public class MenuServiceImpl implements MenuService {
      * @return
      */
     @Override
-    public List<MenuVo> findMenusTreeByRoles(List<RoleVo> roles) {
+    public List<MenuVo> findTreeByRoles(List<RoleVo> roles) {
         List<Long> roleIds = new ArrayList<>();
         for(RoleVo role:roles){
             roleIds.add(role.getId());
@@ -318,6 +343,42 @@ public class MenuServiceImpl implements MenuService {
         return list;
     }
 
+    /**
+     * 获取菜单列表
+     * @param list
+     * @return
+     *
+     */
+    private List<MenuVo> getMenuLinkedList(List<MenuVo> list) {
+        //对数据排序 start -----treeTable不知道怎么排序，如果可以的话，在前端用js排序比这个效率要高，后面可以优化
+        List<MenuVo> listSorted = new LinkedList<>();
+        if (!ListUtils.isEmpty(list)){
+            for (MenuVo o:list){
+                sortNodeInfo(o,list,listSorted);
+            }
+        }
+        //对数据排序 end
+        return listSorted;
+    }
+
+    /**
+     * 通过链表对节点信息排序
+     */
+    private void sortNodeInfo(MenuVo vo,List<MenuVo> list,List<MenuVo> listSorted) {
+        if (listSorted.lastIndexOf(vo) > 0) {
+            return;
+        }
+        listSorted.add(vo);
+        Long id = vo.getId();
+        if (id == null) {
+            return;
+        }
+        for (MenuVo m : list) {
+            if (id == m.getPid()) {
+                sortNodeInfo(m, list, listSorted);
+            }
+        }
+    }
 
     public static void main(String[] args) {
         String aa = "00-01-12-33";

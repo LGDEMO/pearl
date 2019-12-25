@@ -14,9 +14,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.thymeleaf.util.ListUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -163,9 +165,11 @@ public class MenuController {
     @GetMapping("list.html")
 
     public String list(Model model){
-        List<MenuVo> list = menuService.findListAll();
+        List<MenuVo> list = menuService.findLinkedListAll();
         log.info("===>"+JSON.toJSONString(list));
         model.addAttribute("list_menus",list);
         return "menu/list";
     }
+
+
 }

@@ -7,61 +7,89 @@
     <div th:replace="common/links::font_links"></div>
     <div th:replace="common/links::table_list_links"></div>
     <div th:replace="common/links::ztree_links"></div>
+    <link rel="stylesheet" href="../static/access/css/index.css">
+
+    <!--<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap-validator/0.5.3/css/bootstrapValidator.css">-->
     <style>
         .department_main{padding: 10px 10px 0 10px}
         .department_main label{width: 80px;text-align: right;font-size: 14px}
         .department_main input{width: 240px;margin-right: 1%;height: 32px;border: 1px #ccc solid;background-color: #fff;border-radius: 4px}
         .department_main textarea{resize: none;border: 1px #ccc solid;width: 570px;height: 200px;background-color: #fff;border-radius: 4px}
     </style>
+
 </head>
 <body style="background-color: #ecf0f5;font-family: 微软雅黑;color: #475059;min-width: 550px;overflow: auto">
 <div class="news_main">
 
-    <div class="l_left news_left">
+    <div id="dept_tree" class="l_left news_left">
         <h6>部门目录</h6>
         <div class="tree_left_top" style="height: 90%;overflow: auto">
-
-            <div align="center" style="width: 100%; margin-top: 5px;">
-                <a class="btn btn-default" onclick="addUser()"><span class="glyphicon glyphicon-plus"></span>新增</a>
-                <a class="btn btn-default"><span class="glyphicon glyphicon-remove"></span>删除</a>
-                <a class="btn btn-default" onclick="addUser()"><span class="glyphicon glyphicon-pencil"></span>编辑</a>
+            <div style="width: 100%;margin-top: 5px;">
+                <div style="margin-left: 30px;">
+                    <a class="btn btn-default" onclick="addOpen()">
+                        <span class="glyphicon glyphicon-plus"></span>新增</a>
+                    <a class="btn btn-default">
+                        <span class="glyphicon glyphicon-remove"></span>删除</a>
+                    <a class="btn btn-default" onclick="resetTree()">
+                        <span class="glyphicon glyphicon-remove"></span>刷新树</a>
+                    <!--<a class="btn btn-default" onclick="addUser()"><span class="glyphicon glyphicon-pencil"></span>编辑</a>-->
+                </div>
             </div>
             <div class=" order_ztree l_left organize_ztree" style="width: 100%">
-                <p><ul id="treeDemo" class="ztree"  style=" overflow:auto;margin-left: 20px"></ul></p>
+                <p><ul id="listTree" class="ztree"  style=" overflow:auto;margin-left: 20px"></ul></p>
             </div>
         </div>
     </div>
-    <div class="l_left news_right">
+    <div id="dept_view" class="l_left news_right" style="display: none">
         <h6>部门详情</h6>
+        <form id="form" onsubmit="return false">
+            <!--隐藏字段-->
+            <input type="hidden" name="pid" id="pid" value="0" />
+            <input type="hidden" name="level" id="level" value="1"/>
 
-        <div class="department_main">
-            <label>上级部门：</label><input type="text" disabled="disabled">
-            <label>部门名称：</label><input type="text" disabled="disabled">
+            <div class="department_main">
+                <label>上级部门：</label>
+                <span class="dropdown">
+                    <input class="dropdown_select"  id="dropdownMenu1"
+                           data-toggle="dropdown" aria-haspopup="true"
+                           aria-expanded="true" placeholder="--集团总部--" readonly required />
+                    <span class="caret"></span>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenu1" style="width: 247px">
+                        <div class=" order_ztree l_left organize_ztree" style="width: 100%;background-color: #fff;
+                                            padding-bottom: 10px;height: 240px;overflow: auto;">
+                            <ul id="addTree" class="ztree"  style=" overflow:auto;margin-left: 20px"></ul>
+                        </div>
+                    </div>
+                </span>
+                <label>部门名称：</label>
+                <input type="text" id="name" name="name" required minlength="2"/>
+            </div>
 
-        </div>
-        <div class="department_main">
-            <label>部门编号：</label><input type="text" disabled="disabled">
-            <label>负责人：</label><input type="text" disabled="disabled">
+            <div class="department_main">
+                <label>部门编号：</label><input type="text" />
+                <label>负责人：</label><input type="text" />
+            </div>
 
-        </div>
-        <div class="department_main">
-            <label>部门简称：</label><input type="text" disabled="disabled">
-            <label>部门性质：</label><input type="text" disabled="disabled">
+            <div class="department_main">
+                <label>部门简称：</label><input type="text" />
+                <label>部门性质：</label><input type="text" />
+            </div>
 
-        </div>
-        <div class="department_main">
-            <label>部门电话：</label><input type="text" disabled="disabled">
-            <label>部门邮箱：</label><input type="text" disabled="disabled">
+            <div class="department_main">
+                <label>部门电话：</label><input type="text" />
+                <label>部门邮箱：</label><input type="text" />
+            </div>
 
-        </div>
-        <div class="department_main">
-            <label style="float: left;line-height: 200px">部门备注：</label><textarea disabled="disabled"></textarea>
-        </div>
-        <div align="center" style="margin-top: 10px">
-            <button type="button" class="btn btn-primary"data-toggle="button">立即保存</button>
-        </div>
+            <div class="department_main">
+                <label style="float: left;line-height: 200px">部门备注：</label><textarea /></textarea>
+            </div>
+
+            <div align="center" style="margin-top: 10px">
+                <button type="submit" class="btn btn-primary" >立即保存</button>
+            </div>
+        </form>
     </div>
-    <div class="l_left news_right">
+    <div id="dept_user" class="l_left news_right">
         <h6>部门用户</h6>
         <div class="notice_check">
             <div class="btn-group l_left" style="margin-right: 4px">
@@ -103,40 +131,74 @@
 <div th:replace="common/links::ztree_script"></div>
 <div th:replace="common/links::table_script"></div>
 <script type="text/javascript" th:src="@{/static/access/js/custom/depttree.js}"></script>
+
 <script>
     $(function(){
+        console.log("==123")
+        initPage();
         table();
         change();
-        nav();
     });
-    function add_department(){
-        layer.open({
-            type: 2,
-            title: '添加部门',
-            shadeClose: true,
-            shade: 0.5,
-            skin: 'layui-layer-rim',
-            closeBtn:1,
-            area: ['700px', '400px'],
-            content: 'department_tail.html'
-        });
-    }
-    function nav(){
-        $(".news_nav li").each(function(index){
-            $(this).click(function(){
-                $(".news_nav li").removeClass("nav_active");
-                $(this).addClass("nav_active");
-                $(".news_table>li").eq(index).show().siblings("li").stop().hide();
-            })
 
-        })
+    function addOpen(){
+        if($(window).width()>=1400){
+            $(".news_right").css("width","37.5%");
+            $("#dept_view").show("fast");
+        }else{
+            $("#dept_user").css("display","none");;
+            $("#dept_view").show("fast");
+        }
     }
+
+    $("#form").submit(function () {
+        console.log("ajax...")
+        $.ajax({
+            type: "post",
+            url: "add",
+            data:JSON.stringify($('#form').serializeObject()),
+            async:true, // 异步请求
+            cache:false, // 设置为 false 将不缓存此页面
+            dataType: "json", // 返回对象
+            contentType:"application/json;charset=UTF-8",
+            success: function(res) {
+                if (res.code == "0") {
+                    alert("保存成功");
+                    change();
+                    resetTree();
+                }else {
+                    layer.alert("["+res.code+"]"+res.msg, {
+                        skin: 'layui-layer-lan'
+                        ,closeBtn: 0
+                        ,anim: 4 //动画类型
+                    });
+                }
+            },
+            error: function(e) {
+                // 请求失败函数
+                console.log("error:"+JSON.stringify(e));
+            }
+        })
+    })
+
+
+    function initPage() {
+        //初始化界面
+        if($("#dept_view").css("display") == "none"){
+            // $(".news_right").width(685 * 2);
+            $(".news_right").css("width","75%");
+        }else{
+            // $(".news_right").width(685);
+            $(".news_right").css("width","37.5%");
+        }
+    }
+
+    //加载部门用户
     function table(){
         $('#table').bootstrapTable({
             method: "get",
             striped: true,
             singleSelect: false,
-            url: "json/log.json",
+            // url: "json/log.json",
             dataType: "json",
             pagination: true, //分页
             pageSize: 10,
@@ -202,6 +264,7 @@
             ]
         });
     }
+
     function del(id){
         layer.open({
             type: 2,
@@ -220,6 +283,7 @@
             $(".change").html($(this).html())
         })
     }
+
     function addUser(){
         layer.open({
             type: 2,

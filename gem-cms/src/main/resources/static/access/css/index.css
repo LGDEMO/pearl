@@ -286,7 +286,9 @@ td{border: none !important;}
 .but_p .but_close{background-color: #d9534f;margin-left: 10px}
 .top .td_select{width: 78px;margin-right: 2px}
 .dropdown_select{border: 1px #ccc solid;width: 247px;height: 28px;border-radius: 4px;position: relative;cursor: pointer;font-size: 14px}
-.caret{position: relative;
+.caret{
+    display: inline-block;
+    position: relative;
     margin-left: -20px;
     vertical-align: middle;
     border-top: 4px dashed;

@@ -2,6 +2,7 @@ package com.gemframework.cms.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.gemframework.bas.model.BaseResult;
+import com.gemframework.cms.common.enums.MenuType;
 import com.gemframework.cms.common.security.config.GemSecurityProperties;
 import com.gemframework.cms.model.vo.MenuVo;
 import com.gemframework.cms.model.vo.tree.MenuSide;
@@ -42,7 +43,7 @@ public class IndexController {
      */
     @GetMapping("/initAllMenus")
     public BaseResult initAllMenus(){
-        List<MenuVo> menus = menuService.findListAll();
+        List<MenuVo> menus = menuService.findListAllByType(MenuType.MENU);
         List<MenuSide> menuSides = new ArrayList<>();
         for(MenuVo menuVo:menus){
             MenuSide menuSide = MenuSide.builder()
@@ -67,7 +68,8 @@ public class IndexController {
         List<MenuSide> menuSides = (List<MenuSide>) request.getSession().getAttribute("session_sidebar_menus");
 
         if(!GemSecurityProperties.isOpen()){
-            List<MenuVo> menus = menuService.findMenusListAll();
+//            List<MenuVo> menus = menuService.findMenusListAll();
+            List<MenuVo> menus = menuService.findListAllByType(MenuType.MENU);
             log.info("menus===>"+JSON.toJSONString(menus));
             if(menus!=null && menus.size()>0){
                 menuSides = new ArrayList<>();

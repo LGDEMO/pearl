@@ -757,8 +757,10 @@ th{background-color: #337ab7 !important;}
 .news_main{height: 98%;width: 100%}
 .layui-layer-title{background-color: #3c8dbc !important;font-weight:bold;color:#fff !important; border:none !important;height: 33px;line-height: 33px;}
 .news_main h6{font-weight: bold;padding-left: 10px;line-height: 31px;border-bottom: 1px #ccc solid}
-.news_left{width: 260px;height: 800px;border: 1px #ccc solid;margin-right: 5px;background-color: #fff;overflow: auto}
-.news_right{width: 685px;height: 800px;border: 1px #ccc solid;margin-right: 5px;background-color: #fff;overflow: auto}
+/*.news_left{width: 260px;height: 800px;border: 1px #ccc solid;margin-right: 5px;background-color: #fff;overflow: auto}*/
+/*.news_right{width: 685px;height: 800px;border: 1px #ccc solid;margin-right: 5px;background-color: #fff;overflow: auto}*/
+.news_left{width: 20%;height: 800px;border: 1px #ccc solid;margin-right: 5px;background-color: #fff;overflow: auto}
+.news_right{width: 37.5%;height: 800px;border: 1px #ccc solid;margin-right: 5px;background-color: #fff;overflow: auto}
 .department_table .fixed-table-pagination{left: 16.5% !important;width: 83.5% !important;}
 
 h6{font-weight: bold;padding-left: 10px;line-height: 31px;border-bottom: 1px #ccc solid}

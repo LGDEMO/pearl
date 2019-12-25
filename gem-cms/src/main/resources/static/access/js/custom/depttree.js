@@ -9,7 +9,7 @@ var setting = {
         dataFilter: null,
         dataType : "text/json",
         type: "GET",
-        url: "../findAllMenusTree",
+        url: "../findAllDeptTree",
         autoParam: ["id=ids"],//, "name=n", "level=lv"可以设置提交时的参数名称，例如 server 只接受 zId : ["id=zId"] ; 默认值空
         otherParam : [],//其他参数 ;直接用 JSON 格式制作键值对，例如：{ key1:value1, key2:value2 }
         contentType : "application/x-www-form-urlencoded",//设置上下文类型
@@ -105,7 +105,7 @@ var setting = {
 var mdata  ="";
 $.ajax({
     type: "get",
-    url: "../findAllMenusTree",
+    url: "../findAllDeptTree",
     data: {
         // "id": id
     },
@@ -231,13 +231,34 @@ function checkTreeNode(checked) {
     hideRMenu();
 }
 function resetTree() {
+    $.ajax({
+        type: "get",
+        url: "../findAllDeptTree",
+        data: {
+            // "id": id
+        },
+        async: false, // 异步请求
+        cache: false, // 设置为 false 将不缓存此页面
+        dataType: 'json', // 返回对象
+        success: function (res) {
+            console.log(res);
+            if(res.code == 0){
+                mdata  = res.data;
+            }
+        },
+        error: function(res){
+            // 请求失败函数
+            console.log(res);
+        }
+    })
+
     hideRMenu();
-    $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+    $.fn.zTree.init($("#listTree"), setting, mdata);
+    $.fn.zTree.init($("#addTree"), setting, mdata);
 }
 
 function OnClick(event, treeId, treeNode){
-    $(".dropdown_select").val(treeNode.name);
-    console.log("treeNode=========="+JSON.stringify(treeNode))
+    $("#dropdownMenu1").val(treeNode.name);
     $("#pid").val(treeNode.id);
     if(treeNode.level == 3){
         $("#type1").attr('disabled',true);
@@ -251,7 +272,8 @@ function OnClick(event, treeId, treeNode){
 }
 var zTree, rMenu;
 $(document).ready(function(){
-    $.fn.zTree.init($("#treeDemo"), setting, mdata);
-    zTree = $.fn.zTree.getZTreeObj("treeDemo");
+    $.fn.zTree.init($("#listTree"), setting, mdata);
+    $.fn.zTree.init($("#addTree"), setting, mdata);
+    zTree = $.fn.zTree.getZTreeObj("listTree");
     rMenu = $("#rMenu");
 });

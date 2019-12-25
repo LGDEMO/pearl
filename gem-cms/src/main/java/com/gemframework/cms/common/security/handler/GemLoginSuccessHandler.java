@@ -1,5 +1,6 @@
 package com.gemframework.cms.common.security.handler;
 
+import com.gemframework.cms.common.enums.MenuType;
 import com.gemframework.cms.common.security.config.GemSecurityProperties;
 import com.gemframework.cms.model.vo.tree.MenuSide;
 import com.gemframework.cms.model.vo.MenuVo;
@@ -57,9 +58,9 @@ public class GemLoginSuccessHandler extends SavedRequestAwareAuthenticationSucce
             }
         }
         if(roles != null && roles.size() > 0){
-            List<MenuVo> menus = menuService.findMenusListByRoles(roles);
+            List<MenuVo> menus = menuService.findListByRoles(roles);
             if(roles.contains("admin")){
-                menus = menuService.findListAll();
+                menus = menuService.findListAllByType(MenuType.MENU);
             }
             if(menus!=null && menus.size()>0){
                 List<MenuSide> menuSides = new ArrayList<>();

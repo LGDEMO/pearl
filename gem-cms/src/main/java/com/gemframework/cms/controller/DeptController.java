@@ -45,6 +45,7 @@ public class DeptController {
      * @Date: 2019-12-05 22:22:32
      */
     @PostMapping("add")
+    @ResponseBody
     public BaseResult add(@Valid @RequestBody DeptVo vo, BindingResult bindingResult){
 
         if(bindingResult.hasErrors()){
