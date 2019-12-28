@@ -26,15 +26,18 @@
     <div id="dept_user" class="l_left news_right">
         <div class="notice_main">
             <div class="notice_check">
-                <div class="btn-group l_left" style="margin-right: 4px">
+                <div class="btn-group l_left"  style="margin-right: 4px">
+                    <button type="button" class="btn btn-default" onclick="switchView('dept>user')">按部门查询</button>
+                    <button type="button" class="btn btn-default">按角色查询</button>
                     <button type="button" class="btn btn-default change" style="height: 30px;line-height: 30px;padding: 0 12px !important;font-size: 12px">选择条件</button>
-                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="height: 30px;line-height: 30px">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="height: 30px;line-height: 30px">
                         <span class="caret"></span>
                         <span class="sr-only"></span>
                     </button>
-                    <ul class="dropdown-menu">
-                        <li>角色名称</li>
-                        <li>角色描述</li>
+                    <ul style="min-width: 245px;!important;" class="dropdown-menu" >
+                        <li>用户名</li>
+                        <li>手机号</li>
+                        <li>电子邮箱</li>
                     </ul>
                 </div>
                 <div class="l_left">
@@ -42,7 +45,7 @@
                 </div>
                 <button class="check_btn">查询</button>
                 <div class="notice_nav r_right">
-                    <a class="btn btn-default" onclick="addRole()"><span class="glyphicon glyphicon-plus"></span>新增</a>
+                    <a class="btn btn-default" onclick="addView()"><span class="glyphicon glyphicon-plus"></span>新增</a>
                     <a class="btn btn-default"><span class="glyphicon glyphicon-remove"></span>删除</a>
                     <a class="btn btn-default" onclick="addRole()"><span class="glyphicon glyphicon-pencil"></span>编辑</a>
                     <a class="btn btn-default" onclick="warrant()"><span class="glyphicon glyphicon-tag"></span>角色授权</a>
@@ -63,9 +66,10 @@
 
 <script>
     $(function(){
-        console.log("==1234")
+        console.log("==12345")
         table();
         change();
+        $("#dept_user").removeClass("l_left news_right")
     });
 
     function table() {
@@ -150,16 +154,16 @@
         })
     }
 
-    function addRole(){
+    function addView(){
         layer.open({
             type: 2,
-            title: '添加角色',
+            title: '添加新用户',
             shadeClose: true,
             shade: 0.5,
             skin: 'layui-layer-rim',
             closeBtn:1,
-            area: ['500px', '320px'],
-            content: 'role_tail.html'
+            area: ['750px', '574px'],
+            content: 'add.html'
         });
     }
 
