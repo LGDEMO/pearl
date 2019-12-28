@@ -433,21 +433,35 @@ function editView(){
     switchView("dept");
 }
 
+var count = 0;
 function switchView(flag){
     switch (flag) {
         case("user"):
-            $("#dept_view").css("display","none");;
+            $("#dept_view").css("display","none");
             $("#dept_user").show("fast");
             break;
         case("dept"):
-            $("#dept_user").css("display","none");;
+            $("#dept_user").css("display","none");
             $("#dept_view").show("fast");
+            break;
+        case("dept>user"):
+            if(count%2 == 0){
+                //tree打开
+                $("#dept_tree").show("fast");
+                //user切换class
+                $("#dept_user").addClass("l_left news_right")
+            }else {
+                //tree打开
+                $("#dept_tree").css("display","none");
+                //user切换class
+                $("#dept_user").removeClass("l_left news_right")
+            }
+            count++;
             break;
         default:
             $("#dept_user").css("display","none");;
             $("#dept_view").show("fast");
     }
-
 }
 
 //初始化树
