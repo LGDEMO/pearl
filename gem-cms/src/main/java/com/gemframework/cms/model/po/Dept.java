@@ -1,6 +1,8 @@
 package com.gemframework.cms.model.po;
 
 import com.gemframework.bas.model.po.BasePo;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -19,7 +21,9 @@ import java.util.List;
  */
 @Entity
 @Table(name = "gem_dept")
+@Data
 @NoArgsConstructor
+@EqualsAndHashCode(callSuper = true)
 public class Dept extends BasePo {
 
     @Id
@@ -38,9 +42,6 @@ public class Dept extends BasePo {
     @Column(columnDefinition = "varchar(50) comment '描述'")
     private String desp;
 
-    //排序
-    @Column(columnDefinition = "int(10) comment '排序编号'")
-    private Integer sortNumber;
     //系列 用于归类 存放家族一级分类ID 一级分类存自己ID
     @Column(columnDefinition = "varchar(20) comment '所属系列'")
     private String series;
@@ -49,105 +50,24 @@ public class Dept extends BasePo {
     @Column(columnDefinition = "varchar(20) comment 'ID路径'")
     private String idPath;
 
+    //详情字段
+    @Column(columnDefinition = "varchar(20) comment '部门编号'")
+    private String num;
+    @Column(columnDefinition = "varchar(10) comment '负责人'")
+    private String boss;
+    @Column(columnDefinition = "varchar(20) comment '简称'")
+    private String abbr;
+    @Column(columnDefinition = "varchar(20) comment '类型'")
+    private String type;
+    @Column(columnDefinition = "varchar(20) comment '电话'")
+    private String tel;
+    @Column(columnDefinition = "varchar(20) comment '邮箱'")
+    private String email;
+
+
     //父级的路径 1-2-1
     @Transient
     private String parentIdPath;
     @Transient
     List<Dept> childs;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Long getPid() {
-        return pid;
-    }
-
-    public void setPid(Long pid) {
-        this.pid = pid;
-    }
-
-    public Integer getLevel() {
-        return level;
-    }
-
-    public void setLevel(Integer level) {
-        this.level = level;
-    }
-
-    public String getDesp() {
-        return desp;
-    }
-
-    public void setDesp(String desp) {
-        this.desp = desp;
-    }
-
-    public Integer getSortNumber() {
-        return sortNumber;
-    }
-
-    public void setSortNumber(Integer sortNumber) {
-        this.sortNumber = sortNumber;
-    }
-
-    public String getSeries() {
-        return series;
-    }
-
-    public void setSeries(String series) {
-        this.series = series;
-    }
-
-    public String getIdPath() {
-        return idPath;
-    }
-
-    public void setIdPath(String idPath) {
-        this.idPath = idPath;
-    }
-
-    public String getParentIdPath() {
-        return parentIdPath;
-    }
-
-    public void setParentIdPath(String parentIdPath) {
-        this.parentIdPath = parentIdPath;
-    }
-
-    public List<Dept> getChilds() {
-        return childs;
-    }
-
-    public void setChilds(List<Dept> childs) {
-        this.childs = childs;
-    }
-
-    @Override
-    public String toString() {
-        return "Dept{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", pid=" + pid +
-                ", level=" + level +
-                ", desp='" + desp + '\'' +
-                ", sortNumber=" + sortNumber +
-                ", series='" + series + '\'' +
-                ", idPath='" + idPath + '\'' +
-                ", parentIdPath='" + parentIdPath + '\'' +
-                ", childs=" + childs +
-                '}';
-    }
 }

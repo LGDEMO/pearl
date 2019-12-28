@@ -144,7 +144,7 @@
 
 .fixed-table-pagination div.pagination,
 .fixed-table-pagination .pagination-detail {
-    font-size: 12px;
+    /*font-size: 12px;*/
     margin-top: 10px;
     margin-bottom: 10px;
     margin-left: 20px;

@@ -1,6 +1,8 @@
 package com.gemframework.cms.model.po;
 
 import com.gemframework.bas.model.po.BasePo;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -18,7 +20,9 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "gem_org")
+@Data
 @NoArgsConstructor
+@EqualsAndHashCode(callSuper = true)
 public class Org extends BasePo {
 
     @Id
@@ -33,46 +37,4 @@ public class Org extends BasePo {
 
     @Column(columnDefinition = "varchar(10) comment '路径'")
     private String path;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Integer getParent_id() {
-        return parent_id;
-    }
-
-    public void setParent_id(Integer parent_id) {
-        this.parent_id = parent_id;
-    }
-
-    public String getPath() {
-        return path;
-    }
-
-    public void setPath(String path) {
-        this.path = path;
-    }
-
-    @Override
-    public String toString() {
-        return "Org{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", parent_id=" + parent_id +
-                ", path='" + path + '\'' +
-                '}';
-    }
 }

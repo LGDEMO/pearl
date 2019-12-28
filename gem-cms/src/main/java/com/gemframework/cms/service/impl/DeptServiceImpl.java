@@ -39,6 +39,29 @@ public class DeptServiceImpl implements DeptService {
         Dept dept = new Dept();
         GemBeanUtils.copyProperties(vo,dept);
         dept = deptRepository.save(dept);
+
+        //更新id_path,series开始
+        DeptVo parentVo = getById(vo.getPid());
+        String idPath = String.valueOf(dept.getId());
+        if(dept.getId()<10){
+            idPath = "0"+dept.getId();
+        }
+        if(parentVo != null && parentVo.getIdPath() != null){
+            idPath = parentVo.getIdPath()+"-"+idPath;
+        }
+        //设置idpath
+        dept.setIdPath(idPath);
+
+        //设置series
+        String series = dept.getIdPath();
+        if(series.indexOf("-")>0){
+            series = series.substring(0,series.indexOf("-"));
+        }
+        dept.setSeries(series);
+        //更新
+        dept = deptRepository.save(dept);
+        //更新id_path,series结束
+
         GemBeanUtils.copyProperties(dept,vo);
         return vo;
     }
@@ -162,8 +185,17 @@ public class DeptServiceImpl implements DeptService {
     public DeptVo getById(Long id) {
         DeptVo vo = new DeptVo();
         Dept entity = deptRepository.getById(id);
+
         if(entity!=null){
             GemBeanUtils.copyProperties(entity,vo);
+            if(vo.getPid()!=null){
+                vo.setPname("公司总部");
+                //父级信息
+                entity = deptRepository.getById(vo.getPid());
+                if(entity!=null){
+                    vo.setPname(entity.getName());
+                }
+            }
         }
         return vo;
     }

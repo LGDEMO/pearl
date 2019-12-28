@@ -2,6 +2,8 @@ package com.gemframework.cms.model.po;
 
 import com.gemframework.bas.model.po.BasePo;
 import com.gemframework.cms.model.vo.MenuVo;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -20,7 +22,9 @@ import java.util.List;
  */
 @Entity
 @Table(name = "gem_menu")
+@Data
 @NoArgsConstructor
+@EqualsAndHashCode(callSuper = true)
 public class Menu extends BasePo {
 
     @Id
@@ -63,136 +67,4 @@ public class Menu extends BasePo {
     private String parentIdPath;
     @Transient
     List<Menu> childs;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getTag() {
-        return tag;
-    }
-
-    public void setTag(String tag) {
-        this.tag = tag;
-    }
-
-    public String getLink() {
-        return link;
-    }
-
-    public void setLink(String link) {
-        this.link = link;
-    }
-
-    public Integer getType() {
-        return type;
-    }
-
-    public void setType(Integer type) {
-        this.type = type;
-    }
-
-    public Integer getLevel() {
-        return level;
-    }
-
-    public void setLevel(Integer level) {
-        this.level = level;
-    }
-
-    public Long getPid() {
-        return pid;
-    }
-
-    public void setPid(Long pid) {
-        this.pid = pid;
-    }
-
-    public String getIcon() {
-        return icon;
-    }
-
-    public String getIdPath() {
-        return idPath;
-    }
-
-    public void setIdPath(String idPath) {
-        this.idPath = idPath;
-    }
-
-    public void setIcon(String icon) {
-        this.icon = icon;
-    }
-
-    public Integer getActive() {
-        return active;
-    }
-
-    public void setActive(Integer active) {
-        this.active = active;
-    }
-
-    public Integer getSortNumber() {
-        return sortNumber;
-    }
-
-    public void setSortNumber(Integer sortNumber) {
-        this.sortNumber = sortNumber;
-    }
-
-    public List<Menu> getChilds() {
-        return childs;
-    }
-
-    public void setChilds(List<Menu> childs) {
-        this.childs = childs;
-    }
-
-    public String getParentIdPath() {
-        return parentIdPath;
-    }
-
-    public void setParentIdPath(String parentIdPath) {
-        this.parentIdPath = parentIdPath;
-    }
-
-    public String getSeries() {
-        return series;
-    }
-
-    public void setSeries(String series) {
-        this.series = series;
-    }
-
-    @Override
-    public String toString() {
-        return "Menu{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", tag='" + tag + '\'' +
-                ", link='" + link + '\'' +
-                ", type=" + type +
-                ", level=" + level +
-                ", icon='" + icon + '\'' +
-                ", pid=" + pid +
-                ", active=" + active +
-                ", sortNumber=" + sortNumber +
-                ", idPath='" + idPath + '\'' +
-                ", parentIdPath='" + parentIdPath + '\'' +
-                ", series='" + series + '\'' +
-                ", childs=" + childs +
-                '}';
-    }
 }

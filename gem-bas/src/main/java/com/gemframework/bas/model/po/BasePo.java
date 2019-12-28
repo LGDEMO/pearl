@@ -1,6 +1,7 @@
 package com.gemframework.bas.model.po;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -26,6 +27,7 @@ import java.util.Date;
 @MappedSuperclass
 //启动审计监听器
 @EntityListeners(AuditingEntityListener.class)
+@Data
 public class BasePo implements Serializable {
 
 
@@ -39,27 +41,4 @@ public class BasePo implements Serializable {
     @LastModifiedDate
     private Date updatetime;
 
-    public Date getCreatetime() {
-        return createtime;
-    }
-
-    public void setCreatetime(Date createtime) {
-        this.createtime = createtime;
-    }
-
-    public Date getUpdatetime() {
-        return updatetime;
-    }
-
-    public void setUpdatetime(Date updatetime) {
-        this.updatetime = updatetime;
-    }
-
-    @Override
-    public String toString() {
-        return "BasePo{" +
-                "createtime=" + createtime +
-                ", updatetime=" + updatetime +
-                '}';
-    }
 }

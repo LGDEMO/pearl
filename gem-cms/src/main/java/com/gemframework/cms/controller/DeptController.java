@@ -64,6 +64,7 @@ public class DeptController {
      * @Date: 2019-12-05 22:22:32
      */
     @PostMapping("delete/{id}")
+    @ResponseBody
     public BaseResult delete(@PathVariable("id") Long id){
         deptService.delete(id);
         return BaseResult.SUCCESS();
@@ -78,8 +79,23 @@ public class DeptController {
      * @Date: 2019-12-05 22:22:32
      */
     @PostMapping("update")
+    @ResponseBody
     public BaseResult update(DeptVo vo){
         return BaseResult.SUCCESS(deptService.update(vo));
+    }
+
+    /**
+     * @Title:  查询单个
+     * @MethodName:  查询
+     * @Param: [vo]
+     * @Retrun: com.gemframework.bas.model.BaseResult
+     * @Description:
+     * @Date: 2019-12-05 22:22:32
+     */
+    @GetMapping("getOne")
+    @ResponseBody
+    public BaseResult get(Long id){
+        return BaseResult.SUCCESS(deptService.getById(id));
     }
 
     /**
@@ -91,6 +107,7 @@ public class DeptController {
      * @Date: 2019-12-05 22:22:32
      */
     @GetMapping("list")
+    @ResponseBody
     public BaseResult list(){
         List list = deptService.findListAll();
         return BaseResult.SUCCESS(list);
@@ -106,6 +123,7 @@ public class DeptController {
      * @Date: 2019-12-05 22:22:32
      */
     @GetMapping("listByParams")
+    @ResponseBody
     public BaseResult listByParams(DeptVo vo){
         List<DeptVo> list = deptService.findListByParams(vo);
         return BaseResult.SUCCESS(list);
@@ -126,6 +144,7 @@ public class DeptController {
      * @Date: 2019-12-05 22:22:32
      */
     @GetMapping("page")
+    @ResponseBody
     public BaseResult page(Pageable pageable){
         List<DeptVo> vo = deptService.findPageAll(pageable);
         return BaseResult.SUCCESS(vo);
@@ -140,27 +159,16 @@ public class DeptController {
      * @Date: 2019-12-05 22:22:32
      */
     @GetMapping("pageByParams")
+    @ResponseBody
     public BaseResult pageByParams(DeptVo vo,Pageable pageable){
         List<DeptVo> list =  deptService.findPageByParams(vo,pageable);
         return BaseResult.SUCCESS(list);
     }
 
-    @GetMapping("add.html")
-    public String addHtml(){
-        return "dept/add";
-    }
-
-    @GetMapping("edit.html")
-    public String editHtml(Model model, Long id){
-        DeptVo deptVo = deptService.getById(id);
-        model.addAttribute("edit_dept",deptVo);
-        return "dept/edit";
-    }
 
     @GetMapping("list.html")
     public String list(Model model){
         List<DeptVo> list = deptService.findListAll();
-        log.info("===>"+ JSON.toJSONString(list));
         model.addAttribute("list_depts",list);
         return "dept/list";
     }

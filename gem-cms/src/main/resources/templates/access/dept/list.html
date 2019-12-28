@@ -26,17 +26,18 @@
         <div class="tree_left_top" style="height: 90%;overflow: auto">
             <div style="width: 100%;margin-top: 5px;">
                 <div style="margin-left: 30px;">
-                    <a class="btn btn-default" onclick="addOpen()">
-                        <span class="glyphicon glyphicon-plus"></span>新增</a>
-                    <a class="btn btn-default">
-                        <span class="glyphicon glyphicon-remove"></span>删除</a>
                     <a class="btn btn-default" onclick="resetTree()">
-                        <span class="glyphicon glyphicon-remove"></span>刷新树</a>
-                    <!--<a class="btn btn-default" onclick="addUser()"><span class="glyphicon glyphicon-pencil"></span>编辑</a>-->
+                        <span class="glyphicon glyphicon-refresh"></span>刷新</a>
+                    <a class="btn btn-default" onclick="switchView('user')">
+                        <span class="glyphicon glyphicon-user"></span>用户</a>
+                    <a class="btn btn-default" onclick="addView()">
+                        <span class="glyphicon glyphicon-plus"></span>新增</a>
+                    <a class="btn btn-default" onclick="deleteData()">
+                        <span class="glyphicon glyphicon-remove"></span>删除</a>
                 </div>
             </div>
             <div class=" order_ztree l_left organize_ztree" style="width: 100%">
-                <p><ul id="listTree" class="ztree"  style=" overflow:auto;margin-left: 20px"></ul></p>
+                <p><ul id="leftTree" class="ztree"  style=" overflow:auto;margin-left: 20px"></ul></p>
             </div>
         </div>
     </div>
@@ -44,6 +45,7 @@
         <h6>部门详情</h6>
         <form id="form" onsubmit="return false">
             <!--隐藏字段-->
+            <input type="hidden" name="id" id="id" value="0" />
             <input type="hidden" name="pid" id="pid" value="0" />
             <input type="hidden" name="level" id="level" value="1"/>
 
@@ -57,7 +59,7 @@
                     <div class="dropdown-menu" aria-labelledby="dropdownMenu1" style="width: 247px">
                         <div class=" order_ztree l_left organize_ztree" style="width: 100%;background-color: #fff;
                                             padding-bottom: 10px;height: 240px;overflow: auto;">
-                            <ul id="addTree" class="ztree"  style=" overflow:auto;margin-left: 20px"></ul>
+                            <ul id="formTree" class="ztree"  style=" overflow:auto;margin-left: 20px"></ul>
                         </div>
                     </div>
                 </span>
@@ -66,26 +68,27 @@
             </div>
 
             <div class="department_main">
-                <label>部门编号：</label><input type="text" />
-                <label>负责人：</label><input type="text" />
+                <label>部门编号：</label><input id="num" name="num" type="text" />
+                <label>负责人：</label><input id="boss" name="boss" type="text" />
             </div>
 
             <div class="department_main">
-                <label>部门简称：</label><input type="text" />
-                <label>部门性质：</label><input type="text" />
+                <label>部门简称：</label><input id="abbr" name="abbr" type="text" />
+                <label>部门性质：</label><input id="type" name="type" type="text" />
             </div>
 
             <div class="department_main">
-                <label>部门电话：</label><input type="text" />
-                <label>部门邮箱：</label><input type="text" />
+                <label>部门电话：</label><input id="tel" name="tel" type="text" />
+                <label>部门邮箱：</label><input id="email" name="email" type="text" />
             </div>
 
             <div class="department_main">
-                <label style="float: left;line-height: 200px">部门备注：</label><textarea /></textarea>
+                <label style="float: left;line-height: 200px">部门备注：</label>
+                <textarea id="desp" name="desp"></textarea>
             </div>
 
             <div align="center" style="margin-top: 10px">
-                <button type="submit" class="btn btn-primary" >立即保存</button>
+                <button id="save_btn" type="submit" class="btn btn-primary" >立即保存</button>
             </div>
         </form>
     </div>
@@ -134,21 +137,12 @@
 
 <script>
     $(function(){
-        console.log("==123")
-        initPage();
+        console.log("==1234")
         table();
         change();
     });
 
-    function addOpen(){
-        if($(window).width()>=1400){
-            $(".news_right").css("width","37.5%");
-            $("#dept_view").show("fast");
-        }else{
-            $("#dept_user").css("display","none");;
-            $("#dept_view").show("fast");
-        }
-    }
+
 
     $("#form").submit(function () {
         console.log("ajax...")
@@ -162,8 +156,7 @@
             contentType:"application/json;charset=UTF-8",
             success: function(res) {
                 if (res.code == "0") {
-                    alert("保存成功");
-                    change();
+                    alert("操作成功~");
                     resetTree();
                 }else {
                     layer.alert("["+res.code+"]"+res.msg, {
@@ -180,17 +173,6 @@
         })
     })
 
-
-    function initPage() {
-        //初始化界面
-        if($("#dept_view").css("display") == "none"){
-            // $(".news_right").width(685 * 2);
-            $(".news_right").css("width","75%");
-        }else{
-            // $(".news_right").width(685);
-            $(".news_right").css("width","37.5%");
-        }
-    }
 
     //加载部门用户
     function table(){

@@ -35,7 +35,7 @@ public class GemExceptionHandle {
             return BaseResult.ERROR(gemException.getCode(), gemException.getMessage());
         } else {
             logger.error("System Exception: code:{},msg:{}" , ex.getStackTrace(),ex.getMessage());
-            ex.getStackTrace();
+            ex.printStackTrace();
             return BaseResult.ERROR(ResultCode.SYSTEM_EXCEPTION.getCode(), ResultCode.SYSTEM_EXCEPTION.getMsg());
         }
     }

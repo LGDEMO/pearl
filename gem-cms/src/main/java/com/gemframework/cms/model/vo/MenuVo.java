@@ -25,7 +25,7 @@ import java.util.List;
 
 @Data
 @NoArgsConstructor
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode(callSuper = true)
 public class MenuVo extends BaseVo implements Comparable<MenuVo>{
 
     private Long id;

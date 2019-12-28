@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="zh-cn" class="fullscreen-bg" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html"; charset="utf-8" />
+    <title></title>
+    <div th:replace="common/links::common_links"></div>
+    <div th:replace="common/links::font_links"></div>
+    <div th:replace="common/links::ztree_links"></div>
+    <div th:replace="common/links::table_list_links"></div>
+    <style>
+        .notice_nav a:nth-child(3){border-top-right-radius: 0;border-bottom-right-radius:0}
+        .notice_nav a:nth-child(4){border-top-right-radius: 4px;border-bottom-right-radius: 4px}
+        th{text-align: center !important;height: 34px;color: #FFF }
+    </style>
+</head>
+<body style="background-color: #ecf0f5;font-family: 微软雅黑;color: #475059;min-width: 550px;overflow: auto">
+<div class="news_main">
+    <div id="dept_tree" class="l_left news_left" style="display: none">
+        <h6>部门目录</h6>
+        <div class="tree_left_top" style="height: 90%;overflow: auto">
+            <div class=" order_ztree l_left organize_ztree" style="width: 100%">
+                <p><ul id="leftTree" class="ztree"  style=" overflow:auto;margin-left: 20px"></ul></p>
+            </div>
+        </div>
+    </div>
+    <div id="dept_user" class="l_left news_right">
+        <div class="notice_main">
+            <div class="notice_check">
+                <div class="btn-group l_left" style="margin-right: 4px">
+                    <button type="button" class="btn btn-default change" style="height: 30px;line-height: 30px;padding: 0 12px !important;font-size: 12px">选择条件</button>
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="height: 30px;line-height: 30px">
+                        <span class="caret"></span>
+                        <span class="sr-only"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li>角色名称</li>
+                        <li>角色描述</li>
+                    </ul>
+                </div>
+                <div class="l_left">
+                    <input type="text" class="find_input">
+                </div>
+                <button class="check_btn">查询</button>
+                <div class="notice_nav r_right">
+                    <a class="btn btn-default" onclick="addRole()"><span class="glyphicon glyphicon-plus"></span>新增</a>
+                    <a class="btn btn-default"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                    <a class="btn btn-default" onclick="addRole()"><span class="glyphicon glyphicon-pencil"></span>编辑</a>
+                    <a class="btn btn-default" onclick="warrant()"><span class="glyphicon glyphicon-tag"></span>角色授权</a>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <table id="table" class="table_style" style="margin: 0 auto" > </table>
+        </div>
+    </div>
+    <div class="clear"></div>
+
+</div>
+
+<div th:replace="common/links::common_script"></div>
+<div th:replace="common/links::ztree_script"></div>
+<div th:replace="common/links::table_script"></div>
+<script type="text/javascript" th:src="@{/static/access/js/custom/depttree.js}"></script>
+
+<script>
+    $(function(){
+        console.log("==1234")
+        table();
+        change();
+    });
+
+    function table() {
+        $('#table').bootstrapTable({
+            method: "get",
+            striped: true,
+            singleSelect: false,
+            url: "pageByParams",
+            dataType: "json",
+            pagination: true, //分页
+            pageSize: 1,
+            pageNumber: 1,
+            search: false, //显示搜索框
+            contentType: "application/x-www-form-urlencoded",
+            queryParams:null,
+            columns: [
+                {
+                    checkbox: "true",
+                    field: 'check',
+                    align: 'center',
+                    valign: 'middle'
+                },
+                {
+                    title: '用户名',
+                    field: 'username',
+                    align: 'center',
+                    valign: 'middle'
+                },
+                {
+                    title: '真实姓名',
+                    field: 'realname',
+                    align: 'center',
+                    valign: 'middle'
+                },
+                {
+                    title: '手机号',
+                    field: 'phone',
+                    align: 'center',
+                    valign: 'middle'
+                },
+                {
+                    title: '电子邮箱',
+                    field: 'email',
+                    align: 'center',
+                    valign: 'middle'
+                },
+                 {
+                    field: 'operate',
+                    title: '操作',
+                    align: 'center',
+                    events: "operateEvents",
+                    formatter: operateFormatter
+                }
+            ]
+        });
+    }
+
+    function operateFormatter(value, row, index) {
+        return [
+            '<button id="detail_btn" type="button" class="btn btn-default  btn-xs">详情</button>',
+            '<button id="edit_btn" type="button" class="btn btn-default  btn-xs">编辑</button>',
+            '<button id="del_btn" type="button" class="btn btn-default  btn-xs">删除</button>'
+        ].join('');
+
+    }
+    window.operateEvents = {
+        'click #detail_btn': function (e, value, row, index) {
+            alert("A");
+        },
+        'click #edit_btn': function (e, value, row, index) {
+            alert("B");
+        },
+        'click #del_btn': function (e, value, row, index) {
+            alert("C");
+        }
+    };
+
+
+    function change(){
+        $(".dropdown-menu>li").click(function(){
+            $(".change").html($(this).html())
+        })
+    }
+
+    function addRole(){
+        layer.open({
+            type: 2,
+            title: '添加角色',
+            shadeClose: true,
+            shade: 0.5,
+            skin: 'layui-layer-rim',
+            closeBtn:1,
+            area: ['500px', '320px'],
+            content: 'role_tail.html'
+        });
+    }
+
+    function warrant(){
+        layer.open({
+            type: 2,
+            title: '角色授权',
+            shadeClose: true,
+            shade: 0.5,
+            skin: 'layui-layer-rim',
+            closeBtn:1,
+            area: ['630px', '585px'],
+            content: 'role_warrant.html'
+        });
+    }
+</script>
+</body>
+</html>

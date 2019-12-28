@@ -43,8 +43,9 @@ public class MenuServiceImpl implements MenuService {
         Menu menu = new Menu();
         GemBeanUtils.copyProperties(vo,menu);
         menu = menuRepository.save(menu);
-        MenuVo parentVo = getById(vo.getPid());
 
+        //更新id_path,series
+        MenuVo parentVo = getById(vo.getPid());
         String idPath = String.valueOf(menu.getId());
         if(menu.getId()<10){
             idPath = "0"+menu.getId();

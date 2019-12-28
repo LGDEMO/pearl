@@ -237,7 +237,6 @@ function resetTree() {
 
 function OnClick(event, treeId, treeNode){
     $(".dropdown_select").val(treeNode.name);
-    console.log("treeNode=========="+JSON.stringify(treeNode))
     $("#pid").val(treeNode.id);
     if(treeNode.level == 3){
         $("#type1").attr('disabled',true);

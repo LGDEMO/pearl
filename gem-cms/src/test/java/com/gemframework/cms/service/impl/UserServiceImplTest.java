@@ -56,7 +56,7 @@ class UserServiceImplTest {
         vo.setAge(29);
         vo.setRealname("李");
         vo.setPhone("13381122333");
-        if(null != userRepository.findByPhone(vo.getPhone())){
+        if(null != userRepository.getByPhone(vo.getPhone())){
             throw new GemException(ResultCode.USER_EXIST);
         }
         User user = new User();

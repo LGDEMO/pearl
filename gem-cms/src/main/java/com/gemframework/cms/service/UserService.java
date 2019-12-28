@@ -1,5 +1,6 @@
 package com.gemframework.cms.service;
 
+import com.gemframework.cms.model.vo.DeptVo;
 import com.gemframework.cms.model.vo.UserVo;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -27,4 +28,6 @@ public interface UserService extends UserDetailsService {
     void delete(Long id);
 
     void deleteAll();
+
+    UserVo getById(Long id);
 }

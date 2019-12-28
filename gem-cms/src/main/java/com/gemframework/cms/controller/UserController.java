@@ -1,6 +1,7 @@
 package com.gemframework.cms.controller;
 
 import com.gemframework.cms.model.po.User;
+import com.gemframework.cms.model.vo.DeptVo;
 import com.gemframework.cms.model.vo.UserVo;
 import com.gemframework.cms.service.UserService;
 import com.gemframework.bas.common.enums.ResultCode;
@@ -30,7 +31,7 @@ import java.util.List;
 
 @Slf4j
 @Controller
-//@RequestMapping("user")
+@RequestMapping("user")
 public class UserController {
 
     @Autowired
@@ -96,6 +97,21 @@ public class UserController {
     }
 
     /**
+     * @Title:  查询单个
+     * @MethodName:  查询
+     * @Param: [vo]
+     * @Retrun: com.gemframework.bas.model.BaseResult
+     * @Description:
+     * @Date: 2019-12-05 22:22:32
+     */
+    @GetMapping("getOne")
+    @ResponseBody
+    public BaseResult get(Long id){
+        return BaseResult.SUCCESS(userService.getById(id));
+    }
+
+
+    /**
      * @Title:  list
      * @MethodName:  查-list
      * @Param: []
@@ -137,13 +153,11 @@ public class UserController {
      * @PageableDefault(page = 0, size = 2)
      * @Date: 2019/11/29 16:38
      */
-    @GetMapping("/user")
-    public String page(Pageable pageable, Model model){
+    @GetMapping("/page")
+    public BaseResult page(Pageable pageable){
         Page<User> page =  userService.findPageAll(pageable);
         List list = page.getContent();
-        log.info("=================="+list);
-        model.addAttribute("users",list);
-        return "user/user";
+        return BaseResult.SUCCESS(list);
     }
 
     /**
@@ -155,10 +169,17 @@ public class UserController {
      * @Date: 2019/11/29 21:21
      */
     @GetMapping("pageByParams")
+    @ResponseBody
     public BaseResult pageByParams(UserVo vo,Pageable pageable){
         Page<User> page =  userService.findPageByParams(vo,pageable);
         List list = page.getContent();
         return BaseResult.SUCCESS(list);
+    }
+
+
+    @GetMapping("list.html")
+    public String list(Model model){
+        return "user/list";
     }
 
 }

@@ -31,14 +31,13 @@ public class DeptVo extends BaseVo {
     private String name;
 
     private Long pid;
-
-    private String path;
+    //父级名称
+    private String pname;
 
     private Integer level;
 
     private String desp;
-    //排序
-    private Integer sortNumber;
+
     //系列 用于归类 存放家族一级分类ID 一级分类存自己ID
     private String series;
     //路径 1-2-1
@@ -47,4 +46,12 @@ public class DeptVo extends BaseVo {
     private String parentIdPath;
 
     List<DeptVo> childs;
+
+    //详情字段
+    private String num;
+    private String boss;
+    private String abbr;
+    private String type;
+    private String tel;
+    private String email;
 }

@@ -15,7 +15,7 @@
     <h6>菜单管理</h6>
     <div class="notice_check  notice_check_last">
         <div class="notice_nav r_right">
-            <a class="btn btn-default" onclick="addData()"><span class="glyphicon glyphicon-plus"></span>新增</a>
+            <a class="btn btn-default" onclick="addView()"><span class="glyphicon glyphicon-plus"></span>新增</a>
         </div>
         <div class="clear"></div>
     </div>
@@ -57,7 +57,7 @@
                 <td><span th:text="${menu.sortNumber}"></span></td>
                 <td>
                     <button type="button" id="btn_edit" class="btn btn-primary btn-xs"
-                            th:onclick="|editData(${menu.id})|">编辑</button>
+                            th:onclick="|editView(${menu.id})|">编辑</button>
                     <button type="button" id="btn_del" class="btn btn-danger btn-xs"
                             th:onclick="|deleteData(${menu.id})|">删除</button>
                     <!--<button type="button" id="btn_add" class="btn btn-warning btn-xs"-->
@@ -79,7 +79,7 @@
     });
 
     //添加
-    function addData(){
+    function addView(){
         layer.open({
             type: 2,
             title: '添加资源',
@@ -97,7 +97,7 @@
 
 
     //编辑
-    function editData(id){
+    function editView(id){
         window.id = id;
         layer.open({
             type: 2,

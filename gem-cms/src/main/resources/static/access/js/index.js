@@ -281,7 +281,12 @@
                     $("body").removeClass("sidebar-collapse");
                 }
             })
-            $(window).load(function () {
+            // $(window).load(function () {
+            //     window.setTimeout(function () {
+            //         $('#ajax-loader').fadeOut();
+            //     }, 300);
+            // });
+            $(window).on('load',function(){
                 window.setTimeout(function () {
                     $('#ajax-loader').fadeOut();
                 }, 300);

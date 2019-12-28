@@ -1,6 +1,8 @@
 package com.gemframework.cms.service.impl;
 
 import com.gemframework.bas.common.constant.GemConstant;
+import com.gemframework.cms.model.po.Dept;
+import com.gemframework.cms.model.vo.DeptVo;
 import com.gemframework.cms.model.vo.RoleVo;
 import com.gemframework.cms.model.vo.UserRolesVo;
 import com.gemframework.cms.model.vo.UserVo;
@@ -52,8 +54,8 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public UserVo add(UserVo vo) {
-        if(null != userRepository.findByPhone(vo.getPhone()) ||
-                null != userRepository.findByUserName(vo.getUsername())){
+        if(null != userRepository.getByPhone(vo.getPhone()) ||
+                null != userRepository.getByUserName(vo.getUsername())){
             throw new GemException(ResultCode.USER_EXIST);
         }
         User user = new User();
@@ -131,9 +133,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserVo getByLoginName(String loginName) {
         UserVo vo = new UserVo();
-        User user = userRepository.findByUserName(loginName);
+        User user = userRepository.getByUserName(loginName);
         if(user == null){
-            user = userRepository.findByPhone(loginName);
+            user = userRepository.getByPhone(loginName);
         }
         GemBeanUtils.copyProperties(user,vo);
         return vo;
@@ -190,13 +192,21 @@ public class UserServiceImpl implements UserService {
         userRepository.deleteAll();
     }
 
+    @Override
+    public UserVo getById(Long id) {
+        UserVo vo = new UserVo();
+        User entity = userRepository.getById(id);
+        GemBeanUtils.copyProperties(entity,vo);
+        return vo;
+    }
+
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         log.info("登录的用户名: {}", username);
-        User gemuser = userRepository.findByUserName(username);
+        User gemuser = userRepository.getByUserName(username);
         if(gemuser == null){
-            gemuser = userRepository.findByPhone(username);
+            gemuser = userRepository.getByPhone(username);
             if(gemuser == null){
                 throw new UsernameNotFoundException("未查询到用户："+username+"信息！");
             }

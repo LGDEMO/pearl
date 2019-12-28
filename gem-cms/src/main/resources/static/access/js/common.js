@@ -1,7 +1,11 @@
 
 //重写alert
 window.alert = function(msg, callback){
-	parent.layer.alert(msg, function(index){
+	parent.layer.alert(msg,{
+        skin: 'layui-layer-lan'
+        ,closeBtn: 0
+        ,anim: 4 //动画类型
+	},function(index){
 		parent.layer.close(index);
 		if(typeof(callback) === "function"){
 			callback("ok");
@@ -27,13 +31,13 @@ function getSelectedRow() {
     	alert("请选择一条记录");
     	return ;
     }
-    
+
     var selectedIDs = grid.getGridParam("selarrrow");
     if(selectedIDs.length > 1){
     	alert("只能选择一条记录");
     	return ;
     }
-    
+
     return selectedIDs[0];
 }
 
