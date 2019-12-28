@@ -182,9 +182,4 @@ public class UserController {
         return "user/list";
     }
 
-    @GetMapping("add.html")
-    public String add(Model model){
-        return "user/add";
-    }
-
 }

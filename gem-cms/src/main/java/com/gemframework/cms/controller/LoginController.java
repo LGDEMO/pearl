@@ -37,6 +37,7 @@ public class LoginController {
 
     @GetMapping("/login")
     public String login(){
+        log.info("=========自定义登录");
         return "login";
     }
 
@@ -59,16 +60,26 @@ public class LoginController {
 
     @GetMapping({"/index"})
     public String index(){
+        log.info("=========主页");
         return "index";
     }
 
     @GetMapping({"/home"})
     public String index2(){
+        log.info("=========主页2");
         return "home";
     }
 
     @GetMapping({"/boxed"})
     public String layout(){
+        log.info("=========主页3");
         return "layout/boxed";
     }
+
+//    @GetMapping({"/user"})
+//    public String userInfo(Model model){
+//
+//        return "user/user";
+//    }
+
 }

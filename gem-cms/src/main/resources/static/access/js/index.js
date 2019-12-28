@@ -338,9 +338,8 @@
                         mdata  = res.data;
                         if(mdata == "" || mdata == null || mdata.length == 0){
                             mdata = menusData_def;
-                        }else{
-                            mdata = menusData_def.concat(mdata);
                         }
+                        mdata=menusData_def.concat(mdata);
                         $.each(mdata, function (i) {
                             var row = mdata[i];
                             //一级菜单

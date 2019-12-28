@@ -9,42 +9,28 @@
         <link rel="stylesheet" type="text/css" th:href="@{/static/access/js/bootstrap/css/bootstrap.min.css}">
         <link rel="stylesheet" type="text/css" th:href="@{/static/access/plugins/layer/theme/default/layer.css}">
     </div>
-    <div th:fragment="custom_links">
-        <!--自定义-->
-        <link rel="stylesheet" type="text/css" th:href="@{/static/access/css/custom/index.css}">
-    </div>
-    <div th:fragment="checkbox_links">
-        <link rel="stylesheet" type="text/css" th:href="@{/static/access/css/checkbox/build.css}">
-    </div>
     <div th:fragment="font_links">
         <!--字体图标-->
         <!--<link rel="stylesheet" type="text/css" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">-->
         <link rel="stylesheet" type="text/css" th:href="@{/static/access/css/font-awesome-all.css}">
         <link rel="stylesheet" type="text/css" th:href="@{/static/access/css/font-awesome.css}">
+        <!--<link rel="stylesheet" type="text/css" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" >-->
+        <!--<link rel="stylesheet" type="text/css" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">-->
     </div>
-    <!--    table-->
+
     <div th:fragment="table_list_links">
         <link rel="stylesheet" type="text/css" th:href="@{/static/access/js/bstable/css/bootstrap-table.css}">
         <link rel="stylesheet" type="text/css" th:href="@{/static/access/css/table.css}">
     </div>
-    <!--    树形表格-->
     <div th:fragment="treetable_list_links">
         <link rel="stylesheet" type="text/css" th:href="@{/static/access/js/bstable/css/bootstrap-table.css}">
         <link rel="stylesheet" type="text/css" th:href="@{/static/access/css/table.css}">
         <link rel="stylesheet" type="text/css" th:href="@{/static/access/css/jquery.treetable.css}">
         <link rel="stylesheet" type="text/css" th:href="@{/static/access/css/jquery.treetable.theme.default.css}">
     </div>
-    <!--    ztree-->
+
     <div th:fragment="ztree_links">
         <link rel="stylesheet" type="text/css" th:href="@{/static/access/css/zTreeStyle/zTreeStyle.css}">
-    </div>
-    <!--    多选-->
-    <div th:fragment="multiselect_links">
-        <link rel="stylesheet" type="text/css" th:href="@{/static/access/plugins/multiselect/css/bootstrap-multiselect.css}">
-    </div>
-    <!--    tabs-->
-    <div th:fragment="tabs_links">
-        <link rel="stylesheet" type="text/css" th:href="@{/static/access/css/tree.css}">
     </div>
 
 
@@ -56,7 +42,7 @@
         <script type="text/javascript" th:src="@{/static/access/js/bootstrap/js/bootstrap.min.js}"></script>
         <!--<script type="text/javascript" th:src="@{/static/access/js/layer_v2.1/layer/layer.js}"></script>-->
         <script type="text/javascript" th:src="@{/static/access/plugins/layer/layer.js}"></script>
-        <script type="text/javascript" th:src="@{/static/access/js/custom/common.js}"></script>
+        <script type="text/javascript" th:src="@{/static/access/js/common.js}"></script>
         <script type="text/javascript">
             //定义serializeObject方法，序列化表单
             $.fn.serializeObject = function() {
@@ -87,10 +73,6 @@
         <script type="text/javascript" th:src="@{/static/access/js/demo/jquery.ztree.core-3.5.js}"></script>
         <script type="text/javascript" th:src="@{/static/access/js/ztree/jquery.ztree.excheck-3.5.js}"></script>
         <script type="text/javascript" th:src="@{/static/access/js/ztree/jquery.ztree.exedit-3.5.js}"></script>
-    </div>
-
-    <div th:fragment="multiselect_script">
-        <script type="text/javascript" th:src="@{/static/access/plugins/multiselect/js/bootstrap-multiselect.js}"></script>
     </div>
 </body>
 </html>

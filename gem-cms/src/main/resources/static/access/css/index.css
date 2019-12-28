@@ -271,8 +271,7 @@ font-size: 20px;
 .r_right{float: right}
 td{border: none !important;}
 ::-webkit-input-placeholder,:-ms-input-placeholder  {color:#999;}
-.table tr td:nth-child(2n+1){text-align: right;
-    font-size: 14px;width:84px;line-height: 28px;}
+.table tr td:nth-child(2n+1){text-align: right;font-size: 14px;width:84px;line-height: 28px;}
 .top_out{margin: 20px 0 20px 0}
 .top td{padding: 0 3px 8px 0 !important;}
 .top td .span{color: red;margin:3px 1px 0 2px;display: inline-block ;float: right;vertical-align: middle;line-height: 28px;width: 6px;text-align: center;}
