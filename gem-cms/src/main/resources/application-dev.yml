@@ -56,5 +56,5 @@ spring:
     restart:
       enabled: true #开启热部署
       additional-paths: src/main/java
-#      exclude: static/**,public/**
+      exclude: static/**,public/**
 

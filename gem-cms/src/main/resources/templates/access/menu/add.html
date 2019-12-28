@@ -5,9 +5,9 @@
     <title>无标题文档</title>
     <div th:replace="common/links::common_links"></div>
     <div th:replace="common/links::font_links"></div>
+    <link rel="stylesheet" type="text/css" th:href="@{/static/access/css/index.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/access/css/checkbox/build.css}">
     <div th:replace="common/links::ztree_links"></div>
-    <div th:replace="common/links::custom_links"></div>
-    <div th:replace="common/links::checkbox_links"></div>
 
     <!--图标选择器-->
     <!--<link href="https://farbelous.io/fontawesome-iconpicker/dist/css/fontawesome-iconpicker.min.css" rel="stylesheet">-->
@@ -20,6 +20,17 @@
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
     <style>
+        .form-control, .form-group{
+            position: relative;
+        }
+        .form-group{
+            text-align: left;
+            margin-bottom: 30px;
+        }
+        .form-group label{
+            display:block;
+            margin-bottom: 15px;
+        }
         .lead iframe{
             display:inline-block;
             vertical-align: middle;
@@ -111,6 +122,7 @@
                     <input id="btn_save_close" type="checkbox" checked="checked"/>保存并关闭窗口
                 </div>
                 <div class="r_right but_p">
+                    <!--<button id="btn_save" class="but_save">保存</button>-->
                     <button type="submit" class="but_save">保存</button>
                     <button id="btn_close"class="but_close" onclick="Colse()">关闭</button>
                 </div>
@@ -120,8 +132,10 @@
     <div th:replace="common/links::common_script"></div>
     <div th:replace="common/links::table_script"></div>
     <div th:replace="common/links::ztree_script"></div>
+    <!--<script type="text/javascript" th:src="@{/static/access/js/organize.js}"></script>-->
     <script type="text/javascript" th:src="@{/static/access/js/custom/menutree.js}"></script>
     <!--图标选择器-->
+    <!--<script src="https://farbelous.io/fontawesome-iconpicker/dist/js/fontawesome-iconpicker.js"></script>-->
     <script type="text/javascript" th:src="@{/static/access/js/fontawesome-iconpicker.js}"></script>
 
     <script src="https://cdn.bootcss.com/jquery.bootstrapvalidator/0.5.3/js/bootstrapValidator.min.js"></script>
