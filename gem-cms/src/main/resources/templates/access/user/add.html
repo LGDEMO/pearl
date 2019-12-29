@@ -10,75 +10,15 @@
     <div th:replace="common/links::multiselect_links"></div>
     <div th:replace="common/links::tabs_links"></div>
     <div th:replace="common/links::checkbox_links"></div>
-    <style>
-
-        input.error {
-            border: 1px solid red !important;
-        }
-        label.error {
-            background:url("../images/unchecked.gif") no-repeat 0px 0px;
-            padding-left: 16px;
-            padding-bottom: 2px;
-            font-weight: bold;
-            color: red;
-        }
-        span.error {
-            background:url("../images/unchecked.gif") no-repeat 0px 0px;
-            padding-left: 16px;
-            padding-bottom: 2px;
-            font-weight: bold;
-            color: red;
-        }
-        label.checked {
-            background:url("../images/checked.gif") no-repeat 0px 0px;
-        }
-        .tooltip {
-            position: absolute;
-            z-index: 10200;
-            display: block;
-            visibility: visible;
-            padding: 5px;
-            font-size: 11px;
-            opacity: 0;
-            filter: alpha(opacity=0);
-        }
-
-        .tooltip-inner {
-            max-width: 300px;
-            padding: 0px 8px;
-            color: #ffffff;
-            text-align: center;
-            text-decoration: none;
-            background-color: #F70104;
-            font-size: 14px;
-            font-weight: bold;
-            -webkit-border-radius: 4px;
-            -moz-border-radius: 4px;
-            border-radius: 6px;
-        }
-        form input.error{
-            color:#F00;
-            border: 1px solid #CE7979;
-            background:#FFF7FA;
-        }
-        form label.error{
-            color:#F00;
-        }
-
-
-        .arrow-left
-        {
-            border-bottom: 10px solid #f70101;
-            border-left: 10px solid #ffffff;
-        }
-    </style>
+    <div th:replace="common/links::validate_links"></div>
 </head>
 <body style="border-radius: 8px;width: 690px;overflow: hidden">
     <div class="warrant_nav">
         <ul>
             <li class="warrant_active"><span class="step">1</span>基本信息<span class="chevron"></span></li>
-            <li><span class="step">2</span>分配部门<span class="chevron"></span></li>
-            <li><span class="step">3</span>分配角色<span class="chevron"></span></li>
+            <li><span class="step">2</span>归属部门<span class="chevron"></span></li>
+            <li><span class="step">3</span>关联部门<span class="chevron"></span></li>
+            <li><span class="step">4</span>分配角色<span class="chevron"></span></li>
         </ul>
         <div class="clear"></div>
     </div>
@@ -100,15 +40,14 @@
                                 </tr>
                                 <tr>
                                     <td>员工工号<span class="span">*</span></td>
-                                    <td><input type="text" id="worknum" name="worknum" required></td>
+                                    <td><input type="number" id="worknum" name="worknum" required maxlength="5"></td>
                                     <td>所在岗位<span class="span"></span></td>
                                     <td>
                                         <select id="post" name="post">
-                                            <option>-请选择-</option>
-                                            <option value="0">初级人员</option>
-                                            <option value="1">中级人员</option>
-                                            <option value="2">高级人员</option>
-                                            <option value="3">领导班子</option>
+                                            <option value="1">初级人员</option>
+                                            <option value="2">中级人员</option>
+                                            <option value="3">高级人员</option>
+                                            <option value="4">领导班子</option>
                                         </select>
                                     </td>
                                 </tr>
@@ -126,7 +65,7 @@
                                 </tr>
                                 <tr>
                                     <td>出生年月<span class="span"></span></td>
-                                    <td><input type="text" id="birthday" name="birthday"></td>
+                                    <td><input type="date" id="birthday" name="birthday"></td>
                                     <td>户口籍贯<span class="span"></span></td>
                                     <td>
                                         <select id="input_province"  name="province"class="td_select">
@@ -141,20 +80,28 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>手机号码<span class="span"></span></td>
-                                    <td><input type="text" id="phone" name="phone"></td>
+                                    <td>通讯地址<span class="span">*</span></td>
+                                    <td colspan="3">
+                                        <input type="text" id="address" name="address" class="block" required minlength="5" maxlength="50">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>手机号码<span class="span">*</span></td>
+                                    <td><input type="tel" id="phone" name="phone" required></td>
                                     <td>座机号码<span class="span"></span></td>
                                     <td><input type="text" id="tel" name="tel"></td>
                                 </tr>
                                 <tr>
-                                    <td>电子邮箱<span class="span"></span></td>
+                                    <td>电子邮箱<span class="span">*</span></td>
                                     <td><input type="email" id="email" name="email" required></td>
                                     <td>QQ/微信<span class="span"></span></td>
                                     <td><input type="text" id="qq" name="qq"></td>
                                 </tr>
                                 <tr>
                                     <td>其他备注<span class="span"></span></td>
-                                    <td colspan = "8" style="text-align: left"><textarea id="desp" name="desp"></textarea></td>
+                                    <td colspan = "8" style="text-align: left">
+                                        <textarea id="desp" name="desp"></textarea>
+                                    </td>
                                 </tr>
                                 <!--                        <tr>-->
                                 <!--                            <td>归属部门<span class="span"></span></td>-->
@@ -194,7 +141,12 @@
                 </div>
             </div>
             <div class="tree_left">
-                第二个
+                <div class="tree_left_top">
+                    <div class=" order_ztree l_left organize_ztree" style="width: 100%">
+                        <p><ul id="userformTree" class="ztree"  style=" overflow:auto;margin-left: 20px"></ul></p>
+                        <input type="hidden" id="dept_id" name="dept_id" value="0" />
+                    </div>
+                </div>
                 <!--底部按钮-->
                 <div class="notice_bot">
                     <div class="l_left"></div>
@@ -206,14 +158,36 @@
                 </div>
             </div>
             <div class="tree_left">
-                最后一个
+                <div class="tree_left_top">
+                    <div class=" order_ztree l_left organize_ztree" style="width: 100%">
+                        <div class="notice_nav r_left">
+                            <div style="margin-left: 30px;">
+                                <a class="btn btn-default" onclick="CheckAllNodes('userformTree2')"><span class="glyphicon glyphicon-plus"></span>全选</a>
+                                <a class="btn btn-default" onclick="CancelAllNodes('userformTree2')"><span class="glyphicon glyphicon-remove"></span>全消</a>
+                            </div>
+                        </div>
+                        <p><ul id="userformTree2" class="ztree"  style=" overflow:auto;margin-left: 20px"></ul></p>
+                    </div>
+                </div>
+                <!--底部按钮-->
+                <div class="notice_bot">
+                    <div class="l_left"></div>
+                    <div class="r_right but_p">
+                        <button class="but_previous" type="button" onclick="nextTab(1)">上一步</button>
+                        <button class="but_next" type="button" onclick="nextTab(3)">下一步</button>
+                        <button class="but_close" onclick="Colse()">关闭</button>
+                    </div>
+                </div>
+            </div>
+            <div class="tree_left">
+                暂无
                 <div class="notice_bot">
                     <div class="l_left">
                         <input id="btn_save_close" type="checkbox" checked="checked"/>保存并关闭窗口
                     </div>
                     <div class="r_right but_p">
-                        <button class="but_previous" type="button" onclick="nextTab(1)">上一步</button>
-                        <button class="but_save" type="submit">保存</button>
+                        <button class="but_previous" type="button" onclick="nextTab(2)">上一步</button>
+                        <button class="but_save" type="button" onclick="addData()">保存</button>
                         <button class="but_close" onclick="Colse()">关闭</button>
                     </div>
                 </div>
@@ -224,33 +198,15 @@
     <div th:replace="common/links::table_script"></div>
     <div th:replace="common/links::ztree_script"></div>
     <div th:replace="common/links::multiselect_script"></div>
-    <script type="text/javascript" th:src="@{/static/access/js/custom/menutree.js}"></script>
+    <script type="text/javascript" th:src="@{/static/access/js/custom/depttree.js}"></script>
     <script type="text/javascript" th:src="@{/static/access/js/custom/address.js}"></script>
-<!--    <script src="http://static.runoob.com/assets/jquery-validation-1.14.0/dist/jquery.validate.min.js"></script>-->
     <script src="https://cdn.bootcss.com/jquery-validate/1.19.1/jquery.validate.min.js"></script>
-<!--    <script src="https://cdn.bootcss.com/jquery-validate/1.19.1/additional-methods.min.js"></script>-->
     <script src="https://cdn.bootcss.com/jquery-validate/1.19.1/localization/messages_zh.min.js"></script>
+    <div th:replace="common/links::validate_script"></div>
     <script>
-        // var formqq = null;
-        // formqq = $("#form1").validate({
-        //     // debug:true,
-        //     rules:{
-        //         username:{required:true},
-        //         password:{required:true,minlength:4,maxlength:6}
-        //     },
-        //
-        //     messages:{
-        //         username:{required:"用户名必填"},
-        //         password:{
-        //             required:"密码不能为空",
-        //             minlength:"密码的最小长度为4",
-        //             maxlength:"密码的最大长度为6"
-        //         }
-        //     }
-        // });
         $(function () {
-            tabNav();
-            clickTab();
+            // tabNav();
+            // clickTab();
 
             $('.multiselect').multiselect({
                 buttonClass: 'btn',
@@ -271,35 +227,6 @@
 
         });
 
-        $("#form").submit(function () {
-            $.ajax({
-                type: "post",
-                url: "add",
-                data:JSON.stringify($('#form').serializeObject()),
-                async:true, // 异步请求
-                cache:false, // 设置为 false 将不缓存此页面
-                dataType: "json", // 返回对象
-                contentType:"application/json;charset=UTF-8",
-                success: function(res) {
-                    if (res.code == "0") {
-                        if($("#btn_save_close").is(':checked')){
-                            alert("保存成功",Colse);
-                        }
-                    }else {
-                        layer.alert("["+res.code+"]"+res.msg, {
-                            skin: 'layui-layer-lan'
-                            ,closeBtn: 0
-                            ,anim: 4 //动画类型
-                        });
-                    }
-                },
-                error: function(e) {
-                    // 请求失败函数
-                    console.log("error:"+JSON.stringify(e));
-                }
-            })
-        })
-
 
         // 遍历nav
         function tabNav(){
@@ -319,10 +246,42 @@
         }
         
         function nextTab(index) {
+
+            //第一步：校验表单
             if($("#form").valid()){
                 var count = 0;
                 $(".warrant_nav ul li").each(function(){
                     if(count == index){
+                        if(index == 2){
+                            //第二步：校验归属部门选中并且把选中值赋予input
+                            var dept = GetCheckedAll("userformTree");
+                            if(dept == null || dept == ""){
+                                alert("请选择归属部门！");
+                                return;
+                            }else{
+                                $("#dept_id").val(dept[0].id);
+                            }
+                        }
+                        if(index == 3){
+                            //第三步：校验关联部门选中并且生成list=[{"dept_id":1},{"dept_id":1},....]
+                            var depts = GetCheckedAll("userformTree2");
+                            if(depts == null || depts.length == 0){
+                                alert("请选择关联部门！");
+                                return;
+                            }else{
+                                var deptArr = [];
+                                for (var i = 0; i < depts.length; i++) {
+                                    var dept = new Object();
+                                    dept.name = depts[i].name;
+                                    dept.id = depts[i].id;
+                                    dept.pid = depts[i].pid;
+                                    deptArr.push(dept);
+                                }
+                                var formData = $('#form').serializeObject();
+                                formData.depts = deptArr;
+                                ajaxData = JSON.stringify(formData);
+                            }
+                        }
                         $(".warrant_nav ul li").removeClass("warrant_active");
                         $(this).addClass("warrant_active");
                         $(".warrant_main .tree_left").eq(index).show().siblings(".tree_left").stop().hide();
@@ -332,59 +291,44 @@
             }
         }
 
+        var ajaxData = JSON.stringify($('#form').serializeObject());
+        function addData() {
+            $.ajax({
+                type: "post",
+                url: "add",
+                // data: JSON.stringify($('#form').serializeObject()),
+                data: ajaxData,
+                async:true, // 异步请求
+                cache:false, // 设置为 false 将不缓存此页面
+                dataType: "json", // 返回对象
+                contentType:"application/json;charset=UTF-8",
+                success: function(res) {
+                    console.log("res.code=="+res.code);
+                    console.log("res=="+JSON.stringify(res));
+                    if (res.code == "0") {
+                        if($("#btn_save_close").is(':checked')){
+                            alert("保存成功",Colse);
+                        }
+                    }else {
+                        layer.alert("["+res.code+"]"+res.msg, {
+                            skin: 'layui-layer-lan'
+                            ,closeBtn: 0
+                            ,anim: 4 //动画类型
+                        });
+                    }
+                },
+                error: function(e) {
+                    // 请求失败函数
+                    console.log("error:"+JSON.stringify(e));
+                }
+            })
+        }
+
+
         function Colse() {
             var index = parent.layer.getFrameIndex(window.name);
             parent.layer.close(index);
         }
-
-
-        $("#btn_next").click(function () {
-            // console.log("==============="+"Valid: " + formqq.valid())
-            // console.log("==============="+"=: " + JSON.stringify(formqq))
-        });
-
-        $.validator.setDefaults({
-
-            submitHandler:function(form){
-                form.submit();//提交时拦截
-
-            },
-            errorElement:'div',
-            errorPlacement: function(error, element) {
-                error.addClass('tooltip tooltip-inner arrow-left');
-                if (element.is(":radio")){
-                    error.appendTo(element.parent().next().next());
-                }else if (element.is(":checkbox")){
-                    error.appendTo(element.next());
-                }else{
-                    element.after(error);
-                }
-                var pos = $.extend({}, element.offset(), {
-                        width: element.outerWidth()
-                        , height: element.outerHeight()
-                    }),
-                    actualWidth = error.outerWidth(),
-                    actualHeight = error.outerHeight();
-                if((pos.top - actualHeight)<0){actualHeight=0;pos.width+=10;}//如果输入框距离顶端为0情况把提示放右边
-                if(element.parents(".blockPage").attr("class")=="blockUI blockMsg blockPage"){//如果是弹出框的，那么设置如下
-                    error.css({display:'block',opacity:'0.6' ,left:300,top:pos.top - $(document).scrollTop() - actualHeight - 100, "border-left": '0px'});
-                }
-                else if (element.is(":radio")){//类型为radio的显示如下
-                    error.css({display:'block',opacity:'0.6',top: pos.top - actualHeight, left: pos.left + pos.width / 2 });
-                }else{//其他均为以下显示
-                    error.css({display:'block',opacity:'0.6',top: pos.top - actualHeight, left: pos.left + pos.width-10 });
-                }
-            },
-            highlight: function(element, errorClass) {
-                //高亮显示
-                $(element).addClass(errorClass);
-                $(element).parents('li:first').children('label').addClass(errorClass);
-            },
-            unhighlight:function(element, errorClass){
-                $(element).removeClass(errorClass);
-                $(element).parents('li:first').children('label').removeClass(errorClass);
-            }
-        });
     </script>
 </body>
 </html>

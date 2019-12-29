@@ -102,27 +102,7 @@ var setting = {
     }
 };
 
-var mdata  ="";
-$.ajax({
-    type: "get",
-    url: "../findAllMenusTree",
-    data: {
-        // "id": id
-    },
-    async: false, // 异步请求
-    cache: false, // 设置为 false 将不缓存此页面
-    dataType: 'json', // 返回对象
-    success: function (res) {
-        console.log(res);
-        if(res.code == 0){
-            mdata  = res.data;
-        }
-    },
-    error: function(res){
-        // 请求失败函数
-        console.log(res);
-    }
-})
+
 
 var zNodes =[
     {
@@ -164,10 +144,10 @@ var zNodes =[
 function OnRightClick(event, treeId, treeNode) {
     if (!treeNode && event.target.tagName.toLowerCase() != "button" && $(event.target).parents("a").length == 0) {
         zTree.cancelSelectedNode();
-        //showRMenu("root", event.clientX, event.clientY);
+        showRMenu("root", event.clientX, event.clientY);
     } else if (treeNode && !treeNode.noR) {
         zTree.selectNode(treeNode);
-        //showRMenu("node", event.clientX, event.clientY);
+        showRMenu("node", event.clientX, event.clientY);
     }
 }
 function showRMenu(type, x, y) {
@@ -248,8 +228,37 @@ function OnClick(event, treeId, treeNode){
     }
     $("#level").val(treeNode.level+1);
 }
+
+
+// =========================ajxa方法开始================================
+//获取部门树
+function getMenuTree() {
+    $.ajax({
+        type: "get",
+        url: "../findAllMenusTree",
+        data: {
+            // "id": id
+        },
+        async: false, // 异步请求
+        cache: false, // 设置为 false 将不缓存此页面
+        dataType: 'json', // 返回对象
+        success: function (res) {
+            console.log(res);
+            if(res.code == 0){
+                mdata  = res.data;
+            }
+        },
+        error: function(res){
+            // 请求失败函数
+            console.log(res);
+        }
+    })
+}
+
+var mdata  ="";
 var zTree, rMenu;
 $(document).ready(function(){
+    getMenuTree();
     $.fn.zTree.init($("#treeDemo"), setting, mdata);
     zTree = $.fn.zTree.getZTreeObj("treeDemo");
     rMenu = $("#rMenu");

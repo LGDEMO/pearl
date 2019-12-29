@@ -27,6 +27,8 @@ public interface UserService extends UserDetailsService {
 
     void delete(Long id);
 
+    void deleteBatch(List<UserVo> vos);
+
     void deleteAll();
 
     UserVo getById(Long id);

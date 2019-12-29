@@ -24,7 +24,6 @@ import java.util.List;
 @Table(name = "gem_menu")
 @Data
 @NoArgsConstructor
-@EqualsAndHashCode(callSuper = true)
 public class Menu extends BasePo {
 
     @Id

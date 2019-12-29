@@ -11,30 +11,45 @@ $.each(pdata,function(idx,item){
 });
 $("#input_province").append(html);
 
+var address_p = "";
+var address_c = "";
+var address_a = "";
 $("#input_province").change(function(){
     if ($(this).val() == "") return;
-    $("#input_city option").remove(); $("#input_area option").remove();
+    $("#input_city option").remove();
+    $("#input_area option").remove();
     var code = $(this).find("option:selected").val();
     code = code.substring(0,2);
-    var html = "--请选择--"; $("#input_area").append(html);
+    var html = "<option>--请选择--</option>";
     $.each(pdata,function(idx,item){
         if (parseInt(item.level) == 1 && code == item.code.substring(0,2)) {
             html += "<option value='" + item.code + "'>" + item.names + "</option>";
         }
     });
     $("#input_city").append(html);
+    address_p = $(this).find("option:selected").text();
+    $("#address").val(address_p);
 });
 
 $("#input_city").change(function(){
+
     if ($(this).val() == "") return;
     $("#input_area option").remove();
     var code = $(this).find("option:selected").val();
     code = code.substring(0,4);
-    var html = "--请选择--";
+    var html = "<option>--请选择--</option>";
     $.each(pdata,function(idx,item){
         if (parseInt(item.level) == 2 && code == item.code.substring(0,4)) {
             html += "<option value='" + item.code + "'>" + item.names + "</option>";
         }
     });
     $("#input_area").append(html);
+
+    address_c = address_p + $(this).find("option:selected").text();
+    $("#address").val(address_c);
+});
+
+$("#input_area").change(function(){
+    address_a =  address_c + $(this).find("option:selected").text();
+    $("#address").val(address_a);
 });

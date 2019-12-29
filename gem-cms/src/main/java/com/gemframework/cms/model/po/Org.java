@@ -22,7 +22,6 @@ import javax.persistence.*;
 @Table(name = "gem_org")
 @Data
 @NoArgsConstructor
-@EqualsAndHashCode(callSuper = true)
 public class Org extends BasePo {
 
     @Id

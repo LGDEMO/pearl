@@ -46,6 +46,7 @@ public class UserController {
      * @Date: 2019/11/29 16:17
      */
     @PostMapping("add")
+    @ResponseBody
     public BaseResult add(@Valid @RequestBody UserVo vo, BindingResult bindingResult){
 
         if(bindingResult.hasErrors()){
@@ -64,6 +65,7 @@ public class UserController {
      * @Date: 2019/11/29 16:18
      */
     @PostMapping("delete/{id}")
+    @ResponseBody
     public BaseResult delete(@PathVariable("id") Long id){
         userService.delete(id);
         return BaseResult.SUCCESS();
@@ -77,7 +79,23 @@ public class UserController {
      * @Description:
      * @Date: 2019/11/29 16:18
      */
+    @PostMapping("deleteBatch")
+    @ResponseBody
+    public BaseResult deleteBatch(@RequestBody List<UserVo> vos){
+        userService.deleteBatch(vos);
+        return BaseResult.SUCCESS();
+    }
+
+    /**
+     * @Title:  deleteAll
+     * @MethodName:  删-全部
+     * @Param: [id]
+     * @Retrun: com.gemframework.bas.model.BaseResult
+     * @Description:
+     * @Date: 2019/11/29 16:18
+     */
     @PostMapping("deleteAll")
+    @ResponseBody
     public BaseResult deleteAll(){
         userService.deleteAll();
         return BaseResult.SUCCESS();
@@ -91,8 +109,9 @@ public class UserController {
      * @Description:
      * @Date: 2019/11/29 16:17
      */
-    @PostMapping("update")
-    public BaseResult update(UserVo vo){
+    @PostMapping("edit")
+    @ResponseBody
+    public BaseResult edit(UserVo vo){
         return BaseResult.SUCCESS(userService.update(vo));
     }
 
@@ -120,6 +139,7 @@ public class UserController {
      * @Date: 2019/11/29 16:18
      */
     @GetMapping("list")
+    @ResponseBody
     public BaseResult list(){
         List list = userService.findListAll();
         return BaseResult.SUCCESS(list);
@@ -134,6 +154,7 @@ public class UserController {
      * @Date: 2019/11/29 21:19
      */
     @GetMapping("listByParams")
+    @ResponseBody
     public BaseResult listByParams(UserVo vo){
         List list = userService.findListByParams(vo);
         return BaseResult.SUCCESS(null);
@@ -154,6 +175,7 @@ public class UserController {
      * @Date: 2019/11/29 16:38
      */
     @GetMapping("/page")
+    @ResponseBody
     public BaseResult page(Pageable pageable){
         Page<User> page =  userService.findPageAll(pageable);
         List list = page.getContent();
@@ -185,6 +207,13 @@ public class UserController {
     @GetMapping("add.html")
     public String add(Model model){
         return "user/add";
+    }
+
+    @GetMapping("edit.html")
+    public String edit(Model model, Long id){
+        UserVo userVo = userService.getById(id);
+        model.addAttribute("edit_user",userVo);
+        return "user/edit";
     }
 
 }

@@ -7,12 +7,11 @@
     <div th:replace="common/links::font_links"></div>
     <div th:replace="common/links::treetable_list_links"></div>
     <style>
-        th{text-align: center !important;height: 34px;color: #FFF }
+        th{text-align: center !important;height: 34px;color: #FFF ;font-weight: bold;}
     </style>
 </head>
 <body style="background-color: #ecf0f5;font-family: 微软雅黑;color: #475059;min-width: 1000px;overflow: auto">
 <div class="notice_main">
-    <h6>菜单管理</h6>
     <div class="notice_check  notice_check_last">
         <div class="notice_nav r_right">
             <a class="btn btn-default" onclick="addView()"><span class="glyphicon glyphicon-plus"></span>新增</a>
@@ -23,14 +22,14 @@
     <table id="example-advanced" class="table table-bordered">
         <thead>
              <tr>
-                 <th width="220px">资源名称</th>
-                 <th>资源类型</th>
-                 <th>资源标识</th>
-                 <th>跳转路由</th>
+                 <th style="font-weight: bold">资源名称</th>
+                 <th style="font-weight: bold">资源类型</th>
+                 <th style="font-weight: bold">资源标识</th>
+                 <th style="font-weight: bold">跳转路由</th>
                  <!--<th>所属级别</th>-->
-                 <th>资源图标</th>
-                 <th>排序序号</th>
-                 <th>操作</th>
+                 <th style="font-weight: bold">资源图标</th>
+                 <th style="font-weight: bold">排序序号</th>
+                 <th style="font-weight: bold">操作</th>
              </tr>
         </thead>
         <tbody>
@@ -128,7 +127,6 @@
                 success: function(res) {
                     console.log("res:"+JSON.stringify(res));
                     if (res.code == "0") {
-                        //$("#example-advanced").bootstrapTable('refresh');
                         layer.msg('删除成功！', {icon: 1});
                         location.reload();
                     }else {

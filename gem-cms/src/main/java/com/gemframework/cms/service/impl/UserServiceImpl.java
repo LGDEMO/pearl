@@ -180,6 +180,20 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
+     * @Title:  deleteBitch
+     * @MethodName:  delete
+     * @Param: [id]
+     * @Retrun: void
+     * @Description: 根据ID删除数据
+     * @Date: 2019/11/29 20:43
+     */
+    @Override
+    public void deleteBatch(List<UserVo> vos) {
+        List<User> list = GemBeanUtils.copyCollections(vos,User.class);
+        userRepository.deleteInBatch(list);
+    }
+
+    /**
      * @Title:  deleteAll
      * @MethodName:  deleteAll
      * @Param: [id]

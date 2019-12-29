@@ -43,12 +43,12 @@
                 <div class="l_left">
                     <input type="text" class="find_input">
                 </div>
-                <button class="check_btn">查询</button>
+                <button class="check_btn" onclick="queryData()">查询</button>
                 <div class="notice_nav r_right">
                     <a class="btn btn-default" onclick="addView()"><span class="glyphicon glyphicon-plus"></span>新增</a>
-                    <a class="btn btn-default"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                    <a class="btn btn-default" onclick="deleteBatch()"><span class="glyphicon glyphicon-remove"></span>删除</a>
                     <a class="btn btn-default" onclick="addRole()"><span class="glyphicon glyphicon-pencil"></span>编辑</a>
-                    <a class="btn btn-default" onclick="warrant()"><span class="glyphicon glyphicon-tag"></span>角色授权</a>
+                    <a class="btn btn-default" onclick="warrant()"><span class="glyphicon glyphicon-tag"></span>重置密码</a>
                 </div>
                 <div class="clear"></div>
             </div>
@@ -75,16 +75,37 @@
     function table() {
         $('#table').bootstrapTable({
             method: "get",
-            striped: true,
-            singleSelect: false,
+            striped: true,  //是否显示行间隔色
+            sortable: true, //是否启用排序
+            sortOrder: "asc",
             url: "pageByParams",
             dataType: "json",
-            pagination: true, //分页
-            pageSize: 1,
-            pageNumber: 1,
-            search: false, //显示搜索框
             contentType: "application/x-www-form-urlencoded",
             queryParams:null,
+            //得到查询的参数
+            queryParams: function (params) {
+                //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+                var query_params = {
+                    rows: params.limit,                         //页面大小
+                    page: (params.offset / params.limit) + 1,   //页码
+                    sort: params.sort,      //排序列名
+                    sortOrder: params.order, //排位命令（desc，asc）
+
+                    //查询框中的参数传递给后台
+                    search_kw: $('#search-keyword').val(), // 请求时向服务端传递的参数
+                };
+                //return query_params;
+            },
+            pagination: true, //分页
+            // sidePagination: "server",//分页方式
+            pageNumber: 1,//初始化加载第一页，默认第一页
+            pageSize: 10,//每页的记录行数（*）
+            pageList: [10, 25, 50, 100],
+            clickToSelect: true,
+            height: 30,     //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度#}
+            // showToggle: true,   //是否显示详细视图和列表视图的切换按钮
+            // singleSelect: true, //开启单选,想要获取被选中的行数据必须要有该参数
+
             columns: [
                 {
                     checkbox: "true",
@@ -99,7 +120,13 @@
                     valign: 'middle'
                 },
                 {
-                    title: '真实姓名',
+                    title: '工号',
+                    field: 'worknum',
+                    align: 'center',
+                    valign: 'middle'
+                },
+                {
+                    title: '员工姓名',
                     field: 'realname',
                     align: 'center',
                     valign: 'middle'
@@ -119,6 +146,7 @@
                  {
                     field: 'operate',
                     title: '操作',
+                    width: 220,
                     align: 'center',
                     events: "operateEvents",
                     formatter: operateFormatter
@@ -129,21 +157,21 @@
 
     function operateFormatter(value, row, index) {
         return [
-            '<button id="detail_btn" type="button" class="btn btn-default  btn-xs">详情</button>',
-            '<button id="edit_btn" type="button" class="btn btn-default  btn-xs">编辑</button>',
-            '<button id="del_btn" type="button" class="btn btn-default  btn-xs">删除</button>'
+            '<button type="button" id="btn_detail" class="btn btn-default btn-xs" style="margin-right: 5px;">详情</button>',
+            '<button type="button" id="btn_edit" class="btn btn-primary btn-xs" style="margin-right: 5px;">编辑</button>',
+            '<button type="button" id="btn_del" class="btn btn-danger btn-xs" style="margin-right: 5px;">删除</button>'
         ].join('');
 
     }
     window.operateEvents = {
-        'click #detail_btn': function (e, value, row, index) {
-            alert("A");
+        'click #btn_detail': function (e, value, row, index) {
+            alert("您选中了用户:"+JSON.stringify(row));
         },
-        'click #edit_btn': function (e, value, row, index) {
-            alert("B");
+        'click #btn_edit': function (e, value, row, index) {
+            editView(row.id);
         },
-        'click #del_btn': function (e, value, row, index) {
-            alert("C");
+        'click #btn_del': function (e, value, row, index) {
+            deleteData(row.id);
         }
     };
 
@@ -163,10 +191,122 @@
             skin: 'layui-layer-rim',
             closeBtn:1,
             area: ['750px', '574px'],
-            content: 'add.html'
+            content: 'add.html',
+            end:function () {
+                $('#table').bootstrapTable("refresh");
+            }
         });
     }
 
+    function editView(id){
+        layer.open({
+            type: 2,
+            title: '编辑用户',
+            shadeClose: true,
+            shade: 0.5,
+            skin: 'layui-layer-rim',
+            closeBtn:1,
+            area: ['750px', '574px'],
+            content: 'edit.html?id='+id,
+            end:function () {
+                $('#table').bootstrapTable("refresh");
+            }
+        });
+    }
+
+
+
+    function deleteData(id) {
+        layer.confirm('确定删除吗？哥们？', {
+            btn: ['确定','再想想'] //按钮
+        }, function(){
+            $.ajax({
+                type: "post",
+                url: "delete/"+id,
+                // data: JSON.stringify($('#form').serializeObject()),
+                data: {'id':id},
+                async:true, // 异步请求
+                cache:false, // 设置为 false 将不缓存此页面
+                dataType: "json", // 返回对象
+                contentType:"application/json;charset=UTF-8",
+                success: function(res) {
+                    console.log("res.code=="+res.code);
+                    console.log("res=="+JSON.stringify(res));
+                    if (res.code == "0") {
+                        layer.msg('删除成功！', {icon: 1});
+                        $('#table').bootstrapTable("refresh");
+                    }else {
+                        layer.alert("["+res.code+"]"+res.msg, {
+                            skin: 'layui-layer-lan'
+                            ,closeBtn: 0
+                            ,anim: 4 //动画类型
+                        });
+                    }
+                },
+                error: function(e) {
+                    // 请求失败函数
+                    console.log("error:"+JSON.stringify(e));
+                }
+            })
+        }, function(){
+            return;
+        })
+    }
+
+    function deleteBatch() {
+        var rows = $('#table').bootstrapTable("getSelections");
+        var names = "";
+        console.log("rows="+JSON.stringify(rows));
+        if(rows == null || rows.length == 0){
+            alert("请选中一行");
+            return;
+        }else{
+            for(var i = 0; i<rows.length; i++){
+                names += rows[i].username + ","
+            }
+            names = names.substring(0,names.length-1);
+        }
+
+        layer.confirm('确定删除['+names+']吗？哥们？', {
+            btn: ['确定','再想想'] //按钮
+        }, function(){
+            $.ajax({
+                type: "post",
+                url: "deleteBatch",
+                // data: JSON.stringify($('#form').serializeObject()),
+                data:  JSON.stringify(rows),
+                async:true, // 异步请求
+                cache:false, // 设置为 false 将不缓存此页面
+                dataType: "json", // 返回对象
+                contentType:"application/json;charset=UTF-8",
+                success: function(res) {
+                    console.log("res.code=="+res.code);
+                    console.log("res=="+JSON.stringify(res));
+                    if (res.code == "0") {
+                        layer.msg('删除成功！', {icon: 1});
+                        $('#table').bootstrapTable("refresh");
+                    }else {
+                        layer.alert("["+res.code+"]"+res.msg, {
+                            skin: 'layui-layer-lan'
+                            ,closeBtn: 0
+                            ,anim: 4 //动画类型
+                        });
+                    }
+                },
+                error: function(e) {
+                    // 请求失败函数
+                    console.log("error:"+JSON.stringify(e));
+                }
+            })
+        }, function(){
+            return;
+        })
+    }
+
+    
+    function queryData() {
+        $('#table').bootstrapTable("refresh");
+    }
     function warrant(){
         layer.open({
             type: 2,

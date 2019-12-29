@@ -1,226 +1,202 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>无标题文档</title>
-        <div th:replace="common/links::common_links"></div>
-        <div th:replace="common/links::font_links"></div>
-        <link rel="stylesheet" type="text/css" th:href="@{/static/access/css/index.css}">
-        <link rel="stylesheet" type="text/css" th:href="@{/static/access/css/checkbox/build.css}">
-        <link rel="stylesheet" type="text/css" th:href="@{/static/access/css/zTreeStyle/zTreeStyle.css}">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>无标题文档</title>
+    <div th:replace="common/links::common_links"></div>
+    <div th:replace="common/links::custom_links"></div>
+    <div th:replace="common/links::font_links"></div>
+    <div th:replace="common/links::ztree_links"></div>
+    <div th:replace="common/links::multiselect_links"></div>
+    <div th:replace="common/links::tabs_links"></div>
+    <div th:replace="common/links::checkbox_links"></div>
+    <div th:replace="common/links::validate_links"></div>
+</head>
+<body style="border-radius: 8px;width: 690px;overflow: hidden">
+<form id="form" onsubmit="return false">
+    <div class="top">
+        <div>
+            <div class="top_out">
+                <table class="table">
+                    <tbody>
+                    <tr>
+                        <td>用户帐号<span class="span">*</span></td>
+                        <td><input type="text" id="username" name="username" required   minlength ="2"></td>
+                        <td>用户密码<span class="span">*</span></td>
+                        <td>
+                            <input type="password" id="password" name="password" class="long_text" value="123456" placeholder="默认123456" required>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>员工工号<span class="span">*</span></td>
+                        <td><input type="number" id="worknum" name="worknum" required maxlength="5"></td>
+                        <td>所在岗位<span class="span"></span></td>
+                        <td>
+                            <select id="post" name="post">
+                                <option value="1">初级人员</option>
+                                <option value="2">中级人员</option>
+                                <option value="3">高级人员</option>
+                                <option value="4">领导班子</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
 
-        <!--图标选择器-->
-        <link href="https://farbelous.io/fontawesome-iconpicker/dist/css/fontawesome-iconpicker.min.css" rel="stylesheet">
+                        <td>员工姓名<span class="span">*</span></td>
+                        <td><input type="text" id="realname" name="realname" required></td>
+                        <td>员工性别<span class="span"></span></td>
+                        <td>
+                            <select id="sex" name="sex">
+                                <option value="0">男</option>
+                                <option value="1">女</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>出生年月<span class="span"></span></td>
+                        <td><input type="date" id="birthday" name="birthday"></td>
+                        <td>户口籍贯<span class="span"></span></td>
+                        <td>
+                            <select id="input_province"  name="province"class="td_select">
+                                <option value="">-请选择-</option>
+                            </select>
+                            <select id="input_city" name="city" class="td_select">
+                                <option value=""></option>
+                            </select>
+                            <select id="input_area" name="area" class="td_select">
+                                <option value=""></option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>通讯地址<span class="span">*</span></td>
+                        <td colspan="3">
+                            <input type="text" id="address" name="address" class="block" required minlength="5" maxlength="50">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>手机号码<span class="span">*</span></td>
+                        <td><input type="tel" id="phone" name="phone" required></td>
+                        <td>座机号码<span class="span"></span></td>
+                        <td><input type="text" id="tel" name="tel"></td>
+                    </tr>
+                    <tr>
+                        <td>电子邮箱<span class="span">*</span></td>
+                        <td><input type="email" id="email" name="email" required></td>
+                        <td>QQ/微信<span class="span"></span></td>
+                        <td><input type="text" id="qq" name="qq"></td>
+                    </tr>
+                    <tr>
+                        <td>其他备注<span class="span"></span></td>
+                        <td colspan = "8" style="text-align: left">
+                            <textarea id="desp" name="desp"></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>归属部门<span class="span"></span></td>
+                        <td>
+                            <div class="dropdown">
+                                <input class="dropdown_select"  id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" placeholder="--请选择--" >
+                                <span class="caret"></span>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenu1" style="width: 247px">
+                                    <div class=" order_ztree l_left organize_ztree" style="width: 100%;background-color: #fff;padding-bottom: 10px;height: 240px;overflow: auto;">
+                                        <ul id="treeDemo" class="ztree"  style=" overflow:auto;margin-left: 20px"></ul>
 
-        <link href="https://cdn.bootcss.com/jquery.bootstrapvalidator/0.5.3/css/bootstrapValidator.css" rel="stylesheet">
-
-        <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
-        <!--[if lt IE 9]>
-        <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-        <![endif]-->
-        <style>
-            .form-control, .form-group{
-                position: relative;
-            }
-            .form-group{
-                text-align: left;
-                margin-bottom: 30px;
-            }
-            .form-group label{
-                display:block;
-                margin-bottom: 15px;
-            }
-            .lead iframe{
-                display:inline-block;
-                vertical-align: middle;
-            }
-            /* 如果使用远程，请自行调整图标容器宽度*/
-            .iconpicker-popover.popover{width:335px; height: 298px;}
-            .iconpicker .iconpicker-items{max-height: 190px;}
-        </style>
-    </head>
-    <body style="border-radius: 8px;width: 480px;overflow: hidden">
-        <form id="form" onsubmit="return false">
-            <div class="top">
-                <div>
-                    <div class="top_out">
-                        <table class="table">
-                            <tbody>
-                                <tr>
-                                    <td>所属上级<span class="span">*</span></td>
-                                    <td>
-                                        <div class="dropdown">
-                                            <input type="hidden" name="id" id="id" th:value="${edit_menu.id}" />
-                                            <input type="hidden" name="pid" id="pid" th:value="${edit_menu.pid}" />
-                                            <input type="hidden" name="level" id="level" th:value="${edit_menu.level}"/>
-                                            <input class="dropdown_select"  id="dropdownMenu1"
-                                                   data-toggle="dropdown" aria-haspopup="true" th:value="${edit_menu.pname}"
-                                                   aria-expanded="true" placeholder="--请选择--" readonly required />
-                                            <span class="caret"></span>
-                                            <div class="dropdown-menu" aria-labelledby="dropdownMenu1" style="width: 247px">
-                                                <div class=" order_ztree l_left organize_ztree" style="width: 100%;background-color: #fff;
-                                            padding-bottom: 10px;height: 240px;overflow: auto;">
-                                                    <ul id="treeDemo" class="ztree"  style=" overflow:auto;margin-left: 20px"></ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>资源类型<span class="span">*</span></td>
-                                    <td th:if="${edit_menu.type}==0">
-                                        <div class="radio radio-info radio-inline">
-                                            <input type="radio" name="type" id="type1"
-                                                   value="0" checked />
-                                            <label for="type1">菜单</label>
-                                        </div>
-                                        <div class="radio radio-info radio-inline">
-                                            <input type="radio" name="type" id="type2"
-                                                   value="1"/>
-                                            <label for="type2">按钮</label>
-                                        </div>
-                                    </td>
-                                    <td th:if="${edit_menu.type}==1">
-                                        <div class="radio radio-info radio-inline">
-                                            <input type="radio" name="type" id="type3"
-                                                   value="0"/>
-                                            <label for="type3">菜单</label>
-                                        </div>
-                                        <div class="radio radio-info radio-inline">
-                                            <input type="radio" name="type" id="type4"
-                                                   value="1" checked/>
-                                            <label for="type4">按钮</label>
-                                        </div>
-                                    </td>
-                                    <td th:if="${edit_menu.type}==null">
-                                        <div class="radio radio-info radio-inline">
-                                            <input type="radio" name="type" id="type5"
-                                                   value="0" checked/>
-                                            <label for="type5">菜单1</label>
-                                        </div>
-                                        <div class="radio radio-info radio-inline">
-                                            <input type="radio" name="type" id="type6"
-                                                   value="1"/>
-                                            <label for="type6">按钮</label>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>资源名称<span class="span">*</span></td>
-                                    <td>
-                                        <input type="text" name="name" id="name" required minlength ="2" th:value="${edit_menu.name}"/>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>资源标识<span class="span">*</span></td>
-                                    <td>
-                                        <input type="text" name="tag" id="tag"  required th:value="${edit_menu.tag}"/>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>资源图标<span class="span">*</span></td>
-                                    <td>
-                                        <input type="text" name="icon" id="icon" required
-                                               data-placement="bottomRight" readonly
-                                               class="form-control icp icp-auto" th:value="${edit_menu.icon}" />
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>跳转路由<span class="span">*</span></td>
-                                    <td>
-                                        <input type="text" name="link" id="link" required th:value="${edit_menu.link}" />
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>排序序号<span class="span">*</span></td>
-                                    <td>
-                                        <input type="text" name="sortNumber" id="sortNumber"  th:value="${edit_menu.sortNumber}" required />
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div class="notice_bot">
-                    <div class="l_left">
-                        <input id="btn_save_close" type="checkbox" checked="checked"/>保存并关闭窗口
-                    </div>
-                    <div class="r_right but_p">
-                        <button id="btn_save" class="but_save">保存</button>
-                        <button id="btn_close"class="but_close" onclick="Colse()">关闭</button>
-                    </div>
-                </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+<!--                        <td>授予角色<span class="span"></span></td>-->
+<!--                        <td>-->
+<!--                            <select  class="multiselect" multiple="multiple">-->
+<!--                                <option>全部</option>-->
+<!--                                <option>超级管理员</option>-->
+<!--                                <option>普通管理员</option>-->
+<!--                            </select>-->
+<!--                        </td>-->
+                    </tr>
+                    </tbody>
+                </table>
             </div>
-        </form>
-        <div th:replace="common/links::common_script"></div>
-        <div th:replace="common/links::table_script"></div>
-        <div th:replace="common/links::ztree_script"></div>
-        <!--<script type="text/javascript" th:src="@{/static/access/js/organize.js}"></script>-->
-        <script type="text/javascript" th:src="@{/static/access/js/custom/menutree.js}"></script>
-        <!--图标选择器-->
-        <script src="https://farbelous.io/fontawesome-iconpicker/dist/js/fontawesome-iconpicker.js"></script>
-        <script src="https://cdn.bootcss.com/jquery.bootstrapvalidator/0.5.3/js/bootstrapValidator.min.js"></script>
-        <script>
-            $(function () {
-                $('.icp-auto').iconpicker({
-                    title: '请选择一个图标',
-                    //  指定图标
-                    //icons:['fa-github', 'fa-heart', 'fa-html5', 'fa-css3'],
-                    // 添加其他图标 加入 bootstrap  glyphicon 字体图标
-                    icons: $.merge(['glyphicon-home', 'glyphicon-repeat', 'glyphicon-search',
-                        'glyphicon-arrow-left', 'glyphicon-arrow-right', 'glyphicon-star'], $.iconpicker.defaultOptions.icons),
-                    fullClassFormatter: function (val) {
-                        if (val.match(/^fa-/)) {
-                            return 'fa ' + val;
-                        } else {
-                            return 'glyphicon ' + val;
-                        }
-                    },
-                    component: '.input-group-addon', // 图标存放容器
-                    /* Placements: inline topLeftCorner topLeft top topRight topRightCorner rightTop right rightBottom bottomRightCorner bottomRight bottom bottomLeft bottomLeftCorner leftBottom left leftTop*/
-                    placement: 'right',  // 图标容器位置
-                })
-            });
+        </div>
+    </div>
+    <!--底部按钮-->
+    <div class="notice_bot">
+        <div class="l_left"></div>
+        <div class="r_right but_p">
+            <button id="btn_edit" class="btn_edit" type="button" onclick="editData()">立即修改</button>
+            <button class="but_close" onclick="Colse()">关闭</button>
+        </div>
+    </div>
+</form>
+<div th:replace="common/links::common_script"></div>
+<div th:replace="common/links::table_script"></div>
+<div th:replace="common/links::ztree_script"></div>
+<div th:replace="common/links::multiselect_script"></div>
+<script type="text/javascript" th:src="@{/static/access/js/custom/depttree.js}"></script>
+<script type="text/javascript" th:src="@{/static/access/js/custom/address.js}"></script>
+<script src="https://cdn.bootcss.com/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+<script src="https://cdn.bootcss.com/jquery-validate/1.19.1/localization/messages_zh.min.js"></script>
+<div th:replace="common/links::validate_script"></div>
+<script>
+    $(function () {
+        $('.multiselect').multiselect({
+            buttonClass: 'btn',
+            buttonWidth: 'auto',
+            buttonText: function(options) {
+                if (options.length == 0) {
+                    return '请选择角色';
+                }
+                else {
+                    var selected = '';
+                    options.each(function() {
+                        selected += $(this).text() + ',';
+                    });
+                    return selected.substr(0, selected.length -1) ;
+                }
+            },
+        });
+    });
 
-            $('#btn_save').on('click', function() {
-                $.ajax({
-                    type: "post",
-                    url: "add",
-                    data:JSON.stringify($('#form').serializeObject()),
-                    async:true, // 异步请求
-                    cache:false, // 设置为 false 将不缓存此页面
-                    dataType: "json", // 返回对象
-                    contentType:"application/json;charset=UTF-8",
-                    success: function(res) {
-                        if (res.code == "0") {
-                            if($("#btn_save_close").is(':checked')){
-                                alert("编辑成功",Colse);
-                            }else{
-                                layer.alert("编辑成功", {
-                                    skin: 'layui-layer-lan'
-                                    ,closeBtn: 0
-                                    ,anim: 4 //动画类型
-                                });
-                            }
-                        }else {
-                            layer.alert("["+res.code+"]"+res.msg, {
-                                skin: 'layui-layer-lan'
-                                ,closeBtn: 0
-                                ,anim: 4 //动画类型
-                            });
-                        }
-                    },
-                    error: function(e) {
-                        // 请求失败函数
-                        console.log("error:"+JSON.stringify(e));
+
+    var ajaxData = JSON.stringify($('#form').serializeObject());
+    function editData() {
+        $.ajax({
+            type: "post",
+            url: "add",
+            // data: JSON.stringify($('#form').serializeObject()),
+            data: ajaxData,
+            async:true, // 异步请求
+            cache:false, // 设置为 false 将不缓存此页面
+            dataType: "json", // 返回对象
+            contentType:"application/json;charset=UTF-8",
+            success: function(res) {
+                console.log("res.code=="+res.code);
+                console.log("res=="+JSON.stringify(res));
+                if (res.code == "0") {
+                    if($("#btn_save_close").is(':checked')){
+                        alert("保存成功",Colse);
                     }
-                })
-            });
-
-            function Colse() {
-                var index = parent.layer.getFrameIndex(window.name);
-                parent.layer.close(index);
+                }else {
+                    layer.alert("["+res.code+"]"+res.msg, {
+                        skin: 'layui-layer-lan'
+                        ,closeBtn: 0
+                        ,anim: 4 //动画类型
+                    });
+                }
+            },
+            error: function(e) {
+                // 请求失败函数
+                console.log("error:"+JSON.stringify(e));
             }
-        </script>
-    </body>
+        })
+    }
+
+
+    function Colse() {
+        var index = parent.layer.getFrameIndex(window.name);
+        parent.layer.close(index);
+    }
+</script>
+</body>
 </html>

@@ -339,7 +339,9 @@
                         if(mdata == "" || mdata == null || mdata.length == 0){
                             mdata = menusData_def;
                         }else{
-                            mdata = menusData_def.concat(mdata);
+                            if(JSON.stringify(mdata).indexOf("menu/list.html")==-1){
+                                mdata = menusData_def.concat(mdata);
+                            }
                         }
                         $.each(mdata, function (i) {
                             var row = mdata[i];

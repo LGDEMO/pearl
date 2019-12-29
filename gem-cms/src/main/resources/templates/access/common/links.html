@@ -1,4 +1,4 @@
-﻿﻿<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-cn" class="fullscreen-bg" xmlns:th="http://www.thymeleaf.org">
 <head>
 </head>
@@ -46,6 +46,10 @@
     <div th:fragment="tabs_links">
         <link rel="stylesheet" type="text/css" th:href="@{/static/access/css/tree.css}">
     </div>
+    <!-- 表单校验提示-->
+    <div th:fragment="validate_links">
+        <link rel="stylesheet" type="text/css" th:href="@{/static/access/plugins/validate/css/prompt.css}">
+    </div>
 
 
     <!--js部分-->
@@ -77,20 +81,25 @@
         </script>
     </div>
 
+    <!--有table页面-->
     <div th:fragment="table_script">
-        <!--有table页面-->
         <script type="text/javascript" th:src="@{/static/access/js/bstable/js/bootstrap-table.js}"></script>
         <script type="text/javascript" th:src="@{/static/access/js/bstable/js/bootstrap-table-zh-CN.min.js}"></script>
     </div>
-
+    <!--    ztree-->
     <div th:fragment="ztree_script">
         <script type="text/javascript" th:src="@{/static/access/js/demo/jquery.ztree.core-3.5.js}"></script>
         <script type="text/javascript" th:src="@{/static/access/js/ztree/jquery.ztree.excheck-3.5.js}"></script>
         <script type="text/javascript" th:src="@{/static/access/js/ztree/jquery.ztree.exedit-3.5.js}"></script>
     </div>
 
+    <!--    多选-->
     <div th:fragment="multiselect_script">
         <script type="text/javascript" th:src="@{/static/access/plugins/multiselect/js/bootstrap-multiselect.js}"></script>
+    </div>
+    <!-- 表单校验提示-->
+    <div th:fragment="validate_script">
+        <script type="text/javascript" th:src="@{/static/access/plugins/validate/js/prompt.js}"></script>
     </div>
 </body>
 </html>

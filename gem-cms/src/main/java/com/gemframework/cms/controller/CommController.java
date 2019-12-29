@@ -95,7 +95,7 @@ public class CommController {
                     .title(deptVo.getName())
                     .level(deptVo.getLevel())
                     .open(true)
-                    .nocheck(true)
+                    .nocheck(false)
                     .build();
             ztreeEntities.add(ztreeEntity);
         }

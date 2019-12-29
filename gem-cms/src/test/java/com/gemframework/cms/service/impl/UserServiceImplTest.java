@@ -53,7 +53,6 @@ class UserServiceImplTest {
         UserVo vo = new UserVo();
         vo.setUsername("lg");
         vo.setPassword("888");
-        vo.setAge(29);
         vo.setRealname("李");
         vo.setPhone("13381122333");
         if(null != userRepository.getByPhone(vo.getPhone())){

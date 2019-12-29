@@ -65,15 +65,17 @@ a:hover,a:active,a:focus{outline:none;text-decoration:none;color:#72afd2}
 .user-panel > .info{padding: 5px 5px 5px 15px;line-height: 1;position: absolute;left: 55px;top:0px;}
 .user-panel > .info > p{font-weight: 600;margin-bottom: 9px;}
 .user-panel > .info > a{text-decoration: none;padding-right: 5px;margin-top: 3px;font-size: 11px;}
+.user-panel > .info > a > i[class^="fa"],
 .user-panel > .info > a > .fa,
+.user-panel > .info > a > .fas,
 .user-panel > .info > a > .ion,
 .user-panel > .info > a > .glyphicon{margin-right: 5px;}
 .sidebar-menu{list-style:none;margin:0;padding:0}
 .sidebar-menu>li{position:relative;margin:0;padding:0}
-/*.sidebar-menu>li>a{padding:12px 5px 12px 15px;display:block;font-size:14px;}*/
 .sidebar-menu>li>a{padding:12px 5px 12px 15px;display:block;font-size:16px;}
-.sidebar-menu>li>a>.fa,.sidebar-menu>li>a>.glyphicon,.sidebar-menu>li>a>.ion{width:20px;}
-.sidebar-menu>li>a>.fas{width:20px;}
+.sidebar-menu>li>a>.fa,.sidebar-menu>li>a>.glyphicon,.sidebar-menu>li>a>.ion{width:20px;margin-right:5px}
+.sidebar-menu>li>a>.fas{width:20px;margin-right:5px}
+.sidebar-menu>li>a>i[class^="fa"]{width:20px;margin-right:5px}
 .sidebar-menu>li .label,.sidebar-menu>li .badge{margin-top:3px;margin-right:5px}
 .sidebar-menu li.header{padding:10px 25px 10px 15px;font-size:12px}
 .sidebar-menu li>a>.fa-angle-left{width:auto;height:auto;padding:0;margin-right:10px;margin-top:3px}
@@ -82,10 +84,10 @@ a:hover,a:active,a:focus{outline:none;text-decoration:none;color:#72afd2}
 .sidebar-menu .treeview-menu{display:none;list-style:none;padding:0;margin:0;padding-left:20px;padding-top: 5px;padding-bottom:5px;}
 .sidebar-menu .treeview-menu .treeview-menu{padding-left:20px}
 .sidebar-menu .treeview-menu>li{margin:0;line-height:25px;}
-/*.sidebar-menu .treeview-menu>li>a{padding:5px 5px 5px 15px;display:block;font-size:12px}*/
 .sidebar-menu .treeview-menu>li>a{padding:5px 5px 5px 15px;display:block;font-size:14px}
-.sidebar-menu .treeview-menu>li>a>.fa,.sidebar-menu .treeview-menu>li>a>.glyphicon,.sidebar-menu .treeview-menu>li>a>.ion{width:20px;}
-.sidebar-menu .treeview-menu>li>a>.fas{width:20px;}
+.sidebar-menu .treeview-menu>li>a>.fa,.sidebar-menu .treeview-menu>li>a>.glyphicon,.sidebar-menu .treeview-menu>li>a>.ion{width:20px;margin-right: 5px;}
+.sidebar-menu .treeview-menu>li>a>.fas{width:20px;margin-right: 5px;}
+.sidebar-menu .treeview-menu>li>a>i[class^="fa"]{width:20px;margin-right: 5px;}
 .sidebar-menu .treeview-menu>li>a>.fa-angle-left,.sidebar-menu .treeview-menu>li>a>.fa-angle-down{width:auto}
 @media (min-width:768px){.sidebar-mini.sidebar-collapse .content-wrapper,.sidebar-mini.sidebar-collapse .right-side,.sidebar-mini.sidebar-collapse .main-footer{margin-left:50px !important;z-index:840}
 .sidebar-mini.sidebar-collapse .main-sidebar{-webkit-transform:translate(0, 0);-ms-transform:translate(0, 0);-o-transform:translate(0, 0);transform:translate(0, 0);width:50px !important;z-index:850}
@@ -277,7 +279,11 @@ td{border: none !important;}
 .top td{padding: 0 3px 8px 0 !important;}
 .top td .span{color: red;margin:3px 1px 0 2px;display: inline-block ;float: right;vertical-align: middle;line-height: 28px;width: 6px;text-align: center;}
 .top select,.top input[type=text],.top input[type=password],.top input[type=email]{text-align: left;width: 247px;height:28px;border-radius: 4px;font-size: 14px;border: 1px #ccc solid}
-.top td textarea{width: 586px;height: 70px;resize: none;border-radius: 4px;border: 1px #ccc solid}
+.top input[type=tel]{text-align: left;width: 247px;height:28px;border-radius: 4px;font-size: 14px;border: 1px #ccc solid}
+.top input[type=number]{text-align: left;width: 247px;height:28px;border-radius: 4px;font-size: 14px;border: 1px #ccc solid}
+.top input[type=date]{text-align: left;width: 247px;height:28px;border-radius: 4px;font-size: 14px;border: 1px #ccc solid}
+.top input[class=block],.top input[class='block error']{text-align: left;width: 590px;height:28px;border-radius: 4px;font-size: 14px;border: 1px #ccc solid}
+.top td textarea{width: 590px;height: 70px;resize: none;border-radius: 4px;border: 1px #ccc solid;margin-top: 5px;}
 .notice_bot{position: fixed;bottom: 0;background-color: #ecf0f5;padding: 5px 0 5px 0;z-index:9999;border-top:1px #ccc solid;width: 100%;}
 .notice_bot>div{font-size: 12px;margin-left: 10px;color: #07141e;line-height: 28px}
 .notice_bot>div input{margin:0 2px 0 0;vertical-align: middle}

@@ -8,12 +8,8 @@
     <div th:replace="common/links::ztree_links"></div>
     <div th:replace="common/links::custom_links"></div>
     <div th:replace="common/links::checkbox_links"></div>
-
     <!--图标选择器-->
-    <!--<link href="https://farbelous.io/fontawesome-iconpicker/dist/css/fontawesome-iconpicker.min.css" rel="stylesheet">-->
     <link rel="stylesheet" type="text/css" th:href="@{/static/access/css/fontawesome-iconpicker.css}">
-
-    <link href="https://cdn.bootcss.com/jquery.bootstrapvalidator/0.5.3/css/bootstrapValidator.css" rel="stylesheet">
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
     <!--[if lt IE 9]>
@@ -123,8 +119,6 @@
     <script type="text/javascript" th:src="@{/static/access/js/custom/menutree.js}"></script>
     <!--图标选择器-->
     <script type="text/javascript" th:src="@{/static/access/js/fontawesome-iconpicker.js}"></script>
-
-    <script src="https://cdn.bootcss.com/jquery.bootstrapvalidator/0.5.3/js/bootstrapValidator.min.js"></script>
     <script>
         $(function () {
             $('.icp-auto').iconpicker({
