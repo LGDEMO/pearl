@@ -47,7 +47,7 @@ public class RoleMenusController {
             return BaseResult.ERROR(ResultCode.PARAM_EXCEPTION.getCode(),bindingResult.getFieldError().getDefaultMessage());
         }
 
-        return BaseResult.SUCCESS(roleMenusService.add(vo));
+        return BaseResult.SUCCESS(roleMenusService.save(vo));
     }
 
     /**

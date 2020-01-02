@@ -56,7 +56,7 @@ public class MenuController {
             return BaseResult.ERROR(ResultCode.PARAM_EXCEPTION.getCode(),bindingResult.getFieldError().getDefaultMessage());
         }
 
-        return BaseResult.SUCCESS(menuService.add(vo));
+        return BaseResult.SUCCESS(menuService.save(vo));
     }
 
     /**

@@ -44,7 +44,7 @@ public class RoleServiceImpl implements RoleService {
      * @Date: 2019-12-05 22:10:59
      */
     @Override
-    public RoleVo add(RoleVo vo) {
+    public RoleVo save(RoleVo vo) {
         Role role = new Role();
         GemBeanUtils.copyProperties(vo,role);
         role = roleRepository.save(role);

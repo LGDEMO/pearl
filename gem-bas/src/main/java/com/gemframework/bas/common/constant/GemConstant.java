@@ -8,6 +8,11 @@ public interface GemConstant {
 		public String NULL= "null";
 	}
 
+	//系统常量
+	public interface System{
+		public String DEF_PASSWORD= "123456";
+	}
+
 	//公共常量
 	public interface Auth{
 		public String CLIENT_ID_NAME = "client_id_name";

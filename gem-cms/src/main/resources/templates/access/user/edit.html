@@ -19,51 +19,53 @@
             <div class="top_out">
                 <table class="table">
                     <tbody>
+                    <input type="hidden" id="id" name="id" th:value="${edit_user.id}">
                     <tr>
                         <td>用户帐号<span class="span">*</span></td>
-                        <td><input type="text" id="username" name="username" required   minlength ="2"></td>
-                        <td>用户密码<span class="span">*</span></td>
+                        <td><input type="text" id="username" name="username" required   minlength ="2" th:value="${edit_user.username}"></td>
+                        <td>用户密码<span class="span"></span></td>
                         <td>
-                            <input type="password" id="password" name="password" class="long_text" value="123456" placeholder="默认123456" required>
+                            <input type="password" id="password" name="password" class="long_text" value="" placeholder="温馨提示：请勿使用弱密码">
                         </td>
                     </tr>
                     <tr>
                         <td>员工工号<span class="span">*</span></td>
-                        <td><input type="number" id="worknum" name="worknum" required maxlength="5"></td>
+                        <td><input type="number" id="worknum" name="worknum" required maxlength="5" th:value="${edit_user.worknum}"></td>
                         <td>所在岗位<span class="span"></span></td>
                         <td>
                             <select id="post" name="post">
-                                <option value="1">初级人员</option>
-                                <option value="2">中级人员</option>
-                                <option value="3">高级人员</option>
-                                <option value="4">领导班子</option>
+                                <option th:selected="${edit_user.post eq '1'}" value="1">初级人员</option>
+                                <option th:selected="${edit_user.post eq '2'}" value="2">中级人员</option>
+                                <option th:selected="${edit_user.post eq '3'}" value="3">高级人员</option>
+                                <option th:selected="${edit_user.post eq '4'}" value="4">领导班子</option>
                             </select>
                         </td>
                     </tr>
                     <tr>
 
                         <td>员工姓名<span class="span">*</span></td>
-                        <td><input type="text" id="realname" name="realname" required></td>
+                        <td><input type="text" id="realname" name="realname" required th:value="${edit_user.realname}"></td>
                         <td>员工性别<span class="span"></span></td>
                         <td>
                             <select id="sex" name="sex">
-                                <option value="0">男</option>
-                                <option value="1">女</option>
+                                <option th:selected="${edit_user.sex == 0}" value="0">男</option>
+                                <option th:selected="${edit_user.sex == 1}" value="1">女</option>
                             </select>
                         </td>
                     </tr>
                     <tr>
                         <td>出生年月<span class="span"></span></td>
-                        <td><input type="date" id="birthday" name="birthday"></td>
+                        <td><input type="date" id="birthday" name="birthday"
+                                   th:value="${edit_user.birthday}==null?null:${#dates.format(edit_user.birthday,'yyyy-MM-dd')}"></td>
                         <td>户口籍贯<span class="span"></span></td>
                         <td>
-                            <select id="input_province"  name="province"class="td_select">
+                            <select id="input_province"  name="province" class="td_select" th:data="${edit_user.province}">
                                 <option value="">-请选择-</option>
                             </select>
-                            <select id="input_city" name="city" class="td_select">
+                            <select id="input_city" name="city" class="td_select"  th:data="${edit_user.city}">
                                 <option value=""></option>
                             </select>
-                            <select id="input_area" name="area" class="td_select">
+                            <select id="input_area" name="area" class="td_select"  th:data="${edit_user.area}">
                                 <option value=""></option>
                             </select>
                         </td>
@@ -71,32 +73,34 @@
                     <tr>
                         <td>通讯地址<span class="span">*</span></td>
                         <td colspan="3">
-                            <input type="text" id="address" name="address" class="block" required minlength="5" maxlength="50">
+                            <input type="text" id="address" name="address" class="block" required minlength="5" maxlength="50"  th:value="${edit_user.address}" />
                         </td>
                     </tr>
                     <tr>
                         <td>手机号码<span class="span">*</span></td>
-                        <td><input type="tel" id="phone" name="phone" required></td>
+                        <td><input type="tel" id="phone" name="phone" required  th:value="${edit_user.phone}"></td>
                         <td>座机号码<span class="span"></span></td>
-                        <td><input type="text" id="tel" name="tel"></td>
+                        <td><input type="text" id="tel" name="tel"  th:value="${edit_user.tel}"></td>
                     </tr>
                     <tr>
                         <td>电子邮箱<span class="span">*</span></td>
-                        <td><input type="email" id="email" name="email" required></td>
+                        <td><input type="email" id="email" name="email" required  th:value="${edit_user.email}"></td>
                         <td>QQ/微信<span class="span"></span></td>
-                        <td><input type="text" id="qq" name="qq"></td>
+                        <td><input type="text" id="qq" name="qq"  th:value="${edit_user.qq}"></td>
                     </tr>
                     <tr>
                         <td>其他备注<span class="span"></span></td>
                         <td colspan = "8" style="text-align: left">
-                            <textarea id="desp" name="desp"></textarea>
+                            <textarea id="desp" name="desp"  th:text="${edit_user.desp}"></textarea>
                         </td>
                     </tr>
                     <tr>
                         <td>归属部门<span class="span"></span></td>
                         <td>
                             <div class="dropdown">
-                                <input class="dropdown_select"  id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" placeholder="--请选择--" >
+                                <input type="hidden" id="dept_id" name="dept_id" th:value="${edit_user.dept_id}">
+                                <input class="dropdown_select"  id="dropdownMenu1" data-toggle="dropdown"
+                                       aria-haspopup="true" aria-expanded="true" placeholder="--请选择--"  th:value="${edit_user.dept.name}">
                                 <span class="caret"></span>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenu1" style="width: 247px">
                                     <div class=" order_ztree l_left organize_ztree" style="width: 100%;background-color: #fff;padding-bottom: 10px;height: 240px;overflow: auto;">
@@ -122,7 +126,11 @@
     </div>
     <!--底部按钮-->
     <div class="notice_bot">
-        <div class="l_left"></div>
+        <div class="l_left">
+            <div class="l_left">
+                <input id="btn_save_close" type="checkbox" checked="checked"/>保存并关闭窗口
+            </div>
+        </div>
         <div class="r_right but_p">
             <button id="btn_edit" class="btn_edit" type="button" onclick="editData()">立即修改</button>
             <button class="but_close" onclick="Colse()">关闭</button>
@@ -159,12 +167,13 @@
     });
 
 
-    var ajaxData = JSON.stringify($('#form').serializeObject());
+    //编辑数据
     function editData() {
+        var ajaxData = JSON.stringify($('#form').serializeObject());
+        console.log("ajaxData====="+ajaxData)
         $.ajax({
             type: "post",
-            url: "add",
-            // data: JSON.stringify($('#form').serializeObject()),
+            url: "edit",
             data: ajaxData,
             async:true, // 异步请求
             cache:false, // 设置为 false 将不缓存此页面

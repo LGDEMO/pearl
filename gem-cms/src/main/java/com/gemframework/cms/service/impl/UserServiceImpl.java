@@ -7,6 +7,7 @@ import com.gemframework.cms.model.vo.RoleVo;
 import com.gemframework.cms.model.vo.UserRolesVo;
 import com.gemframework.cms.model.vo.UserVo;
 import com.gemframework.cms.model.po.User;
+import com.gemframework.cms.repository.DeptRepository;
 import com.gemframework.cms.repository.UserRepository;
 import com.gemframework.cms.service.RoleService;
 import com.gemframework.cms.service.UserRolesService;
@@ -31,12 +32,17 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.*;
 
+import static com.gemframework.bas.common.constant.GemConstant.System.DEF_PASSWORD;
+
 @Slf4j
 @Service
 public class UserServiceImpl implements UserService {
 
     @Resource
     private UserRepository userRepository;
+
+    @Resource
+    private DeptRepository deptRepository;
 
     @Resource
     private RoleService roleService;
@@ -53,14 +59,22 @@ public class UserServiceImpl implements UserService {
      * @Date: 2019/11/29 20:44
      */
     @Override
-    public UserVo add(UserVo vo) {
+    public UserVo save(UserVo vo) {
         if(null != userRepository.getByPhone(vo.getPhone()) ||
                 null != userRepository.getByUserName(vo.getUsername())){
             throw new GemException(ResultCode.USER_EXIST);
         }
-        User user = new User();
+        User user = userRepository.getById(vo.getId());
         GemBeanUtils.copyProperties(vo,user);
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
+
+        if(vo.getPassword() == null || vo.getPassword().equals("")){
+            //如果是新增 默认设置密码123456
+            if(vo.getId() == null || vo.getId() == 0){
+                user.setPassword(passwordEncoder.encode(DEF_PASSWORD));
+            }
+        }
         user.setPassword(passwordEncoder.encode(vo.getPassword()));
         user = userRepository.save(user);
         GemBeanUtils.copyProperties(user,vo);
@@ -141,27 +155,6 @@ public class UserServiceImpl implements UserService {
         return vo;
     }
 
-    /**
-     * @Title:  update
-     * @MethodName:  update
-     * @Param: [vo]
-     * @Retrun: com.gemframework.bas.model.po.User
-     * @Description: 更新数据
-     * @Date: 2019/11/29 20:42
-     */
-    @Override
-    public UserVo update(UserVo vo) {
-        Optional<User> optional= userRepository.findById(vo.getId());
-        if(optional.isPresent()){
-            User user = optional.get();
-            GemBeanUtils.copyProperties(vo,user);
-            user = userRepository.save(user);
-            GemBeanUtils.copyProperties(user,vo);
-            return vo;
-        }
-        return null;
-
-    }
 
     /**
      * @Title:  delete
@@ -211,6 +204,8 @@ public class UserServiceImpl implements UserService {
         UserVo vo = new UserVo();
         User entity = userRepository.getById(id);
         GemBeanUtils.copyProperties(entity,vo);
+        Dept dept = deptRepository.getById(vo.getDept_id());
+        vo.setDept(dept);
         return vo;
     }
 

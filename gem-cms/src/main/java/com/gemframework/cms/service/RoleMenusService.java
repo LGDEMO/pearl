@@ -8,7 +8,7 @@ import java.util.List;
 public interface RoleMenusService {
 
 
-    RoleMenusVo add(RoleMenusVo vo);
+    RoleMenusVo save(RoleMenusVo vo);
 
     List<RoleMenusVo> findListAll();
 

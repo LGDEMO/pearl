@@ -39,7 +39,7 @@ public class MenuServiceImpl implements MenuService {
      * @Date: 2019-12-05 22:10:15
      */
     @Override
-    public MenuVo add(MenuVo vo) {
+    public MenuVo save(MenuVo vo) {
         Menu menu = new Menu();
         GemBeanUtils.copyProperties(vo,menu);
         menu = menuRepository.save(menu);

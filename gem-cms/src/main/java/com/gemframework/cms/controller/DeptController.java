@@ -52,7 +52,7 @@ public class DeptController {
             return BaseResult.ERROR(ResultCode.PARAM_EXCEPTION.getCode(),bindingResult.getFieldError().getDefaultMessage());
         }
 
-        return BaseResult.SUCCESS(deptService.add(vo));
+        return BaseResult.SUCCESS(deptService.save(vo));
     }
 
     /**
@@ -80,7 +80,10 @@ public class DeptController {
      */
     @PostMapping("update")
     @ResponseBody
-    public BaseResult update(DeptVo vo){
+    public BaseResult update(@Valid @RequestBody DeptVo vo, BindingResult bindingResult){
+        if(bindingResult.hasErrors()){
+            return BaseResult.ERROR(ResultCode.PARAM_EXCEPTION.getCode(),bindingResult.getFieldError().getDefaultMessage());
+        }
         return BaseResult.SUCCESS(deptService.update(vo));
     }
 

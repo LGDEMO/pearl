@@ -2,14 +2,33 @@ pdata = [{"code":"110000","names":"\u5317\u4eac\u5e02","level":"0"},{"code":"110
 
 //下拉框联动效果
 var html = "";
-$("#input_city").append(html);
-$("#input_area").append(html);
+var init_p_html = "";
+var init_c_html = "";
+var init_a_html = "";
 $.each(pdata,function(idx,item){
     if (parseInt(item.level) == 0) {
-        html += "<option value='" + item.code + "'>" + item.names + "</option>";
+        init_p_html += "<option value='" + item.code + "'>" + item.names + "</option>";
+    }
+    if (parseInt(item.level) == 1) {
+        init_c_html += "<option value='" + item.code + "'>" + item.names + "</option>";
+    }
+    if (parseInt(item.level) == 2) {
+        init_a_html += "<option value='" + item.code + "'>" + item.names + "</option>";
     }
 });
-$("#input_province").append(html);
+$("#input_province").append(init_p_html);
+$("#input_city").append(init_c_html);
+$("#input_area").append(init_a_html);
+
+if($("#input_province").attr("data") != null && $("#input_province").attr("data") != ""){
+    $("#input_province").find("option[value="+$("#input_province").attr("data") +"]").attr('selected','selected');
+}
+if($("#input_city").attr("data") != null && $("#input_city").attr("data") != ""){
+    $("#input_city").find("option[value="+$("#input_city").attr("data") +"]").attr('selected','selected');
+}
+if($("#input_area").attr("data") != null && $("#input_area").attr("data") != ""){
+    $("#input_area").find("option[value="+$("#input_area").attr("data") +"]").attr('selected','selected');
+}
 
 var address_p = "";
 var address_c = "";

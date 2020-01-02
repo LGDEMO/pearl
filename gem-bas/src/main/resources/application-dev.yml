@@ -29,7 +29,7 @@ spring:
     show-sql: true
     hibernate:
       # 开启自动建表功能，一般选update，每次启动会对比实体和数据表结构是否相同，不相同会更新
-      ddl-auto: update
+      ddl-auto: none
       format_sql: true
     # 设置创表引擎为Innodb，不然默认为MyiSam
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect

@@ -25,14 +25,14 @@ public class UserVo extends BaseVo {
     @NotBlank(message = "用户名不能为空！")
     private String username;
 
-    @NotBlank(message = "密码不能为空！")
     private String password;
 
     @NotNull(message = "工号不能为空！")
     private Integer worknum;
 
-    @NotBlank(message = "请选择归属部门！")
-    private String dept_id;
+    @NotNull(message = "请选择归属部门！")
+    private Long dept_id;
+
     //岗位
     private String post;
 
@@ -40,7 +40,7 @@ public class UserVo extends BaseVo {
     @Size(min = 2,max = 10,message = "姓名长度限制2~10个数字之间")
     private String realname;
 
-    private String sex;
+    private Integer sex;
 
     @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     private Date birthday;
@@ -71,6 +71,8 @@ public class UserVo extends BaseVo {
     private List<DeptVo> depts;
 
     private List<String> deptNames;
+
+    private Dept dept;
 
     @JsonIgnore
     public String getPassword() {

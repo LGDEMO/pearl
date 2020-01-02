@@ -3,6 +3,7 @@ package com.gemframework.cms.controller;
 import com.gemframework.cms.model.po.User;
 import com.gemframework.cms.model.vo.DeptVo;
 import com.gemframework.cms.model.vo.UserVo;
+import com.gemframework.cms.model.vo.request.ResetPasswordReq;
 import com.gemframework.cms.service.UserService;
 import com.gemframework.bas.common.enums.ResultCode;
 import com.gemframework.bas.model.BaseResult;
@@ -52,7 +53,7 @@ public class UserController {
         if(bindingResult.hasErrors()){
             return BaseResult.ERROR(ResultCode.PARAM_EXCEPTION.getCode(),bindingResult.getFieldError().getDefaultMessage());
         }
-        vo = userService.add(vo);
+        vo = userService.save(vo);
         return BaseResult.SUCCESS(vo);
     }
 
@@ -111,8 +112,28 @@ public class UserController {
      */
     @PostMapping("edit")
     @ResponseBody
-    public BaseResult edit(UserVo vo){
-        return BaseResult.SUCCESS(userService.update(vo));
+    public BaseResult edit(@Valid @RequestBody UserVo vo, BindingResult bindingResult){
+        if(bindingResult.hasErrors()){
+            return BaseResult.ERROR(ResultCode.PARAM_EXCEPTION.getCode(),bindingResult.getFieldError().getDefaultMessage());
+        }
+        return BaseResult.SUCCESS(userService.save(vo));
+    }
+
+    /**
+     * @Title:  resetPassword
+     * @MethodName:  修改密码
+     * @Param: [vo]
+     * @Retrun: com.gemframework.bas.model.BaseResult
+     * @Description:
+     * @Date: 2019/11/29 16:17
+     */
+    @PostMapping("resetPassword")
+    @ResponseBody
+    public BaseResult resetPassword(@RequestBody ResetPasswordReq req){
+        UserVo vo = new UserVo();
+        vo.setId(req.getId());
+        vo.setPassword(req.getNewPass());
+        return BaseResult.SUCCESS(userService.save(vo));
     }
 
     /**

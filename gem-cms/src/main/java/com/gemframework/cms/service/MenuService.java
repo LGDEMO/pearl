@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface MenuService {
 
-    MenuVo add(MenuVo vo);
+    MenuVo save(MenuVo vo);
 
     /**
      * 查询资源链表 用于资源管理list页面

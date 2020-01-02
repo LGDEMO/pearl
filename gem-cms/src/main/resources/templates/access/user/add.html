@@ -290,13 +290,11 @@
                 });
             }
         }
-
         var ajaxData = JSON.stringify($('#form').serializeObject());
         function addData() {
             $.ajax({
                 type: "post",
                 url: "add",
-                // data: JSON.stringify($('#form').serializeObject()),
                 data: ajaxData,
                 async:true, // 异步请求
                 cache:false, // 设置为 false 将不缓存此页面

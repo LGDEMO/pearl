@@ -33,7 +33,7 @@ public class RoleOrgsServiceImpl implements RoleOrgsService {
      * @Date: 2019-12-05 22:08:48
      */
     @Override
-    public RoleOrgsVo add(RoleOrgsVo vo) {
+    public RoleOrgsVo save(RoleOrgsVo vo) {
         RoleOrgs roleOrgs = new RoleOrgs();
         GemBeanUtils.copyProperties(vo,roleOrgs);
         roleOrgs = roleOrgsRepository.save(roleOrgs);

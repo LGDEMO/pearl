@@ -47,7 +47,7 @@ public class RoleOrgsController {
             return BaseResult.ERROR(ResultCode.PARAM_EXCEPTION.getCode(),bindingResult.getFieldError().getDefaultMessage());
         }
 
-        return BaseResult.SUCCESS(roleOrgsService.add(vo));
+        return BaseResult.SUCCESS(roleOrgsService.save(vo));
     }
 
     /**

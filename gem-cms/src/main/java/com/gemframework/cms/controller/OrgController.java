@@ -47,7 +47,7 @@ public class OrgController {
             return BaseResult.ERROR(ResultCode.PARAM_EXCEPTION.getCode(),bindingResult.getFieldError().getDefaultMessage());
         }
 
-        return BaseResult.SUCCESS(orgService.add(vo));
+        return BaseResult.SUCCESS(orgService.save(vo));
     }
 
     /**

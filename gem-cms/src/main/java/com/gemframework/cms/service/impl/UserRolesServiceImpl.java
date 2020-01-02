@@ -33,7 +33,7 @@ public class UserRolesServiceImpl implements UserRolesService {
      * @Date: 2019-12-05 22:09:48
      */
     @Override
-    public UserRolesVo add(UserRolesVo vo) {
+    public UserRolesVo save(UserRolesVo vo) {
         UserRoles userRoles = new UserRoles();
         GemBeanUtils.copyProperties(vo,userRoles);
         userRoles = userRolesRepository.save(userRoles);

@@ -8,8 +8,6 @@
     <div th:replace="common/links::table_list_links"></div>
     <div th:replace="common/links::ztree_links"></div>
     <div th:replace="common/links::custom_links"></div>
-
-    <!--<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap-validator/0.5.3/css/bootstrapValidator.css">-->
     <style>
         .department_main{padding: 10px 10px 0 10px}
         .department_main label{width: 80px;text-align: right;font-size: 14px}
@@ -143,7 +141,7 @@
     });
 
 
-
+    //保存
     $("#form").submit(function () {
         console.log("ajax...")
         $.ajax({

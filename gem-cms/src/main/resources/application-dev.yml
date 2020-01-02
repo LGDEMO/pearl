@@ -32,7 +32,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     # 是否打印sql
-    show-sql: false
+    show-sql: true
     hibernate:
       # 开启自动建表功能，一般选update，每次启动会对比实体和数据表结构是否相同，不相同会更新
       ddl-auto: update

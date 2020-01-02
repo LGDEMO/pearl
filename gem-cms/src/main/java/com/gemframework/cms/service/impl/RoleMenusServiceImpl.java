@@ -33,7 +33,7 @@ public class RoleMenusServiceImpl implements RoleMenusService {
      * @Date: 2019-12-05 22:09:15
      */
     @Override
-    public RoleMenusVo add(RoleMenusVo vo) {
+    public RoleMenusVo save(RoleMenusVo vo) {
         RoleMenus roleMenus = new RoleMenus();
         GemBeanUtils.copyProperties(vo,roleMenus);
         roleMenus = roleMenusRepository.save(roleMenus);

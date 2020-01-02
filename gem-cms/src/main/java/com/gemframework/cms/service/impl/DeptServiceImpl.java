@@ -35,7 +35,7 @@ public class DeptServiceImpl implements DeptService {
      * @Date: 2019-12-05 22:07:32
      */
     @Override
-    public DeptVo add(DeptVo vo) {
+    public DeptVo save(DeptVo vo) {
         Dept dept = new Dept();
         GemBeanUtils.copyProperties(vo,dept);
         dept = deptRepository.save(dept);
@@ -145,16 +145,34 @@ public class DeptServiceImpl implements DeptService {
      */
     @Override
     public DeptVo update(DeptVo vo) {
-        Optional<Dept> optional= deptRepository.findById(vo.getId());
-        if(optional.isPresent()){
-            Dept dept = optional.get();
-            GemBeanUtils.copyProperties(vo,dept);
-            dept = deptRepository.save(dept);
-            GemBeanUtils.copyProperties(dept,vo);
-            return vo;
-        }
-        return null;
+        Dept dept = new Dept();
+        GemBeanUtils.copyProperties(vo,dept);
+        dept = deptRepository.saveAndFlush(dept);
 
+        //更新id_path,series开始
+        DeptVo parentVo = getById(vo.getPid());
+        String idPath = String.valueOf(dept.getId());
+        if(dept.getId()<10){
+            idPath = "0"+dept.getId();
+        }
+        if(parentVo != null && parentVo.getIdPath() != null){
+            idPath = parentVo.getIdPath()+"-"+idPath;
+        }
+        //设置idpath
+        dept.setIdPath(idPath);
+
+        //设置series
+        String series = dept.getIdPath();
+        if(series.indexOf("-")>0){
+            series = series.substring(0,series.indexOf("-"));
+        }
+        dept.setSeries(series);
+        //更新
+        dept = deptRepository.save(dept);
+        //更新id_path,series结束
+
+        GemBeanUtils.copyProperties(dept,vo);
+        return vo;
     }
 
     /**

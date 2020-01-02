@@ -45,7 +45,7 @@ public class User extends BasePo {
     private Integer worknum;
 
     @Column(columnDefinition = "int(5) not null comment '归属部门ID'",nullable = false)
-    private String dept_id;
+    private Long dept_id;
 
     @Column(columnDefinition = "varchar(5) not null comment '岗位'",nullable = false)
     private String post;

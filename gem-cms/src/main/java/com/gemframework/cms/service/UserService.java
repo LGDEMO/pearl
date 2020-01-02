@@ -11,7 +11,7 @@ import java.util.List;
 public interface UserService extends UserDetailsService {
 
 
-    UserVo add(UserVo vo);
+    UserVo save(UserVo vo);
 
     List findListAll();
 
@@ -22,8 +22,6 @@ public interface UserService extends UserDetailsService {
     Page findPageByParams(UserVo vo, Pageable pageable);
 
     UserVo getByLoginName(String loginName);
-
-    UserVo update(UserVo vo);
 
     void delete(Long id);
 

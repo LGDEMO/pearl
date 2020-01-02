@@ -8,7 +8,7 @@ import java.util.List;
 public interface OrgService {
 
 
-    OrgVo add(OrgVo vo);
+    OrgVo save(OrgVo vo);
 
     List<OrgVo> findListAll();
 

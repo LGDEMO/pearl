@@ -47,7 +47,7 @@ public class UserRolesController {
             return BaseResult.ERROR(ResultCode.PARAM_EXCEPTION.getCode(),bindingResult.getFieldError().getDefaultMessage());
         }
 
-        return BaseResult.SUCCESS(userRolesService.add(vo));
+        return BaseResult.SUCCESS(userRolesService.save(vo));
     }
 
     /**

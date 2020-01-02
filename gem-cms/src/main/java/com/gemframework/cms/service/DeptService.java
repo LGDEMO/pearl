@@ -8,7 +8,7 @@ import java.util.List;
 public interface DeptService {
 
 
-    DeptVo add(DeptVo vo);
+    DeptVo save(DeptVo vo);
 
     List<DeptVo> findListAll();
 

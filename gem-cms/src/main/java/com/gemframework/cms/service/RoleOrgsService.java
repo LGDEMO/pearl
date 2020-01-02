@@ -8,7 +8,7 @@ import java.util.List;
 public interface RoleOrgsService {
 
 
-    RoleOrgsVo add(RoleOrgsVo vo);
+    RoleOrgsVo save(RoleOrgsVo vo);
 
     List<RoleOrgsVo> findListAll();
 

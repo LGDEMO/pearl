@@ -47,8 +47,8 @@
                 <div class="notice_nav r_right">
                     <a class="btn btn-default" onclick="addView()"><span class="glyphicon glyphicon-plus"></span>新增</a>
                     <a class="btn btn-default" onclick="deleteBatch()"><span class="glyphicon glyphicon-remove"></span>删除</a>
-                    <a class="btn btn-default" onclick="addRole()"><span class="glyphicon glyphicon-pencil"></span>编辑</a>
-                    <a class="btn btn-default" onclick="warrant()"><span class="glyphicon glyphicon-tag"></span>重置密码</a>
+                    <a class="btn btn-default" onclick="editView()"><span class="glyphicon glyphicon-pencil"></span>编辑</a>
+                    <a class="btn btn-default" onclick="resetPassword()"><span class="glyphicon glyphicon-tag"></span>重置密码</a>
                 </div>
                 <div class="clear"></div>
             </div>
@@ -199,6 +199,22 @@
     }
 
     function editView(id){
+
+        //顶部编辑按钮
+        if(id == null || id == ""){
+            var rows = $('#table').bootstrapTable("getSelections");
+            if(rows == null || rows.length == 0){
+                alert("你好像什么也没有选中！");
+                return;
+            }else{
+                if(rows.length > 1){
+                    alert("编辑只允许选择一行哦~");
+                    return;
+                }
+            }
+            id = rows[0].id;
+        }
+
         layer.open({
             type: 2,
             title: '编辑用户',
@@ -217,7 +233,7 @@
 
 
     function deleteData(id) {
-        layer.confirm('确定删除吗？哥们？', {
+        layer.confirm('确定删除吗？亲~', {
             btn: ['确定','再想想'] //按钮
         }, function(){
             $.ajax({
@@ -253,12 +269,13 @@
         })
     }
 
+    //公共按钮-删除
     function deleteBatch() {
         var rows = $('#table').bootstrapTable("getSelections");
         var names = "";
         console.log("rows="+JSON.stringify(rows));
         if(rows == null || rows.length == 0){
-            alert("请选中一行");
+            alert("你好像什么也没有选中！");
             return;
         }else{
             for(var i = 0; i<rows.length; i++){
@@ -267,13 +284,12 @@
             names = names.substring(0,names.length-1);
         }
 
-        layer.confirm('确定删除['+names+']吗？哥们？', {
+        layer.confirm('确定删除['+names+']吗？亲~', {
             btn: ['确定','再想想'] //按钮
         }, function(){
             $.ajax({
                 type: "post",
                 url: "deleteBatch",
-                // data: JSON.stringify($('#form').serializeObject()),
                 data:  JSON.stringify(rows),
                 async:true, // 异步请求
                 cache:false, // 设置为 false 将不缓存此页面
@@ -303,20 +319,56 @@
         })
     }
 
-    
+
     function queryData() {
         $('#table').bootstrapTable("refresh");
     }
-    function warrant(){
-        layer.open({
-            type: 2,
-            title: '角色授权',
-            shadeClose: true,
-            shade: 0.5,
-            skin: 'layui-layer-rim',
-            closeBtn:1,
-            area: ['630px', '585px'],
-            content: 'role_warrant.html'
+
+
+    function resetPassword(id){
+        if(id == null || id == ""){
+            var rows = $('#table').bootstrapTable("getSelections");
+            if(rows == null || rows.length == 0){
+                alert("你好像什么也没有选中！");
+                return;
+            }else{
+                if(rows.length > 1){
+                    alert("编辑只允许选择一行哦~");
+                    return;
+                }
+            }
+            id = rows[0].id;
+        }
+        layer.prompt({title: '请输入密码，请勿使用弱密码', formType: 1}, function(pass, index){
+            var data = {"id":id,"newPass":pass};
+            $.ajax({
+                type: "post",
+                url: "resetPassword",
+                data:  JSON.stringify(data),
+                async:true, // 异步请求
+                cache:false, // 设置为 false 将不缓存此页面
+                dataType: "json", // 返回对象
+                contentType:"application/json;charset=UTF-8",
+                success: function(res) {
+                    console.log("res.code=="+res.code);
+                    console.log("res=="+JSON.stringify(res));
+                    if (res.code == "0") {
+                        layer.close(index);
+                        layer.msg('修改成功！<br>新密码为：'+ pass +'<br>请通知用户重新登录',{icon:1});
+                    }else {
+                        layer.alert("["+res.code+"]"+res.msg, {
+                            skin: 'layui-layer-lan'
+                            ,closeBtn: 0
+                            ,anim: 4 //动画类型
+                        });
+                    }
+                },
+                error: function(e) {
+                    // 请求失败函数
+                    console.log("error:"+JSON.stringify(e));
+                }
+            })
+
         });
     }
 </script>

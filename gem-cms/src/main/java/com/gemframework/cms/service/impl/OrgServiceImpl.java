@@ -33,7 +33,7 @@ public class OrgServiceImpl implements OrgService {
      * @Date: 2019-12-05 22:08:20
      */
     @Override
-    public OrgVo add(OrgVo vo) {
+    public OrgVo save(OrgVo vo) {
         Org org = new Org();
         GemBeanUtils.copyProperties(vo,org);
         org = orgRepository.save(org);
