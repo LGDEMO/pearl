@@ -2,6 +2,7 @@ package com.gemframework.cms.model.vo;
 
 import com.gemframework.bas.model.vo.BaseVo;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
@@ -22,6 +23,7 @@ import java.util.List;
 
 @Data
 @NoArgsConstructor
+@EqualsAndHashCode(callSuper=true)
 public class DeptVo extends BaseVo {
 
     private Long id;

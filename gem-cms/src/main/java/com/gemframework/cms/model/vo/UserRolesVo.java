@@ -2,6 +2,7 @@ package com.gemframework.cms.model.vo;
 
 import com.gemframework.bas.model.vo.BaseVo;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 /**
@@ -18,6 +19,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
+@EqualsAndHashCode(callSuper=true)
 public class UserRolesVo extends BaseVo {
 
     private Long id;
@@ -25,9 +27,5 @@ public class UserRolesVo extends BaseVo {
     private Long userId;
 
     private Long roleId;
-
-    public UserRolesVo(Long id){
-        this.id = id;
-    }
 
 }

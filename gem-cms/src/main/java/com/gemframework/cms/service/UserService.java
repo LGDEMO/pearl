@@ -11,6 +11,8 @@ import java.util.List;
 public interface UserService extends UserDetailsService {
 
 
+    boolean exist(UserVo vo);
+
     UserVo save(UserVo vo);
 
     List findListAll();

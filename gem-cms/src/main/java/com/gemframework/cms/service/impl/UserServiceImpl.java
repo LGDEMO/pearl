@@ -1,14 +1,12 @@
 package com.gemframework.cms.service.impl;
 
 import com.gemframework.bas.common.constant.GemConstant;
-import com.gemframework.cms.model.po.Dept;
+import com.gemframework.cms.model.po.*;
 import com.gemframework.cms.model.vo.DeptVo;
 import com.gemframework.cms.model.vo.RoleVo;
 import com.gemframework.cms.model.vo.UserRolesVo;
 import com.gemframework.cms.model.vo.UserVo;
-import com.gemframework.cms.model.po.User;
-import com.gemframework.cms.repository.DeptRepository;
-import com.gemframework.cms.repository.UserRepository;
+import com.gemframework.cms.repository.*;
 import com.gemframework.cms.service.RoleService;
 import com.gemframework.cms.service.UserRolesService;
 import com.gemframework.cms.service.UserService;
@@ -27,6 +25,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 
 import javax.annotation.Resource;
@@ -36,6 +35,7 @@ import static com.gemframework.bas.common.constant.GemConstant.System.DEF_PASSWO
 
 @Slf4j
 @Service
+@Transactional
 public class UserServiceImpl implements UserService {
 
     @Resource
@@ -45,10 +45,36 @@ public class UserServiceImpl implements UserService {
     private DeptRepository deptRepository;
 
     @Resource
+    private UserDeptsRepository userDeptsRepository;
+
+    @Resource
+    private UserRolesRepository userRolesRepository;
+
+
+    @Resource
     private RoleService roleService;
 
     @Resource
     private UserRolesService userRolesService;
+
+    @Override
+    public boolean exist(UserVo vo) {
+        //新增
+        if(vo.getId() == null || vo.getId() == 0){
+            if(null != userRepository.getByPhone(vo.getPhone()) ||
+                    null != userRepository.getByUserName(vo.getUsername())){
+                return false;
+            }
+        }else{
+            if(null != userRepository.getByPhone(vo.getPhone(),vo.getId())){
+                return false;
+            }
+            if(null != userRepository.getByUserName(vo.getUsername(),vo.getId())){
+                return false;
+            }
+        }
+        return true;
+    }
 
     /**
      * @Title:  add
@@ -60,24 +86,47 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public UserVo save(UserVo vo) {
-        if(null != userRepository.getByPhone(vo.getPhone()) ||
-                null != userRepository.getByUserName(vo.getUsername())){
+        if(!exist(vo)){
             throw new GemException(ResultCode.USER_EXIST);
         }
-        User user = userRepository.getById(vo.getId());
-        GemBeanUtils.copyProperties(vo,user);
+        User user = new User();
+        //新增
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-
-
-        if(vo.getPassword() == null || vo.getPassword().equals("")){
-            //如果是新增 默认设置密码123456
-            if(vo.getId() == null || vo.getId() == 0){
+        if(vo.getId() == null || vo.getId() == 0){
+            if(vo.getPassword() == null || vo.getPassword().equals("")){
+                //如果是新增 默认设置密码123456
                 user.setPassword(passwordEncoder.encode(DEF_PASSWORD));
             }
+        }else{
+            user = userRepository.getById(vo.getId());
+        }
+
+        if(user != null){
+            GemBeanUtils.copyProperties(vo,user);
         }
         user.setPassword(passwordEncoder.encode(vo.getPassword()));
         user = userRepository.save(user);
         GemBeanUtils.copyProperties(user,vo);
+
+        //第二步：保存用户关联部门
+        List<DeptVo> deptVoList = vo.getDepts();
+        for(DeptVo deptVo:deptVoList){
+            UserDepts userDepts = new UserDepts();
+            userDepts.setUserId(user.getId());
+            userDepts.setDeptId(deptVo.getId());
+            userDeptsRepository.save(userDepts);
+        }
+
+        //第三步：保存用户关联角色
+        List<RoleVo> roleVoList = vo.getRoles();
+        for(RoleVo roleVo:roleVoList){
+            UserRoles userRoles = new UserRoles();
+            userRoles.setUserId(user.getId());
+            userRoles.setRoleId(roleVo.getId());
+            userRolesRepository.save(userRoles);
+        }
+
+
         return vo;
     }
 

@@ -1,5 +1,6 @@
 package com.gemframework.cms.service;
 
+import com.gemframework.cms.model.po.Role;
 import com.gemframework.cms.model.vo.RoleVo;
 import org.springframework.data.domain.Pageable;
 

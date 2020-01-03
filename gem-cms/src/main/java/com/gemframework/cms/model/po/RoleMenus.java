@@ -1,6 +1,8 @@
 package com.gemframework.cms.model.po;
 
 import com.gemframework.bas.model.po.BasePo;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -18,7 +20,9 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "gem_role_menus")
+@Data
 @NoArgsConstructor
+@EqualsAndHashCode(callSuper=true)
 public class RoleMenus extends BasePo {
 
     @Id
@@ -31,37 +35,4 @@ public class RoleMenus extends BasePo {
     @Column(columnDefinition = "bigint(20) not null comment '菜单ID'")
     private Long menuId;
 
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getRoleId() {
-        return roleId;
-    }
-
-    public void setRoleId(Long roleId) {
-        this.roleId = roleId;
-    }
-
-    public Long getMenuId() {
-        return menuId;
-    }
-
-    public void setMenuId(Long menuId) {
-        this.menuId = menuId;
-    }
-
-    @Override
-    public String toString() {
-        return "RoleMenus{" +
-                "id=" + id +
-                ", roleId='" + roleId + '\'' +
-                ", menuId='" + menuId + '\'' +
-                '}';
-    }
 }

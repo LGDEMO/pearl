@@ -38,8 +38,4 @@ public class RoleVo extends BaseVo {
 
     private List<MenuVo> menus;
 
-    private List<OrgVo> orgs;
-
-
-
 }

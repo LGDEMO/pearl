@@ -2,6 +2,7 @@ package com.gemframework.cms.model.vo;
 
 import com.gemframework.bas.model.vo.BaseVo;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
@@ -21,6 +22,7 @@ import javax.validation.constraints.Size;
 
 @Data
 @NoArgsConstructor
+@EqualsAndHashCode(callSuper=true)
 public class RoleMenusVo extends BaseVo {
 
     private Long id;

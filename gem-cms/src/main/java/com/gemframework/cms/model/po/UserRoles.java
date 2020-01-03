@@ -1,6 +1,8 @@
 package com.gemframework.cms.model.po;
 
 import com.gemframework.bas.model.po.BasePo;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -18,7 +20,9 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "gem_user_roles")
+@Data
 @NoArgsConstructor
+@EqualsAndHashCode(callSuper=true)
 public class UserRoles extends BasePo {
 
     @Id
@@ -31,36 +35,4 @@ public class UserRoles extends BasePo {
     @Column(columnDefinition = "bigint(20) not null comment '角色ID'")
     private Long roleId;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
-    public Long getRoleId() {
-        return roleId;
-    }
-
-    public void setRoleId(Long roleId) {
-        this.roleId = roleId;
-    }
-
-    @Override
-    public String toString() {
-        return "UserRoles{" +
-                "id=" + id +
-                ", userId='" + userId + '\'' +
-                ", roleId='" + roleId + '\'' +
-                '}';
-    }
 }

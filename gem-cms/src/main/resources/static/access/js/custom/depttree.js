@@ -16,7 +16,7 @@ var left_setting = {
     },
 
     edit : { //可以编辑节点 : 增 删 改
-        enable : false,//设置 zTree 是否处于编辑状态, true / false 分别表示 可以 / 不可以 编辑
+        enable : true,//设置 zTree 是否处于编辑状态, true / false 分别表示 可以 / 不可以 编辑
         editNameSelectAll : true,
         showRemoveBtn : true,//设置是否显示删除按钮。[setting.edit.enable = true 时生效]
         showRenameBtn : true,//设置是否显示编辑名称按钮。[setting.edit.enable = true 时生效]
@@ -146,8 +146,12 @@ var form_setting = {
 function OnClickFormTree(event, treeId, treeNode){
     //设置隐藏字段
     $(".dropdown_select").val(treeNode.name);
+    //添加部门form
     $("#pid").val(treeNode.id);
     $("#level").val(treeNode.level+1);
+
+    //编辑用户form
+    $("#dept_id").val(treeNode.id);
 }
 
 var user_form_setting = {
@@ -237,10 +241,11 @@ function CancelAllNodes(treeId) {
 //自定义右键方法开始
 function OnRightClick(event, treeId, treeNode) {
     zTree = $.fn.zTree.getZTreeObj(treeId);
+alert("点击了右键");
     if (!treeNode && event.target.tagName.toLowerCase() != "button" && $(event.target).parents("a").length == 0) {
         zTree.cancelSelectedNode();
         showRMenu("root", event.clientX, event.clientY);
-    } else if (treeNode && !treeNode.noR) {
+    } else if (treeNode) {
         zTree.selectNode(treeNode);
         showRMenu("node", event.clientX, event.clientY);
     }
@@ -475,6 +480,7 @@ function switchView(flag){
                 //user切换class
                 $("#dept_user").removeClass("l_left news_right")
             }
+            $('#table').bootstrapTable("refresh");
             count++;
             break;
         default:

@@ -5,7 +5,6 @@ import com.gemframework.bas.common.exception.GemException;
 import com.gemframework.bas.common.utils.GemBeanUtils;
 import com.gemframework.cms.model.po.*;
 import com.gemframework.cms.model.vo.MenuVo;
-import com.gemframework.cms.model.vo.OrgVo;
 import com.gemframework.cms.model.vo.RoleVo;
 import com.gemframework.cms.repository.*;
 import com.gemframework.cms.service.RoleService;
@@ -27,11 +26,7 @@ public class RoleServiceImpl implements RoleService {
     @Resource
     private RoleRepository roleRepository;
     @Resource
-    private OrgRepository orgRepository;
-    @Resource
     private MenuRepository menuRepository;
-    @Resource
-    private RoleOrgsRepository roleOrgsRepository;
     @Resource
     private RoleMenusRepository roleMenusRepository;
 
@@ -67,16 +62,6 @@ public class RoleServiceImpl implements RoleService {
         for(Role roles:list){
             RoleVo roleVo = new RoleVo();
             GemBeanUtils.copyProperties(roles,roleVo);
-            List<Org> orgsList = new ArrayList<>();
-            List<RoleOrgs> roleOrgs = roleOrgsRepository.findListByRoleId(roles.getId());
-            //查询roleOrgs
-            for(RoleOrgs orgs:roleOrgs){
-                Org org = orgRepository.getById(orgs.getOrgId());
-                orgsList.add(org);
-            }
-            roles.setOrgs(orgsList);
-            List<OrgVo> orgVos = GemBeanUtils.copyCollections(orgsList,OrgVo.class);
-            roleVo.setOrgs(orgVos);
 
             //查询roleMenus
             List<Menu> menusList = new ArrayList<>();
@@ -201,15 +186,6 @@ public class RoleServiceImpl implements RoleService {
         Role role = roleRepository.getById(id);
         if(role != null){
             roleVo =  new RoleVo();
-            //查询roleOrgs
-            List<Org> orgsList = null;
-            List<RoleOrgs> roleOrgs = roleOrgsRepository.findListByRoleId(id);
-            for(RoleOrgs orgs:roleOrgs){
-                Org org = orgRepository.getById(orgs.getOrgId());
-                orgsList = new ArrayList<>();
-                orgsList.add(org);
-            }
-            role.setOrgs(orgsList);
             //查询roleMenus
             List<Menu> menusList = null;
             List<RoleMenus> roleMenus = roleMenusRepository.findListByRoleId(id);
@@ -230,15 +206,6 @@ public class RoleServiceImpl implements RoleService {
         Role role = roleRepository.getByFlag(flag);
         if(role != null){
             roleVo =  new RoleVo();
-            //查询roleOrgs
-            List<Org> orgsList = null;
-            List<RoleOrgs> roleOrgs = roleOrgsRepository.findListByRoleId(role.getId());
-            for(RoleOrgs orgs:roleOrgs){
-                Org org = orgRepository.getById(orgs.getOrgId());
-                orgsList = new ArrayList<>();
-                orgsList.add(org);
-            }
-            role.setOrgs(orgsList);
             //查询roleMenus
             List<Menu> menusList = null;
             List<RoleMenus> roleMenus = roleMenusRepository.findListByRoleId(role.getId());
