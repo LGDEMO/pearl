@@ -2,8 +2,10 @@ package com.gemframework.cms.repository;
 
 import com.gemframework.cms.model.po.RoleMenus;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 /**
@@ -24,5 +26,10 @@ public interface RoleMenusRepository extends JpaRepository<RoleMenus, Long> {
 
     @Query("select roleMenus from RoleMenus roleMenus where roleId in ?1")
     List<RoleMenus> findListByRoleIds(List<Long> roleIds);
+
+    @Modifying
+    @Transactional
+    @Query("delete from RoleMenus rm where rm.roleId = ?1")
+    int deleteByRoleId(Long roleId);
 
 }

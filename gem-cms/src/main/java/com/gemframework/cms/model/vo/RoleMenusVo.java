@@ -27,14 +27,8 @@ public class RoleMenusVo extends BaseVo {
 
     private Long id;
 
-    @NotBlank(message = "角色名不能为空！")
-    @Size(min = 2,max = 10,message = "角色名长度限制2~10个数字之间")
-    private String rolename;
+    private String roleId;
 
-    @NotBlank(message = "角色标识不能为空！")
-    @Size(min = 2,max = 10,message = "角色标识长度限制2~10个数字之间")
-    private String flag;
-
-
+    private String menuId;
 
 }

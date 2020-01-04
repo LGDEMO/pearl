@@ -36,6 +36,11 @@ public class RoleVo extends BaseVo {
     @Size(min = 2,max = 10,message = "角色标识长度限制2~10个数字之间")
     private String flag;
 
+    private String desp;
+
+    private Integer datarange;
+
     private List<MenuVo> menus;
+    private List<DeptVo> depts;
 
 }

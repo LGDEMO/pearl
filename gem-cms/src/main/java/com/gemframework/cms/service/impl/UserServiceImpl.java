@@ -110,23 +110,25 @@ public class UserServiceImpl implements UserService {
 
         //第二步：保存用户关联部门
         List<DeptVo> deptVoList = vo.getDepts();
-        for(DeptVo deptVo:deptVoList){
-            UserDepts userDepts = new UserDepts();
-            userDepts.setUserId(user.getId());
-            userDepts.setDeptId(deptVo.getId());
-            userDeptsRepository.save(userDepts);
+        if(deptVoList != null){
+            for(DeptVo deptVo:deptVoList){
+                UserDepts userDepts = new UserDepts();
+                userDepts.setUserId(user.getId());
+                userDepts.setDeptId(deptVo.getId());
+                userDeptsRepository.save(userDepts);
+            }
         }
 
         //第三步：保存用户关联角色
         List<RoleVo> roleVoList = vo.getRoles();
-        for(RoleVo roleVo:roleVoList){
-            UserRoles userRoles = new UserRoles();
-            userRoles.setUserId(user.getId());
-            userRoles.setRoleId(roleVo.getId());
-            userRolesRepository.save(userRoles);
+        if(roleVoList != null){
+            for(RoleVo roleVo:roleVoList){
+                UserRoles userRoles = new UserRoles();
+                userRoles.setUserId(user.getId());
+                userRoles.setRoleId(roleVo.getId());
+                userRolesRepository.save(userRoles);
+            }
         }
-
-
         return vo;
     }
 

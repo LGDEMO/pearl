@@ -2,6 +2,8 @@ package com.gemframework.cms.service;
 
 import com.gemframework.cms.model.po.Role;
 import com.gemframework.cms.model.vo.RoleVo;
+import com.gemframework.cms.model.vo.UserVo;
+import com.gemframework.cms.model.vo.response.PageInfo;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
@@ -17,11 +19,11 @@ public interface RoleService {
 
     List<RoleVo> findPageAll(Pageable pageable);
 
-    List<RoleVo> findPageByParams(RoleVo vo, Pageable pageable);
-
-    RoleVo update(RoleVo vo);
+    PageInfo<RoleVo> findPageByParams(RoleVo vo, Pageable pageable);
 
     void delete(Long id);
+
+    void deleteBatch(List<UserVo> vos);
 
     RoleVo getById(Long id);
 

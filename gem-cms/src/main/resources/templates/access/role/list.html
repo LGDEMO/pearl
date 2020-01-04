@@ -11,99 +11,108 @@
         .notice_nav a:nth-child(3){border-top-right-radius: 0;border-bottom-right-radius:0}
         .notice_nav a:nth-child(4){border-top-right-radius: 4px;border-bottom-right-radius: 4px}
         th{text-align: center !important;height: 34px;color: #FFF }
+        .dropdown-menu {
+            min-width: 140px !important;
+            margin-top: 4px;
+            font-size: 12px;
+        }
     </style>
 </head>
 <body style="background-color: #ecf0f5;font-family: 微软雅黑;color: #475059;min-width: 550px;overflow: auto">
 <div class="news_main">
-    <div id="dept_tree" class="l_left news_left" style="display: none">
-        <h6>部门目录</h6>
-        <div class="tree_left_top" style="height: 90%;overflow: auto">
-            <div class=" order_ztree l_left organize_ztree" style="width: 100%">
-                <p><ul id="leftTree" class="ztree"  style=" overflow:auto;margin-left: 20px"></ul></p>
+    <form id="query_form">
+        <div class="notice_check">
+            <div class="btn-group l_left"  style="margin-right: 4px">
+                <button type="button" class="btn btn-default change" style="height: 30px;line-height: 30px;padding: 0 12px !important;font-size: 12px">选择条件</button>
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="height: 30px;line-height: 30px">
+                    <span class="caret"></span>
+                    <span class="sr-only"></span>
+                </button>
+                <ul style="min-width: 245px;!important;" class="dropdown-menu" >
+                    <li data-name="rolename">角色名称</li>
+                </ul>
             </div>
-        </div>
-    </div>
-    <div id="dept_user" class="l_left news_right">
-        <div class="notice_main">
-            <div class="notice_check">
-                <div class="btn-group l_left"  style="margin-right: 4px">
-                    <button type="button" class="btn btn-default" onclick="switchView('dept>user')">按部门查询</button>
-                    <button type="button" class="btn btn-default">按角色查询</button>
-                    <button type="button" class="btn btn-default change" style="height: 30px;line-height: 30px;padding: 0 12px !important;font-size: 12px">选择条件</button>
-                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="height: 30px;line-height: 30px">
-                        <span class="caret"></span>
-                        <span class="sr-only"></span>
-                    </button>
-                    <ul style="min-width: 245px;!important;" class="dropdown-menu" >
-                        <li>用户名</li>
-                        <li>手机号</li>
-                        <li>电子邮箱</li>
-                    </ul>
-                </div>
-                <div class="l_left">
-                    <input type="text" class="find_input">
-                </div>
-                <button class="check_btn" onclick="queryData()">查询</button>
-                <div class="notice_nav r_right">
-                    <a class="btn btn-default" onclick="addView()"><span class="glyphicon glyphicon-plus"></span>新增</a>
-                    <a class="btn btn-default" onclick="deleteBatch()"><span class="glyphicon glyphicon-remove"></span>删除</a>
-                    <a class="btn btn-default" onclick="editView()"><span class="glyphicon glyphicon-pencil"></span>编辑</a>
-                    <a class="btn btn-default" onclick="resetPassword()"><span class="glyphicon glyphicon-tag"></span>重置密码</a>
-                </div>
-                <div class="clear"></div>
+           <div class="l_left">
+               <input type="text" class="find_input" id="search-keyword" name="search-keyword">
+           </div>
+           <button class="check_btn" onclick="queryData()">查询</button>
+            <div class="notice_nav r_right">
+                <a class="btn btn-default" onclick="addView()"><span class="glyphicon glyphicon-plus"></span>新增</a>
+                <a class="btn btn-default" onclick="deleteBatch()"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                <a class="btn btn-default" onclick="editView()"><span class="glyphicon glyphicon-pencil"></span>编辑</a>
+                <a class="btn btn-default" onclick="resetPassword()"><span class="glyphicon glyphicon-tag"></span>角色授权</a>
             </div>
-            <table id="table" class="table_style" style="margin: 0 auto" > </table>
+            <div class="clear"></div>
         </div>
-    </div>
-    <div class="clear"></div>
-
+    </form>
+    <table id="table" class="table_style" style="margin: 0 auto" > </table>
 </div>
 
 <div th:replace="common/links::common_script"></div>
 <div th:replace="common/links::ztree_script"></div>
 <div th:replace="common/links::table_script"></div>
-<script type="text/javascript" th:src="@{/static/access/js/custom/depttree.js}"></script>
 
 <script>
     $(function(){
-        console.log("==12345")
         table();
-        // change();
-        $("#dept_user").removeClass("l_left news_right")
+        change();
     });
 
+
+    //初始化表格
     function table() {
         $('#table').bootstrapTable({
-            method: "get",
-            striped: true,  //是否显示行间隔色
-            sortable: true, //是否启用排序
-            sortOrder: "asc",
+            // url: "listByParams",
             url: "pageByParams",
+            method: "get",
             dataType: "json",
             contentType: "application/x-www-form-urlencoded",
-            queryParams:null,
+
+            striped: true,                      //是否显示行间隔色
+            cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+            pagination: true,                   //是否显示分页（*）
+            paginationPreText:"上一页",
+            paginationNextText:"下一页",
+            sortable: true,                     //是否启用排序
+            sortName:"id",
+            sortOrder: "asc",                   //排序方式
+            sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
+            pageNumber: 1,                      //初始化加载第一页，默认第一页,并记录
+            pageSize: 3,                        //每页的记录行数（*）
+            pageList: [1, 3, 4, 5,"All"],        //可供选择的每页的行数（*）
+            smartDisplay:false,
+            clickToSelect: true,                //是否启用点击选中行
+            height: 30,                         //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+            uniqueId: "id",                     //每一行的唯一标识，一般为主键列
+
+            // strictSearch: true,
+            // search: false,                      //是否显示表格搜索
+            // toolbar: '#toolbar',                //工具按钮用哪个容器
+            // buttonsAlign:"center",              //按钮位置
+            // showColumns: true,                  //是否显示所有的列（选择显示的列）
+            // minimumCountColumns: 2,             //最少允许的列数
+            // showPaginationSwitch:true,          //是否显示分页切换
+            // showRefresh: true,                  //是否显示刷新按钮
+            // cardView: false,                    //是否显示详细视图
+            // detailView: false,                  //是否显示父子表
+            // showToggle: true,                   //是否显示详细视图和列表视图的切换按钮
+            // showExport: true,                   //是否显示导出按钮
+            // exportTypes:['excel'],              //导出文件类型
+            // exportDataType: "selected",         //basic', 'all', 'selected'.
             //得到查询的参数
             queryParams: function (params) {
-                //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
-                var query_params = {
-                    rows: params.limit,                         //页面大小
-                    page: (params.offset / params.limit) + 1,   //页码
-                    sort: params.sort,      //排序列名
-                    sortOrder: params.order, //排位命令（desc，asc）
-
-                    //查询框中的参数传递给后台
-                    search_kw: $('#search-keyword').val(), // 请求时向服务端传递的参数
+                return {
+                    page: params.offset / params.limit,  //页码
+                    size: params.limit,   //页面大小
                 };
-                //return query_params;
             },
-            pagination: true, //分页
-            // sidePagination: "server",//分页方式
-            pageNumber: 1,//初始化加载第一页，默认第一页
-            pageSize: 10,//每页的记录行数（*）
-            pageList: [10, 25, 50, 100],
-            clickToSelect: true,
-            height: 30,     //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度#}
-
+            responseHandler: function (res) {
+                //这里注意，这里是后台接口返回的数据，需要把返回的数据分别对接rows和total 用于分页和展示
+                return {
+                    "rows": res.data.rows,
+                    "total": res.data.total
+                };
+            },
             columns: [
                 {
                     checkbox: "true",
@@ -112,39 +121,41 @@
                     valign: 'middle'
                 },
                 {
-                    title: '用户名',
-                    field: 'username',
+                    title: '角色名称',
+                    field: 'rolename',
                     align: 'center',
                     valign: 'middle'
                 },
                 {
-                    title: '工号',
-                    field: 'worknum',
+                    title: '角色标识',
+                    field: 'flag',
                     align: 'center',
                     valign: 'middle'
                 },
                 {
-                    title: '员工姓名',
-                    field: 'realname',
+                    title: '数据范围',
+                    field: 'datarange',
                     align: 'center',
-                    valign: 'middle'
-                },
-                {
-                    title: '手机号',
-                    field: 'phone',
-                    align: 'center',
-                    valign: 'middle'
-                },
-                {
-                    title: '电子邮箱',
-                    field: 'email',
-                    align: 'center',
-                    valign: 'middle'
+                    formatter : function (value, row, index) {
+                        if (row['datarange'] === 0) {
+                            return '仅限本人';
+                        }
+                        if (row['datarange'] === 1) {
+                            return '仅限本部门';
+                        }
+                        if (row['datarange'] === 2) {
+                            return '本部门以及下属部门';
+                        }
+                        if (row['datarange'] === 3) {
+                            return '自定义设置关联部门';
+                        }
+                        return value;
+                    },
                 },
                  {
                     field: 'operate',
                     title: '操作',
-                    width: 220,
+                    width: 320,
                     align: 'center',
                     events: "operateEvents",
                     formatter: operateFormatter
@@ -172,7 +183,7 @@
     }
     window.operateEvents = {
         'click #btn_detail': function (e, value, row, index) {
-            alert("您选中了用户:"+JSON.stringify(row));
+            alert("您选中了数据:"+JSON.stringify(row));
         },
         'click #btn_edit': function (e, value, row, index) {
             editView(row.id);
@@ -181,14 +192,22 @@
             deleteData(row.id);
         }
     };
+    var query_params = $('#query_form').serializeObject();
+    function queryParams (params) {
+        //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+        // query_params.size = params.limit;                 //页面大小
+        // query_params.page = (params.offset / params.limit) + 1;  //页码
+            // sort: params.sort+","+params.order,      //排序列名
+            //查询框中的参数传递给后台
+            // search_kw: $('#search-keyword').val(), // 请求时向服务端传递的参数
+        return query_params;
+    }
 
-
-
-
+    //打开添加窗口
     function addView(){
         layer.open({
             type: 2,
-            title: '添加新用户',
+            title: '添加角色',
             shadeClose: true,
             shade: 0.5,
             skin: 'layui-layer-rim',
@@ -201,6 +220,7 @@
         });
     }
 
+    //打开编辑窗口（顶部编辑按钮和操作列）
     function editView(id){
 
         //顶部编辑按钮
@@ -220,7 +240,7 @@
 
         layer.open({
             type: 2,
-            title: '编辑用户',
+            title: '编辑角色',
             shadeClose: true,
             shade: 0.5,
             skin: 'layui-layer-rim',
@@ -234,7 +254,7 @@
     }
 
 
-
+    //删除数据
     function deleteData(id) {
         layer.confirm('确定删除吗？亲~', {
             btn: ['确定','再想想'] //按钮
@@ -272,17 +292,16 @@
         })
     }
 
-    //公共按钮-删除
+    //公共按钮-批量删除
     function deleteBatch() {
         var rows = $('#table').bootstrapTable("getSelections");
         var names = "";
-        console.log("rows="+JSON.stringify(rows));
         if(rows == null || rows.length == 0){
             alert("你好像什么也没有选中！");
             return;
         }else{
             for(var i = 0; i<rows.length; i++){
-                names += rows[i].username + ","
+                names += rows[i].rolename + ","
             }
             names = names.substring(0,names.length-1);
         }
@@ -322,58 +341,21 @@
         })
     }
 
+    //设置查询字段
+    function change(){
+        $(".dropdown-menu>li").click(function(){
+            $(".change").html($(this).html());
+            var name = $(this).attr("data-name");
+            $("#search-keyword").attr("name",name);
+            query_params = $('#query_form').serializeObject();
+        })
+    }
 
+    //查询数据
     function queryData() {
         $('#table').bootstrapTable("refresh");
     }
 
-
-    function resetPassword(id){
-        if(id == null || id == ""){
-            var rows = $('#table').bootstrapTable("getSelections");
-            if(rows == null || rows.length == 0){
-                alert("你好像什么也没有选中！");
-                return;
-            }else{
-                if(rows.length > 1){
-                    alert("编辑只允许选择一行哦~");
-                    return;
-                }
-            }
-            id = rows[0].id;
-        }
-        layer.prompt({title: '请输入密码，请勿使用弱密码', formType: 1}, function(pass, index){
-            var data = {"id":id,"newPass":pass};
-            $.ajax({
-                type: "post",
-                url: "resetPassword",
-                data:  JSON.stringify(data),
-                async:true, // 异步请求
-                cache:false, // 设置为 false 将不缓存此页面
-                dataType: "json", // 返回对象
-                contentType:"application/json;charset=UTF-8",
-                success: function(res) {
-                    console.log("res.code=="+res.code);
-                    console.log("res=="+JSON.stringify(res));
-                    if (res.code == "0") {
-                        layer.close(index);
-                        layer.msg('修改成功！<br>新密码为：'+ pass +'<br>请通知用户重新登录',{icon:1});
-                    }else {
-                        layer.alert("["+res.code+"]"+res.msg, {
-                            skin: 'layui-layer-lan'
-                            ,closeBtn: 0
-                            ,anim: 4 //动画类型
-                        });
-                    }
-                },
-                error: function(e) {
-                    // 请求失败函数
-                    console.log("error:"+JSON.stringify(e));
-                }
-            })
-
-        });
-    }
 </script>
 </body>
 </html>

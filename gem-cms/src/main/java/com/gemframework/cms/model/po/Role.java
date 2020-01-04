@@ -36,7 +36,16 @@ public class Role extends BasePo {
     @Column(columnDefinition = "varchar(10) not null comment '标识'",nullable = false, unique = true)
     private String flag;
 
+    @Column(columnDefinition = "varchar(100) not null comment '描述'",nullable = false)
+    private String desp;
+
+    @Column(columnDefinition = "int(2) not null comment '数据范围'",nullable = false)
+    private Integer datarange;
+
     @Transient
     private List<Menu> menus;
+
+    @Transient
+    private List<Dept> depts;
 
 }

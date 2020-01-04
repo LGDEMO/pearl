@@ -55,7 +55,7 @@ var setting = {
     },
 
     check: {//设置zTree是否可以被勾选,及勾选的参数配置
-        enable: true,//设置 zTree 的节点上是否显示 checkbox / radio 默认值: false
+        enable: false,//设置 zTree 的节点上是否显示 checkbox / radio 默认值: false
         chkStyle : "checkbox",//勾选框类型(checkbox 或 radio）[setting.check.enable = true 时生效]
         autoCheckTrigger : true,//设置自动关联勾选时是否触发 beforeCheck / onCheck 事件回调函数。[setting.check.enable = true 且 setting.check.chkStyle = "checkbox" 时生效]
         chkboxType : {"Y": "ps", "N": "ps"},//勾选 checkbox 对于父子节点的关联关系。[setting.check.enable = true 且 setting.check.chkStyle = "checkbox" 时生效]
@@ -102,119 +102,52 @@ var setting = {
     }
 };
 
+// 菜单树 开启checkbox
+var checkbox_setting = {
 
+    view: {
+        dblClickExpand: true,//双击节点时，是否自动展开父节点的标识
+        addDiyDom : null,//用于在节点上固定显示用户自定义控件
+        addHoverDom : null,//用于当鼠标移动到节点上时，显示用户自定义控件，显示隐藏状态同 zTree 内部的编辑、删除按钮
+        removeHoverDom : null,//用于当鼠标移出节点时，隐藏用户自定义控件，显示隐藏状态同 zTree 内部的编辑、删除按钮
+        autoCancelSelected : true,//点击节点时，按下 Ctrl 或 Cmd 键是否允许取消选择操作。
+        expandSpeed : "fast",//zTree 节点展开、折叠时的动画速度，设置方法同 JQuery 动画效果中 speed 参数。
+        fontCss : {}, //个性化文字样式，只针对 zTree 在节点上显示的<A>对象。
+        nameIsHTML : false,//设置 name 属性是否支持 HTML 脚本
+        selectedMulti : true,//设置是否允许同时选中多个节点。
+        showIcon : true,//设置 zTree 是否显示节点的图标。
+        showLine : true,//设置 zTree 是否显示节点之间的连线。
+        showTitle : true,//设置 zTree 是否显示节点的 title 提示信息(即节点 DOM 的 title 属性)。
+        txtSelectedEnable : false//设置 zTree 是否允许可以选择 zTree DOM 内的文本。
+    },
 
-var zNodes =[
-    {
-        id:	10	,
-        name:"	父级—",
-        title:"	父级—",
-        open:true,
-        noR:true,
-        nocheck:true,
-        children:[
-            {
-                id:10,
-                name:"子级—",
-                title:"	子级—",
-                open:false,
-                noR:false,
-                nocheck:true,
-                children:[
-                    {
-                        id:101,
-                        name:"孙子	",
-                        title:"孙子	",
-                        open:true,
-                        noR:false,
-                        nocheck:true},
-                    {
-                        id:102,
-                        name:"孙子2	",
-                        title:"孙子2	",
-                        open:true,
-                        noR:false,
-                        nocheck:true}
+    check: {//设置zTree是否可以被勾选,及勾选的参数配置
+        enable: true,//设置 zTree 的节点上是否显示 checkbox / radio 默认值: false
+        chkStyle : "checkbox",//勾选框类型(checkbox 或 radio）[setting.check.enable = true 时生效]
+        autoCheckTrigger : true,//设置自动关联勾选时是否触发 beforeCheck / onCheck 事件回调函数。[setting.check.enable = true 且 setting.check.chkStyle = "checkbox" 时生效]
+        chkboxType : {"Y": "ps", "N": "ps"},//勾选 checkbox 对于父子节点的关联关系。[setting.check.enable = true 且 setting.check.chkStyle = "checkbox" 时生效]
+        nocheckInherit : false,//当父节点设置 nocheck = true 时，设置子节点是否自动继承 nocheck = true 。[setting.check.enable = true 时生效]
+        chkDisabledInherit : false,//当父节点设置 chkDisabled = true 时，设置子节点是否自动继承 chkDisabled = true 。[setting.check.enable = true 时生效]
+        radioType : "level"//radio 的分组范围。[setting.check.enable = true 且 setting.check.chkStyle = "radio" 时生效]
+    },
 
-                ]},
-        ]
-    }
-];
-
-function OnRightClick(event, treeId, treeNode) {
-    if (!treeNode && event.target.tagName.toLowerCase() != "button" && $(event.target).parents("a").length == 0) {
-        zTree.cancelSelectedNode();
-        showRMenu("root", event.clientX, event.clientY);
-    } else if (treeNode && !treeNode.noR) {
-        zTree.selectNode(treeNode);
-        showRMenu("node", event.clientX, event.clientY);
-    }
-}
-function showRMenu(type, x, y) {
-    $("#rMenu ul").show();
-    if (type=="root") {
-        $("#m_del").hide();
-        $("#m_check").hide();
-        $("#m_unCheck").hide();
-    } else {
-        $("#m_del").show();
-        $("#m_check").show();
-        $("#m_unCheck").show();
-    }
-    rMenu.css({"top":y+"px", "left":x+"px", "visibility":"visible"});
-
-    $("body").bind("mousedown", onBodyMouseDown);
-}
-function hideRMenu() {
-    if (rMenu) rMenu.css({"visibility": "hidden"});
-    $("body").unbind("mousedown", onBodyMouseDown);
-}
-function onBodyMouseDown(event){
-    if (!(event.target.id == "rMenu" || $(event.target).parents("#rMenu").length>0)) {
-        rMenu.css({"visibility" : "hidden"});
-    }
-}
-var addCount = 1;
-
-//添加事件
-function addTreeNode(names) {
-    hideRMenu();
-    var newNode = { name:names + (addCount++)};
-    if (zTree.getSelectedNodes()[0]) {
-        newNode.checked = zTree.getSelectedNodes()[0].checked;
-        zTree.addNodes(zTree.getSelectedNodes()[0], newNode);
-    } else {
-        zTree.addNodes(null, newNode);
-    }
-}
-function removeTreeNode() {
-    hideRMenu();
-    var nodes = zTree.getSelectedNodes();
-    if (nodes && nodes.length>0) {
-        if (nodes[0].children && nodes[0].children.length > 0) {
-            var msg = "要删除的节点是父节点，如果删除将连同子节点一起删掉。\n\n请确认！";
-            if (confirm(msg)==true){
-                zTree.removeNode(nodes[0]);
-            }
-        } else {
-            zTree.removeNode(nodes[0]);
+    callback: { //返回函数; 根据需求选择合适的监听事件  //以下事件默全部为null 事件例子参见第83行
+        // TODO:
+        onClick: function (e, treeId, treeNode, clickFlag) {
+            zTree = $.fn.zTree.getZTreeObj(treeId);
+            zTree.checkNode(treeNode, !treeNode.checked, true);
         }
     }
-}
+};
 
 
-function checkTreeNode(checked) {
-    var nodes = zTree.getSelectedNodes();
-    if (nodes && nodes.length>0) {
-        zTree.checkNode(nodes[0], checked, true);
-    }
-    hideRMenu();
-}
 function resetTree() {
     hideRMenu();
     $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+    $.fn.zTree.init($("#checkboxTree"), setting, zNodes);
 }
 
+//添加菜单form引用
 function OnClick(event, treeId, treeNode){
     $(".dropdown_select").val(treeNode.name);
     $("#pid").val(treeNode.id);
@@ -231,7 +164,7 @@ function OnClick(event, treeId, treeNode){
 
 
 // =========================ajxa方法开始================================
-//获取部门树
+//获取菜单树
 function getMenuTree() {
     $.ajax({
         type: "get",
@@ -260,6 +193,6 @@ var zTree, rMenu;
 $(document).ready(function(){
     getMenuTree();
     $.fn.zTree.init($("#treeDemo"), setting, mdata);
-    zTree = $.fn.zTree.getZTreeObj("treeDemo");
+    $.fn.zTree.init($("#checkboxTree"), checkbox_setting, mdata);
     rMenu = $("#rMenu");
 });

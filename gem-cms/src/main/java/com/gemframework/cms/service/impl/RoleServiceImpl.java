@@ -4,8 +4,11 @@ import com.gemframework.bas.common.enums.ResultCode;
 import com.gemframework.bas.common.exception.GemException;
 import com.gemframework.bas.common.utils.GemBeanUtils;
 import com.gemframework.cms.model.po.*;
+import com.gemframework.cms.model.vo.DeptVo;
 import com.gemframework.cms.model.vo.MenuVo;
 import com.gemframework.cms.model.vo.RoleVo;
+import com.gemframework.cms.model.vo.UserVo;
+import com.gemframework.cms.model.vo.response.PageInfo;
 import com.gemframework.cms.repository.*;
 import com.gemframework.cms.service.RoleService;
 import lombok.extern.slf4j.Slf4j;
@@ -13,6 +16,7 @@ import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -21,6 +25,7 @@ import java.util.Optional;
 
 @Slf4j
 @Service
+@Transactional
 public class RoleServiceImpl implements RoleService {
 
     @Resource
@@ -28,7 +33,11 @@ public class RoleServiceImpl implements RoleService {
     @Resource
     private MenuRepository menuRepository;
     @Resource
+    private DeptRepository deptRepository;
+    @Resource
     private RoleMenusRepository roleMenusRepository;
+    @Resource
+    private RoleDeptsRepository roleDeptsRepository;
 
     /**
      * @Title:  add
@@ -39,11 +48,50 @@ public class RoleServiceImpl implements RoleService {
      * @Date: 2019-12-05 22:10:59
      */
     @Override
+    @Transactional
     public RoleVo save(RoleVo vo) {
+        //新增用户
         Role role = new Role();
+        //编辑用户
+        if(vo.getId() != null && vo.getId() != 0){
+            role = roleRepository.getById(vo.getId());
+        }
         GemBeanUtils.copyProperties(vo,role);
         role = roleRepository.save(role);
         GemBeanUtils.copyProperties(role,vo);
+
+
+        //第二步：保存角色与菜单的关系
+        List<MenuVo> menuVoList = vo.getMenus();
+        if(menuVoList != null){
+            //编辑用户前先删除
+            if(vo.getId() != null && vo.getId() != 0){
+                roleMenusRepository.deleteByRoleId(role.getId());
+            }
+            //循环保存
+            for(MenuVo menuVo:menuVoList){
+                RoleMenus roleMenus = new RoleMenus();
+                roleMenus.setRoleId(role.getId());
+                roleMenus.setMenuId(menuVo.getId());
+                roleMenusRepository.save(roleMenus);
+            }
+        }
+        //第三步：保存角色与部门的关系
+        List<DeptVo> deptVoList = vo.getDepts();
+        if(deptVoList != null){
+            //编辑用户前先删除
+            if(vo.getId() != null && vo.getId() != 0){
+                roleDeptsRepository.deleteByRoleId(role.getId());
+            }
+            //循环保存
+            for(DeptVo deptVo:deptVoList){
+                RoleDepts roleDepts = new RoleDepts();
+                roleDepts.setRoleId(role.getId());
+                roleDepts.setDeptId(deptVo.getId());
+                roleDeptsRepository.save(roleDepts);
+            }
+        }
+
         return vo;
     }
 
@@ -124,37 +172,21 @@ public class RoleServiceImpl implements RoleService {
      * @Date: 2019-12-05 22:10:59
      */
     @Override
-    public List<RoleVo> findPageByParams(RoleVo vo,Pageable pageable) {
+    public PageInfo<RoleVo> findPageByParams(RoleVo vo,Pageable pageable) {
         Role role = new Role();
         GemBeanUtils.copyProperties(vo,role);
         Example<Role> example =Example.of(role);
         Page<Role> page = roleRepository.findAll(example,pageable);
         List<Role> list = page.getContent();
         List<RoleVo> vos = GemBeanUtils.copyCollections(list,RoleVo.class);
-        return vos;
+
+        PageInfo<RoleVo> pageInfo = new PageInfo();
+        pageInfo.setRows(vos);
+        pageInfo.setTotal(page.getTotalElements());
+
+        return pageInfo;
     }
 
-    /**
-     * @Title:  update
-     * @MethodName:  update
-     * @Param: [vo]
-     * @Retrun: com.gemframework.bas.model.po.User
-     * @Description: 更新数据
-     * @Date: 2019-12-05 22:10:59
-     */
-    @Override
-    public RoleVo update(RoleVo vo) {
-        Optional<Role> optional= roleRepository.findById(vo.getId());
-        if(optional.isPresent()){
-            Role role = optional.get();
-            GemBeanUtils.copyProperties(vo,role);
-            role = roleRepository.save(role);
-            GemBeanUtils.copyProperties(role,vo);
-            return vo;
-        }
-        return null;
-
-    }
 
     /**
      * @Title:  delete
@@ -170,7 +202,21 @@ public class RoleServiceImpl implements RoleService {
             throw new GemException(ResultCode.DATA_NOT_EXIST);
         }
         roleRepository.deleteById(id);
+    }
 
+
+    /**
+     * @Title:  deleteBitch
+     * @MethodName:  delete
+     * @Param: [id]
+     * @Retrun: void
+     * @Description: 根据ID删除数据
+     * @Date: 2019/11/29 20:43
+     */
+    @Override
+    public void deleteBatch(List<UserVo> vos) {
+        List<Role> list = GemBeanUtils.copyCollections(vos,Role.class);
+        roleRepository.deleteInBatch(list);
     }
 
     /**
@@ -187,14 +233,23 @@ public class RoleServiceImpl implements RoleService {
         if(role != null){
             roleVo =  new RoleVo();
             //查询roleMenus
-            List<Menu> menusList = null;
+            List<Menu> menusList = new ArrayList<>();
             List<RoleMenus> roleMenus = roleMenusRepository.findListByRoleId(id);
             for(RoleMenus menus:roleMenus){
-                Menu menu = menuRepository.getById(menus.getRoleId());
-                menusList = new ArrayList<>();
+                Menu menu = menuRepository.getById(menus.getMenuId());
                 menusList.add(menu);
             }
             role.setMenus(menusList);
+
+            //查询roleDepts
+            List<Dept> deptsList = new ArrayList<>();
+            List<RoleDepts> roleDepts = roleDeptsRepository.findListByRoleId(id);
+            for(RoleDepts depts:roleDepts){
+                Dept dept = deptRepository.getById(depts.getDeptId());
+                deptsList.add(dept);
+            }
+            role.setDepts(deptsList);
+
             GemBeanUtils.copyProperties(role,roleVo);
         }
         return roleVo;

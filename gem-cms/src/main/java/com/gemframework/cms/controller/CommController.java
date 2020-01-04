@@ -62,7 +62,7 @@ public class CommController {
                     .title(menuVo.getName())
                     .level(menuVo.getLevel())
                     .open(true)
-                    .nocheck(true)
+                    .nocheck(false)
                     .build();
             ztreeEntities.add(ztreeEntity);
         }

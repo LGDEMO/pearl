@@ -177,7 +177,12 @@
 }
 
 .fixed-table-pagination .page-list {
-    display: none;
+    /*display: none;*/
+}
+
+.fixed-table-pagination .page-list span button {
+    /*display: none;*/
+    height: 25px;
 }
 
 .fixed-table-toolbar .columns-left {

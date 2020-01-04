@@ -51,3 +51,14 @@ function getSelectedRows() {
     }
     return grid.getGridParam("selarrrow");
 }
+
+// 遍历nav
+function tabNav(){
+	$(".warrant_nav ul li").each(function(index){
+		$(this).click(function(){
+			$(".warrant_nav ul li").removeClass("warrant_active");
+			$(this).addClass("warrant_active");
+			$(".warrant_main .tree_left").eq(index).show().siblings(".tree_left").stop().hide();
+		})
+	})
+}

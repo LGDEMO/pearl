@@ -35,7 +35,7 @@ public class User extends BasePo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(columnDefinition = "varchar(10) not null comment '用户名'",nullable = false)
+    @Column(columnDefinition = "varchar(20) not null comment '用户名'",nullable = false)
     private String username;
 
     @Column(columnDefinition = "varchar(150) not null comment '密码'",nullable = false)

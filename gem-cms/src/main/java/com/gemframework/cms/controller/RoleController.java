@@ -3,10 +3,14 @@ package com.gemframework.cms.controller;
 import com.gemframework.bas.common.enums.ResultCode;
 import com.gemframework.bas.model.BaseResult;
 import com.gemframework.cms.model.vo.RoleVo;
+import com.gemframework.cms.model.vo.UserVo;
+import com.gemframework.cms.model.vo.response.PageInfo;
 import com.gemframework.cms.service.RoleService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,7 +29,7 @@ import java.util.List;
  */
 
 @Slf4j
-@RestController
+@Controller
 @RequestMapping("role")
 public class RoleController {
 
@@ -41,6 +45,7 @@ public class RoleController {
      * @Date: 2019-12-05 22:22:32
      */
     @PostMapping("add")
+    @ResponseBody
     public BaseResult add(@Valid @RequestBody RoleVo vo, BindingResult bindingResult){
 
         if(bindingResult.hasErrors()){
@@ -59,23 +64,27 @@ public class RoleController {
      * @Date: 2019-12-05 22:22:32
      */
     @PostMapping("delete/{id}")
+    @ResponseBody
     public BaseResult delete(@PathVariable("id") Long id){
         roleService.delete(id);
         return BaseResult.SUCCESS();
     }
 
     /**
-     * @Title:  update
-     * @MethodName:  改
-     * @Param: [vo]
+     * @Title:  deleteAll
+     * @MethodName:  删-全部
+     * @Param: [id]
      * @Retrun: com.gemframework.bas.model.BaseResult
      * @Description:
-     * @Date: 2019-12-05 22:22:32
+     * @Date: 2019/11/29 16:18
      */
-    @PostMapping("update")
-    public BaseResult update(RoleVo vo){
-        return BaseResult.SUCCESS(roleService.update(vo));
+    @PostMapping("deleteBatch")
+    @ResponseBody
+    public BaseResult deleteBatch(@RequestBody List<UserVo> vos){
+        roleService.deleteBatch(vos);
+        return BaseResult.SUCCESS();
     }
+
 
     /**
      * @Title:  list
@@ -86,6 +95,7 @@ public class RoleController {
      * @Date: 2019-12-05 22:22:32
      */
     @GetMapping("list")
+    @ResponseBody
     public BaseResult list(){
         List list = roleService.findListAll();
         return BaseResult.SUCCESS(list);
@@ -101,6 +111,7 @@ public class RoleController {
      * @Date: 2019-12-05 22:22:32
      */
     @GetMapping("listByParams")
+    @ResponseBody
     public BaseResult listByParams(RoleVo vo){
         List<RoleVo> list = roleService.findListByParams(vo);
         return BaseResult.SUCCESS(list);
@@ -121,6 +132,7 @@ public class RoleController {
      * @Date: 2019-12-05 22:22:32
      */
     @GetMapping("page")
+    @ResponseBody
     public BaseResult page(Pageable pageable){
         List<RoleVo> vo = roleService.findPageAll(pageable);
         return BaseResult.SUCCESS(vo);
@@ -135,9 +147,28 @@ public class RoleController {
      * @Date: 2019-12-05 22:22:32
      */
     @GetMapping("pageByParams")
+    @ResponseBody
     public BaseResult pageByParams(RoleVo vo,Pageable pageable){
-        List<RoleVo> list =  roleService.findPageByParams(vo,pageable);
-        return BaseResult.SUCCESS(list);
+
+        PageInfo<RoleVo> page =  roleService.findPageByParams(vo,pageable);
+        return BaseResult.SUCCESS(page);
     }
 
+
+    @GetMapping("list.html")
+    public String list(Model model){
+        return "role/list";
+    }
+
+    @GetMapping("add.html")
+    public String add(Model model){
+        return "role/add";
+    }
+
+    @GetMapping("edit.html")
+    public String edit(Model model, Long id){
+        RoleVo roleVo = roleService.getById(id);
+        model.addAttribute("edit_role",roleVo);
+        return "role/edit";
+    }
 }
