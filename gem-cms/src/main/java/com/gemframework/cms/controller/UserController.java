@@ -2,8 +2,10 @@ package com.gemframework.cms.controller;
 
 import com.gemframework.cms.model.po.User;
 import com.gemframework.cms.model.vo.DeptVo;
+import com.gemframework.cms.model.vo.RoleVo;
 import com.gemframework.cms.model.vo.UserVo;
 import com.gemframework.cms.model.vo.request.ResetPasswordReq;
+import com.gemframework.cms.model.vo.response.PageInfo;
 import com.gemframework.cms.service.UserService;
 import com.gemframework.bas.common.enums.ResultCode;
 import com.gemframework.bas.model.BaseResult;
@@ -214,9 +216,9 @@ public class UserController {
     @GetMapping("pageByParams")
     @ResponseBody
     public BaseResult pageByParams(UserVo vo,Pageable pageable){
-        Page<User> page =  userService.findPageByParams(vo,pageable);
-        List list = page.getContent();
-        return BaseResult.SUCCESS(list);
+        PageInfo<UserVo> page =  userService.findPageByParams(vo,pageable);
+        return BaseResult.SUCCESS(page);
+
     }
 
 

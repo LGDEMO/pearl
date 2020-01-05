@@ -6,6 +6,7 @@ import com.gemframework.cms.model.vo.DeptVo;
 import com.gemframework.cms.model.vo.RoleVo;
 import com.gemframework.cms.model.vo.UserRolesVo;
 import com.gemframework.cms.model.vo.UserVo;
+import com.gemframework.cms.model.vo.response.PageInfo;
 import com.gemframework.cms.repository.*;
 import com.gemframework.cms.service.RoleService;
 import com.gemframework.cms.service.UserRolesService;
@@ -187,12 +188,18 @@ public class UserServiceImpl implements UserService {
      * @Date: 2019/11/29 20:42
      */
     @Override
-    public Page findPageByParams(UserVo vo,Pageable pageable) {
+
+    public PageInfo<UserVo> findPageByParams(UserVo vo,Pageable pageable) {
         User user = new User();
         GemBeanUtils.copyProperties(vo,user);
         Example<User> example =Example.of(user);
         Page<User> page = userRepository.findAll(example,pageable);
-        return page;
+        List<User> list = page.getContent();
+        List<UserVo> vos = GemBeanUtils.copyCollections(list,UserVo.class);
+        PageInfo<UserVo> pageInfo = new PageInfo();
+        pageInfo.setRows(vos);
+        pageInfo.setTotal(page.getTotalElements());
+        return pageInfo;
     }
 
     @Override

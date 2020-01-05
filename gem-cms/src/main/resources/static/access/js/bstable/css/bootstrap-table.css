@@ -184,6 +184,9 @@
     /*display: none;*/
     height: 25px;
 }
+.fixed-table-pagination .page-list span button .caret{
+    display: none;
+}
 
 .fixed-table-toolbar .columns-left {
     margin-right: 5px;

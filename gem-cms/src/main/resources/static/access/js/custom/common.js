@@ -62,3 +62,18 @@ function tabNav(){
 		})
 	})
 }
+
+
+//设置查询字段
+function changeSearchParam(){
+	$(".dropdown-menu>li").click(function(){
+		$(".change").html($(this).html())
+		var name = $(this).attr("data-name");
+		$("#search-keyword").attr("name",name);
+	})
+}
+
+//查询数据
+function searchData() {
+	$('#table').bootstrapTable("refresh");
+}

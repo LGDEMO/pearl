@@ -11,6 +11,11 @@
         .notice_nav a:nth-child(3){border-top-right-radius: 0;border-bottom-right-radius:0}
         .notice_nav a:nth-child(4){border-top-right-radius: 4px;border-bottom-right-radius: 4px}
         th{text-align: center !important;height: 34px;color: #FFF }
+        .dropdown-menu {
+            min-width: 250px !important;
+            margin-top: 4px;
+            font-size: 12px;
+        }
     </style>
 </head>
 <body style="background-color: #ecf0f5;font-family: 微软雅黑;color: #475059;min-width: 550px;overflow: auto">
@@ -29,21 +34,21 @@
                 <div class="btn-group l_left"  style="margin-right: 4px">
                     <button type="button" class="btn btn-default" onclick="switchView('dept>user')">按部门查询</button>
                     <button type="button" class="btn btn-default">按角色查询</button>
-                    <button type="button" class="btn btn-default change" style="height: 30px;line-height: 30px;padding: 0 12px !important;font-size: 12px">选择条件</button>
+                    <button type="button" class="btn btn-default change" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"  style="height: 30px;line-height: 30px;padding: 0 12px !important;font-size: 12px">选择条件</button>
                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="height: 30px;line-height: 30px">
                         <span class="caret"></span>
                         <span class="sr-only"></span>
                     </button>
-                    <ul style="min-width: 245px;!important;" class="dropdown-menu" >
-                        <li>用户名</li>
-                        <li>手机号</li>
-                        <li>电子邮箱</li>
+                    <ul style="min-width: 245px;!important;" class="dropdown-menu">
+                        <li data-name="username">用户名</li>
+                        <li data-name="phone">手机号</li>
+                        <li data-name="email">电子邮箱</li>
                     </ul>
                 </div>
                 <div class="l_left">
-                    <input type="text" class="find_input">
+                    <input type="text" class="find_input" id="search-keyword" name="username">
                 </div>
-                <button class="check_btn" onclick="queryData()">查询</button>
+                <button class="check_btn" onclick="searchData()">查询</button>
                 <div class="notice_nav r_right">
                     <a class="btn btn-default" onclick="addView()"><span class="glyphicon glyphicon-plus"></span>新增</a>
                     <a class="btn btn-default" onclick="deleteBatch()"><span class="glyphicon glyphicon-remove"></span>删除</a>
@@ -58,51 +63,61 @@
     <div class="clear"></div>
 
 </div>
-
 <div th:replace="common/links::common_script"></div>
 <div th:replace="common/links::ztree_script"></div>
 <div th:replace="common/links::table_script"></div>
-<script type="text/javascript" th:src="@{/static/access/js/custom/depttree.js}"></script>
 
+<script type="text/javascript" th:src="@{/static/access/js/custom/ztree.js}"></script>
+<script type="text/javascript" th:src="@{/static/access/js/custom/depttree.js}"></script>
 <script>
     $(function(){
-        console.log("==12345")
-        table();
-        // change();
+        buildTable();
+        changeSearchParam();
         $("#dept_user").removeClass("l_left news_right")
     });
 
-    function table() {
+    function buildTable() {
         $('#table').bootstrapTable({
-            method: "get",
-            striped: true,  //是否显示行间隔色
-            sortable: true, //是否启用排序
-            sortOrder: "asc",
             url: "pageByParams",
+            method: "get",
             dataType: "json",
             contentType: "application/x-www-form-urlencoded",
-            queryParams:null,
-            //得到查询的参数
-            queryParams: function (params) {
-                //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
-                var query_params = {
-                    rows: params.limit,                         //页面大小
-                    page: (params.offset / params.limit) + 1,   //页码
-                    sort: params.sort,      //排序列名
-                    sortOrder: params.order, //排位命令（desc，asc）
 
-                    //查询框中的参数传递给后台
-                    search_kw: $('#search-keyword').val(), // 请求时向服务端传递的参数
-                };
-                //return query_params;
+            striped: true,                      //是否显示行间隔色
+            cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+            pagination: true,                   //是否显示分页（*）
+            paginationPreText:"上一页",
+            paginationNextText:"下一页",
+            sortable: true,                     //是否启用排序
+            sortName:"id",
+            sortOrder: "asc",                   //排序方式
+            sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
+            pageNumber: 1,                      //初始化加载第一页，默认第一页,并记录
+            pageSize: 10,                        //每页的记录行数（*）
+            pageList: [10, 20, 50, 100,"All"],        //可供选择的每页的行数（*）
+            smartDisplay:false,
+            clickToSelect: true,                //是否启用点击选中行
+            height: 30,                         //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+            uniqueId: "id",                     //每一行的唯一标识，一般为主键列
+            queryParams: function (params) {
+                var searchKey = $("#search-keyword").attr("name");
+                var searchVal = $("#search-keyword").val();
+                var queryParas = {
+                    page: params.offset / params.limit,  //页码
+                    size: params.limit,   //页面大小
+                }
+                if(searchVal != ""){
+                    queryParas[searchKey] = searchVal;
+                }
+                return queryParas;
             },
-            pagination: true, //分页
-            // sidePagination: "server",//分页方式
-            pageNumber: 1,//初始化加载第一页，默认第一页
-            pageSize: 10,//每页的记录行数（*）
-            pageList: [10, 25, 50, 100],
-            clickToSelect: true,
-            height: 30,     //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度#}
+            responseHandler: function (res) {
+                //这里注意，这里是后台接口返回的数据，需要把返回的数据分别对接rows和total 用于分页和展示
+                return {
+                    "rows": res.data.rows,
+                    "total": res.data.total
+                };
+            },
 
             columns: [
                 {
@@ -181,8 +196,6 @@
             deleteData(row.id);
         }
     };
-
-
 
 
     function addView(){
@@ -323,11 +336,6 @@
     }
 
 
-    function queryData() {
-        $('#table').bootstrapTable("refresh");
-    }
-
-
     function resetPassword(id){
         if(id == null || id == ""){
             var rows = $('#table').bootstrapTable("getSelections");
@@ -375,5 +383,6 @@
         });
     }
 </script>
+
 </body>
 </html>
