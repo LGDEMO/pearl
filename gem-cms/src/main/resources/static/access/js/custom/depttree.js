@@ -150,8 +150,9 @@ function OnClickFormTree(event, treeId, treeNode){
     $("#pid").val(treeNode.id);
     $("#level").val(treeNode.level+1);
 
-    //编辑用户form
+    //添加或者编辑用户form
     $("#dept_id").val(treeNode.id);
+    $("#dropdownMenu1").css("border-color", "");
 }
 
 // 添加用户归属部门  开启radio

@@ -46,7 +46,7 @@ public class UserServiceImpl implements UserService {
     private DeptRepository deptRepository;
 
     @Resource
-    private UserDeptsRepository userDeptsRepository;
+    private RoleRepository roleRepository;
 
     @Resource
     private UserRolesRepository userRolesRepository;
@@ -109,20 +109,21 @@ public class UserServiceImpl implements UserService {
         user = userRepository.save(user);
         GemBeanUtils.copyProperties(user,vo);
 
-        //第二步：保存用户关联部门
-        List<DeptVo> deptVoList = vo.getDepts();
-        if(deptVoList != null){
-            for(DeptVo deptVo:deptVoList){
-                UserDepts userDepts = new UserDepts();
-                userDepts.setUserId(user.getId());
-                userDepts.setDeptId(deptVo.getId());
-                userDeptsRepository.save(userDepts);
-            }
-        }
+//        //第二步：保存用户关联部门
+//        List<DeptVo> deptVoList = vo.getDepts();
+//        if(deptVoList != null){
+//            for(DeptVo deptVo:deptVoList){
+//                UserDepts userDepts = new UserDepts();
+//                userDepts.setUserId(user.getId());
+//                userDepts.setDeptId(deptVo.getId());
+//                userDeptsRepository.save(userDepts);
+//            }
+//        }
 
         //第三步：保存用户关联角色
         List<RoleVo> roleVoList = vo.getRoles();
         if(roleVoList != null){
+            userRolesRepository.deleteByUserId(user.getId());
             for(RoleVo roleVo:roleVoList){
                 UserRoles userRoles = new UserRoles();
                 userRoles.setUserId(user.getId());
@@ -259,11 +260,22 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserVo getById(Long id) {
-        UserVo vo = new UserVo();
+        UserVo vo = null;
         User entity = userRepository.getById(id);
-        GemBeanUtils.copyProperties(entity,vo);
-        Dept dept = deptRepository.getById(vo.getDept_id());
-        vo.setDept(dept);
+        if(entity != null){
+            vo = new UserVo();
+            //查询userRoles
+            List<Role> rolesList = new ArrayList<>();
+            List<UserRoles> userRoles = userRolesRepository.findListByUserId(id);
+            for(UserRoles roles:userRoles){
+                Role role = roleRepository.getById(roles.getRoleId());
+                rolesList.add(role);
+            }
+            entity.setRoles(rolesList);
+            GemBeanUtils.copyProperties(entity,vo);
+            Dept dept = deptRepository.getById(vo.getDept_id());
+            vo.setDept(dept);
+        }
         return vo;
     }
 

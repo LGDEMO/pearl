@@ -11,6 +11,11 @@
     <div th:replace="common/links::tabs_links"></div>
     <div th:replace="common/links::checkbox_links"></div>
     <div th:replace="common/links::validate_links"></div>
+    <style>
+        .dropdown-menu{
+            width: 247px
+        }
+    </style>
 </head>
 <body style="border-radius: 8px;width: 690px;overflow: hidden">
 <form id="form" onsubmit="return false">
@@ -36,14 +41,11 @@
                                 </div>
                             </div>
                         </td>
-                        <!--                        <td>授予角色<span class="span"></span></td>-->
-                        <!--                        <td>-->
-                        <!--                            <select  class="multiselect" multiple="multiple">-->
-                        <!--                                <option>全部</option>-->
-                        <!--                                <option>超级管理员</option>-->
-                        <!--                                <option>普通管理员</option>-->
-                        <!--                            </select>-->
-                        <!--                        </td>-->
+                        <td>授予角色<span class="span"></span></td>
+                        <td>
+                            <select id="multiselect" class="multiselect" multiple="multiple">
+                            </select>
+                        </td>
                     </tr>
                     <tr>
                         <td>用户帐号<span class="span">*</span></td>
@@ -141,50 +143,105 @@
 <div th:replace="common/links::table_script"></div>
 <div th:replace="common/links::ztree_script"></div>
 <div th:replace="common/links::multiselect_script"></div>
-<div th:replace="common/links::validate_script"></div>
-
 <script type="text/javascript" th:src="@{/static/access/js/custom/ztree.js}"></script>
 <script type="text/javascript" th:src="@{/static/access/js/custom/depttree.js}"></script>
 <script type="text/javascript" th:src="@{/static/access/js/custom/address.js}"></script>
-<script>
+<div th:replace="common/links::validate_script"></div>
+<script th:inline="javascript">
+
     $(function () {
-        $('.multiselect').multiselect({
-            buttonClass: 'btn',
-            buttonWidth: 'auto',
-            buttonText: function(options) {
-                if (options.length == 0) {
-                    return '请选择角色';
-                }
-                else {
-                    var selected = '';
-                    options.each(function() {
-                        selected += $(this).text() + ',';
-                    });
-                    return selected.substr(0, selected.length -1) ;
-                }
-            },
-        });
+        initRoleSelect();
+        initRoleOption();
+        var roles = [[${edit_user.roles}]];
+        if(roles.length >0){
+            var rolename = "";
+            for(var i = 0; i < roles.length; i++) {
+                rolename += roles[i].rolename + ',';
+            }
+            rolename = rolename.substr(0, rolename.length -1) ;
+            $(".multiselect-selected-text").html(rolename);
+        }
     });
 
-
     //编辑数据
+    var ajaxData = JSON.stringify($('#form').serializeObject());
+    var roleArr = [];
     function editData() {
-        var ajaxData = JSON.stringify($('#form').serializeObject());
+
+        if($("#dept_id").val() == ""){
+            alert("请归属部门！");
+            $("#dropdownMenu1").css("border-color", "#eb1815");
+            return;
+        }
+
+        if(roleArr.length == 0){
+            alert("请授予角色！");
+            $(".multiselect").css("border-color", "#eb1815");
+            $(".multiselect").css("color", "#eb1815");
+            return;
+        }
+
+        if($("#form").valid()){
+            var formData = $('#form').serializeObject();
+            formData.roles = roleArr;
+            ajaxData = JSON.stringify(formData);
+            $.ajax({
+                type: "post",
+                url: "add",
+                data: ajaxData,
+                async:true, // 异步请求
+                cache:false, // 设置为 false 将不缓存此页面
+                dataType: "json", // 返回对象
+                contentType:"application/json;charset=UTF-8",
+                success: function(res) {
+                    if (res.code == "0") {
+                        if($("#btn_save_close").is(':checked')){
+                            alert("修改成功",Colse);
+                        }
+                    }else {
+                        layer.alert("["+res.code+"]"+res.msg, {
+                            skin: 'layui-layer-lan'
+                            ,closeBtn: 0
+                            ,anim: 4 //动画类型
+                        });
+                    }
+                },
+                error: function(e) {
+                    // 请求失败函数
+                    console.log("error:"+JSON.stringify(e));
+                }
+            })
+        }
+    }
+
+    function initRoleOption() {
         $.ajax({
-            type: "post",
-            url: "edit",
-            data: ajaxData,
+            type: "get",
+            url: "../role/list",
+            data: null,
             async:true, // 异步请求
             cache:false, // 设置为 false 将不缓存此页面
             dataType: "json", // 返回对象
             contentType:"application/json;charset=UTF-8",
             success: function(res) {
-                console.log("res.code=="+res.code);
-                console.log("res=="+JSON.stringify(res));
                 if (res.code == "0") {
-                    if($("#btn_save_close").is(':checked')){
-                        alert("修改成功",Colse);
+                    var optionHtml = "";
+                    var liHtml = "";
+                    var roleArr = res.data;
+                    for(var i=0;i<roleArr.length;i++){
+                        var liActiveHtml = "";
+                        optionHtml += "<option value='"+roleArr[i].id+"'>"+roleArr[i].rolename+"</option>";
+                        var roles = [[${edit_user.roles}]];
+                        for(var j = 0; j < roles.length; j++) {
+                            if(roleArr[i].rolename == roles[j].rolename){
+                                liActiveHtml = "class='active'";
+                            }
+                        }
+                        liHtml += "<li "+liActiveHtml+"><a tabindex='0'><label class='checkbox' title='"+roleArr[i].rolename+"'><input type='checkbox' value='"+roleArr[i].id+"'>"+roleArr[i].rolename+"</label></a></li>";
                     }
+
+                    $(".multiselect-container").append(liHtml);
+                    $("#multiselect").append(optionHtml);
                 }else {
                     layer.alert("["+res.code+"]"+res.msg, {
                         skin: 'layui-layer-lan'
@@ -200,6 +257,35 @@
         })
     }
 
+    function initRoleSelect() {
+        $('.multiselect').multiselect({
+            buttonClass: 'btn',
+            buttonWidth: '247px',
+            selectedList: 10,
+            buttonText: function(options) {
+                $(".multiselect").css("color","");
+                $(".multiselect").css("border-color", "");
+                var tempArr = [];
+                if (options.length == 0) {
+                    roleArr = [];
+                    return '请选择角色';
+                }
+                else {
+                    var selectedText = '';
+                    options.each(function() {
+                        selectedText += $(this).text() + ',';
+                        //组装role参数
+                        var role = new Object();
+                        role.id = $(this).val();
+                        role.name = selectedText;
+                        tempArr.push(role)
+                    });
+                    roleArr = tempArr;
+                    return selectedText.substr(0, selectedText.length -1) ;
+                }
+            }
+        });
+    }
 
     function Colse() {
         var index = parent.layer.getFrameIndex(window.name);
