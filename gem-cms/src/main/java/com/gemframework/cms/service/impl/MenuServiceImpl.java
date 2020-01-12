@@ -30,6 +30,14 @@ public class MenuServiceImpl implements MenuService {
     @Resource
     private RoleMenusRepository roleMenusRepository;
 
+    @Override
+    public boolean exist(MenuVo vo) {
+        if(null == menuRepository.exist(vo.getName(),vo.getTag(),vo.getId())){
+            return true;
+        }
+        return false;
+    }
+
     /**
      * @Title:  add
      * @MethodName:  add
@@ -40,12 +48,18 @@ public class MenuServiceImpl implements MenuService {
      */
     @Override
     public MenuVo save(MenuVo vo) {
+        if(!exist(vo)){
+            log.info(ResultCode.MENU_EXIST.getMsg() + ":[name="+vo.getName()+",tag="+vo.getTag()+"]");
+            throw new GemException(ResultCode.MENU_EXIST);
+        }
         Menu menu = new Menu();
         GemBeanUtils.copyProperties(vo,menu);
         menu = menuRepository.save(menu);
 
-        //更新id_path,series
+        //更新id_path,sortPath,series
         MenuVo parentVo = getById(vo.getPid());
+
+        //====设置idpath 开始====
         String idPath = String.valueOf(menu.getId());
         if(menu.getId()<10){
             idPath = "0"+menu.getId();
@@ -55,15 +69,46 @@ public class MenuServiceImpl implements MenuService {
         }
         //设置idpath
         menu.setIdPath(idPath);
+        //====设置idpath 结束====
 
-        //设置series
+        //====设置series 开始====
         String series = menu.getIdPath();
         if(series.indexOf("-")>0){
             series = series.substring(0,series.indexOf("-"));
         }
         menu.setSeries(series);
-        //更新
+        //====设置series 结束====
+
+        //====设置sortPath 开始====
+        //更新自身sortpath  默认 sort+idpath
+        String sortPath = String.valueOf(menu.getSortNumber())+"-"+menu.getIdPath();
+        if(menu.getSortNumber()<10){
+            sortPath = "0"+menu.getSortNumber()+"-"+menu.getIdPath();
+        }
+        if(parentVo != null && parentVo.getSortNumber() != null){
+            sortPath = parentVo.getSortPath()+"-"+sortPath;
+        }
+        //设置sortPath
+        menu.setSortPath(sortPath);
         menu = menuRepository.save(menu);
+
+        //更新所有子节点sortpath
+        List<Menu> seriesMenus = menuRepository.findListBySeries(menu.getSeries());
+        if(seriesMenus != null && seriesMenus.size() > 0){
+            for(Menu sm:seriesMenus){
+                //如果是子节点
+                if(sm.getLevel() > menu.getLevel()){
+                    MenuVo parentSm = getById(sm.getPid());
+                    sm.setSortPath(parentSm.getSortPath()+"-"+sm.getSortNumber()+"-"+sm.getIdPath());
+                    if(sm.getSortNumber()<10){
+                        sm.setSortPath(parentSm.getSortPath()+"-0"+sm.getSortNumber()+"-"+sm.getIdPath());
+                    }
+                    menuRepository.save(sm);
+                }
+            }
+        }
+        //====设置sortPath 结束====
+
         GemBeanUtils.copyProperties(menu,vo);
         return vo;
     }
@@ -90,29 +135,6 @@ public class MenuServiceImpl implements MenuService {
         return vos;
     }
 
-    /**
-     * @Title:  findListAll
-     * @MethodName:  findListAll
-     * @Param: []
-     * @Retrun: java.util.List
-     * @Description:  查询所有数据列表
-     * @Date: 2019-12-05 22:10:15
-     */
-    @Override
-    public List<MenuVo> findLinkedListAll() {
-        List<Menu> list = menuRepository.findAll();
-        List<MenuVo> vos = GemBeanUtils.copyCollections(list,MenuVo.class);
-        for(MenuVo menuVo :vos){
-            if(menuVo!=null && menuVo.getIdPath()!=null){
-                if(menuVo.getIdPath().lastIndexOf("-")>0){
-                    menuVo.setParentIdPath(menuVo.getIdPath().substring(0,menuVo.getIdPath().lastIndexOf("-")));
-                }
-            }
-        }
-        //通过链表重新排序
-        vos = getMenuLinkedList(vos);
-        return vos;
-    }
 
 
     /**
@@ -344,42 +366,6 @@ public class MenuServiceImpl implements MenuService {
         return list;
     }
 
-    /**
-     * 获取菜单列表
-     * @param list
-     * @return
-     *
-     */
-    private List<MenuVo> getMenuLinkedList(List<MenuVo> list) {
-        //对数据排序 start -----treeTable不知道怎么排序，如果可以的话，在前端用js排序比这个效率要高，后面可以优化
-        List<MenuVo> listSorted = new LinkedList<>();
-        if (!ListUtils.isEmpty(list)){
-            for (MenuVo o:list){
-                sortNodeInfo(o,list,listSorted);
-            }
-        }
-        //对数据排序 end
-        return listSorted;
-    }
-
-    /**
-     * 通过链表对节点信息排序
-     */
-    private void sortNodeInfo(MenuVo vo,List<MenuVo> list,List<MenuVo> listSorted) {
-        if (listSorted.lastIndexOf(vo) > 0) {
-            return;
-        }
-        listSorted.add(vo);
-        Long id = vo.getId();
-        if (id == null) {
-            return;
-        }
-        for (MenuVo m : list) {
-            if (id == m.getPid()) {
-                sortNodeInfo(m, list, listSorted);
-            }
-        }
-    }
 
     public static void main(String[] args) {
         String aa = "00-01-12-33";

@@ -33,7 +33,7 @@ class UserControllerTest {
         UserVo vo = new UserVo();
         vo.setUsername("zys5");
         vo.setPassword("zysh1235");
-        vo.setRealname("张永帅5");
+        vo.setRealname("张san5");
         vo.setPhone("18500029045");
         UserVo user = userService.save(vo);
         log.info("用户信息="+user.toString());

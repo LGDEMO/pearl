@@ -1,7 +1,10 @@
 package com.gemframework.cms.common.security.handler;
 
+import com.alibaba.fastjson.JSONArray;
+import com.gemframework.bas.common.constant.GemConstant;
 import com.gemframework.cms.common.enums.MenuType;
 import com.gemframework.cms.common.security.config.GemSecurityProperties;
+import com.gemframework.cms.common.security.scheme.GemMetadataSourceService;
 import com.gemframework.cms.model.vo.tree.MenuSide;
 import com.gemframework.cms.model.vo.MenuVo;
 import com.gemframework.cms.model.vo.RoleVo;
@@ -15,6 +18,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -38,10 +42,16 @@ public class GemLoginSuccessHandler extends SavedRequestAwareAuthenticationSucce
     @Autowired
     private GemSecurityProperties gemSecurityProperties;
 
+    @Autowired
+    GemMetadataSourceService gemMetadataSourceService;
+
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws ServletException, IOException {
-        response.setContentType("application/json;charset=UTF-8");
+        response.setContentType(GemConstant.MediaType.JSON_UTF_8);
         log.info("登录成功");
+        //重新设置用户权限
+        gemMetadataSourceService.loadResourceDefine();
+
         //TODO:这里写登录成功后的逻辑
         //页面跳转到首页
         //api请求的话返回token
@@ -51,19 +61,51 @@ public class GemLoginSuccessHandler extends SavedRequestAwareAuthenticationSucce
         //根据角色查询菜单信息
         List<RoleVo> roles = new ArrayList<>();
         Collection<? extends GrantedAuthority> collection = authentication.getAuthorities();
+        boolean isSuperAdmin = false;
         for(GrantedAuthority grantedAuthority:collection){
-            RoleVo vo = roleService.getByFlag(getRoleFlag(grantedAuthority.getAuthority()));
+            String roleFlag = getRoleFlag(grantedAuthority.getAuthority());
+            if(roleFlag.contains("admin")){
+                isSuperAdmin = true;
+            }
+            RoleVo vo = roleService.getByFlag(roleFlag);
             if(vo != null){
                 roles.add(vo);
             }
         }
         if(roles != null && roles.size() > 0){
             List<MenuVo> menus = menuService.findListByRoles(roles);
-            if(roles.contains("admin")){
+            List<MenuSide> menuSides = new ArrayList<>();
+            //如果权限验证关闭 或者 是超级管理员
+            if(!gemSecurityProperties.isOpen()){
+                String menusData_def = "[\n" +
+                        "                {\n" +
+                        "                        \"f_ModuleId\": \"111\",\n" +
+                        "                        \"f_ParentId\": \"0\",\n" +
+                        "                        \"f_EnCode\": \"SysManage\",\n" +
+                        "                        \"f_FullName\": \"系统默认\",\n" +
+                        "                        \"f_Icon\": \"fa fa-desktop\",\n" +
+                        "                        \"f_UrlAddress\": \"/default\",\n" +
+                        "                },\n" +
+                        "                {\n" +
+                        "                        \"f_ModuleId\": \"21\",\n" +
+                        "                        \"f_ParentId\": \"111\",\n" +
+                        "                        \"f_EnCode\": \"MenuManage\",\n" +
+                        "                        \"f_FullName\": \"菜单管理\",\n" +
+                        "                        \"f_Icon\": \"fa fa-sitemap\",\n" +
+                        "                        \"f_UrlAddress\": \"menu/list.html\",\n" +
+                        "                } ]";
+                List<MenuSide> defMenuSides = (List<MenuSide>) JSONArray.parseArray(menusData_def, MenuSide.class);
+                menuSides.addAll(defMenuSides);
+                //查询所有菜单
                 menus = menuService.findListAllByType(MenuType.MENU);
             }
+
+            if(isSuperAdmin){
+                //查询所有菜单
+                menus = menuService.findListAllByType(MenuType.MENU);
+            }
+
             if(menus!=null && menus.size()>0){
-                List<MenuSide> menuSides = new ArrayList<>();
                 for(MenuVo menuVo:menus){
                     MenuSide menuSide = MenuSide.builder()
                             .F_ModuleId(String.valueOf(menuVo.getId()))

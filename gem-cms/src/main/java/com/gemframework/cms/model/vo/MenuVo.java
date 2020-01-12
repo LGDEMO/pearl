@@ -52,6 +52,8 @@ public class MenuVo extends BaseVo implements Comparable<MenuVo>{
     private Integer active;
     //排序
     private Integer sortNumber;
+    //排序路径
+    private String sortPath;
 
     List<MenuVo> childs;
     //路径 1-2-1 用于treetable页面渲染

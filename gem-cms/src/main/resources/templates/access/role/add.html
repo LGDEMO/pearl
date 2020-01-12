@@ -66,7 +66,7 @@
                                 <a class="btn btn-default" onclick="CancelAllNodes('checkboxTree')"><span class="glyphicon glyphicon-remove"></span>全消</a>
                             </div>
                         </div>
-                        <p><ul id="checkboxTree" class="ztree"  style="height: 200px; overflow:auto;margin-left: 20px"></ul></p>
+                        <p><ul id="checkboxTree" class="ztree"  style="height: 320px; overflow:auto;margin-left: 20px"></ul></p>
                     </div>
                 </div>
                 <!--底部按钮-->
@@ -142,7 +142,6 @@
                     }
                 },
             });
-
         });
 
         function setDateRange(type) {
@@ -242,6 +241,7 @@
                 error: function(e) {
                     // 请求失败函数
                     console.log("error:"+JSON.stringify(e));
+                    alert("操作失败，请检查是否有相关操作权限！");
                 }
             })
         }

@@ -4,6 +4,7 @@ package com.gemframework.cms.common.interceptor;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.gemframework.bas.common.constant.GemConstant;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.Authentication;
@@ -30,14 +31,14 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 
 		if(securityContextImpl == null){
 			log.info("尚未登录，跳转到登录界面");
-			response.setHeader("Content-Type", "text/html;charset=UTF-8");
+			response.setHeader("Content-Type", GemConstant.MediaType.TEXT_HTML_UTF_8);
 			response.sendRedirect(request.getContextPath() + "/login");
 			return false;
 		}else{
 			Authentication authentication = securityContextImpl.getAuthentication();
 			if(authentication == null){
 				log.info("尚未登录，跳转到登录界面");
-				response.setHeader("Content-Type", "text/html;charset=UTF-8");
+				response.setHeader("Content-Type", GemConstant.MediaType.TEXT_HTML_UTF_8);
 				response.sendRedirect(request.getContextPath() + "/login");
 				return false;
 			}

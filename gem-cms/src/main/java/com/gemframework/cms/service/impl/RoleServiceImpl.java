@@ -39,6 +39,14 @@ public class RoleServiceImpl implements RoleService {
     @Resource
     private RoleDeptsRepository roleDeptsRepository;
 
+    @Override
+    public boolean exist(RoleVo vo) {
+        if(null == roleRepository.exist(vo.getFlag(),vo.getRolename(),vo.getId())){
+            return true;
+        }
+        return false;
+    }
+
     /**
      * @Title:  add
      * @MethodName:  add
@@ -50,6 +58,9 @@ public class RoleServiceImpl implements RoleService {
     @Override
     @Transactional
     public RoleVo save(RoleVo vo) {
+        if(!exist(vo)){
+            throw new GemException(ResultCode.ROLE_EXIST);
+        }
         //新增用户
         Role role = new Role();
         //编辑用户
@@ -107,6 +118,7 @@ public class RoleServiceImpl implements RoleService {
     public List<RoleVo> findListAll() {
         List<RoleVo> roleVos = new ArrayList<>();
         List<Role> list = roleRepository.findAll();
+
         for(Role roles:list){
             RoleVo roleVo = new RoleVo();
             GemBeanUtils.copyProperties(roles,roleVo);
@@ -116,13 +128,16 @@ public class RoleServiceImpl implements RoleService {
             List<RoleMenus> roleMenus = roleMenusRepository.findListByRoleId(roles.getId());
             for(RoleMenus menus:roleMenus){
                 Menu menu = menuRepository.getById(menus.getMenuId());
-                menusList.add(menu);
+                if(menu != null){
+                    menusList.add(menu);
+                }
             }
-            roles.setMenus(menusList);
 
-            List<MenuVo> menuVos = GemBeanUtils.copyCollections(menusList,MenuVo.class);
-            roleVo.setMenus(menuVos);
-
+            if(menusList != null && menusList.size() > 0){
+                roles.setMenus(menusList);
+                List<MenuVo> menuVos = GemBeanUtils.copyCollections(menusList,MenuVo.class);
+                roleVo.setMenus(menuVos);
+            }
             roleVos.add(roleVo);
         }
         return roleVos;

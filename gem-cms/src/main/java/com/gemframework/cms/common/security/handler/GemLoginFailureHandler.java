@@ -1,5 +1,6 @@
 package com.gemframework.cms.common.security.handler;
 
+import com.gemframework.bas.common.constant.GemConstant;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
@@ -21,7 +22,7 @@ public class GemLoginFailureHandler extends SimpleUrlAuthenticationFailureHandle
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception)
             throws IOException, ServletException {
         super.onAuthenticationFailure(request,response,exception);
-        response.setContentType("application/json;charset=UTF-8");
+        response.setContentType(GemConstant.MediaType.JSON_UTF_8);
         log.info("登录失败"+exception.getMessage());
         //这里写登录失败的逻辑
         // 判断是用哪一种方式进行登录的

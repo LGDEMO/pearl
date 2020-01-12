@@ -7,6 +7,7 @@ import com.gemframework.cms.model.po.Dept;
 import com.gemframework.cms.model.po.Menu;
 import com.gemframework.cms.model.vo.DeptVo;
 import com.gemframework.cms.model.vo.MenuVo;
+import com.gemframework.cms.model.vo.UserVo;
 import com.gemframework.cms.repository.DeptRepository;
 import com.gemframework.cms.service.DeptService;
 import lombok.extern.slf4j.Slf4j;
@@ -26,6 +27,14 @@ public class DeptServiceImpl implements DeptService {
     @Resource
     private DeptRepository deptRepository;
 
+    @Override
+    public boolean exist(DeptVo vo) {
+        if(null == deptRepository.exist(vo.getName(),vo.getId())){
+            return true;
+        }
+        return false;
+    }
+
     /**
      * @Title:  add
      * @MethodName:  add
@@ -36,6 +45,9 @@ public class DeptServiceImpl implements DeptService {
      */
     @Override
     public DeptVo save(DeptVo vo) {
+        if(!exist(vo)){
+            throw new GemException(ResultCode.DEPT_EXIST);
+        }
         Dept dept = new Dept();
         GemBeanUtils.copyProperties(vo,dept);
         dept = deptRepository.save(dept);

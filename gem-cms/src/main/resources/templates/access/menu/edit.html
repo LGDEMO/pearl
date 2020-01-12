@@ -76,29 +76,61 @@
                                                    value="1"/>
                                             <label for="type2">按钮</label>
                                         </div>
+                                        <div class="radio radio-info radio-inline">
+                                            <input type="radio" name="type" id="type3"
+                                                   value="2"/>
+                                            <label for="type3">其他</label>
+                                        </div>
                                     </td>
                                     <td th:if="${edit_menu.type}==1">
                                         <div class="radio radio-info radio-inline">
-                                            <input type="radio" name="type" id="type3"
+                                            <input type="radio" name="type" id="type4"
                                                    value="0"/>
-                                            <label for="type3">菜单</label>
+                                            <label for="type4">菜单</label>
                                         </div>
                                         <div class="radio radio-info radio-inline">
-                                            <input type="radio" name="type" id="type4"
+                                            <input type="radio" name="type" id="type5"
                                                    value="1" checked/>
-                                            <label for="type4">按钮</label>
+                                            <label for="type5">按钮</label>
+                                        </div>
+                                        <div class="radio radio-info radio-inline">
+                                            <input type="radio" name="type" id="type6"
+                                                   value="2"/>
+                                            <label for="type6">其他</label>
+                                        </div>
+                                    </td>
+                                    <td th:if="${edit_menu.type}==2">
+                                        <div class="radio radio-info radio-inline">
+                                            <input type="radio" name="type" id="type7"
+                                                   value="0"/>
+                                            <label for="type7">菜单</label>
+                                        </div>
+                                        <div class="radio radio-info radio-inline">
+                                            <input type="radio" name="type" id="type8"
+                                                   value="1"/>
+                                            <label for="type8">按钮</label>
+                                        </div>
+                                        <div class="radio radio-info radio-inline">
+                                            <input type="radio" name="type" id="type9"
+                                                   value="2" checked/>
+                                            <label for="type9">其他</label>
                                         </div>
                                     </td>
                                     <td th:if="${edit_menu.type}==null">
                                         <div class="radio radio-info radio-inline">
-                                            <input type="radio" name="type" id="type5"
+                                            <input type="radio" name="type" id="type10"
                                                    value="0" checked/>
-                                            <label for="type5">菜单1</label>
+                                            <label for="type10">菜单</label>
                                         </div>
                                         <div class="radio radio-info radio-inline">
-                                            <input type="radio" name="type" id="type6"
+                                            <input type="radio" name="type" id="type11"
                                                    value="1"/>
-                                            <label for="type6">按钮</label>
+                                            <label for="type11">按钮</label>
+                                        </div>
+                                        <div class="radio radio-info radio-inline">
+                                            <input type="radio" name="type" id="type12"
+                                                   value="2"/>
+                                            <label for="type12">其他</label>
                                         </div>
                                     </td>
                                 </tr>
@@ -114,11 +146,11 @@
                                         <input type="text" name="tag" id="tag"  required th:value="${edit_menu.tag}"/>
                                     </td>
                                 </tr>
-                                <tr>
+                                <tr id="tr_menu_icon">
                                     <td>资源图标<span class="span">*</span></td>
                                     <td>
-                                        <input type="text" name="icon" id="icon" required
-                                               data-placement="bottomRight" readonly
+                                        <input type="text" name="icon" id="icon"
+                                               data-placement="bottomRight"
                                                class="form-control icp icp-auto" th:value="${edit_menu.icon}" />
                                     </td>
                                 </tr>
@@ -160,8 +192,6 @@
             $(function () {
                 $('.icp-auto').iconpicker({
                     title: '请选择一个图标',
-                    //  指定图标
-                    //icons:['fa-github', 'fa-heart', 'fa-html5', 'fa-css3'],
                     // 添加其他图标 加入 bootstrap  glyphicon 字体图标
                     icons: $.merge(['glyphicon-home', 'glyphicon-repeat', 'glyphicon-search',
                         'glyphicon-arrow-left', 'glyphicon-arrow-right', 'glyphicon-star'], $.iconpicker.defaultOptions.icons),
@@ -173,10 +203,20 @@
                         }
                     },
                     component: '.input-group-addon', // 图标存放容器
-                    /* Placements: inline topLeftCorner topLeft top topRight topRightCorner rightTop right rightBottom bottomRightCorner bottomRight bottom bottomLeft bottomLeftCorner leftBottom left leftTop*/
                     placement: 'right',  // 图标容器位置
                 })
             });
+
+
+            $('input[name="type"]').on('click', function() {
+                if(this.value!=0){
+                    $("#tr_menu_icon").css('display','none');
+                }else{
+                    $("#tr_menu_icon").css('display','');
+                }
+            })
+
+
 
             $('#btn_save').on('click', function() {
                 $.ajax({

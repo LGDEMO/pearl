@@ -1,9 +1,9 @@
 package com.gemframework.cms.common.security.scheme;
 
 import com.gemframework.bas.common.constant.GemConstant;
-import com.gemframework.cms.model.po.Menu;
 import com.gemframework.cms.model.vo.MenuVo;
 import com.gemframework.cms.model.vo.RoleVo;
+import com.gemframework.cms.service.MenuService;
 import com.gemframework.cms.service.RoleService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.ConfigAttribute;
@@ -35,6 +35,8 @@ public class GemMetadataSourceService implements FilterInvocationSecurityMetadat
 
     @Resource
     private RoleService roleService;
+    @Resource
+    private MenuService menuService;
 
     private HashMap<String, Collection<ConfigAttribute>> map = null;
 
@@ -56,6 +58,10 @@ public class GemMetadataSourceService implements FilterInvocationSecurityMetadat
             //用权限的getLink() 作为map的key，用ConfigAttribute的集合作为 value，
             log.info("设置用户角色==========={}",role.toString());
             List<MenuVo> menus = role.getMenus();
+            if(role.getFlag().contains("admin")){
+                menus = menuService.findListAll();
+            }
+
             for (MenuVo menu : menus) {
                 log.info("设置用户URL==========="+menu.toString()+":"+cfg);
                 setMap("/"+menu.getLink(), cfg);

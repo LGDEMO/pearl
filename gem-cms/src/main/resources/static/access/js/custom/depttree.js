@@ -16,7 +16,7 @@ var left_setting = {
     },
 
     edit : { //可以编辑节点 : 增 删 改
-        enable : true,//设置 zTree 是否处于编辑状态, true / false 分别表示 可以 / 不可以 编辑
+        enable : false,//设置 zTree 是否处于编辑状态, true / false 分别表示 可以 / 不可以 编辑
         editNameSelectAll : true,
         showRemoveBtn : true,//设置是否显示删除按钮。[setting.edit.enable = true 时生效]
         showRenameBtn : true,//设置是否显示编辑名称按钮。[setting.edit.enable = true 时生效]

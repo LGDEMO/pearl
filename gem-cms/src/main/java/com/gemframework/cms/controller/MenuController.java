@@ -3,6 +3,7 @@ package com.gemframework.cms.controller;
 import com.alibaba.fastjson.JSON;
 import com.gemframework.bas.common.enums.ResultCode;
 import com.gemframework.bas.model.BaseResult;
+import com.gemframework.cms.common.security.scheme.GemMetadataSourceService;
 import com.gemframework.cms.model.vo.MenuVo;
 import com.gemframework.cms.service.MenuService;
 import com.gemframework.cms.service.impl.MenuServiceImpl;
@@ -40,6 +41,9 @@ public class MenuController {
     @Autowired
     MenuService menuService;
 
+    @Autowired
+    GemMetadataSourceService gemMetadataSourceService;
+
     /**
      * @Title:  add
      * @MethodName:  增
@@ -67,9 +71,9 @@ public class MenuController {
      * @Description:
      * @Date: 2019-12-05 22:22:32
      */
-    @PostMapping("delete/{id}")
+    @PostMapping("delete")
     @ResponseBody
-    public BaseResult delete(@PathVariable("id") Long id){
+    public BaseResult delete(@RequestParam(value = "id") Long id){
         menuService.delete(id);
         return BaseResult.SUCCESS();
     }
@@ -165,7 +169,7 @@ public class MenuController {
     @GetMapping("list.html")
 
     public String list(Model model){
-        List<MenuVo> list = menuService.findLinkedListAll();
+        List<MenuVo> list = menuService.findListAll();
         log.info("===>"+JSON.toJSONString(list));
         model.addAttribute("list_menus",list);
         return "menu/list";

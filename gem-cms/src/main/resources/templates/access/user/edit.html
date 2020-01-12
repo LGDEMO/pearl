@@ -152,16 +152,21 @@
     $(function () {
         initRoleSelect();
         initRoleOption();
-        var roles = [[${edit_user.roles}]];
-        if(roles.length >0){
+        reviewDate();
+
+    });
+
+    function reviewDate() {
+        roleArr = [[${edit_user.roles}]];
+        if(roleArr.length >0){
             var rolename = "";
-            for(var i = 0; i < roles.length; i++) {
-                rolename += roles[i].rolename + ',';
+            for(var i = 0; i < roleArr.length; i++) {
+                rolename += roleArr[i].rolename + ',';
             }
             rolename = rolename.substr(0, rolename.length -1) ;
             $(".multiselect-selected-text").html(rolename);
         }
-    });
+    }
 
     //编辑数据
     var ajaxData = JSON.stringify($('#form').serializeObject());
@@ -209,6 +214,7 @@
                 error: function(e) {
                     // 请求失败函数
                     console.log("error:"+JSON.stringify(e));
+                    alert("操作失败，请检查是否有相关操作权限！");
                 }
             })
         }
@@ -253,6 +259,7 @@
             error: function(e) {
                 // 请求失败函数
                 console.log("error:"+JSON.stringify(e));
+                alert("操作失败，请检查是否有相关操作权限！");
             }
         })
     }

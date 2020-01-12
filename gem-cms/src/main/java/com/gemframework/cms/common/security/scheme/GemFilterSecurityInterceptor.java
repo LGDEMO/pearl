@@ -1,6 +1,9 @@
 package com.gemframework.cms.common.security.scheme;
 
 import com.gemframework.bas.common.constant.GemConstant;
+import com.gemframework.bas.common.enums.ResultCode;
+import com.gemframework.bas.common.exception.GemException;
+import com.gemframework.bas.model.BaseResult;
 import com.gemframework.cms.common.security.config.GemSecurityProperties;
 import com.gemframework.cms.model.vo.UserVo;
 import com.gemframework.cms.service.UserService;
@@ -55,30 +58,22 @@ public class GemFilterSecurityInterceptor extends  AbstractSecurityInterceptor i
     private FilterInvocationSecurityMetadataSource securityMetadataSource;
 
     //针对某些接口放白名单
-    private String[] ignoreStartUris = new String[]{
-//            "/static",
-//            getGemAuthPageProperties().getDeniedPage(),
-//            getGemAuthPageProperties().getNofoundPage(),
-//            getGemAuthPageProperties().getErrorPage(),
-//            getGemAuthPageProperties().getLoginPage(),
-//            getGemAuthPageProperties().getIndexPage(),
+    private String[] authIgnoreStartUris  = new String[]{
             "/static",
             "/403",
             "/404",
             "/error",
             "/login",
+            "/home",
             "/index",
-            "/user/add",
             "/initMenus",
+            "/findMenusTree",
             "/findAllMenusTree",
-            "/menu/add",
-            "/menu/delete",
-            "/menu/update",
-            "/menu/list",
     };
+
     //针对某些接口放白名单
     private String[] ignoreSuffixUris = new String[]{
-            ".html",
+            //".html",
     };
 
     @Override
@@ -93,21 +88,18 @@ public class GemFilterSecurityInterceptor extends  AbstractSecurityInterceptor i
         HttpServletRequest request = fi.getHttpRequest();
         HttpServletResponse response = fi.getHttpResponse();
         String url = request.getServletPath();
-        log.info("权限校验开关=="+ gemSecurityProperties.isOpen());
+        log.info("权限校验开关=="+ gemSecurityProperties.isOpen() + "访问URL："+url);
         if(gemSecurityProperties.isOpen()){
-            log.info("请求url=="+url);
-            if (StringUtils.startsWithAny(url, ignoreStartUris)
+            if (StringUtils.startsWithAny(url, authIgnoreStartUris)
                     || StringUtils.endsWithAny(url,ignoreSuffixUris)) {
                 //执行下一个拦截器
                 fi.getChain().doFilter(fi.getRequest(), fi.getResponse());
                 return;
             }
         }else{
-            //执行下一个拦截器
             fi.getChain().doFilter(fi.getRequest(), fi.getResponse());
             return;
         }
-
         String principal = "";
         if(SecurityContextHolder.getContext().getAuthentication()!= null){
             principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();

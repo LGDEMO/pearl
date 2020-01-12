@@ -147,7 +147,7 @@ function resetTree() {
     $.fn.zTree.init($("#checkboxTree"), setting, zNodes);
 }
 
-//添加菜单form引用
+//添加/编辑菜单form引用
 function OnClick(event, treeId, treeNode){
     $(".dropdown_select").val(treeNode.name);
     $("#pid").val(treeNode.id);
@@ -155,17 +155,20 @@ function OnClick(event, treeId, treeNode){
         $("#type1").attr('disabled',true);
         $("#type1").removeAttr('checked');
         $("#type2").prop("checked", true);
+        $("#tr_menu_icon").css('display','none');
     }else{
         $("#type1").removeAttr('disabled');
         $("#type1").prop("checked", true);
+        $("#tr_menu_icon").css('display','');
     }
     $("#level").val(treeNode.level+1);
 }
 
 
 // =========================ajxa方法开始================================
-//获取菜单树
+//获取所有菜单
 function getMenuTree() {
+    //获取所有资源树（包括按钮，其他资源）
     $.ajax({
         type: "get",
         url: "../findAllMenusTree",
@@ -178,7 +181,28 @@ function getMenuTree() {
         success: function (res) {
             console.log(res);
             if(res.code == 0){
-                mdata  = res.data;
+                allData  = res.data;
+            }
+        },
+        error: function(res){
+            // 请求失败函数
+            console.log(res);
+        }
+    })
+    //获取所有菜单树
+    $.ajax({
+        type: "get",
+        url: "../findMenusTree",
+        data: {
+            // "id": id
+        },
+        async: false, // 异步请求
+        cache: false, // 设置为 false 将不缓存此页面
+        dataType: 'json', // 返回对象
+        success: function (res) {
+            console.log(res);
+            if(res.code == 0){
+                menuData  = res.data;
             }
         },
         error: function(res){
@@ -188,11 +212,12 @@ function getMenuTree() {
     })
 }
 
-var mdata  ="";
+var allData  ="";
+var menuData  ="";
 var zTree, rMenu;
 $(document).ready(function(){
     getMenuTree();
-    $.fn.zTree.init($("#treeDemo"), setting, mdata);
-    $.fn.zTree.init($("#checkboxTree"), checkbox_setting, mdata);
+    $.fn.zTree.init($("#treeDemo"), setting, menuData);
+    $.fn.zTree.init($("#checkboxTree"), checkbox_setting, allData);
     rMenu = $("#rMenu");
 });

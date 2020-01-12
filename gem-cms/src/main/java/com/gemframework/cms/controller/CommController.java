@@ -10,6 +10,7 @@ import com.gemframework.cms.service.MenuService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
@@ -42,6 +43,39 @@ public class CommController {
      */
     @GetMapping("/findAllMenusTree")
     public BaseResult findAllMenusTree(){
+        List<MenuVo> menus = menuService.findListAll();
+        List<ZtreeEntity> ztreeEntities = new ArrayList<>();
+        ZtreeEntity ztreeEntity = ZtreeEntity.builder()
+                .id(0L)
+                .pid(-1L)
+                .name("根目录")
+                .title("根目录")
+                .level(0)
+                .open(true)
+                .nocheck(true)
+                .build();
+        ztreeEntities.add(ztreeEntity);
+        for(MenuVo menuVo:menus){
+            ztreeEntity = ZtreeEntity.builder()
+                    .id(menuVo.getId())
+                    .pid(menuVo.getPid())
+                    .name(menuVo.getName())
+                    .title(menuVo.getName())
+                    .level(menuVo.getLevel())
+                    .open(true)
+                    .nocheck(false)
+                    .build();
+            ztreeEntities.add(ztreeEntity);
+        }
+        return BaseResult.SUCCESS(toTree(ztreeEntities));
+    }
+
+    /***
+     * 加载当前权限用户的菜单树
+     * @return
+     */
+    @GetMapping("/findMenusTree")
+    public BaseResult findMenusTree(){
         List<MenuVo> menus = menuService.findListAllByType(MenuType.MENU);
         List<ZtreeEntity> ztreeEntities = new ArrayList<>();
         ZtreeEntity ztreeEntity = ZtreeEntity.builder()

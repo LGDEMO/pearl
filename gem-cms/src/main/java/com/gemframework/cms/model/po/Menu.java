@@ -32,9 +32,9 @@ public class Menu extends BasePo {
 
     @Column(columnDefinition = "varchar(10) comment '菜单/按钮名称'")
     private String name;
-    @Column(columnDefinition = "varchar(10) comment '菜单/按钮标签'")
+    @Column(columnDefinition = "varchar(30) comment '菜单/按钮标签'")
     private String tag;
-    @Column(columnDefinition = "varchar(20) comment '菜单/按钮链接'")
+    @Column(columnDefinition = "varchar(50) comment '菜单/按钮链接'")
     private String link;
     @Column(columnDefinition = "tinyint(1) comment '类型 0菜单 1按钮 2其他'")
     private Integer type;
@@ -53,8 +53,12 @@ public class Menu extends BasePo {
     @Column(columnDefinition = "int(10) comment '排序编号'")
     private Integer sortNumber;
 
+    //排序路径 用于treetable页面渲染
+    @Column(columnDefinition = "varchar(50) comment '排序编号路径'")
+    private String sortPath;
+
     //路径 1-2-1 用于treetable页面渲染
-    @Column(columnDefinition = "varchar(20) comment 'ID路径'")
+    @Column(columnDefinition = "varchar(50) comment 'ID路径'")
     private String idPath;
 
     //系列 用于归类 存放家族一级分类ID 一级分类存自己ID

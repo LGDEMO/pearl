@@ -9,6 +9,8 @@ import java.util.List;
 
 public interface MenuService {
 
+    boolean exist(MenuVo vo);
+
     MenuVo save(MenuVo vo);
 
     /**
@@ -16,11 +18,6 @@ public interface MenuService {
      * @return
      */
     List<MenuVo> findListAll();
-    /**
-     * 查询资源链表 用于资源管理list页面
-     * @return
-     */
-    List<MenuVo> findLinkedListAll();
 
     /**
      * 获取所有菜单列表

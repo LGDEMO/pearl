@@ -1,5 +1,6 @@
 package com.gemframework.cms.repository;
 
+import com.gemframework.cms.model.po.Dept;
 import com.gemframework.cms.model.po.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -22,4 +23,7 @@ public interface RoleRepository extends JpaRepository<Role, Long> {
 
     @Query("select role from Role role where flag = ?1")
     Role getByFlag(String flag);
+
+    @Query("select role from Role role where (flag=?1 or rolename=?2) and id <> ?3")
+    Role exist(String flag, String rolename, Long id);
 }

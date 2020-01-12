@@ -25,21 +25,35 @@ public class WebMvcConfigurerAdapter implements WebMvcConfigurer  {
     /**
      * 不需要登录拦截的url
      */
-    final String[] notLoginInterceptPaths = {
+    final String[] noAuthInterceptPaths = {
             "/static/**",
             "/403",
             "/404",
             "/error",
             "/login",
+            "/home",
             "/index",
             "initMenus",
+            "/findMenusTree",
             "/findAllMenusTree",
-            "/user/add",
+            "*.html*",
             "/menu/add",
             "/menu/delete",
             "/menu/update",
             "/menu/list",
-            "*.html*",
+    };
+    final String[] authInterceptPaths = {
+            "/static/**",
+            "/403",
+            "/404",
+            "/error",
+            "/login",
+            "/home",
+            "/index",
+            "initMenus",
+            "/findMenusTree",
+            "/findAllMenusTree",
+            //"*.html*",
     };
 
     @Override
@@ -50,7 +64,7 @@ public class WebMvcConfigurerAdapter implements WebMvcConfigurer  {
             // 登录拦截器
             registry.addInterceptor(loginInterceptor)
                     .addPathPatterns("/**")
-                    .excludePathPatterns(notLoginInterceptPaths);
+                    .excludePathPatterns(authInterceptPaths);
         }
     }
 

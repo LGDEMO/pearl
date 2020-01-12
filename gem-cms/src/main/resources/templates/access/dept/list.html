@@ -26,8 +26,8 @@
                 <div style="margin-left: 30px;">
                     <a class="btn btn-default" onclick="resetTree()">
                         <span class="glyphicon glyphicon-refresh"></span>刷新</a>
-                    <a class="btn btn-default" onclick="switchView('user')">
-                        <span class="glyphicon glyphicon-user"></span>用户</a>
+<!--                    <a class="btn btn-default" onclick="switchView('user')">-->
+<!--                        <span class="glyphicon glyphicon-user"></span>用户</a>-->
                     <a class="btn btn-default" onclick="addView()">
                         <span class="glyphicon glyphicon-plus"></span>新增</a>
                     <a class="btn btn-default" onclick="deleteData()">
@@ -183,6 +183,7 @@
             error: function(e) {
                 // 请求失败函数
                 console.log("error:"+JSON.stringify(e));
+                alert("操作失败，请检查是否有相关操作权限！");
             }
         })
     })

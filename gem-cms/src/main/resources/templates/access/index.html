@@ -22,5 +22,21 @@
     </div>
     <div th:replace="common/links::common_script"></div>
     <script src="static/access/js/custom/index.js"></script>
+
+    <script>
+
+        function userinfo(){
+            layer.open({
+                type: 2,
+                title: '编辑用户',
+                shadeClose: true,
+                shade: 0.5,
+                skin: 'layui-layer-rim',
+                closeBtn:1,
+                area: ['750px', '574px'],
+                content: 'role/edit.html',
+            });
+        }
+    </script>
 </body>
 </html>
