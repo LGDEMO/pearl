@@ -325,7 +325,7 @@
             var mdata  ="";
             $.ajax({
                 type: "get",
-                url: "initMenus",
+                url: "home/initMenus",
                 data: {
                     // "id": id
                 },
@@ -336,13 +336,16 @@
                     console.log(res);
                     if(res.code == 0){
                         mdata  = res.data;
-                        // if(mdata == "" || mdata == null || mdata.length == 0){
-                        //     mdata = menusData_def;
-                        // }else{
-                            // if(JSON.stringify(mdata).indexOf("menu/list.html")==-1){
-                            //     mdata = menusData_def.concat(mdata);
-                            // }
-                        // }
+                        if(mdata == "" || mdata == null || mdata.length == 0){
+                            mdata = [ {
+                                "f_ModuleId": "1",
+                                "f_ParentId": "0",
+                                "f_EnCode": "MenuManage",
+                                "f_FullName": "暂无权限",
+                                "f_Icon": "fa fa-sitemap",
+                            } ];
+                        }
+
                         $.each(mdata, function (i) {
                             var row = mdata[i];
                             //一级菜单
@@ -356,11 +359,13 @@
                                 var childNodes = $.learunindex.jsonWhere(mdata, function (v) { return v.f_ParentId == row.f_ModuleId });
                                 if(childNodes.length>0){
                                     _html += '<a class="menuItem" data-id="' + row.f_ModuleId + '">'
-                                    _html += '<i class="' + row.f_Icon + '"></i><span>' + row.f_FullName;
-                                    _html += '</span><i class="fa fa-angle-left pull-right"></i>';
+                                    _html += '<i class="' + row.f_Icon + '"></i>'
+                                    _html += '<span style="background-color: #222d32;">' + row.f_FullName + '</span>';
+                                    _html += '<i class="fa fa-angle-left pull-right"></i>';
                                 }else{
                                     _html += '<a class="menuItem" data-id="' + row.f_ModuleId + '" href="'+ row.f_UrlAddress +'">'
-                                    _html += '<i class="' + row.f_Icon + '"></i><span>' + row.f_FullName;
+                                    _html += '<i class="' + row.f_Icon + '"></i>'
+                                    _html += '<span style="background-color: #222d32;">' + row.f_FullName + '</span>';
                                 }
                                 _html += '</a>'
                                 if (childNodes.length > 0) {
@@ -377,7 +382,7 @@
                                             _html += '<ul class="treeview-menu">';
                                             $.each(subchildNodes, function (i) {
                                                 var subchildNodesrow = subchildNodes[i];
-                                                _html += '<li><a class="menuItem" data-id="' + subrow.f_ModuleId + '" href="' + subrow.f_UrlAddress + '"><i class="' + subchildNodesrow.f_Icon + '"></i>' + subchildNodesrow.f_FullName + '</a></li>';
+                                                _html += '<li><a class="menuItem" data-id="' + subchildNodesrow.f_ModuleId + '" href="' + subchildNodesrow.f_UrlAddress + '"><i class="' + subchildNodesrow.f_Icon + '"></i>' + subchildNodesrow.f_FullName + '</a></li>';
                                             });
                                             _html += '</ul>';
 

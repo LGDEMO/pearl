@@ -1,22 +1,29 @@
 package com.gemframework.bas.common.config.redis;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.session.SessionProperties;
 import org.springframework.boot.autoconfigure.session.StoreType;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.cache.CacheManager;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.cache.RedisCacheConfiguration;
+import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.*;
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
+import org.springframework.data.redis.serializer.RedisSerializationContext;
+import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 import javax.annotation.Resource;
+import java.time.Duration;
 
 @Configuration
+@EnableCaching
 public class GemRedisConfig {
 
-	@Autowired
+	@Resource
 	private SessionProperties sessionProperties;
 	@Resource
 	private RedisConnectionFactory factory;
@@ -35,6 +42,7 @@ public class GemRedisConfig {
 	@Bean
 	public RedisTemplate<String, Object> redisTemplate() {
 		RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
+		// 设置value的序列化规则和 key的序列化规则
 		redisTemplate.setKeySerializer(new StringRedisSerializer());
 		redisTemplate.setHashKeySerializer(new StringRedisSerializer());
 		redisTemplate.setHashValueSerializer(new GenericJackson2JsonRedisSerializer());
@@ -42,6 +50,21 @@ public class GemRedisConfig {
 		redisTemplate.setDefaultSerializer(new GenericJackson2JsonRedisSerializer());
 		redisTemplate.setConnectionFactory(factory);
 		return redisTemplate;
+	}
+
+	public CacheManager cacheManager(RedisConnectionFactory factory) {
+		RedisSerializer<String> redisSerializer = new StringRedisSerializer();
+		// 配置序列化（解决乱码的问题）,过期时间30秒
+		RedisCacheConfiguration config = RedisCacheConfiguration.defaultCacheConfig()
+				.entryTtl(Duration.ofSeconds(1800000))
+				.serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(redisSerializer))
+				.serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(new GenericJackson2JsonRedisSerializer()))
+				.disableCachingNullValues();
+
+		RedisCacheManager cacheManager = RedisCacheManager.builder(factory)
+				.cacheDefaults(config)
+				.build();
+		return cacheManager;
 	}
 
 	@Bean

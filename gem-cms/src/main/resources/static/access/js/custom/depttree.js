@@ -9,7 +9,7 @@ var left_setting = {
         dataFilter: null,
         dataType : "text/json",
         type: "GET",
-        url: "../findAllDeptTree",
+        url: "../common/findAllDeptTree",
         autoParam: ["id=ids"],//, "name=n", "level=lv"可以设置提交时的参数名称，例如 server 只接受 zId : ["id=zId"] ; 默认值空
         otherParam : [],//其他参数 ;直接用 JSON 格式制作键值对，例如：{ key1:value1, key2:value2 }
         contentType : "application/x-www-form-urlencoded",//设置上下文类型
@@ -233,7 +233,7 @@ function resetTree() {
 function getDetpTree() {
     $.ajax({
         type: "get",
-        url: "../findAllDeptTree",
+        url: "../common/findAllDeptTree",
         data: {
             // "id": id
         },

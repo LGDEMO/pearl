@@ -25,34 +25,25 @@ public class WebMvcConfigurerAdapter implements WebMvcConfigurer  {
     /**
      * 不需要登录拦截的url
      */
-    final String[] noAuthInterceptPaths = {
-            "/static/**",
-            "/403",
-            "/404",
-            "/error",
-            "/login",
-            "/home",
-            "/index",
-            "initMenus",
-            "/findMenusTree",
-            "/findAllMenusTree",
-            "*.html*",
-            "/menu/add",
-            "/menu/delete",
-            "/menu/update",
-            "/menu/list",
-    };
+
     final String[] authInterceptPaths = {
+            //目录
+            "/test/**",
             "/static/**",
+            "/druid/**",
+            "/home/**",
+            "/common/**",
+            //单链接
             "/403",
             "/404",
             "/error",
             "/login",
-            "/home",
             "/index",
-            "initMenus",
-            "/findMenusTree",
-            "/findAllMenusTree",
+            //swagger
+            "/v2/**",
+            "/webjars/**",
+            "/swagger-resources/**",
+            "/swagger-ui.html",
             //"*.html*",
     };
 

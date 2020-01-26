@@ -1,6 +1,7 @@
 package com.gemframework.cms.common.security.config;
 
-import com.gemframework.cms.common.security.scheme.GemFilterSecurityInterceptor;
+import com.gemframework.cms.common.security.authorization.GemFilterSecurityInterceptor;
+import com.gemframework.cms.common.security.authentication.GemUsernamePasswordAuthenticationConfig;
 import com.gemframework.cms.service.impl.UserServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,8 +36,22 @@ import javax.annotation.Resource;
 @Configuration
 public class GemWebSecurityConfg extends WebSecurityConfigurerAdapter {
 
-    @Resource
+    @Autowired
     private GemSecurityProperties gemSecurityProperties;
+
+    @Autowired
+    private GemUsernamePasswordAuthenticationConfig gemUsernamePasswordAuthenticationConfig;
+
+    @Autowired
+    private AuthenticationSuccessHandler gemLoginSuccessHandler; //认证成功结果处理器
+
+    @Autowired
+    private AuthenticationFailureHandler gemLoginFailureHandler; //认证失败结果处理器
+
+    @Resource
+    private GemFilterSecurityInterceptor gemFilterSecurityInterceptor; //自定义拦截
+
+
 
     /**
      * 实现HttpSecurity的configure方法
@@ -53,10 +68,12 @@ public class GemWebSecurityConfg extends WebSecurityConfigurerAdapter {
         http.addFilterAfter(gemFilterSecurityInterceptor,FilterSecurityInterceptor.class);
 
         http
+                .apply(gemUsernamePasswordAuthenticationConfig)
+                .and()
                 .formLogin()//定义本系统使用表单认证方式
                 .loginPage("/login")
-                .successHandler(gemLoginSuccessHandler)//使用自定义的成功结果处理器
-                .failureHandler(gemLoginFailureHandler)//使用自定义失败的结果处理器
+//                .successHandler(gemLoginSuccessHandler)//使用自定义的成功结果处理器
+//                .failureHandler(gemLoginFailureHandler)//使用自定义失败的结果处理器
                 .and()
                 .csrf().disable()//关闭跨域防护
         ;
@@ -64,7 +81,11 @@ public class GemWebSecurityConfg extends WebSecurityConfigurerAdapter {
         //开启自动注销 退出登录的地址为 "/logout"，退出成功后跳转到页面 "/login"
         http.logout().logoutUrl("/logout").logoutSuccessUrl("/login");
         //开启免认证（记住我）
-        http.rememberMe().rememberMeParameter("remember");
+        http
+                .rememberMe()
+                .rememberMeParameter("remember-me")
+//        .tokenValiditySeconds(3000)
+        ;
         //设置session
         http
                 .sessionManagement()
@@ -83,19 +104,11 @@ public class GemWebSecurityConfg extends WebSecurityConfigurerAdapter {
     /**
      * 添加 UserDetailsService， 实现自定义登录校验
      */
-    @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userService()).passwordEncoder(passwordEncoder());
     }
 
-    @Autowired
-    private AuthenticationSuccessHandler gemLoginSuccessHandler; //认证成功结果处理器
 
-    @Autowired
-    private AuthenticationFailureHandler gemLoginFailureHandler; //认证失败结果处理器
-
-    @Resource
-    private GemFilterSecurityInterceptor gemFilterSecurityInterceptor; //自定义拦截
 
     //完成自定义认证实体注入
     @Bean

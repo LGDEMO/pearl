@@ -1,17 +1,11 @@
 package com.gemframework.cms.controller;
 
-import com.gemframework.cms.common.security.scheme.GemMetadataSourceService;
-import com.gemframework.cms.service.UserService;
+import com.gemframework.cms.common.security.authorization.GemMetadataSourceService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.session.SessionInformation;
-import org.springframework.security.core.session.SessionRegistry;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 /**
  * @Title: LoginController.java
@@ -28,12 +22,8 @@ import java.util.List;
 @Controller
 public class LoginController {
 
-
     @Autowired
     GemMetadataSourceService gemMetadataSourceService;
-//
-//    @Autowired
-//    SessionRegistry sessionRegistry;
 
     @GetMapping("/login")
     public String login(){
@@ -60,11 +50,6 @@ public class LoginController {
     @GetMapping({"/index"})
     public String index(){
         return "index";
-    }
-
-    @GetMapping({"/home"})
-    public String index2(){
-        return "home";
     }
 
     @GetMapping({"/boxed"})

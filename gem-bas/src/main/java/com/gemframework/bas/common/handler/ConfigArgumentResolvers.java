@@ -1,5 +1,6 @@
 package com.gemframework.bas.common.handler;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
@@ -7,6 +8,7 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestResponseBody
 import org.springframework.web.servlet.mvc.method.annotation.ServletModelAttributeMethodProcessor;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,6 +30,7 @@ import java.util.List;
 @Configuration
 public class ConfigArgumentResolvers {
 
+    @Resource
     private final RequestMappingHandlerAdapter requestMappingHandlerAdapter;
 
     public ConfigArgumentResolvers(RequestMappingHandlerAdapter requestMappingHandlerAdapter) {

@@ -29,13 +29,13 @@ public class GemExceptionHandle {
     @ExceptionHandler(Exception.class)
     @ResponseBody
     public BaseResult handleExp(HttpServletRequest request, Exception ex) {
+        ex.printStackTrace();
         if (ex instanceof GemException) {
             logger.error("GemException: code:{},msg:{}" ,((GemException) ex).getCode(), ex.getMessage());
             GemException gemException = (GemException) ex;
             return BaseResult.ERROR(gemException.getCode(), gemException.getMessage());
         } else {
             logger.error("System Exception: code:{},msg:{}" , ex.getStackTrace(),ex.getMessage());
-            ex.printStackTrace();
             return BaseResult.ERROR(ResultCode.SYSTEM_EXCEPTION.getCode(), ResultCode.SYSTEM_EXCEPTION.getMsg());
         }
     }

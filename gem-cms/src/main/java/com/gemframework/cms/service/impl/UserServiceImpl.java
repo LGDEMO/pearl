@@ -321,7 +321,7 @@ public class UserServiceImpl implements UserService {
                 simpleGrantedAuthorities.add(new SimpleGrantedAuthority(GemConstant.Auth.ROLE_PREFIX +role.getFlag()));
             }
         }
-        log.info("当前登录用户角色:{}",simpleGrantedAuthorities);
+        log.debug("当前登录用户角色:{}",simpleGrantedAuthorities);
         return simpleGrantedAuthorities;
     }
 

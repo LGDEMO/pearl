@@ -9,7 +9,7 @@ var setting = {
         dataFilter: null,
         dataType : "text/json",
         type: "GET",
-        url: "../findAllMenusTree",
+        url: "../common/findAllMenusTree",
         autoParam: ["id=ids"],//, "name=n", "level=lv"可以设置提交时的参数名称，例如 server 只接受 zId : ["id=zId"] ; 默认值空
         otherParam : [],//其他参数 ;直接用 JSON 格式制作键值对，例如：{ key1:value1, key2:value2 }
         contentType : "application/x-www-form-urlencoded",//设置上下文类型
@@ -171,7 +171,7 @@ function getMenuTree() {
     //获取所有资源树（包括按钮，其他资源）
     $.ajax({
         type: "get",
-        url: "../findAllMenusTree",
+        url: "../common/findAllMenusTree",
         data: {
             // "id": id
         },
@@ -192,7 +192,7 @@ function getMenuTree() {
     //获取所有菜单树
     $.ajax({
         type: "get",
-        url: "../findMenusTree",
+        url: "../common/findMenusTree",
         data: {
             // "id": id
         },

@@ -22,18 +22,18 @@
     <table id="example-advanced" class="table table-bordered">
         <thead>
              <tr>
-                 <th style="width:310px;font-weight: bold">资源名称</th>
+                 <th style="width:250px;font-weight: bold">资源名称</th>
                  <th style="font-weight: bold">资源类型</th>
                  <th style="font-weight: bold">资源标识</th>
                  <th style="font-weight: bold">跳转路由</th>
                  <!--<th>所属级别</th>-->
                  <th style="font-weight: bold">资源图标</th>
-                 <th style="font-weight: bold">排序序号</th>
-                 <th style="font-weight: bold">操作</th>
+                 <th style="font-weight: bold">排序</th>
+                 <th style="font-weight: bold;width: 150px;">操作</th>
              </tr>
         </thead>
         <tbody>
-            <tr th:each="menu:${list_menus}" th:data-tt-id="${menu.idPath}" th:data-tt-parent-id="${menu.parentIdPath}">
+            <tr th:each="menu:${list_menus}" th:data-tt-id="${menu.idPath}" th:data-tt-parent-id="${menu.parentIdPath}" >
                 <td class="align_left_col">
                     <!--<span class="folder"></span>-->
                     <span th:if="${menu.level == 1}">
@@ -75,8 +75,7 @@
 <script language="javascript">
     $("#example-advanced").treetable({
         expandable: true,
-        initialState:"expanded",
-        //expandable : true
+        initialState:"expanded",//初始化状态 expanded：展开
         clickableNodeNames:true,//点击节点名称也打开子节点.
         indent : 30,//每个分支缩进的像素数。
     });

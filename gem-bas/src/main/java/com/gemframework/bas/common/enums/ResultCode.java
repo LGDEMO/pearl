@@ -22,6 +22,8 @@ public enum ResultCode {
     PARAM_EXCEPTION(1000,"参数错误"),
     DATA_EXIST(1001,"数据已存在"),
     DATA_NOT_EXIST(1002,"数据不存在"),
+    CRATE_IMAGE_ERROR(1003,"生成图形验证码失败"),
+    VERIFY_CODE_ERROR(1004,"验证验证码失败"),
 
     //业务错误码 10000-99999
     USER_EXIST(10000,"用户已存在"),

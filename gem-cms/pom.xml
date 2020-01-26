@@ -5,35 +5,22 @@
     <parent>
         <groupId>com.gemframework</groupId>
         <artifactId>gem</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>1.0.0</version>
         <relativePath/>
     </parent>
     <groupId>com.gemframework.cms</groupId>
     <artifactId>gem-cms</artifactId>
     <name>gem-cms</name>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>${parent.version}</version>
     <packaging>jar</packaging>
     <description>gem-cms project for Spring Boot</description>
 
     <dependencies>
+        <!--gem-->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
+            <groupId>com.gemframework.bas</groupId>
+            <artifactId>gem-bas</artifactId>
+            <version>${parent.version}</version>
         </dependency>
 
         <!--安全框架-->
@@ -60,15 +47,6 @@
             <artifactId>thymeleaf-extras-springsecurity5</artifactId>
         </dependency>
 
-        <!--gem-->
-        <dependency>
-            <groupId>com.gemframework.bas</groupId>
-            <artifactId>gem-bas</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-            <scope>compile</scope>
-        </dependency>
-
-
         <!--热部署-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -77,6 +55,15 @@
             <scope>true</scope>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/com.github.penggle/kaptcha -->
+        <dependency>
+            <groupId>com.github.penggle</groupId>
+            <artifactId>kaptcha</artifactId>
+        </dependency>
+
+
+
+        <!--测试相关-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -88,6 +75,7 @@
                 </exclusion>
             </exclusions>
         </dependency>
+
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
@@ -96,6 +84,7 @@
     </dependencies>
 
     <build>
+        <finalName>${project.artifactId}</finalName>
 
         <plugins>
             <plugin>
@@ -104,6 +93,15 @@
                 <configuration>
                     <fork>true</fork>
                     <addResources>true</addResources>
+                </configuration>
+            </plugin>
+
+            <!-- 跳过单元测试 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <skipTests>true</skipTests>
                 </configuration>
             </plugin>
 
@@ -139,14 +137,4 @@
             </resource>
         </resources>
     </build>
-
-    <!-- 使用aliyun maven -->
-    <repositories>
-        <repository>
-            <id>aliyun</id>
-            <name>aliyun</name>
-            <url>http://maven.aliyun.com/nexus/content/groups/public</url>
-        </repository>
-    </repositories>
-
 </project>
