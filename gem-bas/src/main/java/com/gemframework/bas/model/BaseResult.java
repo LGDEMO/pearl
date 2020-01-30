@@ -1,5 +1,6 @@
 package com.gemframework.bas.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gemframework.bas.common.enums.ResultCode;
@@ -32,6 +33,9 @@ public class BaseResult {
     private String msg;
 
     // 响应中的数据
+    private Integer count;
+
+    // 响应中的数据
     private Object data;
 
     public BaseResult() {
@@ -45,6 +49,9 @@ public class BaseResult {
     }
 
     public BaseResult(Object data) {
+        if(data instanceof List){
+            this.count = ((List) data).size();
+        }
         this.code = 0;
         this.msg = "OK";
         this.data = data;
@@ -104,6 +111,7 @@ public class BaseResult {
     public static BaseResult SUCCESS(Object data) {
         return new BaseResult(data);
     }
+
 
     /**
      * @Title:  SUCCESS

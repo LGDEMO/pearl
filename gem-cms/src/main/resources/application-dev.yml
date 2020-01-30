@@ -6,9 +6,11 @@ server:
 
 
 gem:
-  min: 0.01
-  max: 999
-  desc: 这是自定义配置，最小值${gem.min},最大值${gem.max}
+#
+#  min: 0.01
+#  max: 999
+#  desc: 这是自定义配置，最小值${gem.min},最大值${gem.max}
+#  outPut: asb
   security:
     open: true
     login-page: /login
@@ -23,6 +25,16 @@ gem:
 
   swagger:
     web-package-path: com.gemframework.cms.controller
+
+  out-put: xxx
+  min: 1
+  max: 99
+  desc: hahahaha
+  system:
+    min: 2
+    max: 22
+    desc: xxdd
+    out-put: wwww
 
 
 spring:

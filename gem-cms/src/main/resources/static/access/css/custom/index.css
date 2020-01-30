@@ -282,8 +282,9 @@ td{border: none !important;}
 .top input[type=tel]{text-align: left;width: 247px;height:28px;border-radius: 4px;font-size: 14px;border: 1px #ccc solid}
 .top input[type=number]{text-align: left;width: 247px;height:28px;border-radius: 4px;font-size: 14px;border: 1px #ccc solid}
 .top input[type=date]{text-align: left;width: 247px;height:28px;border-radius: 4px;font-size: 14px;border: 1px #ccc solid}
-.top input[class=block],.top input[class='block error']{text-align: left;width: 590px;height:28px;border-radius: 4px;font-size: 14px;border: 1px #ccc solid}
-.top td textarea{width: 590px;height: 70px;resize: none;border-radius: 4px;border: 1px #ccc solid;margin-top: 5px;}
+/*.top input[class=block],.top input[class='block error']{text-align: left;width: 590px;height:28px;border-radius: 4px;font-size: 14px;border: 1px #ccc solid}*/
+.top select,.top input[class=block],.top input[class='block error']{text-align: left;width:98%;height:28px;border-radius: 4px;font-size: 14px;border: 1px #ccc solid}
+.top td textarea{width: 98%;height: 70px;resize: none;border-radius: 4px;border: 1px #ccc solid;margin-top: 5px;}
 .notice_bot{position: fixed;bottom: 0;background-color: #ecf0f5;padding: 5px 0 5px 0;z-index:9999;border-top:1px #ccc solid;width: 100%;}
 .notice_bot>div{font-size: 12px;margin-left: 10px;color: #07141e;line-height: 28px}
 .notice_bot>div input{margin:0 2px 0 0;vertical-align: middle}
@@ -343,6 +344,14 @@ td{border: none !important;}
 .skin-blue .sidebar-menu > li.active > a .a5{color: #ffffff;background: #112d4a;border-left-color: lightseagreen;}
 .skin-blue .sidebar-menu > li > .treeview-menu5{margin: 0 1px;background: #112d4a;}
 
-
-
-
+.layui-btn {
+    background-color: #337ab7;
+}
+.layui-laypage .layui-laypage-curr .layui-laypage-em {
+    background-color: #337ab7;
+}
+.layui-form-checked[lay-skin=primary] i {
+    border-color: #337ab7 !important;
+    background-color: #337ab7;
+    color: #fff;
+}

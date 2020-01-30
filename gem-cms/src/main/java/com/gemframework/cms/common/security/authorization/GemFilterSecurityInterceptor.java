@@ -62,6 +62,7 @@ public class GemFilterSecurityInterceptor extends  AbstractSecurityInterceptor i
             "/static",
             "/home",
             "/common",
+            "/demo",
 
             //单链接
             "/403",

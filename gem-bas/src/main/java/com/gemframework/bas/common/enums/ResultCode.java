@@ -24,6 +24,7 @@ public enum ResultCode {
     DATA_NOT_EXIST(1002,"数据不存在"),
     CRATE_IMAGE_ERROR(1003,"生成图形验证码失败"),
     VERIFY_CODE_ERROR(1004,"验证验证码失败"),
+    MODULE_ATTR_ERROR(1005,"请完善模块属性（字段）信息"),
 
     //业务错误码 10000-99999
     USER_EXIST(10000,"用户已存在"),

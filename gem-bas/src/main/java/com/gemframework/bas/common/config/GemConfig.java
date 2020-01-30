@@ -2,6 +2,7 @@ package com.gemframework.bas.common.config;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
@@ -19,9 +20,11 @@ import java.math.BigDecimal;
 @Data
 @Component
 @ConfigurationProperties(prefix = "gem")
+@PropertySource("classpath:application.yml")
 public class GemConfig {
 
     private BigDecimal min;
     private BigDecimal max;
     private String desc;
+    private String outPut;
 }

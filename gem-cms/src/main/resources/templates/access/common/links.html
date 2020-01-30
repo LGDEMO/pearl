@@ -9,6 +9,11 @@
         <link rel="stylesheet" type="text/css" th:href="@{/static/access/js/bootstrap/css/bootstrap.min.css}">
         <link rel="stylesheet" type="text/css" th:href="@{/static/access/plugins/layer/theme/default/layer.css}">
     </div>
+    <div th:fragment="layui_links">
+        <!--layui css-->
+        <link rel="stylesheet" type="text/css" th:href="@{/static/access/plugins/layui/css/layui.css}">
+<!--        <link rel="stylesheet" type="text/css" th:href="@{https://www.layuicdn.com/layui/css/layui.css}">-->
+    </div>
     <div th:fragment="custom_links">
         <!--自定义-->
         <link rel="stylesheet" type="text/css" th:href="@{/static/access/css/custom/index.css}">
@@ -79,6 +84,17 @@
                 return o;
             };
         </script>
+    </div>
+
+    <!--jquery页面-->
+    <div th:fragment="jquery_script">
+        <script type="text/javascript" th:src="@{/static/access/js/jquery/jquery.min.js}"></script>
+    </div>
+
+    <!--layui页面-->
+    <div th:fragment="layui_script">
+        <script type="text/javascript" th:src="@{/static/access/plugins/layui/layui.js}"></script>
+<!--        <script type="text/javascript" th:src="@{https://www.layuicdn.com/layui/layui.js}"></script>-->
     </div>
 
     <!--有table页面-->

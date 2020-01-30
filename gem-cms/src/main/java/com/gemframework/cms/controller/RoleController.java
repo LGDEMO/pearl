@@ -63,9 +63,9 @@ public class RoleController {
      * @Description:
      * @Date: 2019-12-05 22:22:32
      */
-    @PostMapping("delete/{id}")
+    @PostMapping("delete")
     @ResponseBody
-    public BaseResult delete(@PathVariable("id") Long id){
+    public BaseResult delete(Long id){
         roleService.delete(id);
         return BaseResult.SUCCESS();
     }

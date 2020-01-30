@@ -8,7 +8,8 @@ server:
 gem:
   min: 0.01
   max: 999
-  desc: 这是自定义配置，最小值${gem.min},最大值${gem.max}
+  desc: A这是自定义配置，最小值${gem.min},最大值${gem.max}
+
 
   redis:
     open: false

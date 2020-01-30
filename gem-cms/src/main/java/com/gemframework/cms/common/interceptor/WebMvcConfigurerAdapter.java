@@ -33,6 +33,7 @@ public class WebMvcConfigurerAdapter implements WebMvcConfigurer  {
             "/druid/**",
             "/home/**",
             "/common/**",
+            "/demo/**",
             //单链接
             "/403",
             "/404",

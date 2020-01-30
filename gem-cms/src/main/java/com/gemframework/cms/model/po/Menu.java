@@ -1,9 +1,7 @@
 package com.gemframework.cms.model.po;
 
 import com.gemframework.bas.model.po.BasePo;
-import com.gemframework.cms.model.vo.MenuVo;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;

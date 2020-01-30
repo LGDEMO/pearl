@@ -256,16 +256,14 @@
         }, function(){
             $.ajax({
                 type: "post",
-                url: "delete/"+id,
-                // data: JSON.stringify($('#form').serializeObject()),
-                data: {'id':id},
+                url: "delete",
+                data: {
+                    "id":parseInt(id)
+                },
                 async:true, // 异步请求
                 cache:false, // 设置为 false 将不缓存此页面
                 dataType: "json", // 返回对象
-                contentType:"application/json;charset=UTF-8",
                 success: function(res) {
-                    console.log("res.code=="+res.code);
-                    console.log("res=="+JSON.stringify(res));
                     if (res.code == "0") {
                         layer.msg('删除成功！', {icon: 1});
                         $('#table').bootstrapTable("refresh");
