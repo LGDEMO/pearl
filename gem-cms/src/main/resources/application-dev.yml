@@ -24,23 +24,20 @@ gem:
     open: true
 
   swagger:
-    web-package-path: com.gemframework.cms.controller
+    web-package-path: com.gemframework.controller
 
-  out-put: xxx
-  min: 1
-  max: 99
-  desc: hahahaha
   system:
     min: 2
     max: 22
     desc: xxdd
-    out-put: wwww
+    generate-code-server-path: /app
 
 
 spring:
   jpa:
     # 是否打印sql
     show-sql: false
+    generate-ddl: true
     hibernate:
       # 开启自动建表功能，一般选update，每次启动会对比实体和数据表结构是否相同，不相同会更新
       ddl-auto: update
@@ -92,11 +89,27 @@ spring:
         # IP黑名单 (存在共同时，deny优先于allow)
         deny: 192.168.1.73,192.168.163.1
         #  禁用HTML页面上的“Reset All”功能
-        reset-enable: false
+        reset-enable: true
         # 登录名
-        login-username: admin
-        # 登录密码
-        login-password: 123456
+#        login-username: admin
+#        # 登录密码
+#        login-password: 123456
+
+    #初始化数据库表配置
+#    platform: mysql
+#    #启动时需要初始化的建表语句
+#    #schema: classpath:schema-mysql.sql
+#    #初始化的数据
+#    data: classpath:gem-mysql.sql
+#    # Initialize the datasource with available DDL and DML scripts.
+#    initialization-mode: always
+#    continue-on-error: false
+#    #schema-password:
+#    #schema-username:
+#    data-password: root
+#    data-username: root
+#    sql-script-encoding: utf-8
+#    separator: ;
 
   redis:
     host: 127.0.0.1

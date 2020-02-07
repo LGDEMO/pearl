@@ -7,7 +7,7 @@
         <artifactId>gem</artifactId>
         <version>1.0.0</version>
     </parent>
-    <groupId>com.gemframework.bas</groupId>
+    <groupId>com.gemframework</groupId>
     <artifactId>gem-bas</artifactId>
     <name>gem-bas</name>
     <version>${parent.version}</version>
@@ -34,6 +34,12 @@
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.github.penggle/kaptcha -->
+        <dependency>
+            <groupId>com.github.penggle</groupId>
+            <artifactId>kaptcha</artifactId>
         </dependency>
 
         <dependency>

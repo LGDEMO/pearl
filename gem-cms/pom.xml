@@ -8,7 +8,7 @@
         <version>1.0.0</version>
         <relativePath/>
     </parent>
-    <groupId>com.gemframework.cms</groupId>
+    <groupId>com.gemframework</groupId>
     <artifactId>gem-cms</artifactId>
     <name>gem-cms</name>
     <version>${parent.version}</version>
@@ -18,7 +18,7 @@
     <dependencies>
         <!--gem-->
         <dependency>
-            <groupId>com.gemframework.bas</groupId>
+            <groupId>com.gemframework</groupId>
             <artifactId>gem-bas</artifactId>
             <version>${parent.version}</version>
         </dependency>
@@ -55,11 +55,6 @@
             <scope>true</scope>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/com.github.penggle/kaptcha -->
-        <dependency>
-            <groupId>com.github.penggle</groupId>
-            <artifactId>kaptcha</artifactId>
-        </dependency>
 
 
 

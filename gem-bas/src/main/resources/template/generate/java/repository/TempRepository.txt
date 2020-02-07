@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 
 /**
  * @Title: ${Entity}Repository.java
- * @Package: com.gemframework.bas.repository
+ * @Package: com.gemframework.repository
  * @Date: ${datetime}
  * @Version: v1.0
  * @Description: 这里写描述

@@ -55,6 +55,15 @@
     <div th:fragment="validate_links">
         <link rel="stylesheet" type="text/css" th:href="@{/static/access/plugins/validate/css/prompt.css}">
     </div>
+    <!-- 点击出现菜单（右键菜单）-->
+    <div th:fragment="menus_links">
+        <link rel="stylesheet" type="text/css" th:href="@{/static/access/plugins/menus/css/ionicons.min.css}">
+        <link rel="stylesheet" type="text/css" th:href="@{/static/access/plugins/menus/css/normalize.css}">
+        <link rel="stylesheet" type="text/css" th:href="@{/static/access/plugins/menus/css/zzsc.css}">
+        <link rel="stylesheet" type="text/css" th:href="@{/static/access/plugins/menus/dist/basicContext.min.css}">
+        <link rel="stylesheet" type="text/css" th:href="@{/static/access/plugins/menus/dist/themes/default.min.css}">
+        <link rel="stylesheet" type="text/css" th:href="@{/static/access/plugins/menus/fonts/ionicons.ttf}">
+    </div>
 
 
     <!--js部分-->
@@ -113,12 +122,17 @@
     <div th:fragment="multiselect_script">
         <script type="text/javascript" th:src="@{/static/access/plugins/multiselect/js/bootstrap-multiselect.js}"></script>
     </div>
+
     <!-- 表单校验提示-->
     <div th:fragment="validate_script">
         <script type="text/javascript" th:src="@{/static/access/plugins/validate/js/jquery.validate.min.js}"></script>
         <script type="text/javascript" th:src="@{/static/access/plugins/validate/js/messages_zh.min.js}"></script>
         <script type="text/javascript" th:src="@{/static/access/plugins/validate/js/prompt.js}"></script>
+    </div>
 
+    <!-- 右键菜单-->
+    <div th:fragment="menus_script">
+        <script type="text/javascript" th:src="@{/static/access/plugins/menus/dist/basicContext.min.js}"></script>
     </div>
 </body>
 </html>

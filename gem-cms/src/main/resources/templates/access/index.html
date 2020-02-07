@@ -4,6 +4,7 @@
     <title>首页 | GemFrame开源权限管理系统v1.0.0</title>
     <div th:replace="common/links::common_links"></div>
     <div th:replace="common/links::font_links"></div>
+    <div th:replace="common/links::menus_links"></div>
     <link rel="stylesheet" href="static/access/css/custom/index.css">
     <link rel="stylesheet" href="static/access/css/skins/_all-skins.css">
 </head>
@@ -18,11 +19,26 @@
         <div th:replace="common/lefter::left_sidebar"></div>
         <!--中间内容-->
         <div th:replace="common/main::main"></div>
-
     </div>
     <div th:replace="common/links::common_script"></div>
+    <div th:replace="common/links::menus_script"></div>
     <script src="static/access/js/custom/index.js"></script>
     <script>
+        //屏蔽右键菜单
+        document.oncontextmenu = function (event){
+            if(window.event){
+                event = window.event;
+            }try{
+                var the = event.srcElement;
+                if (!((the.tagName == "INPUT" && the.type.toLowerCase() == "text") || the.tagName == "TEXTAREA")){
+                    return false;
+                }
+                return true;
+            }catch (e){
+                return false;
+            }
+        }
+
         function userinfo(){
             layer.open({
                 type: 2,
@@ -35,6 +51,38 @@
                 content: 'home/userInfo',
             });
         }
+
+        var onClick = function(e) {
+            var clicked = function() { alert('Item clicked!') }
+            var logout = function() { location.href="logout" }
+            var items = [
+                // $('.tabReload').on('click', $.learuntab.refreshTab);
+                { title: '刷新当前', icon: 'ion-loop', fn: $.learuntab.refreshTab },
+                { title: '关闭当前', icon: 'ion-android-close', fn: function () {
+                        $('.page-tabs-content').find('.active i').trigger("click");
+                    } },
+                { title: '关闭其他', icon: 'ion-android-checkmark-circle', fn: $.learuntab.closeOtherTabs },
+                { title: '关闭所有', icon: 'ion-minus-circled', fn: function () {
+                        $('.page-tabs-content').children("[data-id]").find('.fa-remove').each(function () {
+                            $('.LRADMS_iframe[data-id="' + $(this).data('id') + '"]').remove();
+                            $(this).parents('a').remove();
+                        });
+                        $('.page-tabs-content').children("[data-id]:first").each(function () {
+                            $('.LRADMS_iframe[data-id="' + $(this).data('id') + '"]').show();
+                            $(this).addClass("active");
+                        });
+                        $('.page-tabs-content').css("margin-left", "0");
+                    }},
+                { title: '更多功能', icon: 'ion-android-apps', fn: clicked, disabled: true },
+                { title: 'Invisible', icon: 'ion-eye-disabled', fn: clicked, visible: false },
+                // { },
+                { title: '退出登录', icon: 'ion-log-out', fn: logout }
+            ]
+            basicContext.show(items, e)
+        }
+        document.addEventListener('DOMContentLoaded', function() {
+            //暂不做任何处理
+        })
     </script>
 </body>
 </html>

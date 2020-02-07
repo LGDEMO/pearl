@@ -158,10 +158,13 @@
 
     function reviewDate() {
         roleArr = [[${edit_user.roles}]];
+        console.log("============="+JSON.stringify(roleArr))
         if(roleArr.length >0){
             var rolename = "";
             for(var i = 0; i < roleArr.length; i++) {
-                rolename += roleArr[i].rolename + ',';
+                if(roleArr[i] != null){
+                    rolename += roleArr[i].rolename + ',';
+                }
             }
             rolename = rolename.substr(0, rolename.length -1) ;
             $(".multiselect-selected-text").html(rolename);
@@ -239,8 +242,10 @@
                         optionHtml += "<option value='"+roleArr[i].id+"'>"+roleArr[i].rolename+"</option>";
                         var roles = [[${edit_user.roles}]];
                         for(var j = 0; j < roles.length; j++) {
-                            if(roleArr[i].rolename == roles[j].rolename){
-                                liActiveHtml = "class='active'";
+                            if(roles[j] != null){
+                                if(roleArr[i].rolename == roles[j].rolename){
+                                    liActiveHtml = "class='active'";
+                                }
                             }
                         }
                         liHtml += "<li "+liActiveHtml+"><a tabindex='0'><label class='checkbox' title='"+roleArr[i].rolename+"'><input type='checkbox' value='"+roleArr[i].id+"'>"+roleArr[i].rolename+"</label></a></li>";

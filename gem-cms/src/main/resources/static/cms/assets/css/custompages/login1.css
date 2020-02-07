@@ -23,6 +23,9 @@ a:hover{text-decoration:none}
 }
 .bg-login {
 	background-image: url('../../../assets/images/bg-01.jpg');
+	/*background-repeat:no-repeat;*/
+	/*background-size:100% 100%;*/
+	/*-moz-background-size:100% 100%;*/
 }
 .bg-login:before {
 	content: "";
@@ -34,7 +37,8 @@ a:hover{text-decoration:none}
 	top: 0;
 	left: 0;
 	background: #005bea;
-	background: -webkit-linear-gradient(bottom, #005bea, #00c6fb);
+	/*background: -webkit-linear-gradient(bottom, rgba(0, 123, 255, .25), #6c757d);*/
+	/*background: -webkit-linear-gradient(bottom, #005bea, #00c6fb);*/
 	background: -o-linear-gradient(bottom, #005bea, #00c6fb);
 	background: -moz-linear-gradient(bottom, #005bea, #00c6fb);
 	background: linear-gradient(bottom, #005bea, #00c6fb);

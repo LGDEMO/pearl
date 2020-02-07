@@ -31,14 +31,11 @@
 <script type="text/javascript" th:inline="javascript">
     var data = [
         {type: 'checkbox', fixed: 'left'}
-        , {field: 'attrNameEn', title: '属性名[英]', sort: false, edit: 'null'}
-        , {field: 'attrNameCn', title: '属性名[中]', sort: false, edit: 'null'}
-        , {field: 'filedName', title: '字段名称', sort: false, edit: 'null'}
+        , {field: 'attrName', title: '字段名称', sort: false, edit: 'null'}
+        , {field: 'comment', title: '字段描述', sort: false, edit: 'null'}
         , {field: 'attrType', title: '字段类型', sort: false, edit: 'null'}
         , {field: 'minLength', title: '最小长度', sort: false, edit: 'null'}
         , {field: 'maxLength', title: '最大长度', sort: false, edit: 'null'}
-        , {field: 'editType', title: '表格编辑', sort: false, edit: 'null'}
-
         , {fixed: 'right', title: '操作', toolbar: '#row_bar', width: 150}
     ];
     var moduleId = [[${moduleId}]];
@@ -94,7 +91,7 @@
                         return;
                     } else {
                         for (var i = 0; i < checkStatus.data.length; i++) {
-                            names += checkStatus.data[i].filedName + ","
+                            names += checkStatus.data[i].comment + ","
                         }
                         names = names.substring(0, names.length - 1);
                         layer.confirm('确定删除[' + names + ']吗？亲~', {

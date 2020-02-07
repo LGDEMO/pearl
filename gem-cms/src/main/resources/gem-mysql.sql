@@ -1,0 +1,622 @@
+/*
+Navicat MySQL Data Transfer
+
+Source Server         : 127.0.0.1
+Source Server Version : 50636
+Source Host           : localhost:3306
+Source Database       : pearl
+
+Target Server Type    : MYSQL
+Target Server Version : 50636
+File Encoding         : 65001
+
+Date: 2020-01-31 17:47:00
+*/
+-- 记的创建数据库
+-- CREATE DATABASE IF NOT EXISTS pearl
+-- DEFAULT CHARACTER SET utf8mb4
+-- DEFAULT COLLATE utf8mb4_general_ci;
+
+SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for gem_code
+-- ----------------------------
+DROP TABLE IF EXISTS `gem_code`;
+CREATE TABLE `gem_code` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `createtime` datetime DEFAULT NULL COMMENT '创建时间',
+  `updatetime` datetime DEFAULT NULL COMMENT '更新时间',
+  `name_cn` varchar(60) NOT NULL COMMENT '模块中文名称',
+  `name_en` varchar(30) NOT NULL COMMENT '模块英文名称',
+  `package_name` varchar(30) NOT NULL COMMENT '包名',
+  `is_del` varchar(60) NOT NULL COMMENT '是否具备删除功能',
+  `is_edit` varchar(60) NOT NULL COMMENT '是否具备编辑功能',
+  `is_query` varchar(60) NOT NULL COMMENT '主键名称',
+  `pk_nane` varchar(60) NOT NULL COMMENT '主键名称',
+  `is_add` tinyint(1) NOT NULL COMMENT '是否具备添加功能 0：是 1：否',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of gem_code
+-- ----------------------------
+INSERT INTO `gem_code` VALUES ('1', null, '2020-01-28 12:13:50', '车辆管理', 'car', 'com.gemframework.bas', '', '', '', '', '0');
+INSERT INTO `gem_code` VALUES ('4', null, '2020-01-28 12:12:54', '111121212', 'car11211112121212', 'com.gemframework.bas1', '', '', '', '', '0');
+INSERT INTO `gem_code` VALUES ('5', '2020-01-27 22:00:29', '2020-01-27 22:00:29', '222', '2222', 'com.gemframework.bas12', '', '', '', '', '0');
+INSERT INTO `gem_code` VALUES ('6', '2020-01-28 12:05:23', '2020-01-28 12:05:23', '34', '21212', '12', '', '', '', '', '0');
+INSERT INTO `gem_code` VALUES ('7', null, '2020-01-28 12:13:05', '1212', '121212', 'WWWW', '', '', '', '', '0');
+
+-- ----------------------------
+-- Table structure for gem_demo
+-- ----------------------------
+DROP TABLE IF EXISTS `gem_demo`;
+CREATE TABLE `gem_demo` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `createtime` datetime DEFAULT NULL COMMENT '创建时间',
+  `updatetime` datetime DEFAULT NULL COMMENT '更新时间',
+  `name` varchar(10) NOT NULL COMMENT '名称',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of gem_demo
+-- ----------------------------
+INSERT INTO `gem_demo` VALUES ('3', '2020-01-26 16:38:32', '2020-01-26 16:38:32', 'demoSer');
+
+-- ----------------------------
+-- Table structure for gem_dept
+-- ----------------------------
+DROP TABLE IF EXISTS `gem_dept`;
+CREATE TABLE `gem_dept` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `createtime` datetime DEFAULT NULL COMMENT '创建时间',
+  `updatetime` datetime DEFAULT NULL COMMENT '更新时间',
+  `abbr` varchar(20) DEFAULT NULL COMMENT '简称',
+  `boss` varchar(10) DEFAULT NULL COMMENT '负责人',
+  `desp` varchar(50) DEFAULT NULL COMMENT '描述',
+  `email` varchar(20) DEFAULT NULL COMMENT '邮箱',
+  `id_path` varchar(20) DEFAULT NULL COMMENT 'ID路径',
+  `level` tinyint(1) DEFAULT NULL COMMENT '级别',
+  `name` varchar(10) NOT NULL COMMENT '部门名称',
+  `num` varchar(20) DEFAULT NULL COMMENT '部门编号',
+  `pid` int(20) DEFAULT NULL COMMENT '父ID',
+  `series` varchar(20) DEFAULT NULL COMMENT '所属系列',
+  `tel` varchar(20) DEFAULT NULL COMMENT '电话',
+  `type` varchar(20) DEFAULT NULL COMMENT '类型',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of gem_dept
+-- ----------------------------
+INSERT INTO `gem_dept` VALUES ('1', '2019-12-28 14:30:55', '2019-12-28 14:30:55', '', '', '', '', '01', '1', '北京分公司', '', '0', '01', '', '');
+INSERT INTO `gem_dept` VALUES ('2', '2019-12-28 14:31:12', '2019-12-28 14:31:12', '', '', '', '', '02', '1', '广东分公司', '', '0', '02', '', '');
+INSERT INTO `gem_dept` VALUES ('3', null, '2019-12-28 14:31:35', '', '', '', '', '02-03', '2', '深圳分公司', '', '2', '02', '', '');
+INSERT INTO `gem_dept` VALUES ('4', null, '2019-12-28 14:31:45', '', '', '', '', '02-04', '2', '广州分公司', '', '2', '02', '', '');
+INSERT INTO `gem_dept` VALUES ('5', null, '2019-12-30 15:01:27', '海淀', '李四', '', '', '01-05', '2', '海淀办事处', '01001', '1', '01', '', '内部');
+INSERT INTO `gem_dept` VALUES ('6', null, '2020-01-26 13:31:05', '', '', '', '', '06', '1', '上海分公司', '', '0', '06', '', '');
+INSERT INTO `gem_dept` VALUES ('7', null, '2020-01-09 19:45:34', '', '1212', '', '', '07', '1', '河北分公司', '1212', '0', '07', '', '');
+INSERT INTO `gem_dept` VALUES ('8', null, '2020-01-04 20:15:19', '', '', '', '', '08', '1', '天津分公司', '', '0', '08', '', '');
+INSERT INTO `gem_dept` VALUES ('10', null, '2020-01-10 10:19:28', '', '', '', '', '10', '1', '重庆分公司', '', '0', '10', '', '');
+INSERT INTO `gem_dept` VALUES ('11', null, '2020-01-04 20:13:40', '', '', '', '', '06-11', '2', '浦东分公司', '', '6', '06', '', '');
+INSERT INTO `gem_dept` VALUES ('12', null, '2020-01-26 13:31:10', 'SHFGSI', '张松', '', 'shanghai@qq.com', '06-12', '2', '松江分公司', '1001', '6', '06', '022-80898213', '自营');
+INSERT INTO `gem_dept` VALUES ('13', null, '2020-01-04 20:15:03', '', '', '', '', '07-13', '2', '邯郸分公司', '', '7', '07', '', '');
+INSERT INTO `gem_dept` VALUES ('14', null, '2020-01-04 20:15:10', '', '', '', '', '07-14', '2', '石家庄分公司', '', '7', '07', '', '');
+INSERT INTO `gem_dept` VALUES ('15', null, '2020-01-04 20:15:40', '', '', '', '', '08-15', '2', '静海分公司', '', '8', '08', '', '');
+INSERT INTO `gem_dept` VALUES ('16', null, '2020-01-15 11:22:16', '', '', '', '', '07-16', '2', '保定分公司', '', '7', '07', '', '');
+INSERT INTO `gem_dept` VALUES ('17', null, '2020-01-15 11:22:30', '', '', '', '', '10-17', '2', '重庆', '', '10', '10', '', '');
+
+-- ----------------------------
+-- Table structure for gem_menu
+-- ----------------------------
+DROP TABLE IF EXISTS `gem_menu`;
+CREATE TABLE `gem_menu` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `createtime` datetime DEFAULT NULL COMMENT '创建时间',
+  `updatetime` datetime DEFAULT NULL COMMENT '更新时间',
+  `active` tinyint(1) DEFAULT NULL COMMENT '是否选中 0 未选中 1 选中',
+  `icon` varchar(30) DEFAULT NULL COMMENT '图标',
+  `id_path` varchar(20) DEFAULT NULL COMMENT 'ID路径',
+  `level` tinyint(1) DEFAULT NULL COMMENT '级别，最大支持三级',
+  `link` varchar(50) DEFAULT NULL COMMENT '菜单/按钮链接',
+  `name` varchar(10) DEFAULT NULL COMMENT '菜单/按钮名称',
+  `pid` bigint(20) DEFAULT '0' COMMENT '父级ID',
+  `series` varchar(20) DEFAULT NULL COMMENT '所属系列',
+  `sort_number` int(10) DEFAULT NULL COMMENT '排序编号',
+  `tag` varchar(30) DEFAULT NULL COMMENT '菜单/按钮标签',
+  `type` tinyint(1) DEFAULT NULL COMMENT '类型 0菜单 1按钮 2其他',
+  `sort_path` varchar(150) DEFAULT NULL COMMENT '排序编号路径',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=66 DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of gem_menu
+-- ----------------------------
+INSERT INTO `gem_menu` VALUES ('2', null, '2020-01-19 15:16:12', null, 'fab fa-angular', '02', '1', '#', '权限管理', '0', '02', '8', 'menu_sys', '0', '08-02');
+INSERT INTO `gem_menu` VALUES ('3', null, '2020-01-27 18:46:18', null, 'fas fa-user-circle', '02-03', '2', 'user/list.html', '用户管理', '2', '02', '5', 'menu_user', '0', '08-02-05-02-03');
+INSERT INTO `gem_menu` VALUES ('4', null, '2020-01-12 12:03:15', null, 'fas fa-sitemap', '02-04', '2', 'dept/list.html', '部门管理', '2', '02', '4', 'menu_dept', '0', '08-02-04-02-04');
+INSERT INTO `gem_menu` VALUES ('5', null, '2020-01-12 12:01:16', null, 'fas fa-rocket', '02-05', '2', 'role/list.html', '角色管理', '2', '02', '2', 'menu_role', '0', '08-02-02-02-05');
+INSERT INTO `gem_menu` VALUES ('6', null, '2020-01-12 12:03:33', null, 'fab fa-adn', '02-06', '2', 'menu/list.html', '菜单管理', '2', '02', '1', 'menu_menu', '0', '08-02-01-02-06');
+INSERT INTO `gem_menu` VALUES ('7', null, '2020-01-31 17:46:05', null, 'fas fa-box', '07', '1', '#', '外部网站', '0', '07', '998', 'menu_website', '0', '998-07');
+INSERT INTO `gem_menu` VALUES ('8', null, '2020-01-31 17:46:05', null, 'fab fa-angular', '07-08', '2', 'http://www.baidu.com', '百度一下', '7', '07', '4', 'menu_api', '0', '998-07-04-07-08');
+INSERT INTO `gem_menu` VALUES ('9', null, '2020-01-31 17:46:05', null, 'fab fa-apple', '07-09', '2', 'https://0x9.me/VpFs3', '淘宝官网', '7', '07', '3', 'menu_app', '0', '998-07-03-07-09');
+INSERT INTO `gem_menu` VALUES ('10', null, '2020-01-31 17:45:55', null, 'fab fa-amilia', '10', '1', '#', '一级菜单', '0', '10', '999', 'menu_1', '0', '999-10');
+INSERT INTO `gem_menu` VALUES ('11', null, '2020-01-31 17:45:55', null, 'fab fa-amazon', '10-11', '2', '123', '二级菜单', '10', '10', '99', 'menu_2', '0', '999-10-99-10-11');
+INSERT INTO `gem_menu` VALUES ('12', null, '2020-01-31 17:45:55', null, 'fas fa-angle-double-right', '10-11-12', '3', 'HTTP://JSON.CN', '三级菜单', '11', '10', '99', 'menu_json', '0', '999-10-99-10-11-99-10-11-12');
+INSERT INTO `gem_menu` VALUES ('14', null, '2020-01-12 11:58:22', null, '', '02-06-14', '3', 'menu/delete', '删除按钮', '6', '02', '3', 'btn_menu_del', '1', '08-02-01-02-06-03-02-06-14');
+INSERT INTO `gem_menu` VALUES ('15', null, '2020-01-12 12:01:47', null, '', '02-05-15', '3', 'role/pageByParams', '分页查询', '5', '02', '1', 'fun_role_page', '2', '08-02-02-02-05-01-02-05-15');
+INSERT INTO `gem_menu` VALUES ('16', null, '2020-01-12 12:04:06', null, '', '02-04-16', '3', 'findAllDeptTree', '左侧菜单树', '4', '02', '99', 'fun_dept_tree', '2', '08-02-04-02-04-99-02-04-16');
+INSERT INTO `gem_menu` VALUES ('17', null, '2020-01-27 18:47:33', null, '', '02-03-17', '3', 'user/pageByParams', '分页查询', '3', '02', '1', 'fun_user_page', '2', '08-02-05-02-03-01-02-03-17');
+INSERT INTO `gem_menu` VALUES ('18', null, '2020-01-12 12:02:07', null, '', '02-05-18', '3', 'role/add', '添加/编辑', '5', '02', '99', 'fun_role_add', '2', '08-02-02-02-05-99-02-05-18');
+INSERT INTO `gem_menu` VALUES ('19', null, '2020-01-27 18:46:11', null, '', '02-04-19', '3', 'dept/getOne', '查询单个部门', '4', '02', '99', 'fun_dept_get', '2', '08-02-04-02-04-99-02-04-19');
+INSERT INTO `gem_menu` VALUES ('20', null, '2020-01-27 18:47:05', null, '', '02-04-20', '3', 'dept/add', '添加/编辑', '4', '02', '99', 'fun_dept_add', '2', '08-02-04-02-04-99-02-04-20');
+INSERT INTO `gem_menu` VALUES ('21', null, '2020-01-12 11:58:49', null, '', '02-06-21', '3', 'menu/add', '添加/编辑', '6', '02', '1', 'fun_menu_add', '2', '08-02-01-02-06-01-02-06-21');
+INSERT INTO `gem_menu` VALUES ('23', null, '2020-01-12 12:02:45', null, '', '02-05-23', '3', 'role/list', '下拉框角色列表', '5', '02', '991', 'fun_role_list', '2', '08-02-02-02-05-991-02-05-23');
+INSERT INTO `gem_menu` VALUES ('24', null, '2020-01-27 18:47:43', null, '', '02-03-24', '3', 'user/add', '添加/编辑', '3', '02', '99', 'fun_user_add', '2', '08-02-05-02-03-99-02-03-24');
+INSERT INTO `gem_menu` VALUES ('25', null, '2020-01-12 12:06:24', null, '', '02-06-25', '3', 'menu/add.html', '添加按钮', '6', '02', '99', 'btn_menu_add', '1', '08-02-01-02-06-99-02-06-25');
+INSERT INTO `gem_menu` VALUES ('26', null, '2020-01-12 11:57:08', null, '', '02-06-26', '3', 'menu/edit.html', '编辑按钮', '6', '02', '99', 'btn_menu_edit', '1', '08-02-01-02-06-99-02-06-26');
+INSERT INTO `gem_menu` VALUES ('27', '2020-01-12 12:04:53', '2020-01-12 12:04:53', null, '', '02-05-27', '3', 'role/add.html', '添加按钮', '5', '02', '99', 'btn_role_add', '1', '08-02-02-02-05-99-02-05-27');
+INSERT INTO `gem_menu` VALUES ('28', null, '2020-01-12 12:05:45', null, '', '02-05-28', '3', 'role/edit.html', '编辑按钮', '5', '02', '99', 'btn_role_edit', '1', '08-02-02-02-05-99-02-05-28');
+INSERT INTO `gem_menu` VALUES ('29', '2020-01-12 12:07:13', '2020-01-12 12:07:13', null, '', '02-05-29', '3', 'role/delete', '删除按钮', '5', '02', '99', 'btn_role_del', '1', '08-02-02-02-05-99-02-05-29');
+INSERT INTO `gem_menu` VALUES ('30', '2020-01-12 13:58:27', '2020-01-12 13:58:27', null, '', '02-03-30', '3', 'user/add.html', '添加按钮', '3', '02', '99', 'btn_user_add', '1', '08-02-05-02-03-99-02-03-30');
+INSERT INTO `gem_menu` VALUES ('31', '2020-01-12 13:58:52', '2020-01-12 13:58:52', null, '', '02-03-31', '3', 'user/edit.html', '编辑按钮', '3', '02', '99', 'btn_user_edit', '1', '08-02-05-02-03-99-02-03-31');
+INSERT INTO `gem_menu` VALUES ('32', null, '2020-01-31 17:46:13', null, 'fas fa-globe', '32', '1', '#', '源码下载', '0', '32', '997', 'menu_src', '0', '997-32');
+INSERT INTO `gem_menu` VALUES ('33', null, '2020-01-31 17:46:13', null, 'fab fa-github', '32-33', '2', 'https://gitee.com/gemteam/gemframe', '码云地址', '32', '32', '2', 'menu_gitee', '0', '997-32-02-32-33');
+INSERT INTO `gem_menu` VALUES ('34', null, '2020-01-31 17:46:13', null, 'fab fa-windows', '32-34', '2', 'http://www.gemframework.com', 'GemFrame官网', '32', '32', '3', 'menu_gem', '0', '997-32-03-32-34');
+INSERT INTO `gem_menu` VALUES ('35', null, '2020-01-31 17:46:13', null, 'fas fa-basketball-ball', '32-35', '2', 'http://www.gemframework.com/bbs', '官方社区', '32', '32', '1', 'menu_bbs', '0', '997-32-01-32-35');
+INSERT INTO `gem_menu` VALUES ('36', null, '2020-01-27 18:44:00', null, 'fas fa-cog', '36', '1', '112', '系统监控', '0', '36', '99', 'menu_monitor', '0', '99-36');
+INSERT INTO `gem_menu` VALUES ('37', null, '2020-01-27 18:42:49', null, 'fas fa-database', '36-37', '2', 'druid', '数据库监控', '36', '36', '99', 'menu_druid', '0', '99-36-99-36-37');
+INSERT INTO `gem_menu` VALUES ('38', null, '2020-01-27 18:43:13', null, 'fas fa-video', '38', '1', '#', '示例演示', '0', '38', '99', 'menu_demo', '0', '99-38');
+INSERT INTO `gem_menu` VALUES ('39', null, '2020-01-27 18:44:07', null, 'fab fa-first-order', '38-39', '2', 'demo/redis/index', 'Redis示例', '38', '38', '99', 'menu_redis', '0', '99-38-99-38-39');
+INSERT INTO `gem_menu` VALUES ('40', null, '2020-01-27 18:44:22', null, 'fas fa-lightbulb', '38-40', '2', 'swagger-ui.html', '接口调试', '38', '38', '99', 'menu_swagger', '0', '99-38-99-38-40');
+INSERT INTO `gem_menu` VALUES ('41', null, '2020-01-27 18:48:18', null, '', '02-41', '2', 'orderInfo', '首页订单信息', '2', '02', '99', 'fun_index_order', '2', '08-02-99-02-41');
+INSERT INTO `gem_menu` VALUES ('44', null, '2020-01-27 18:44:33', null, 'fas fa-adjust', '38-44', '2', 'demo/list.html', '测试模块', '38', '38', '99', 'menu_test', '0', '99-38-99-38-44');
+INSERT INTO `gem_menu` VALUES ('45', null, '2020-01-27 18:42:31', null, 'fas fa-code', '45', '1', 'generate/code/list.html', '代码生成', '0', '45', '99', 'menu_code', '0', '99-45');
+INSERT INTO `gem_menu` VALUES ('46', null, '2020-01-27 18:42:05', null, '', '45-46', '2', 'generate/code/pageByParams', '分页查询', '45', '45', '99', 'fun_code_page', '2', '99-45-99-45-46');
+INSERT INTO `gem_menu` VALUES ('47', null, '2020-01-27 18:40:04', null, '', '45-47', '2', 'generate/code/add.html', '添加按钮', '45', '45', '99', 'btn_code_add', '1', '99-45-99-45-47');
+INSERT INTO `gem_menu` VALUES ('48', null, '2020-01-27 18:40:18', null, '', '45-48', '2', 'generate/code/edit.html', '编辑按钮', '45', '45', '99', 'btn_code_edit', '1', '99-45-99-45-48');
+INSERT INTO `gem_menu` VALUES ('49', null, '2020-01-27 18:40:32', null, '', '45-49', '2', 'generate/code/delete', '删除按钮', '45', '45', '99', 'btn_code_del', '1', '99-45-99-45-49');
+INSERT INTO `gem_menu` VALUES ('50', '2020-01-27 18:41:07', '2020-01-27 18:41:07', null, '', '45-50', '2', 'generate/code/add', '添加/编辑', '45', '45', '99', 'fun_code_add', '1', '99-45-99-45-50');
+INSERT INTO `gem_menu` VALUES ('51', '2020-01-28 20:19:08', '2020-01-28 20:19:08', null, 'fab fa-modx', '45-51', '2', 'module/list.html', '模块管理', '45', '45', '99', 'menu_module', '0', '99-45-99-45-51');
+INSERT INTO `gem_menu` VALUES ('52', null, '2020-01-28 20:50:11', null, '', '45-51-52', '3', 'module/pageByParams', '分页查询', '51', '45', '99', 'fun_module_page', '1', '99-45-99-45-51-99-45-51-52');
+INSERT INTO `gem_menu` VALUES ('53', '2020-01-28 20:52:37', '2020-01-28 20:52:37', null, '', '45-51-53', '3', 'module/add.html', '添加按钮', '51', '45', '99', 'btn_module_add', '1', '99-45-99-45-51-99-45-51-53');
+INSERT INTO `gem_menu` VALUES ('54', '2020-01-28 20:53:04', '2020-01-28 20:53:04', null, '', '45-51-54', '3', 'module/edit.html', '编辑按钮', '51', '45', '99', 'btn_module_edit', '1', '99-45-99-45-51-99-45-51-54');
+INSERT INTO `gem_menu` VALUES ('55', '2020-01-28 20:53:44', '2020-01-28 20:53:44', null, '', '45-51-55', '3', 'module/delete', '删除按钮', '51', '45', '99', 'btn_module_del', '1', '99-45-99-45-51-99-45-51-55');
+INSERT INTO `gem_menu` VALUES ('56', '2020-01-28 20:54:18', '2020-01-28 20:54:18', null, '', '45-51-56', '3', 'module/add', '添加/编辑', '51', '45', '99', 'fun_module_add', '1', '99-45-99-45-51-99-45-51-56');
+INSERT INTO `gem_menu` VALUES ('57', '2020-01-29 18:26:39', '2020-01-29 18:26:39', null, 'fas fa-certificate', '45-57', '2', 'moduleAttr/list.html', '属性管理', '45', '45', '99', 'menu_module_attr', '0', '99-45-99-45-57');
+INSERT INTO `gem_menu` VALUES ('58', '2020-01-29 18:27:51', '2020-01-29 18:27:51', null, '', '45-57-58', '3', 'moduleAttr/pageByParams', '分页查询', '57', '45', '99', 'fun_moduleAttr_page', '1', '99-45-99-45-57-99-45-57-58');
+INSERT INTO `gem_menu` VALUES ('59', null, '2020-01-29 18:32:17', null, '', '45-57-59', '3', 'moduleAttr/add.html', '添加按钮', '57', '45', '99', 'btn_moduleAttr_add', '1', '99-45-99-45-57-99-45-57-59');
+INSERT INTO `gem_menu` VALUES ('60', null, '2020-01-29 18:32:26', null, '', '45-57-60', '3', 'moduleAttr/edit.html', '编辑按钮', '57', '45', '99', 'btn_moduleAttr_edit', '1', '99-45-99-45-57-99-45-57-60');
+INSERT INTO `gem_menu` VALUES ('61', '2020-01-29 18:32:05', '2020-01-29 18:32:05', null, '', '45-57-61', '3', 'moduleAttr/add', '添加/编辑', '57', '45', '99', 'fun_moduleAttr_add', '1', '99-45-99-45-57-99-45-57-61');
+INSERT INTO `gem_menu` VALUES ('62', '2020-01-29 18:33:05', '2020-01-29 18:33:05', null, '', '45-57-62', '3', 'moduleAttr/delete', '删除按钮', '57', '45', '99', 'btn_moduleAttr_delete', '1', '99-45-99-45-57-99-45-57-62');
+INSERT INTO `gem_menu` VALUES ('63', '2020-01-29 20:10:49', '2020-01-29 20:10:49', null, '', '45-57-63', '3', 'module/list', '获取模块列表', '57', '45', '99', 'fun_module_list', '1', '99-45-99-45-57-99-45-57-63');
+INSERT INTO `gem_menu` VALUES ('64', '2020-01-30 14:01:13', '2020-01-30 14:01:13', null, '', '45-51-64', '3', 'module/generateCode', '生成代码按钮', '51', '45', '99', 'btn_code_generate', '1', '99-45-99-45-51-99-45-51-64');
+INSERT INTO `gem_menu` VALUES ('65', null, '2020-01-30 22:08:52', null, '', '45-51-65', '3', 'module/downloadCode', '代码下载', '51', '45', '99', 'btn_module_download', '1', '99-45-99-45-51-99-45-51-65');
+
+-- ----------------------------
+-- Table structure for gem_module
+-- ----------------------------
+DROP TABLE IF EXISTS `gem_module`;
+CREATE TABLE `gem_module` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `createtime` datetime DEFAULT NULL COMMENT '创建时间',
+  `updatetime` datetime DEFAULT NULL COMMENT '更新时间',
+  `author` varchar(10) DEFAULT NULL COMMENT '作者签名',
+  `is_add` tinyint(1) NOT NULL DEFAULT '1' COMMENT '是否具备添加功能 1：是 0：否',
+  `is_del` tinyint(1) NOT NULL DEFAULT '1' COMMENT '是否具备删除功能 1：是 0：否',
+  `is_edit` tinyint(1) NOT NULL DEFAULT '1' COMMENT '是否具备编辑功能 1：是 0：否',
+  `is_query` tinyint(1) NOT NULL DEFAULT '1' COMMENT '是否具备查询功能 1：是 0：否',
+  `name_cn` varchar(60) NOT NULL COMMENT '模块中文名称',
+  `name_en` varchar(30) NOT NULL COMMENT '模块英文名称',
+  `package_name` varchar(30) NOT NULL COMMENT '包名',
+  `page_height` int(10) DEFAULT '450' COMMENT '编辑页面高度',
+  `page_width` int(10) DEFAULT '550' COMMENT '编辑页面宽度',
+  `pk_nane` varchar(60) NOT NULL COMMENT '主键名称',
+  `is_generate` tinyint(1) DEFAULT '0' COMMENT '是否生成CODE, 1：是 0：否',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of gem_module
+-- ----------------------------
+INSERT INTO `gem_module` VALUES ('2', null, '2020-01-31 14:35:04', 'zhangysh', '1', '1', '1', '1', '车辆管理', 'car', 'com.gemframework.cms', '450', '550', 'name', '0');
+INSERT INTO `gem_module` VALUES ('3', null, '2020-01-31 14:34:56', 'zhangysh', '1', '1', '1', '1', '测试', 'test', 'com.gemframework', '0', '550', 'name', '0');
+INSERT INTO `gem_module` VALUES ('4', null, '2020-01-31 14:36:50', 'gems', '1', '1', '1', '1', '苹果管理', 'apple', 'com.test', '500', '400', 'name', '0');
+
+-- ----------------------------
+-- Table structure for gem_module_attr
+-- ----------------------------
+DROP TABLE IF EXISTS `gem_module_attr`;
+CREATE TABLE `gem_module_attr` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `createtime` datetime DEFAULT NULL COMMENT '创建时间',
+  `updatetime` datetime DEFAULT NULL COMMENT '更新时间',
+  `attr_name_cn` varchar(30) NOT NULL COMMENT '属性中文名称',
+  `attr_name_en` varchar(30) NOT NULL COMMENT '属性英文名称',
+  `attr_type` varchar(30) NOT NULL COMMENT '字段类型',
+  `edit_type` varchar(10) NOT NULL COMMENT '编辑类型',
+  `filed_name` varchar(30) NOT NULL COMMENT '字段名称',
+  `is_null` tinyint(1) NOT NULL DEFAULT '1' COMMENT '是否为空 1允许为空 0不允许为空',
+  `is_qurey` tinyint(1) NOT NULL DEFAULT '1' COMMENT '是否支持查询 1支持 0不支持',
+  `is_table_sort` tinyint(1) NOT NULL DEFAULT '1' COMMENT '是否支持排序 1支持 0不支持',
+  `is_table_visit` tinyint(1) NOT NULL DEFAULT '1' COMMENT '是否可见 1可见 0不可见',
+  `max_length` int(10) NOT NULL COMMENT '字段最大长度',
+  `min_length` int(10) NOT NULL COMMENT '字段最小长度',
+  `module_id` bigint(20) DEFAULT NULL,
+  `options` varchar(300) DEFAULT NULL COMMENT '下拉框内容',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of gem_module_attr
+-- ----------------------------
+INSERT INTO `gem_module_attr` VALUES ('4', null, '2020-01-30 11:49:24', '名称', 'name', 'text', 'text', 'name', '1', '1', '1', '1', '10', '2', '2', null);
+INSERT INTO `gem_module_attr` VALUES ('5', '2020-01-29 22:22:57', '2020-01-29 22:22:57', '323', '23232', 'text', '323', '2323', '1', '1', '1', '1', '3232', '2323', '3', '');
+INSERT INTO `gem_module_attr` VALUES ('6', null, '2020-01-30 11:49:59', '颜色', 'color', 'text', 'text', 'color', '1', '1', '1', '1', '20', '2', '2', null);
+INSERT INTO `gem_module_attr` VALUES ('7', '2020-01-30 11:53:56', '2020-01-30 11:53:56', '型号', 'xinghao', 'select', 'text', 'xinghao', '1', '1', '1', '1', '10', '2', '2', '白色=b;黑色=h;');
+
+-- ----------------------------
+-- Table structure for gem_role
+-- ----------------------------
+DROP TABLE IF EXISTS `gem_role`;
+CREATE TABLE `gem_role` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `createtime` datetime DEFAULT NULL COMMENT '创建时间',
+  `updatetime` datetime DEFAULT NULL COMMENT '更新时间',
+  `datarange` int(2) NOT NULL COMMENT '数据范围',
+  `desp` varchar(100) NOT NULL COMMENT '描述',
+  `flag` varchar(10) NOT NULL COMMENT '标识',
+  `rolename` varchar(10) NOT NULL COMMENT '角色名称',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UK_qt12q8vffue7qn0fgvb42kljf` (`flag`),
+  UNIQUE KEY `UK_5ojc0xjc1im8mccxp9njmjvft` (`rolename`)
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of gem_role
+-- ----------------------------
+INSERT INTO `gem_role` VALUES ('1', '2020-01-04 11:56:08', '2020-01-04 17:53:01', '3', '管理员', 'admin', '管理员');
+INSERT INTO `gem_role` VALUES ('18', '2020-01-09 22:17:09', '2020-01-09 22:17:09', '0', '', 'ces', '测试');
+
+-- ----------------------------
+-- Table structure for gem_role_depts
+-- ----------------------------
+DROP TABLE IF EXISTS `gem_role_depts`;
+CREATE TABLE `gem_role_depts` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `createtime` datetime DEFAULT NULL COMMENT '创建时间',
+  `updatetime` datetime DEFAULT NULL COMMENT '更新时间',
+  `dept_id` bigint(20) NOT NULL COMMENT '部门ID',
+  `role_id` bigint(20) NOT NULL COMMENT '角色ID',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=172 DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of gem_role_depts
+-- ----------------------------
+INSERT INTO `gem_role_depts` VALUES ('57', '2020-01-08 19:27:34', '2020-01-08 19:27:34', '1', '2');
+INSERT INTO `gem_role_depts` VALUES ('58', '2020-01-08 19:27:34', '2020-01-08 19:27:34', '5', '2');
+INSERT INTO `gem_role_depts` VALUES ('59', '2020-01-08 19:27:34', '2020-01-08 19:27:34', '2', '2');
+INSERT INTO `gem_role_depts` VALUES ('60', '2020-01-08 19:27:34', '2020-01-08 19:27:34', '3', '2');
+INSERT INTO `gem_role_depts` VALUES ('61', '2020-01-08 19:27:34', '2020-01-08 19:27:34', '4', '2');
+INSERT INTO `gem_role_depts` VALUES ('62', '2020-01-08 19:27:40', '2020-01-08 19:27:40', '1', '4');
+INSERT INTO `gem_role_depts` VALUES ('63', '2020-01-08 19:27:40', '2020-01-08 19:27:40', '5', '4');
+INSERT INTO `gem_role_depts` VALUES ('64', '2020-01-08 19:27:46', '2020-01-08 19:27:46', '2', '5');
+INSERT INTO `gem_role_depts` VALUES ('65', '2020-01-08 19:27:46', '2020-01-08 19:27:46', '3', '5');
+INSERT INTO `gem_role_depts` VALUES ('66', '2020-01-08 19:27:46', '2020-01-08 19:27:46', '4', '5');
+INSERT INTO `gem_role_depts` VALUES ('67', '2020-01-08 19:27:46', '2020-01-08 19:27:46', '6', '5');
+INSERT INTO `gem_role_depts` VALUES ('68', '2020-01-08 19:27:46', '2020-01-08 19:27:46', '11', '5');
+INSERT INTO `gem_role_depts` VALUES ('69', '2020-01-08 19:27:51', '2020-01-08 19:27:51', '1', '11');
+INSERT INTO `gem_role_depts` VALUES ('70', '2020-01-08 19:27:51', '2020-01-08 19:27:51', '5', '11');
+INSERT INTO `gem_role_depts` VALUES ('71', '2020-01-08 19:27:51', '2020-01-08 19:27:51', '2', '11');
+INSERT INTO `gem_role_depts` VALUES ('72', '2020-01-08 19:27:51', '2020-01-08 19:27:51', '3', '11');
+INSERT INTO `gem_role_depts` VALUES ('73', '2020-01-08 19:27:55', '2020-01-08 19:27:55', '2', '13');
+INSERT INTO `gem_role_depts` VALUES ('74', '2020-01-08 19:27:55', '2020-01-08 19:27:55', '3', '13');
+INSERT INTO `gem_role_depts` VALUES ('75', '2020-01-08 19:27:55', '2020-01-08 19:27:55', '4', '13');
+INSERT INTO `gem_role_depts` VALUES ('150', '2020-01-09 21:20:04', '2020-01-09 21:20:04', '1', '17');
+INSERT INTO `gem_role_depts` VALUES ('151', '2020-01-09 21:20:04', '2020-01-09 21:20:04', '5', '17');
+INSERT INTO `gem_role_depts` VALUES ('152', '2020-01-10 10:19:45', '2020-01-10 10:19:45', '1', '1');
+INSERT INTO `gem_role_depts` VALUES ('153', '2020-01-10 10:19:45', '2020-01-10 10:19:45', '5', '1');
+INSERT INTO `gem_role_depts` VALUES ('154', '2020-01-10 10:19:45', '2020-01-10 10:19:45', '2', '1');
+INSERT INTO `gem_role_depts` VALUES ('155', '2020-01-10 10:19:45', '2020-01-10 10:19:45', '3', '1');
+INSERT INTO `gem_role_depts` VALUES ('156', '2020-01-10 10:19:45', '2020-01-10 10:19:45', '4', '1');
+INSERT INTO `gem_role_depts` VALUES ('157', '2020-01-10 10:19:45', '2020-01-10 10:19:45', '6', '1');
+INSERT INTO `gem_role_depts` VALUES ('158', '2020-01-10 10:19:45', '2020-01-10 10:19:45', '11', '1');
+INSERT INTO `gem_role_depts` VALUES ('159', '2020-01-10 10:19:45', '2020-01-10 10:19:45', '12', '1');
+INSERT INTO `gem_role_depts` VALUES ('160', '2020-01-10 10:19:45', '2020-01-10 10:19:45', '7', '1');
+INSERT INTO `gem_role_depts` VALUES ('161', '2020-01-10 10:19:45', '2020-01-10 10:19:45', '13', '1');
+INSERT INTO `gem_role_depts` VALUES ('162', '2020-01-10 10:19:45', '2020-01-10 10:19:45', '14', '1');
+INSERT INTO `gem_role_depts` VALUES ('163', '2020-01-10 10:19:45', '2020-01-10 10:19:45', '16', '1');
+INSERT INTO `gem_role_depts` VALUES ('164', '2020-01-10 10:19:45', '2020-01-10 10:19:45', '8', '1');
+INSERT INTO `gem_role_depts` VALUES ('165', '2020-01-10 10:19:45', '2020-01-10 10:19:45', '15', '1');
+INSERT INTO `gem_role_depts` VALUES ('166', '2020-01-10 10:19:45', '2020-01-10 10:19:45', '10', '1');
+INSERT INTO `gem_role_depts` VALUES ('167', '2020-01-10 10:19:45', '2020-01-10 10:19:45', '17', '1');
+INSERT INTO `gem_role_depts` VALUES ('168', '2020-01-12 12:07:45', '2020-01-12 12:07:45', '1', '19');
+INSERT INTO `gem_role_depts` VALUES ('169', '2020-01-12 12:07:45', '2020-01-12 12:07:45', '5', '19');
+INSERT INTO `gem_role_depts` VALUES ('170', '2020-01-27 23:00:01', '2020-01-27 23:00:01', '1', '20');
+INSERT INTO `gem_role_depts` VALUES ('171', '2020-01-27 23:00:01', '2020-01-27 23:00:01', '5', '20');
+
+-- ----------------------------
+-- Table structure for gem_role_menus
+-- ----------------------------
+DROP TABLE IF EXISTS `gem_role_menus`;
+CREATE TABLE `gem_role_menus` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `createtime` datetime DEFAULT NULL COMMENT '创建时间',
+  `updatetime` datetime DEFAULT NULL COMMENT '更新时间',
+  `menu_id` bigint(20) NOT NULL COMMENT '菜单ID',
+  `role_id` bigint(20) NOT NULL COMMENT '角色ID',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=395 DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of gem_role_menus
+-- ----------------------------
+INSERT INTO `gem_role_menus` VALUES ('106', '2020-01-08 19:27:34', '2020-01-08 19:27:34', '10', '2');
+INSERT INTO `gem_role_menus` VALUES ('107', '2020-01-08 19:27:34', '2020-01-08 19:27:34', '11', '2');
+INSERT INTO `gem_role_menus` VALUES ('108', '2020-01-08 19:27:34', '2020-01-08 19:27:34', '12', '2');
+INSERT INTO `gem_role_menus` VALUES ('109', '2020-01-08 19:27:40', '2020-01-08 19:27:40', '7', '4');
+INSERT INTO `gem_role_menus` VALUES ('110', '2020-01-08 19:27:40', '2020-01-08 19:27:40', '9', '4');
+INSERT INTO `gem_role_menus` VALUES ('111', '2020-01-08 19:27:40', '2020-01-08 19:27:40', '8', '4');
+INSERT INTO `gem_role_menus` VALUES ('112', '2020-01-08 19:27:40', '2020-01-08 19:27:40', '10', '4');
+INSERT INTO `gem_role_menus` VALUES ('113', '2020-01-08 19:27:40', '2020-01-08 19:27:40', '11', '4');
+INSERT INTO `gem_role_menus` VALUES ('114', '2020-01-08 19:27:40', '2020-01-08 19:27:40', '12', '4');
+INSERT INTO `gem_role_menus` VALUES ('115', '2020-01-08 19:27:46', '2020-01-08 19:27:46', '7', '5');
+INSERT INTO `gem_role_menus` VALUES ('116', '2020-01-08 19:27:46', '2020-01-08 19:27:46', '9', '5');
+INSERT INTO `gem_role_menus` VALUES ('117', '2020-01-08 19:27:46', '2020-01-08 19:27:46', '8', '5');
+INSERT INTO `gem_role_menus` VALUES ('118', '2020-01-08 19:27:51', '2020-01-08 19:27:51', '7', '11');
+INSERT INTO `gem_role_menus` VALUES ('119', '2020-01-08 19:27:51', '2020-01-08 19:27:51', '8', '11');
+INSERT INTO `gem_role_menus` VALUES ('120', '2020-01-08 19:27:55', '2020-01-08 19:27:55', '2', '13');
+INSERT INTO `gem_role_menus` VALUES ('121', '2020-01-08 19:27:55', '2020-01-08 19:27:55', '6', '13');
+INSERT INTO `gem_role_menus` VALUES ('122', '2020-01-08 19:27:55', '2020-01-08 19:27:55', '5', '13');
+INSERT INTO `gem_role_menus` VALUES ('123', '2020-01-08 19:27:55', '2020-01-08 19:27:55', '4', '13');
+INSERT INTO `gem_role_menus` VALUES ('124', '2020-01-08 19:27:55', '2020-01-08 19:27:55', '3', '13');
+INSERT INTO `gem_role_menus` VALUES ('125', '2020-01-08 19:27:55', '2020-01-08 19:27:55', '7', '13');
+INSERT INTO `gem_role_menus` VALUES ('126', '2020-01-08 19:27:55', '2020-01-08 19:27:55', '9', '13');
+INSERT INTO `gem_role_menus` VALUES ('127', '2020-01-08 19:27:55', '2020-01-08 19:27:55', '8', '13');
+INSERT INTO `gem_role_menus` VALUES ('128', '2020-01-08 19:27:55', '2020-01-08 19:27:55', '10', '13');
+INSERT INTO `gem_role_menus` VALUES ('129', '2020-01-08 19:27:55', '2020-01-08 19:27:55', '11', '13');
+INSERT INTO `gem_role_menus` VALUES ('130', '2020-01-08 19:27:55', '2020-01-08 19:27:55', '12', '13');
+INSERT INTO `gem_role_menus` VALUES ('216', '2020-01-09 19:41:44', '2020-01-09 19:41:44', '2', '16');
+INSERT INTO `gem_role_menus` VALUES ('217', '2020-01-09 19:41:44', '2020-01-09 19:41:44', '6', '16');
+INSERT INTO `gem_role_menus` VALUES ('218', '2020-01-09 19:41:44', '2020-01-09 19:41:44', '5', '16');
+INSERT INTO `gem_role_menus` VALUES ('219', '2020-01-09 19:41:44', '2020-01-09 19:41:44', '4', '16');
+INSERT INTO `gem_role_menus` VALUES ('220', '2020-01-09 19:41:44', '2020-01-09 19:41:44', '3', '16');
+INSERT INTO `gem_role_menus` VALUES ('221', '2020-01-09 19:41:44', '2020-01-09 19:41:44', '10', '16');
+INSERT INTO `gem_role_menus` VALUES ('222', '2020-01-09 19:41:44', '2020-01-09 19:41:44', '11', '16');
+INSERT INTO `gem_role_menus` VALUES ('223', '2020-01-09 19:41:44', '2020-01-09 19:41:44', '12', '16');
+INSERT INTO `gem_role_menus` VALUES ('281', '2020-01-09 21:20:04', '2020-01-09 21:20:04', '7', '17');
+INSERT INTO `gem_role_menus` VALUES ('282', '2020-01-09 21:20:04', '2020-01-09 21:20:04', '9', '17');
+INSERT INTO `gem_role_menus` VALUES ('283', '2020-01-09 21:20:04', '2020-01-09 21:20:04', '8', '17');
+INSERT INTO `gem_role_menus` VALUES ('305', '2020-01-10 10:19:45', '2020-01-10 10:19:45', '2', '1');
+INSERT INTO `gem_role_menus` VALUES ('306', '2020-01-10 10:19:45', '2020-01-10 10:19:45', '6', '1');
+INSERT INTO `gem_role_menus` VALUES ('307', '2020-01-10 10:19:45', '2020-01-10 10:19:45', '14', '1');
+INSERT INTO `gem_role_menus` VALUES ('308', '2020-01-10 10:19:45', '2020-01-10 10:19:45', '21', '1');
+INSERT INTO `gem_role_menus` VALUES ('309', '2020-01-10 10:19:45', '2020-01-10 10:19:45', '5', '1');
+INSERT INTO `gem_role_menus` VALUES ('310', '2020-01-10 10:19:45', '2020-01-10 10:19:45', '15', '1');
+INSERT INTO `gem_role_menus` VALUES ('311', '2020-01-10 10:19:45', '2020-01-10 10:19:45', '18', '1');
+INSERT INTO `gem_role_menus` VALUES ('312', '2020-01-10 10:19:45', '2020-01-10 10:19:45', '23', '1');
+INSERT INTO `gem_role_menus` VALUES ('313', '2020-01-10 10:19:45', '2020-01-10 10:19:45', '4', '1');
+INSERT INTO `gem_role_menus` VALUES ('314', '2020-01-10 10:19:45', '2020-01-10 10:19:45', '16', '1');
+INSERT INTO `gem_role_menus` VALUES ('315', '2020-01-10 10:19:45', '2020-01-10 10:19:45', '19', '1');
+INSERT INTO `gem_role_menus` VALUES ('316', '2020-01-10 10:19:45', '2020-01-10 10:19:45', '20', '1');
+INSERT INTO `gem_role_menus` VALUES ('317', '2020-01-10 10:19:45', '2020-01-10 10:19:45', '3', '1');
+INSERT INTO `gem_role_menus` VALUES ('318', '2020-01-10 10:19:45', '2020-01-10 10:19:45', '17', '1');
+INSERT INTO `gem_role_menus` VALUES ('319', '2020-01-10 10:19:45', '2020-01-10 10:19:45', '24', '1');
+INSERT INTO `gem_role_menus` VALUES ('320', '2020-01-10 10:19:45', '2020-01-10 10:19:45', '10', '1');
+INSERT INTO `gem_role_menus` VALUES ('321', '2020-01-10 10:19:45', '2020-01-10 10:19:45', '11', '1');
+INSERT INTO `gem_role_menus` VALUES ('322', '2020-01-10 10:19:45', '2020-01-10 10:19:45', '12', '1');
+INSERT INTO `gem_role_menus` VALUES ('323', '2020-01-10 10:19:45', '2020-01-10 10:19:45', '7', '1');
+INSERT INTO `gem_role_menus` VALUES ('324', '2020-01-10 10:19:45', '2020-01-10 10:19:45', '9', '1');
+INSERT INTO `gem_role_menus` VALUES ('325', '2020-01-10 10:19:45', '2020-01-10 10:19:45', '8', '1');
+INSERT INTO `gem_role_menus` VALUES ('326', '2020-01-10 10:36:51', '2020-01-10 10:36:51', '2', '18');
+INSERT INTO `gem_role_menus` VALUES ('327', '2020-01-10 10:36:51', '2020-01-10 10:36:51', '3', '18');
+INSERT INTO `gem_role_menus` VALUES ('328', '2020-01-10 10:36:51', '2020-01-10 10:36:51', '17', '18');
+INSERT INTO `gem_role_menus` VALUES ('329', '2020-01-10 10:36:51', '2020-01-10 10:36:51', '24', '18');
+INSERT INTO `gem_role_menus` VALUES ('330', '2020-01-12 12:07:45', '2020-01-12 12:07:45', '2', '19');
+INSERT INTO `gem_role_menus` VALUES ('331', '2020-01-12 12:07:45', '2020-01-12 12:07:45', '6', '19');
+INSERT INTO `gem_role_menus` VALUES ('332', '2020-01-12 12:07:45', '2020-01-12 12:07:45', '21', '19');
+INSERT INTO `gem_role_menus` VALUES ('333', '2020-01-12 12:07:45', '2020-01-12 12:07:45', '14', '19');
+INSERT INTO `gem_role_menus` VALUES ('334', '2020-01-12 12:07:45', '2020-01-12 12:07:45', '25', '19');
+INSERT INTO `gem_role_menus` VALUES ('335', '2020-01-12 12:07:45', '2020-01-12 12:07:45', '26', '19');
+INSERT INTO `gem_role_menus` VALUES ('336', '2020-01-12 12:07:45', '2020-01-12 12:07:45', '5', '19');
+INSERT INTO `gem_role_menus` VALUES ('337', '2020-01-12 12:07:45', '2020-01-12 12:07:45', '15', '19');
+INSERT INTO `gem_role_menus` VALUES ('338', '2020-01-12 12:07:45', '2020-01-12 12:07:45', '18', '19');
+INSERT INTO `gem_role_menus` VALUES ('339', '2020-01-12 12:07:45', '2020-01-12 12:07:45', '27', '19');
+INSERT INTO `gem_role_menus` VALUES ('340', '2020-01-12 12:07:45', '2020-01-12 12:07:45', '28', '19');
+INSERT INTO `gem_role_menus` VALUES ('341', '2020-01-12 12:07:45', '2020-01-12 12:07:45', '29', '19');
+INSERT INTO `gem_role_menus` VALUES ('342', '2020-01-12 12:07:45', '2020-01-12 12:07:45', '23', '19');
+INSERT INTO `gem_role_menus` VALUES ('343', '2020-01-12 12:07:45', '2020-01-12 12:07:45', '4', '19');
+INSERT INTO `gem_role_menus` VALUES ('344', '2020-01-12 12:07:45', '2020-01-12 12:07:45', '16', '19');
+INSERT INTO `gem_role_menus` VALUES ('345', '2020-01-12 12:07:45', '2020-01-12 12:07:45', '19', '19');
+INSERT INTO `gem_role_menus` VALUES ('346', '2020-01-12 12:07:45', '2020-01-12 12:07:45', '20', '19');
+INSERT INTO `gem_role_menus` VALUES ('347', '2020-01-12 12:07:45', '2020-01-12 12:07:45', '3', '19');
+INSERT INTO `gem_role_menus` VALUES ('348', '2020-01-12 12:07:45', '2020-01-12 12:07:45', '17', '19');
+INSERT INTO `gem_role_menus` VALUES ('349', '2020-01-12 12:07:45', '2020-01-12 12:07:45', '24', '19');
+INSERT INTO `gem_role_menus` VALUES ('350', '2020-01-27 23:00:01', '2020-01-27 23:00:01', '2', '20');
+INSERT INTO `gem_role_menus` VALUES ('351', '2020-01-27 23:00:01', '2020-01-27 23:00:01', '6', '20');
+INSERT INTO `gem_role_menus` VALUES ('352', '2020-01-27 23:00:01', '2020-01-27 23:00:01', '21', '20');
+INSERT INTO `gem_role_menus` VALUES ('353', '2020-01-27 23:00:01', '2020-01-27 23:00:01', '14', '20');
+INSERT INTO `gem_role_menus` VALUES ('354', '2020-01-27 23:00:01', '2020-01-27 23:00:01', '25', '20');
+INSERT INTO `gem_role_menus` VALUES ('355', '2020-01-27 23:00:01', '2020-01-27 23:00:01', '26', '20');
+INSERT INTO `gem_role_menus` VALUES ('356', '2020-01-27 23:00:01', '2020-01-27 23:00:01', '5', '20');
+INSERT INTO `gem_role_menus` VALUES ('357', '2020-01-27 23:00:01', '2020-01-27 23:00:01', '15', '20');
+INSERT INTO `gem_role_menus` VALUES ('358', '2020-01-27 23:00:01', '2020-01-27 23:00:01', '18', '20');
+INSERT INTO `gem_role_menus` VALUES ('359', '2020-01-27 23:00:01', '2020-01-27 23:00:01', '27', '20');
+INSERT INTO `gem_role_menus` VALUES ('360', '2020-01-27 23:00:01', '2020-01-27 23:00:01', '28', '20');
+INSERT INTO `gem_role_menus` VALUES ('361', '2020-01-27 23:00:01', '2020-01-27 23:00:01', '29', '20');
+INSERT INTO `gem_role_menus` VALUES ('362', '2020-01-27 23:00:01', '2020-01-27 23:00:01', '23', '20');
+INSERT INTO `gem_role_menus` VALUES ('363', '2020-01-27 23:00:01', '2020-01-27 23:00:01', '4', '20');
+INSERT INTO `gem_role_menus` VALUES ('364', '2020-01-27 23:00:01', '2020-01-27 23:00:01', '16', '20');
+INSERT INTO `gem_role_menus` VALUES ('365', '2020-01-27 23:00:01', '2020-01-27 23:00:01', '19', '20');
+INSERT INTO `gem_role_menus` VALUES ('366', '2020-01-27 23:00:01', '2020-01-27 23:00:01', '20', '20');
+INSERT INTO `gem_role_menus` VALUES ('367', '2020-01-27 23:00:01', '2020-01-27 23:00:01', '3', '20');
+INSERT INTO `gem_role_menus` VALUES ('368', '2020-01-27 23:00:01', '2020-01-27 23:00:01', '17', '20');
+INSERT INTO `gem_role_menus` VALUES ('369', '2020-01-27 23:00:01', '2020-01-27 23:00:01', '24', '20');
+INSERT INTO `gem_role_menus` VALUES ('370', '2020-01-27 23:00:01', '2020-01-27 23:00:01', '30', '20');
+INSERT INTO `gem_role_menus` VALUES ('371', '2020-01-27 23:00:01', '2020-01-27 23:00:01', '31', '20');
+INSERT INTO `gem_role_menus` VALUES ('372', '2020-01-27 23:00:01', '2020-01-27 23:00:01', '41', '20');
+INSERT INTO `gem_role_menus` VALUES ('373', '2020-01-27 23:00:01', '2020-01-27 23:00:01', '10', '20');
+INSERT INTO `gem_role_menus` VALUES ('374', '2020-01-27 23:00:01', '2020-01-27 23:00:01', '11', '20');
+INSERT INTO `gem_role_menus` VALUES ('375', '2020-01-27 23:00:01', '2020-01-27 23:00:01', '12', '20');
+INSERT INTO `gem_role_menus` VALUES ('376', '2020-01-27 23:00:01', '2020-01-27 23:00:01', '7', '20');
+INSERT INTO `gem_role_menus` VALUES ('377', '2020-01-27 23:00:01', '2020-01-27 23:00:01', '9', '20');
+INSERT INTO `gem_role_menus` VALUES ('378', '2020-01-27 23:00:01', '2020-01-27 23:00:01', '8', '20');
+INSERT INTO `gem_role_menus` VALUES ('379', '2020-01-27 23:00:01', '2020-01-27 23:00:01', '32', '20');
+INSERT INTO `gem_role_menus` VALUES ('380', '2020-01-27 23:00:01', '2020-01-27 23:00:01', '35', '20');
+INSERT INTO `gem_role_menus` VALUES ('381', '2020-01-27 23:00:01', '2020-01-27 23:00:01', '33', '20');
+INSERT INTO `gem_role_menus` VALUES ('382', '2020-01-27 23:00:01', '2020-01-27 23:00:01', '34', '20');
+INSERT INTO `gem_role_menus` VALUES ('383', '2020-01-27 23:00:01', '2020-01-27 23:00:01', '36', '20');
+INSERT INTO `gem_role_menus` VALUES ('384', '2020-01-27 23:00:01', '2020-01-27 23:00:01', '37', '20');
+INSERT INTO `gem_role_menus` VALUES ('385', '2020-01-27 23:00:01', '2020-01-27 23:00:01', '38', '20');
+INSERT INTO `gem_role_menus` VALUES ('386', '2020-01-27 23:00:01', '2020-01-27 23:00:01', '39', '20');
+INSERT INTO `gem_role_menus` VALUES ('387', '2020-01-27 23:00:01', '2020-01-27 23:00:01', '40', '20');
+INSERT INTO `gem_role_menus` VALUES ('388', '2020-01-27 23:00:01', '2020-01-27 23:00:01', '44', '20');
+INSERT INTO `gem_role_menus` VALUES ('389', '2020-01-27 23:00:01', '2020-01-27 23:00:01', '45', '20');
+INSERT INTO `gem_role_menus` VALUES ('390', '2020-01-27 23:00:01', '2020-01-27 23:00:01', '46', '20');
+INSERT INTO `gem_role_menus` VALUES ('391', '2020-01-27 23:00:01', '2020-01-27 23:00:01', '47', '20');
+INSERT INTO `gem_role_menus` VALUES ('392', '2020-01-27 23:00:01', '2020-01-27 23:00:01', '48', '20');
+INSERT INTO `gem_role_menus` VALUES ('393', '2020-01-27 23:00:01', '2020-01-27 23:00:01', '49', '20');
+INSERT INTO `gem_role_menus` VALUES ('394', '2020-01-27 23:00:01', '2020-01-27 23:00:01', '50', '20');
+
+-- ----------------------------
+-- Table structure for gem_user
+-- ----------------------------
+DROP TABLE IF EXISTS `gem_user`;
+CREATE TABLE `gem_user` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `createtime` datetime DEFAULT NULL COMMENT '创建时间',
+  `updatetime` datetime DEFAULT NULL COMMENT '更新时间',
+  `address` varchar(80) DEFAULT NULL COMMENT '地址',
+  `area` int(5) DEFAULT NULL COMMENT '区县code',
+  `birthday` datetime DEFAULT NULL COMMENT '生日',
+  `city` int(5) DEFAULT NULL COMMENT '城市code',
+  `email` varchar(30) DEFAULT NULL COMMENT '邮箱',
+  `password` varchar(150) NOT NULL COMMENT '密码',
+  `phone` varchar(11) NOT NULL COMMENT '手机号',
+  `post` varchar(5) NOT NULL COMMENT '岗位',
+  `province` int(5) DEFAULT NULL COMMENT '省份code',
+  `qq` varchar(11) DEFAULT NULL COMMENT 'QQ',
+  `realname` varchar(10) NOT NULL COMMENT '用户名',
+  `sex` int(1) DEFAULT NULL COMMENT '性别',
+  `tel` varchar(11) DEFAULT NULL COMMENT '座机号',
+  `username` varchar(10) NOT NULL COMMENT '用户名',
+  `worknum` int(5) NOT NULL COMMENT '工号',
+  `desp` varchar(11) DEFAULT NULL COMMENT '其他备注',
+  `dept_id` int(5) NOT NULL COMMENT '归属部门ID',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UK_ioc195vl2wbh2o986iimitfp3` (`phone`)
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of gem_user
+-- ----------------------------
+INSERT INTO `gem_user` VALUES ('7', null, '2020-01-08 13:30:29', '北京市市辖区顺义区北京庄园', '110113', null, '110100', '769990999@qq.com', '$2a$10$rMuB65K93Ch2QQ.mcklt..rROCWThLWRsLnbL2fv4xt2FjNAYLIHa', '13338880040', '1', '110000', '', '张先生', '1', '', 'zhangysh', '1001', '123', '5');
+INSERT INTO `gem_user` VALUES ('8', null, '2020-01-05 22:58:54', '河北省秦皇岛市山海关区', '130303', '2020-01-31 00:00:00', '130300', '769922@qq.com', '$2a$10$g5HO4XFXVmvvqRRC10EkwOM0cewbXLzasjV4YQSjEFI8QA1sfPvO6', '13338880041', '1', '130000', '', '刘三', '0', '', 'zhaoxy', '1002', '', '8');
+INSERT INTO `gem_user` VALUES ('9', null, '2019-12-30 22:12:06', '河北省唐山市路南区', '130202', null, '130200', 'wukong@qq.com', '', '13338880022', '3', '130000', '', '孙悟空', '1', '022-1233212', 'sunwuk', '1003', '', '4');
+INSERT INTO `gem_user` VALUES ('10', null, '2020-01-05 22:41:34', '123456', '140303', '2019-12-28 00:00:00', '140300', '11233344444@33', '$2a$10$C7dt6zjXEmZKipEbgLaWEu9p6oYS1AahvVi1ZOxM1fzhDGudDaeQ2', '18500029040', '4', '140000', '', 'LISI', '0', '1', 'lisi', '1005', '21212', '4');
+INSERT INTO `gem_user` VALUES ('12', null, '2019-12-30 22:19:46', '河北省秦皇岛市山海关区', '130303', '2019-01-01 00:00:00', '130300', 'zhubajie@qq.com', '', '18500029043', '1', '130000', 'zhubajie521', '猪八戒', '0', '', 'zhubajie', '1004', '天蓬元帅下凡', '4');
+INSERT INTO `gem_user` VALUES ('13', null, '2020-01-05 22:41:51', '山西省阳泉市矿区', '140303', '2017-01-02 00:00:00', '140300', 'q4444@33', '$2a$10$2RHRFoltZ2KuqHkrWzCRGu.F7w70WC1JG8aQOxX59Cy4u0u1PkUV2', '13381022222', '3', '140000', '2bajie521', '121212', '0', '', 'lixs', '1006', '23423WWW', '4');
+INSERT INTO `gem_user` VALUES ('14', '2020-01-02 22:15:21', '2020-01-02 23:07:27', '北京市市辖区东城区', '110101', '2020-12-31 00:00:00', '110100', 'jindong@163.com', '$2a$10$DgfwOcfsNYWSCaQMLObIs.3UpdYbjwVqr5z7/5nQ2Q1rn.vd79ReS', '18500038222', '4', '110000', '2', '靳东', '0', '1', 'jindong', '1009', '当红男演员', '5');
+INSERT INTO `gem_user` VALUES ('18', '2020-01-03 08:24:16', '2020-01-03 08:24:16', '北京市市辖区东城区', '110101', '2020-12-31 00:00:00', '110100', 'ww@183.com', '$2a$10$1WyEWj//I6Q0Z0DP4OBNK.VgtzwuDrQgGgdQsZNYG4SsTgY0gAQp2', '18522299999', '1', '110000', '', '王宝强', '0', '', 'wangbao', '1010', '', '5');
+INSERT INTO `gem_user` VALUES ('19', '2020-01-03 11:39:48', '2020-01-03 11:39:48', '北京市县延庆县', '110229', null, '110200', '7699122@qq.com', '$2a$10$khKKTy/UvAAu09M8.AVnQOKokwgMZd20qLZLmcNgiZfKufotUV0AK', '13338320042', '1', '110000', '', '1111', '0', '', 'sunwuk1', '111', '', '4');
+INSERT INTO `gem_user` VALUES ('20', '2020-01-05 22:50:28', '2020-01-05 22:50:28', '北京市市辖区朝阳区', '110105', '2020-01-01 00:00:00', '110100', 'gem@163.com', '$2a$10$znRrt4wtQVQ4qRshq05apO7SzjX04OAr8rCu1Ar4Qu05PdOjW2r2.', '18522299991', '1', '110000', '', 'gem宝石', '0', '', 'gem', '2001', '', '15');
+INSERT INTO `gem_user` VALUES ('21', '2020-01-05 22:51:26', '2020-01-05 22:51:26', '天津市县宁河县', '120221', '2020-01-02 00:00:00', '120200', 'gem1@163.com', '$2a$10$WMzYbiWtTYLnuufpZ13Oz.6poiZ.Ovk2P9XrwkLvMMw1h8lVmC31C', '13338880141', '2', '120000', '', '苏西', '1', '', 'suxi', '2002', '', '11');
+INSERT INTO `gem_user` VALUES ('22', '2020-01-05 22:52:52', '2020-01-05 22:52:52', '河北省石家庄市市辖区', '130101', '2020-01-01 00:00:00', '130100', 'ajiao@qq.com', '$2a$10$Uf4cuqGrGBnUclvgSsUBeOox.vFtfBkvXKYz2zPsn/7TeTwkJH3bW', '18429340234', '1', '130000', '', '阿娇', '1', '', 'ajiao', '2003', '', '2');
+INSERT INTO `gem_user` VALUES ('23', '2020-01-05 22:53:33', '2020-01-05 22:53:33', '吉林省四平市铁西区', '220302', '2020-01-08 00:00:00', '220300', 'aiqim@163.com', '$2a$10$geGwqvAzYeI70fFlBPzhSe6IntHDuficNpbEIMO6PvyrRDxmkKXn2', '13338280040', '3', '220000', '', '爱奇', '1', '', 'aiqi', '2003', '', '7');
+INSERT INTO `gem_user` VALUES ('24', '2020-01-05 22:54:18', '2020-01-21 13:57:53', '河北省邢台市临城县', '130522', '2020-01-26 00:00:00', '130500', 'ls@qq.com', '$2a$10$4VCCFN2laJK8AdmTFusbr.5YHyspDOT37N8alPCLDXU5m2ZGRLJXy', '18338880022', '1', '130000', '', '刘飒', '0', '', 'liusa', '2004', '', '5');
+INSERT INTO `gem_user` VALUES ('25', '2020-01-05 22:55:00', '2020-01-06 22:42:06', '山东省烟台市莱山区', '370613', null, '370600', 'niuize@qq.com', '$2a$10$/5a5yufxiJf66faZUF9ffuYyBVmVxZxQp4saIpAs76UySGQouBLmG', '15338880042', '1', '370000', '', '妞紫', '1', '', 'niuniu', '2005', '', '10');
+INSERT INTO `gem_user` VALUES ('26', '2020-01-06 20:23:08', '2020-01-06 20:23:08', '河北省秦皇岛市昌黎县', null, null, null, 'sem@163.com', '$2a$10$/GzcBUpnKfei5EwJ1nZZx.RTyaG5YiK2A2RU1MDyZxpmLX/4JNv9i', '13338880010', '3', null, '', '史小菲', '1', '', 'shixiaof', '2008', '', '5');
+INSERT INTO `gem_user` VALUES ('27', '2020-01-06 20:25:00', '2020-01-06 20:25:00', '内蒙古自治区乌海市市辖区', '150301', '2020-01-24 00:00:00', '150300', 'lem@163.com', '$2a$10$zdvFAj69Rrau6E1HoNfYmufBBRDwaPdBkew/nsZf4a7F8AYO5R22i', '13338880031', '1', '150000', '', '李库', '1', '', 'liku', '2009', '', '13');
+INSERT INTO `gem_user` VALUES ('28', '2020-01-06 20:51:27', '2020-01-26 14:49:51', '内蒙古自治区呼和浩特市市辖区', '150101', '2020-01-10 00:00:00', '150100', '1558882222@qq.com', '$2a$10$oxp97zlAjJ/12kNxXo6sBuTv1iR6cdooL4ffE4rijpJLsA8D9w5Ve', '18500029041', '1', '150000', '', '管理员', '0', '', 'admin', '888', '', '11');
+INSERT INTO `gem_user` VALUES ('29', '2020-01-06 20:58:31', '2020-01-06 22:45:15', '北京市县延庆县山西省吉林省', null, null, null, '1358882222@qq.com', '$2a$10$H86l7PrVCMDN7AfiPvsJm.NHG3OVgCoiA0nhjkToSDUx1aAB7NTPe', '18200029040', '1', null, '', '刘松', '0', '', 'liusong', '2011', '', '13');
+INSERT INTO `gem_user` VALUES ('30', '2020-01-06 21:04:12', '2020-01-09 22:17:22', '北京市县延庆县山西省吉林省', null, null, null, '1344444@33', '$2a$10$fMNbehcWTf7VexrAOpW/MeWuHcZ5CmvxHgSfT.Loeh46yjRsskQ6e', '18500029022', '1', null, '', '121212', '0', '', 'niha', '1212', '', '1');
+INSERT INTO `gem_user` VALUES ('31', '2020-01-06 21:06:28', '2020-01-06 21:52:47', '北京市县延庆县山西省吉林省', null, null, null, '1338345222@qq.com', '$2a$10$/W2c5a9zBgLyu5MmGXo4.O5F2Eir2JyxB.7J0pqAg6eZzK4Z1zgj.', '18200034040', '1', null, '', '赵本山', '0', '', 'zhaobens', '2011', '', '3');
+INSERT INTO `gem_user` VALUES ('32', '2020-01-06 21:19:36', '2020-01-14 14:34:04', '天津市市辖区河西区', '120103', null, '120100', '112333424@33', '$2a$10$cNDrinyqmvD.4HMl0.oHEeJguWPJk1c/5iSoZ/Vq4tPkztWGj7k3C', '18500029020', '1', '120000', '', '121212', '0', '', 'aaa', '1212', '', '1');
+
+-- ----------------------------
+-- Table structure for gem_user_depts
+-- ----------------------------
+DROP TABLE IF EXISTS `gem_user_depts`;
+CREATE TABLE `gem_user_depts` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `createtime` datetime DEFAULT NULL COMMENT '创建时间',
+  `updatetime` datetime DEFAULT NULL COMMENT '更新时间',
+  `dept_id` bigint(20) NOT NULL COMMENT '角色ID',
+  `user_id` bigint(20) NOT NULL COMMENT '用户ID',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of gem_user_depts
+-- ----------------------------
+INSERT INTO `gem_user_depts` VALUES ('16', '2020-01-03 08:24:16', '2020-01-03 08:24:16', '2', '18');
+INSERT INTO `gem_user_depts` VALUES ('17', '2020-01-03 08:24:16', '2020-01-03 08:24:16', '3', '18');
+INSERT INTO `gem_user_depts` VALUES ('18', '2020-01-03 08:24:16', '2020-01-03 08:24:16', '4', '18');
+INSERT INTO `gem_user_depts` VALUES ('19', '2020-01-03 08:24:16', '2020-01-03 08:24:16', '6', '18');
+INSERT INTO `gem_user_depts` VALUES ('20', '2020-01-03 08:24:16', '2020-01-03 08:24:16', '11', '18');
+INSERT INTO `gem_user_depts` VALUES ('21', '2020-01-03 11:39:48', '2020-01-03 11:39:48', '2', '19');
+INSERT INTO `gem_user_depts` VALUES ('22', '2020-01-03 11:39:48', '2020-01-03 11:39:48', '3', '19');
+INSERT INTO `gem_user_depts` VALUES ('23', '2020-01-05 22:50:28', '2020-01-05 22:50:28', '1', '20');
+INSERT INTO `gem_user_depts` VALUES ('24', '2020-01-05 22:50:28', '2020-01-05 22:50:28', '5', '20');
+INSERT INTO `gem_user_depts` VALUES ('25', '2020-01-05 22:50:28', '2020-01-05 22:50:28', '2', '20');
+INSERT INTO `gem_user_depts` VALUES ('26', '2020-01-05 22:50:28', '2020-01-05 22:50:28', '3', '20');
+INSERT INTO `gem_user_depts` VALUES ('27', '2020-01-05 22:50:28', '2020-01-05 22:50:28', '4', '20');
+INSERT INTO `gem_user_depts` VALUES ('28', '2020-01-05 22:50:28', '2020-01-05 22:50:28', '6', '20');
+INSERT INTO `gem_user_depts` VALUES ('29', '2020-01-05 22:50:28', '2020-01-05 22:50:28', '11', '20');
+INSERT INTO `gem_user_depts` VALUES ('30', '2020-01-05 22:50:28', '2020-01-05 22:50:28', '12', '20');
+INSERT INTO `gem_user_depts` VALUES ('31', '2020-01-05 22:50:28', '2020-01-05 22:50:28', '7', '20');
+INSERT INTO `gem_user_depts` VALUES ('32', '2020-01-05 22:50:28', '2020-01-05 22:50:28', '13', '20');
+INSERT INTO `gem_user_depts` VALUES ('33', '2020-01-05 22:50:28', '2020-01-05 22:50:28', '14', '20');
+INSERT INTO `gem_user_depts` VALUES ('34', '2020-01-05 22:50:28', '2020-01-05 22:50:28', '8', '20');
+INSERT INTO `gem_user_depts` VALUES ('35', '2020-01-05 22:50:28', '2020-01-05 22:50:28', '15', '20');
+INSERT INTO `gem_user_depts` VALUES ('36', '2020-01-05 22:50:28', '2020-01-05 22:50:28', '10', '20');
+INSERT INTO `gem_user_depts` VALUES ('37', '2020-01-05 22:51:26', '2020-01-05 22:51:26', '2', '21');
+INSERT INTO `gem_user_depts` VALUES ('38', '2020-01-05 22:51:26', '2020-01-05 22:51:26', '3', '21');
+INSERT INTO `gem_user_depts` VALUES ('39', '2020-01-05 22:51:26', '2020-01-05 22:51:26', '4', '21');
+INSERT INTO `gem_user_depts` VALUES ('40', '2020-01-05 22:52:52', '2020-01-05 22:52:52', '2', '22');
+INSERT INTO `gem_user_depts` VALUES ('41', '2020-01-05 22:52:52', '2020-01-05 22:52:52', '4', '22');
+INSERT INTO `gem_user_depts` VALUES ('42', '2020-01-05 22:53:33', '2020-01-05 22:53:33', '7', '23');
+INSERT INTO `gem_user_depts` VALUES ('43', '2020-01-05 22:53:33', '2020-01-05 22:53:33', '14', '23');
+INSERT INTO `gem_user_depts` VALUES ('44', '2020-01-05 22:54:18', '2020-01-05 22:54:18', '2', '24');
+INSERT INTO `gem_user_depts` VALUES ('45', '2020-01-05 22:54:18', '2020-01-05 22:54:18', '3', '24');
+INSERT INTO `gem_user_depts` VALUES ('46', '2020-01-05 22:54:18', '2020-01-05 22:54:18', '4', '24');
+INSERT INTO `gem_user_depts` VALUES ('47', '2020-01-05 22:55:00', '2020-01-05 22:55:00', '8', '25');
+INSERT INTO `gem_user_depts` VALUES ('48', '2020-01-05 22:55:00', '2020-01-05 22:55:00', '15', '25');
+
+-- ----------------------------
+-- Table structure for gem_user_roles
+-- ----------------------------
+DROP TABLE IF EXISTS `gem_user_roles`;
+CREATE TABLE `gem_user_roles` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `createtime` datetime DEFAULT NULL COMMENT '创建时间',
+  `updatetime` datetime DEFAULT NULL COMMENT '更新时间',
+  `role_id` bigint(20) NOT NULL COMMENT '角色ID',
+  `user_id` bigint(20) NOT NULL COMMENT '用户ID',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of gem_user_roles
+-- ----------------------------
+INSERT INTO `gem_user_roles` VALUES ('39', '2020-01-09 22:17:22', '2020-01-09 22:17:22', '1', '30');
+INSERT INTO `gem_user_roles` VALUES ('40', '2020-01-09 22:17:22', '2020-01-09 22:17:22', '18', '30');
+INSERT INTO `gem_user_roles` VALUES ('47', '2020-01-14 14:34:04', '2020-01-14 14:34:04', '18', '32');
+INSERT INTO `gem_user_roles` VALUES ('48', '2020-01-14 14:34:04', '2020-01-14 14:34:04', '19', '32');
+INSERT INTO `gem_user_roles` VALUES ('50', '2020-01-21 13:57:53', '2020-01-21 13:57:53', '1', '24');
+INSERT INTO `gem_user_roles` VALUES ('52', '2020-01-26 14:49:42', '2020-01-26 14:49:42', '1', '28');
+
+-- ----------------------------
+-- Table structure for hibernate_sequence
+-- ----------------------------
+DROP TABLE IF EXISTS `hibernate_sequence`;
+CREATE TABLE `hibernate_sequence` (
+  `next_val` bigint(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of hibernate_sequence
+-- ----------------------------
+INSERT INTO `hibernate_sequence` VALUES ('1');

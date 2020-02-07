@@ -1,8 +1,8 @@
 package ${package}.service.impl;
 
-import com.gemframework.bas.common.enums.ResultCode;
-import com.gemframework.bas.common.exception.GemException;
-import com.gemframework.bas.common.utils.GemBeanUtils;
+import ResultCode;
+import GemException;
+import GemBeanUtils;
 import ${package}.model.po.${Entity};
 import ${package}.model.vo.${Entity}Vo;
 import ${package}.repository.${Entity}Repository;

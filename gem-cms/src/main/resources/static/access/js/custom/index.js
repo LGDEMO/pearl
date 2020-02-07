@@ -148,6 +148,16 @@
                 $('.menuTabs .page-tabs-content').append(str);
                 $.learuntab.scrollToTab($('.menuTab.active'));
             }
+
+            var menuTabArr = document.getElementsByClassName('menuTab');
+            var len = menuTabArr.length;
+            console.log("设置tab右键菜单=len == "+len)
+            for(var i=1;i<len;i++){
+                menuTabArr[i].addEventListener('contextmenu', onClick);
+            }
+            var menuTabAct = document.getElementsByClassName('active');
+            menuTabAct[0].addEventListener('contextmenu', onClick);
+
             return false;
         },
         scrollTabRight: function () {
@@ -235,6 +245,7 @@
             return width;
         },
         init: function () {
+            //alert("$.learuntab.addTab="+$.learuntab.addTab);
             $('.menuItem').on('click', $.learuntab.addTab);
             $('.menuTabs').on('click', '.menuTab i', $.learuntab.closeTab);
             $('.menuTabs').on('click', '.menuTab', $.learuntab.activeTab);
@@ -411,7 +422,7 @@
                     }
                 }
             })
-            console.log("_html==="+_html)
+            // console.log("_html==="+_html)
             $("#sidebar-menu").append(_html);
             $("#sidebar-menu li a").click(function () {
                 var d = $(this), e = d.next();

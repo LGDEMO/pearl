@@ -1,7 +1,7 @@
 package ${package}.controller;
 
-import com.gemframework.bas.common.enums.ResultCode;
-import com.gemframework.bas.model.BaseResult;
+import ResultCode;
+import BaseResult;
 import ${package}.model.vo.${Entity}Vo;
 import ${package}.service.${Entity}Service;
 import io.swagger.annotations.Api;

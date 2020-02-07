@@ -10,15 +10,12 @@
     <meta name="description" content="基于SpringBoot2.0+的国产优秀的框架&GemFrame开源权限管理系统v1.0.0">
     <meta name="author" content="gemframework.com">
     <!-- Google Web Fonts -->
-<!--    <link rel="stylesheet" th:href="@{https://fonts.googleapis.com/css?family=Ubuntu}">-->
     <link rel="stylesheet" th:href="@{static/cms/assets/css/fonts/fonts-style.css}">
     <link rel="stylesheet" th:href="@{static/access/css/font-ubuntu.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/static/access/css/font-awesome-all.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/static/access/css/font-awesome.css}">
     <!-- Bootstrap CSS CDN -->
-<!--    <link rel="stylesheet" th:href="@{http://cdn.bootstrapmb.com/bootstrap/4.1.0/css/bootstrap.min.css}">-->
     <link rel="stylesheet" th:href="@{/static/access/js/bootstrap/bootstrap.min.css}">
-
     <!-- Page CSS -->
     <link rel="stylesheet" th:href="@{static/cms/assets/css/custompages/login1.css}">
     <style>
@@ -36,6 +33,7 @@
             transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
         }
     </style>
+    <div th:replace="common/links::layui_links"></div>
 </head>
 <body class="bg-login">
 <div class="wrapper">
@@ -107,11 +105,20 @@
         </div>
     </div>
     <!-- Page Content Ends-->
+<!--    <div style="padding: 50px; line-height: 22px; background-color: #1e9fff; color: #fff; font-weight: 300;">-->
+<!--        Hi，有缘人<br>-->
+<!--        初次见面便与你一见如故<br>-->
+<!--        你是我今生最美丽的相遇...<br>-->
+<!--        <hr class="layui-bg-cyan">-->
+<!--        <legend>温馨提示：</legend>-->
+<!--        由于服务器资源有限，演示系统给您带来不便的体验<br>-->
+<!--        敬请谅解~~~~~-->
+<!--    </div>-->
 </div>
 <!-- Bootstrap JS -->
 <script th:src="@{static/cms/assets/js/jquery/jquery.min.js}"></script>
 <script th:src="@{http://cdn.bootstrapmb.com/bootstrap/4.1.0/js/bootstrap.min.js}"></script>
-
+<div th:replace="common/links::layui_script"></div>
 <script th:inline="javascript">
 
     $(function () {
@@ -119,11 +126,50 @@
             alert("登录超时，请重新登录！");
             top.location.href=self.location.href;
         }
+
+        layui.use(['laydate', 'laypage', 'layer', 'table', 'carousel', 'upload', 'element'], function() {
+            var laydate = layui.laydate //日期
+                ,laypage = layui.laypage //分页
+                ,layer = layui.layer //弹层
+                ,table = layui.table //表格
+                ,carousel = layui.carousel //轮播
+                ,upload = layui.upload //上传
+                ,element = layui.element; //元素操作 等等...
+            /*layer弹出一个示例*/
+            // layer.msg('欢迎查看Redis使用示例');
+            layer.open({
+                type: 1
+                ,title: false //不显示标题栏
+                ,closeBtn: false
+                ,area: '300px;'
+                ,shade: 0.8
+                ,id: 'LAY_layuipro' //设定一个id，防止重复弹出
+                ,btn: ['逛逛社区','理解万岁']
+                ,btnAlign: 'c'
+                ,moveType: 1 //拖拽模式，0或者1
+                ,content: '    <div style="padding: 50px; line-height: 22px; background-color: #1e9fff; color: #fff; font-weight: 300;">\n' +
+                    '        Hi，有缘人<br>\n' +
+                    '        初次见面便与你一见如故<br>\n' +
+                    '        你是我今生最美丽的相遇...<br>\n' +
+                    '        <hr>\n' +
+                    '        <legend>温馨提示：</legend>\n' +
+                    '        由于服务器资源有限，演示系统给您带来不便的体验<br>\n' +
+                    '        敬请谅解~~~~~\n' +
+                    '    </div>'
+                ,success: function(layero){
+                    var btn = layero.find('.layui-layer-btn');
+                    btn.find('.layui-layer-btn0').attr({
+                        href: 'http://www.gemframework.com/bbs'
+                        ,target: '_blank'
+                    });
+                }
+            });
+        });
     });
+
     function refreshImg() {
         document.getElementById("verifyImg").src="common/code?"+Math.random();
     }
-
 </script>
 </body>
 </html>

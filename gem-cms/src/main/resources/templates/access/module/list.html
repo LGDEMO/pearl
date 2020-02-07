@@ -25,6 +25,8 @@
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
     <a class="layui-btn layui-btn-warm layui-btn-xs" lay-event="addAttr">添加属性</a>
     <a id="generate_{{d.id}}" class="generate layui-btn layui-btn-normal layui-btn-xs" lay-event="generate">代码生成</a>
+<!--    <a id="download_{{d.id}}" class="generate layui-btn layui-btn-normal layui-btn-xs" href="downloadCode?id={{d.id}}">代码下载</a>-->
+    <a id="download_{{d.id}}" class="generate layui-btn layui-btn-normal layui-btn-xs" lay-event="download">代码下载</a>
 </script>
 
 <script type="text/html" id="isAdd">
@@ -72,16 +74,16 @@
         , {field: 'isEdit', title: '编辑方法', sort: false, edit: 'null',templet: '#isEdit'}
         , {field: 'isDel', title: '删除方法', sort: false, edit: 'null',templet: '#isDel'}
         , {field: 'isQuery', title: '查询方法', sort: false, edit: 'null',templet: '#isQuery'}
-        , {fixed: 'right', title: '操作', toolbar: '#row_bar', width: 260}
+        , {fixed: 'right', title: '操作', toolbar: '#row_bar', width: 340}
     ];
 
-    var rowIndex = 0;
     layui.use('table', function () {
         var table = layui.table;
         var laytpl = layui.laytpl;
         table.render({
             elem: '#pageList'
             , url: 'pageByParams'
+            , async: false
             , startByZero: true //分页查询从page=0页开始
             , toolbar: '#top_bar' //开启头部工具栏，并为其绑定左侧模板
             , defaultToolbar: ['filter', 'exports', 'print']
@@ -92,9 +94,10 @@
                     var obj = res.data[j];
                     if(obj.moduleAttrs == null){
                         $("#generate_"+obj.id).addClass("layui-btn-disabled");
-                        $("#generate_"+obj.id).attr('lay-event',"");
                     }
-                    rowIndex++;
+                    if(obj.isGenerate == 0){
+                        $("#download_"+obj.id).addClass("layui-btn-disabled");
+                    }
                 }
             }
             , page: true
@@ -110,14 +113,15 @@
             switch (obj.event) {
                 //添加
                 case 'add':
-                    layer.open({
+                    var index = layer.open({
                         type: 2,
                         title: '添加代码生成模块',
                         shadeClose: true,
                         skin: 'layui-layer-lan',
                         shade: 0.5,
                         closeBtn: 1,
-                        area: ['550px', '650px'],
+                        area: ['750px', '450px'],
+                        maxmin: true,
                         content: 'add.html',
                         end: function () {
                             if($(".layui-laypage-btn")[0] == null){
@@ -127,6 +131,7 @@
                             }
                         }
                     });
+                    layer.full(index);
                     break;
                 //批量删除
                 case 'deleteBatch':
@@ -173,23 +178,6 @@
                             return;
                         })
                     }
-                    break;
-                //查询
-                case 'search':
-                    //编辑按钮
-                    layer.open({
-                        type: 2,
-                        title: '编辑代码生成模块',
-                        shadeClose: true,
-                        skin: 'layui-layer-lan',
-                        shade: 0.5,
-                        closeBtn: 1,
-                        area: ['550px', '650px'],
-                        content: 'add.html',
-                        end: function () {
-                            $(".layui-laypage-btn")[0].click();
-                        }
-                    });
                     break;
             }
             ;
@@ -249,6 +237,14 @@
                     }
                 });
             } else if (obj.event === 'generate') {
+                if(obj.data.moduleAttrs == null){
+                    layer.alert("请先点击“添加属性”按钮完善模块属性信息。", {
+                        skin: 'layui-layer-lan'
+                        , closeBtn: 0
+                        , anim: 4 //动画类型
+                    });
+                    return;
+                }
                 $.ajax({
                     type: "post",
                     url: "generateCode",
@@ -260,6 +256,7 @@
                     success: function (res) {
                         if (res.code == "0") {
                             layer.msg('代码生成成功！', {icon: 1});
+                            $(".layui-laypage-btn")[0].click();
                         } else {
                             layer.alert("[" + res.code + "]" + res.msg, {
                                 skin: 'layui-layer-lan'
@@ -274,8 +271,18 @@
                         alert("操作失败，请检查是否有相关操作权限！");
                     }
                 })
+            } else if (obj.event === 'download') {
+                var id = data.id;
+                if(data.isGenerate=="0"){
+                    layer.alert("请先点击“生成代码”按钮进行生成。", {
+                        skin: 'layui-layer-lan'
+                        , closeBtn: 0
+                        , anim: 4 //动画类型
+                    });
+                }else{
+                    location.href = "downloadCode?id="+id;
+                }
             } else if (obj.event === 'addAttr') {
-
                 var index = layer.open({
                     type: 2,
                     title: '添加模块属性',

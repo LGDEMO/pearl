@@ -151,4 +151,4 @@
 .treeview-menu > li > a > .pull-right-container > .fa-angle-left,.treeview-menu > li > a > .pull-right-container > .fa-angle-down,.treeview-menu > li > a > .fa-angle-left,.treeview-menu > li > a > .fa-angle-down {width: auto;}
 a:focus {outline:none;}
 .main-sidebar:before {content: "";display: block;position: absolute;z-index: -1;width: 100%;height: 100%;top: 0;left: 0;background: #233944;opacity: 0.95;}
-.main-sidebar {background-image: url(../../../assets/images/bg-01.jpg);}
+/*.main-sidebar {background-image: url(../../../assets/images/bg-01.jpg);}*/

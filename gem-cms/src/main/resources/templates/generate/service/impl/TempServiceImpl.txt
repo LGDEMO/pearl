@@ -1,8 +1,8 @@
 package ${package}.service.impl;
 
-import com.gemframework.bas.common.enums.ResultCode;
-import com.gemframework.bas.common.exception.GemException;
-import com.gemframework.bas.common.utils.GemBeanUtils;
+import ResultCode;
+import GemException;
+import GemBeanUtils;
 import ${package}.model.po.${Entity};
 import ${package}.model.vo.${Entity}Vo;
 import ${package}.repository.${Entity}Repository;
@@ -115,7 +115,7 @@ public class ${Entity}ServiceImpl implements ${Entity}Service {
      * @Title:  update
      * @MethodName:  update
      * @Param: [vo]
-     * @Retrun: com.gemframework.bas.model.po.User
+     * @Retrun: com.gemframework.model.po.User
      * @Description: 更新数据
      * @Date: ${datetime}
      */
