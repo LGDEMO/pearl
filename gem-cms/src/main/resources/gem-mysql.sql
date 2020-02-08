@@ -4,18 +4,14 @@ Navicat MySQL Data Transfer
 Source Server         : 127.0.0.1
 Source Server Version : 50636
 Source Host           : localhost:3306
-Source Database       : pearl
+Source Database       : gem
 
 Target Server Type    : MYSQL
 Target Server Version : 50636
 File Encoding         : 65001
 
-Date: 2020-01-31 17:47:00
+Date: 2020-02-08 22:18:48
 */
--- 记的创建数据库
--- CREATE DATABASE IF NOT EXISTS pearl
--- DEFAULT CHARACTER SET utf8mb4
--- DEFAULT COLLATE utf8mb4_general_ci;
 
 SET FOREIGN_KEY_CHECKS=0;
 
@@ -128,7 +124,7 @@ CREATE TABLE `gem_menu` (
   `type` tinyint(1) DEFAULT NULL COMMENT '类型 0菜单 1按钮 2其他',
   `sort_path` varchar(150) DEFAULT NULL COMMENT '排序编号路径',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=66 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=68 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of gem_menu
@@ -193,6 +189,8 @@ INSERT INTO `gem_menu` VALUES ('62', '2020-01-29 18:33:05', '2020-01-29 18:33:05
 INSERT INTO `gem_menu` VALUES ('63', '2020-01-29 20:10:49', '2020-01-29 20:10:49', null, '', '45-57-63', '3', 'module/list', '获取模块列表', '57', '45', '99', 'fun_module_list', '1', '99-45-99-45-57-99-45-57-63');
 INSERT INTO `gem_menu` VALUES ('64', '2020-01-30 14:01:13', '2020-01-30 14:01:13', null, '', '45-51-64', '3', 'module/generateCode', '生成代码按钮', '51', '45', '99', 'btn_code_generate', '1', '99-45-99-45-51-99-45-51-64');
 INSERT INTO `gem_menu` VALUES ('65', null, '2020-01-30 22:08:52', null, '', '45-51-65', '3', 'module/downloadCode', '代码下载', '51', '45', '99', 'btn_module_download', '1', '99-45-99-45-51-99-45-51-65');
+INSERT INTO `gem_menu` VALUES ('66', null, '2020-02-08 00:00:37', null, '', '45-51-66', '3', 'module/deleteBatch', '批量删除', '51', '45', '99', 'plsc', '1', '99-45-99-45-51-99-45-51-66');
+INSERT INTO `gem_menu` VALUES ('67', null, '2020-02-08 00:00:29', null, '', '45-57-67', '3', 'moduleAttr/deleteBatch', '批量删除', '57', '45', '99', 'plsc1', '1', '99-45-99-45-57-99-45-57-67');
 
 -- ----------------------------
 -- Table structure for gem_module
@@ -215,12 +213,12 @@ CREATE TABLE `gem_module` (
   `pk_nane` varchar(60) NOT NULL COMMENT '主键名称',
   `is_generate` tinyint(1) DEFAULT '0' COMMENT '是否生成CODE, 1：是 0：否',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of gem_module
 -- ----------------------------
-INSERT INTO `gem_module` VALUES ('2', null, '2020-01-31 14:35:04', 'zhangysh', '1', '1', '1', '1', '车辆管理', 'car', 'com.gemframework.cms', '450', '550', 'name', '0');
+INSERT INTO `gem_module` VALUES ('2', null, '2020-02-08 20:48:23', 'zhangysh', '1', '1', '1', '1', '车辆管理', 'car', 'com.gemframework.cms', '450', '550', 'name', '1');
 INSERT INTO `gem_module` VALUES ('3', null, '2020-01-31 14:34:56', 'zhangysh', '1', '1', '1', '1', '测试', 'test', 'com.gemframework', '0', '550', 'name', '0');
 INSERT INTO `gem_module` VALUES ('4', null, '2020-01-31 14:36:50', 'gems', '1', '1', '1', '1', '苹果管理', 'apple', 'com.test', '500', '400', 'name', '0');
 
@@ -232,29 +230,28 @@ CREATE TABLE `gem_module_attr` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `createtime` datetime DEFAULT NULL COMMENT '创建时间',
   `updatetime` datetime DEFAULT NULL COMMENT '更新时间',
-  `attr_name_cn` varchar(30) NOT NULL COMMENT '属性中文名称',
-  `attr_name_en` varchar(30) NOT NULL COMMENT '属性英文名称',
+  `attr_name` varchar(30) NOT NULL COMMENT '字段名称',
   `attr_type` varchar(30) NOT NULL COMMENT '字段类型',
-  `edit_type` varchar(10) NOT NULL COMMENT '编辑类型',
-  `filed_name` varchar(30) NOT NULL COMMENT '字段名称',
+  `comment` varchar(30) NOT NULL COMMENT '字段描述',
+  `edit_type` varchar(10) DEFAULT 'text' COMMENT '编辑类型',
   `is_null` tinyint(1) NOT NULL DEFAULT '1' COMMENT '是否为空 1允许为空 0不允许为空',
-  `is_qurey` tinyint(1) NOT NULL DEFAULT '1' COMMENT '是否支持查询 1支持 0不支持',
-  `is_table_sort` tinyint(1) NOT NULL DEFAULT '1' COMMENT '是否支持排序 1支持 0不支持',
-  `is_table_visit` tinyint(1) NOT NULL DEFAULT '1' COMMENT '是否可见 1可见 0不可见',
+  `is_search` tinyint(1) NOT NULL DEFAULT '1' COMMENT '是否支持查询 1支持 0不支持',
+  `is_sort` tinyint(1) NOT NULL DEFAULT '1' COMMENT '是否支持排序 1支持 0不支持',
+  `is_visit` tinyint(1) NOT NULL DEFAULT '1' COMMENT '是否可见 1可见 0不可见',
   `max_length` int(10) NOT NULL COMMENT '字段最大长度',
   `min_length` int(10) NOT NULL COMMENT '字段最小长度',
   `module_id` bigint(20) DEFAULT NULL,
   `options` varchar(300) DEFAULT NULL COMMENT '下拉框内容',
+  `attr_sort` int(2) NOT NULL COMMENT '字段顺序',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of gem_module_attr
 -- ----------------------------
-INSERT INTO `gem_module_attr` VALUES ('4', null, '2020-01-30 11:49:24', '名称', 'name', 'text', 'text', 'name', '1', '1', '1', '1', '10', '2', '2', null);
-INSERT INTO `gem_module_attr` VALUES ('5', '2020-01-29 22:22:57', '2020-01-29 22:22:57', '323', '23232', 'text', '323', '2323', '1', '1', '1', '1', '3232', '2323', '3', '');
-INSERT INTO `gem_module_attr` VALUES ('6', null, '2020-01-30 11:49:59', '颜色', 'color', 'text', 'text', 'color', '1', '1', '1', '1', '20', '2', '2', null);
-INSERT INTO `gem_module_attr` VALUES ('7', '2020-01-30 11:53:56', '2020-01-30 11:53:56', '型号', 'xinghao', 'select', 'text', 'xinghao', '1', '1', '1', '1', '10', '2', '2', '白色=b;黑色=h;');
+INSERT INTO `gem_module_attr` VALUES ('37', null, '2020-02-08 20:48:23', 'name', 'text', '描述', null, '0', '1', '0', '0', '10', '20', '2', null, '2');
+INSERT INTO `gem_module_attr` VALUES ('38', '2020-02-08 20:48:23', '2020-02-08 20:48:23', 'name1', 'text', '1212', null, '1', '0', '1', '1', '12', '212', '2', null, '2');
+INSERT INTO `gem_module_attr` VALUES ('39', '2020-02-08 20:48:23', '2020-02-08 20:48:23', '12121', 'text', '1212', null, '1', '1', '0', '1', '212', '121', '2', null, '3');
 
 -- ----------------------------
 -- Table structure for gem_role
