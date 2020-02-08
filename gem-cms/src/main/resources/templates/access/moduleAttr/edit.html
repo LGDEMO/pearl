@@ -25,8 +25,6 @@
                             <td>所属模块
                                 <span class="span">*</span></td>
                             <td>
-                                <!--                                <input type="text" id="moduleId" name="moduleId" class="block" required maxlength="20"-->
-                                <!--                                       th:value="${editInfo.moduleId}">-->
                                 <select id="moduleId" name="moduleId" class="block">
                                 </select>
                             </td>
@@ -35,14 +33,21 @@
                             <td>字段名称
                                 <span class="span">*</span></td>
                             <td>
-                                <input type="text" id="attrNameEn" name="attrNameEn" class="block" required
+                                <input type="text" id="attrName" name="attrName" class="block" required
                                        maxlength="50" th:value="${editInfo.attrName}">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>字段排序</td>
+                            <td>
+                                <input type="text" id="attrSort" name="attrSort" class="block" maxlength="80"
+                                       th:value="${editInfo.attrSort}">
                             </td>
                         </tr>
                         <tr>
                             <td>字段描述</td>
                             <td>
-                                <input type="text" id="attrNameCn" name="attrNameCn" class="block" maxlength="80"
+                                <input type="text" id="comment" name="comment" class="block" maxlength="80"
                                        th:value="${editInfo.comment}">
                             </td>
                         </tr>
@@ -51,10 +56,11 @@
                                 <span class="span">*</span></td>
                             <td>
                                 <select id="attrType" name="attrType" class="block" onchange="changeAttrType(this.value)">
-                                    <option th:selected="${editInfo.attrType eq 'text'}" value="text">字符型[VARCHAR]</option>
-                                    <option th:selected="${editInfo.attrType eq 'password'}" value="password">密码型[VARCHAR]</option>
-                                    <option th:selected="${editInfo.attrType eq 'textarea'}" value="textarea">文本型[TEXT]</option>
+                                    <option th:selected="${editInfo.attrType eq 'text'}" value="text">字符型</option>
+                                    <option th:selected="${editInfo.attrType eq 'password'}" value="password">密码型</option>
+                                    <option th:selected="${editInfo.attrType eq 'textarea'}" value="textarea">文本型</option>
                                     <option th:selected="${editInfo.attrType eq 'number'}" value="number">数值型</option>
+                                    <option th:selected="${editInfo.attrType eq 'hidden'}" value="text">隐藏型</option>
                                     <option th:selected="${editInfo.attrType eq 'select'}" value="select">下拉型</option>
                                     <option th:selected="${editInfo.attrType eq 'checkbox'}" value="checkbox">多选型</option>
                                     <option th:selected="${editInfo.attrType eq 'radio'}" value="radio">单选型</option>
@@ -108,7 +114,7 @@
                             <td>是否可见
                                 <span class="span">*</span></td>
                             <td>
-                                <select id="isTableVisit" name="isTableVisit" class="block">
+                                <select id="isVisit" name="isVisit" class="block">
                                     <option th:selected="${editInfo.isVisit eq 1}" value="1">支持</option>
                                     <option th:selected="${editInfo.isVisit eq 0}" value="0">不支持</option>
                                 </select>
@@ -118,7 +124,7 @@
                             <td>是否排序
                                 <span class="span">*</span></td>
                             <td>
-                                <select id="isTableSort" name="isTableSort" class="block">
+                                <select id="isSort" name="isSort" class="block">
                                     <option th:selected="${editInfo.isSort eq 1}" value="1">支持</option>
                                     <option th:selected="${editInfo.isSort eq 0}" value="0">不支持</option>
                                 </select>
@@ -128,7 +134,7 @@
                             <td>是否查询
                                 <span class="span">*</span></td>
                             <td>
-                                <select id="isQurey" name="isQurey" class="block">
+                                <select id="isSearch" name="isSearch" class="block">
                                     <option th:selected="${editInfo.isSearch eq 1}" value="1">支持</option>
                                     <option th:selected="${editInfo.isSearch eq 0}" value="0">不支持</option>
                                 </select>

@@ -29,7 +29,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td>属性名[英]
+                            <td>字段名称
                                 <span class="span">*</span></td>
                             <td>
                                 <input type="text" id="attrName" name="attrName" class="block" required
@@ -37,7 +37,13 @@
                             </td>
                         </tr>
                         <tr>
-                            <td>属性名[中]</td>
+                            <td>字段排序</td>
+                            <td>
+                                <input type="text" id="attrSort" name="attrSort" class="block" maxlength="2" value="99">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>字段描述</td>
                             <td>
                                 <input type="text" id="comment" name="comment" class="block" maxlength="80">
                             </td>
@@ -47,11 +53,12 @@
                                 <span class="span">*</span></td>
                             <td>
                                 <select id="attrType" name="attrType" class="block" onchange="changeAttrType(this.value)">
-                                    <option value="text">字符型[VARCHAR]</option>
-                                    <option value="password">密码型[VARCHAR]</option>
-                                    <option value="textarea">文本型[TEXT]</option>
+
+                                    <option value="text">字符型</option>
+                                    <option value="password">密码型</option>
+                                    <option value="textarea">文本型</option>
                                     <option value="number">数值型</option>
-<!--                                    <input type="number"  min="1.00" max="500.00" step="0.01" >-->
+                                    <option value="hidden">隐藏型</option>
                                     <option value="select">下拉型</option>
                                     <option value="checkbox">多选型</option>
                                     <option value="radio">单选型</option>

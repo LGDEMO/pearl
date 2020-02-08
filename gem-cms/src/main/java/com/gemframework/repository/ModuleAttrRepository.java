@@ -22,8 +22,8 @@ public interface ModuleAttrRepository extends JpaRepository<ModuleAttr, Long> {
     @Query("select moduleAttr from ModuleAttr moduleAttr where id = ?1")
     ModuleAttr getById(Long id);
 
-    @Query("select moduleAttr from ModuleAttr moduleAttr where moduleId = ?1")
-    List<ModuleAttr> getByModuleId(Long moduleId);
+    @Query("select moduleAttr from ModuleAttr moduleAttr where moduleId = ?1 order by attrSort asc")
+    List<ModuleAttr> findByModuleId(Long moduleId);
 
     @Query("select moduleAttr from ModuleAttr moduleAttr where attrName=?1 and id <> ?2")
     ModuleAttr exist(String name, Long id);

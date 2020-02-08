@@ -50,11 +50,12 @@ public class CodeServiceImpl implements CodeService {
 
     @Override
     public List<ModuleVo> findListByParams(ModuleVo vo) {
-        Module entity = new Module();
-        GemBeanUtils.copyProperties(vo,entity);
-        List<Module> list = codeRepository.findAll(Example.of(entity));
-        List<ModuleVo> vos = GemBeanUtils.copyCollections(list, ModuleVo.class);
-        return vos;
+//        Module entity = new Module();
+//        GemBeanUtils.copyProperties(vo,entity);
+//        List<Module> list = codeRepository.findAll(Example.of(entity));
+//        List<ModuleVo> vos = GemBeanUtils.copyCollections(list, ModuleVo.class);
+//        return vos;
+        return null;
     }
 
     @Override

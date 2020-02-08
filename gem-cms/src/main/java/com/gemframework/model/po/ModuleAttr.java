@@ -22,6 +22,9 @@ public class ModuleAttr extends BasePo {
     @Column(columnDefinition = "varchar(30) not null comment '字段名称'",nullable = false)
     private String attrName;
 
+    @Column(columnDefinition = "int(2) not null comment '字段顺序'",nullable = false)
+    private Integer attrSort;
+
     @Column(columnDefinition = "varchar(30) not null comment '字段描述'",nullable = false)
     private String comment;
 

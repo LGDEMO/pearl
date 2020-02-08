@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 /**
  * @Title: ModuleRepository.java
@@ -23,8 +24,8 @@ public interface ModuleRepository extends JpaRepository<Module, Long> {
     @Query("select module from Module module where id = ?1")
     Module getById(Long id);
 
-    @Query("select module from Module module where name_en=?1 and id <> ?2")
-    Module exist(String name, Long id);
+    @Query("select module from Module module where nameEn=?1 and id <> ?2")
+    List<Module> exist(String name, Long id);
 
     @Modifying
     @Transactional

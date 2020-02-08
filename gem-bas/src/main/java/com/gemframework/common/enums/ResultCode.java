@@ -31,7 +31,8 @@ public enum ResultCode {
     USER_EXIST(10000,"用户已存在"),
     DEPT_EXIST(10001,"部门已存在"),
     ROLE_EXIST(10002,"角色已存在"),
-    MENU_EXIST(10002,"菜单已存在"),
+    MENU_EXIST(10003,"菜单已存在"),
+    MODULE_EXIST(10004,"模块已存在"),
     SYSTEM_EXCEPTION(999999,"系统异常"),
     ;
 

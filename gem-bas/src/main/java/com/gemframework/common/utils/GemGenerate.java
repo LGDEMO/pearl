@@ -142,10 +142,14 @@ public class GemGenerate {
                         }
                         addFeildHtml += "   </td>\n";
                         if(filed.getAttrType().equalsIgnoreCase("text")
+                                || filed.getAttrType().equalsIgnoreCase("email")
                                 || filed.getAttrType().equalsIgnoreCase("number")
+                                || filed.getAttrType().equalsIgnoreCase("tel")
                                 || filed.getAttrType().equalsIgnoreCase("checkbox")
                                 || filed.getAttrType().equalsIgnoreCase("radio")
-                                || filed.getAttrType().equalsIgnoreCase("email")
+                                || filed.getAttrType().equalsIgnoreCase("date")
+                                || filed.getAttrType().equalsIgnoreCase("hidden")
+                                || filed.getAttrType().equalsIgnoreCase("password")
                         ){
                             addFeildHtml +="       <input type=\""+filed.getAttrType()+"\" " +
                                     "       id=\""+GemBeanUtils.lineToHump(filed.getAttrName())+"\" " +
@@ -179,6 +183,9 @@ public class GemGenerate {
                                 }
                             }
                             addFeildHtml +="</select>\n";
+                        }else if(filed.getAttrType().equalsIgnoreCase("textarea")){
+                            addFeildHtml += "<textarea id=\""+GemBeanUtils.lineToHump(filed.getAttrName())+"\" " +
+                                    "name=\"+GemBeanUtils.lineToHump(filed.getAttrName())+\"></textarea>";
                         }
                         addFeildHtml += "   </td>\n" +
                                 "</tr>";
@@ -197,6 +204,10 @@ public class GemGenerate {
                                 || filed.getAttrType().equalsIgnoreCase("checkbox")
                                 || filed.getAttrType().equalsIgnoreCase("radio")
                                 || filed.getAttrType().equalsIgnoreCase("email")
+                                || filed.getAttrType().equalsIgnoreCase("tel")
+                                || filed.getAttrType().equalsIgnoreCase("date")
+                                || filed.getAttrType().equalsIgnoreCase("hidden")
+                                || filed.getAttrType().equalsIgnoreCase("password")
                         ){
                             editFeildHtml +="       <input type=\""+filed.getAttrType()+"\" " +
                                     "       id=\""+GemBeanUtils.lineToHump(filed.getAttrName())+"\" " +
@@ -231,6 +242,11 @@ public class GemGenerate {
                                 }
                             }
                             editFeildHtml +="</select>\n";
+                        }else if(filed.getAttrType().equalsIgnoreCase("textarea")){
+                            editFeildHtml += "<textarea id=\""+GemBeanUtils.lineToHump(filed.getAttrName())+"\" " +
+                                    "name=\"+GemBeanUtils.lineToHump(filed.getAttrName())+\" " +
+                                    "th:text=\"${edit_user."+GemBeanUtils.lineToHump(filed.getAttrName())+"}\">" +
+                                    "</textarea>";
                         }
                         editFeildHtml += "   </td>\n" +
                                 "</tr>";

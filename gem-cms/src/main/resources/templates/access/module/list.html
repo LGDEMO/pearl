@@ -223,19 +223,20 @@
                 //编辑
             } else if (obj.event === 'edit') {
                 //编辑按钮
-                layer.open({
+                var index = layer.open({
                     type: 2,
                     title: '编辑模块',
                     shadeClose: true,
                     skin: 'layui-layer-lan',
                     shade: 0.5,
                     closeBtn: 1,
-                    area: ['550px', '650px'],
+                    area: ['750px', '450px'],
                     content: 'edit.html?id=' + data.id,
                     end: function () {
                         $(".layui-laypage-btn")[0].click();
                     }
                 });
+                layer.full(index);
             } else if (obj.event === 'generate') {
                 if(obj.data.moduleAttrs == null){
                     layer.alert("请先点击“添加属性”按钮完善模块属性信息。", {

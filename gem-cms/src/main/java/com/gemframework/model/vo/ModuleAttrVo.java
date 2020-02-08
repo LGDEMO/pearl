@@ -1,9 +1,8 @@
 package com.gemframework.model.vo;
 
 import com.gemframework.model.vo.BaseVo;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import io.swagger.models.auth.In;
+import lombok.*;
 
 /**
  * @Title: ModuleAttrVo.java
@@ -18,13 +17,16 @@ import lombok.NoArgsConstructor;
  */
 
 @Data
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 @EqualsAndHashCode(callSuper=true)
 public class ModuleAttrVo extends BaseVo {
 
     private Long id;
     private Long moduleId;
     private String attrName;
+    private Integer attrSort;
     private String comment;
     private String attrType;
     private String options;
