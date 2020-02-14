@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50636
 File Encoding         : 65001
 
-Date: 2020-02-08 22:18:48
+Date: 2020-02-14 21:03:06
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -124,7 +124,7 @@ CREATE TABLE `gem_menu` (
   `type` tinyint(1) DEFAULT NULL COMMENT '类型 0菜单 1按钮 2其他',
   `sort_path` varchar(150) DEFAULT NULL COMMENT '排序编号路径',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=68 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=75 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of gem_menu
@@ -136,7 +136,7 @@ INSERT INTO `gem_menu` VALUES ('5', null, '2020-01-12 12:01:16', null, 'fas fa-r
 INSERT INTO `gem_menu` VALUES ('6', null, '2020-01-12 12:03:33', null, 'fab fa-adn', '02-06', '2', 'menu/list.html', '菜单管理', '2', '02', '1', 'menu_menu', '0', '08-02-01-02-06');
 INSERT INTO `gem_menu` VALUES ('7', null, '2020-01-31 17:46:05', null, 'fas fa-box', '07', '1', '#', '外部网站', '0', '07', '998', 'menu_website', '0', '998-07');
 INSERT INTO `gem_menu` VALUES ('8', null, '2020-01-31 17:46:05', null, 'fab fa-angular', '07-08', '2', 'http://www.baidu.com', '百度一下', '7', '07', '4', 'menu_api', '0', '998-07-04-07-08');
-INSERT INTO `gem_menu` VALUES ('9', null, '2020-01-31 17:46:05', null, 'fab fa-apple', '07-09', '2', 'https://0x9.me/VpFs3', '淘宝官网', '7', '07', '3', 'menu_app', '0', '998-07-03-07-09');
+INSERT INTO `gem_menu` VALUES ('9', null, '2020-02-12 22:56:16', null, 'fab fa-apple', '07-09', '2', 'http://www.gemframework.com/shouquan.html', '商业授权', '7', '07', '3', 'menu_app', '0', '998-07-03-07-09');
 INSERT INTO `gem_menu` VALUES ('10', null, '2020-01-31 17:45:55', null, 'fab fa-amilia', '10', '1', '#', '一级菜单', '0', '10', '999', 'menu_1', '0', '999-10');
 INSERT INTO `gem_menu` VALUES ('11', null, '2020-01-31 17:45:55', null, 'fab fa-amazon', '10-11', '2', '123', '二级菜单', '10', '10', '99', 'menu_2', '0', '999-10-99-10-11');
 INSERT INTO `gem_menu` VALUES ('12', null, '2020-01-31 17:45:55', null, 'fas fa-angle-double-right', '10-11-12', '3', 'HTTP://JSON.CN', '三级菜单', '11', '10', '99', 'menu_json', '0', '999-10-99-10-11-99-10-11-12');
@@ -162,7 +162,7 @@ INSERT INTO `gem_menu` VALUES ('33', null, '2020-01-31 17:46:13', null, 'fab fa-
 INSERT INTO `gem_menu` VALUES ('34', null, '2020-01-31 17:46:13', null, 'fab fa-windows', '32-34', '2', 'http://www.gemframework.com', 'GemFrame官网', '32', '32', '3', 'menu_gem', '0', '997-32-03-32-34');
 INSERT INTO `gem_menu` VALUES ('35', null, '2020-01-31 17:46:13', null, 'fas fa-basketball-ball', '32-35', '2', 'http://www.gemframework.com/bbs', '官方社区', '32', '32', '1', 'menu_bbs', '0', '997-32-01-32-35');
 INSERT INTO `gem_menu` VALUES ('36', null, '2020-01-27 18:44:00', null, 'fas fa-cog', '36', '1', '112', '系统监控', '0', '36', '99', 'menu_monitor', '0', '99-36');
-INSERT INTO `gem_menu` VALUES ('37', null, '2020-01-27 18:42:49', null, 'fas fa-database', '36-37', '2', 'druid', '数据库监控', '36', '36', '99', 'menu_druid', '0', '99-36-99-36-37');
+INSERT INTO `gem_menu` VALUES ('37', null, '2020-02-13 21:11:57', null, 'fas fa-database', '36-37', '2', 'druid', 'MySQL监控', '36', '36', '99', 'menu_druid', '0', '99-36-99-36-37');
 INSERT INTO `gem_menu` VALUES ('38', null, '2020-01-27 18:43:13', null, 'fas fa-video', '38', '1', '#', '示例演示', '0', '38', '99', 'menu_demo', '0', '99-38');
 INSERT INTO `gem_menu` VALUES ('39', null, '2020-01-27 18:44:07', null, 'fab fa-first-order', '38-39', '2', 'demo/redis/index', 'Redis示例', '38', '38', '99', 'menu_redis', '0', '99-38-99-38-39');
 INSERT INTO `gem_menu` VALUES ('40', null, '2020-01-27 18:44:22', null, 'fas fa-lightbulb', '38-40', '2', 'swagger-ui.html', '接口调试', '38', '38', '99', 'menu_swagger', '0', '99-38-99-38-40');
@@ -191,6 +191,12 @@ INSERT INTO `gem_menu` VALUES ('64', '2020-01-30 14:01:13', '2020-01-30 14:01:13
 INSERT INTO `gem_menu` VALUES ('65', null, '2020-01-30 22:08:52', null, '', '45-51-65', '3', 'module/downloadCode', '代码下载', '51', '45', '99', 'btn_module_download', '1', '99-45-99-45-51-99-45-51-65');
 INSERT INTO `gem_menu` VALUES ('66', null, '2020-02-08 00:00:37', null, '', '45-51-66', '3', 'module/deleteBatch', '批量删除', '51', '45', '99', 'plsc', '1', '99-45-99-45-51-99-45-51-66');
 INSERT INTO `gem_menu` VALUES ('67', null, '2020-02-08 00:00:29', null, '', '45-57-67', '3', 'moduleAttr/deleteBatch', '批量删除', '57', '45', '99', 'plsc1', '1', '99-45-99-45-57-99-45-57-67');
+INSERT INTO `gem_menu` VALUES ('68', '2020-02-12 22:32:29', '2020-02-12 22:32:29', null, 'fas fa-exclamation-circle', '68', '1', 'errorpages', '错误页面', '0', '68', '99', 'errorpages', '0', '99-68');
+INSERT INTO `gem_menu` VALUES ('69', '2020-02-12 22:32:51', '2020-02-12 22:32:51', null, 'far fa-flag', '68-69', '2', '404', '404', '68', '68', '99', '404', '0', '99-68-99-68-69');
+INSERT INTO `gem_menu` VALUES ('70', '2020-02-12 22:33:13', '2020-02-12 22:33:13', null, 'fas fa-flag-checkered', '68-70', '2', '403', '403', '68', '68', '99', '403', '0', '99-68-99-68-70');
+INSERT INTO `gem_menu` VALUES ('71', null, '2020-02-13 21:09:57', null, 'fas fa-th-large', '36-71', '2', 'sysLog/list.html', '系统日志', '36', '36', '99', 'log', '0', '99-36-99-36-71');
+INSERT INTO `gem_menu` VALUES ('73', null, '2020-02-13 21:11:11', null, '', '36-71-73', '3', 'sysLog/pageByParams', '分页查询日志', '71', '36', '99', 'logpage', '1', '99-36-99-36-71-99-36-71-73');
+INSERT INTO `gem_menu` VALUES ('74', '2020-02-13 22:24:12', '2020-02-13 22:24:12', null, '', '36-71-74', '3', 'sysLog/deleteBatch', '清空日志', '71', '36', '99', 'deleteBatch', '1', '99-36-99-36-71-99-36-71-74');
 
 -- ----------------------------
 -- Table structure for gem_module
@@ -213,14 +219,15 @@ CREATE TABLE `gem_module` (
   `pk_nane` varchar(60) NOT NULL COMMENT '主键名称',
   `is_generate` tinyint(1) DEFAULT '0' COMMENT '是否生成CODE, 1：是 0：否',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of gem_module
 -- ----------------------------
-INSERT INTO `gem_module` VALUES ('2', null, '2020-02-08 20:48:23', 'zhangysh', '1', '1', '1', '1', '车辆管理', 'car', 'com.gemframework.cms', '450', '550', 'name', '1');
+INSERT INTO `gem_module` VALUES ('2', null, '2020-02-08 20:48:23', 'zhangysh', '1', '1', '1', '1', '车辆管理', 'car', 'com.gemframework.cms', '450', '550', 'name', '0');
 INSERT INTO `gem_module` VALUES ('3', null, '2020-01-31 14:34:56', 'zhangysh', '1', '1', '1', '1', '测试', 'test', 'com.gemframework', '0', '550', 'name', '0');
 INSERT INTO `gem_module` VALUES ('4', null, '2020-01-31 14:36:50', 'gems', '1', '1', '1', '1', '苹果管理', 'apple', 'com.test', '500', '400', 'name', '0');
+INSERT INTO `gem_module` VALUES ('39', null, '2020-02-13 20:34:57', 'gemteam', '0', '1', '0', '1', '系统日志', 'sysLog', 'com.gemframework', '450', '550', 'name', '1');
 
 -- ----------------------------
 -- Table structure for gem_module_attr
@@ -244,7 +251,7 @@ CREATE TABLE `gem_module_attr` (
   `options` varchar(300) DEFAULT NULL COMMENT '下拉框内容',
   `attr_sort` int(2) NOT NULL COMMENT '字段顺序',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of gem_module_attr
@@ -252,6 +259,12 @@ CREATE TABLE `gem_module_attr` (
 INSERT INTO `gem_module_attr` VALUES ('37', null, '2020-02-08 20:48:23', 'name', 'text', '描述', null, '0', '1', '0', '0', '10', '20', '2', null, '2');
 INSERT INTO `gem_module_attr` VALUES ('38', '2020-02-08 20:48:23', '2020-02-08 20:48:23', 'name1', 'text', '1212', null, '1', '0', '1', '1', '12', '212', '2', null, '2');
 INSERT INTO `gem_module_attr` VALUES ('39', '2020-02-08 20:48:23', '2020-02-08 20:48:23', '12121', 'text', '1212', null, '1', '1', '0', '1', '212', '121', '2', null, '3');
+INSERT INTO `gem_module_attr` VALUES ('42', null, '2020-02-13 20:34:57', 'client_ip', 'text', '日志名称', null, '1', '1', '1', '1', '20', '1', '39', null, '4');
+INSERT INTO `gem_module_attr` VALUES ('43', null, '2020-02-13 20:34:57', 'type', 'text', '日志类型', null, '1', '1', '1', '1', '2', '1', '39', null, '5');
+INSERT INTO `gem_module_attr` VALUES ('44', null, '2020-02-13 20:34:57', 'desp', 'text', '日志内容', null, '1', '1', '1', '1', '200', '0', '39', null, '6');
+INSERT INTO `gem_module_attr` VALUES ('45', null, '2020-02-13 20:34:57', 'id', 'text', '自增ID', null, '0', '0', '0', '0', '20', '1', '39', null, '1');
+INSERT INTO `gem_module_attr` VALUES ('46', null, '2020-02-13 20:34:57', 'account', 'text', '系统账号', null, '1', '1', '1', '1', '20', '0', '39', null, '3');
+INSERT INTO `gem_module_attr` VALUES ('47', null, '2020-02-13 20:34:57', 'user_id', 'text', '用户ID', null, '1', '1', '1', '1', '20', '0', '39', null, '2');
 
 -- ----------------------------
 -- Table structure for gem_role
@@ -604,6 +617,41 @@ INSERT INTO `gem_user_roles` VALUES ('47', '2020-01-14 14:34:04', '2020-01-14 14
 INSERT INTO `gem_user_roles` VALUES ('48', '2020-01-14 14:34:04', '2020-01-14 14:34:04', '19', '32');
 INSERT INTO `gem_user_roles` VALUES ('50', '2020-01-21 13:57:53', '2020-01-21 13:57:53', '1', '24');
 INSERT INTO `gem_user_roles` VALUES ('52', '2020-01-26 14:49:42', '2020-01-26 14:49:42', '1', '28');
+
+-- ----------------------------
+-- Table structure for get_sys_log
+-- ----------------------------
+DROP TABLE IF EXISTS `get_sys_log`;
+CREATE TABLE `get_sys_log` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `createtime` datetime DEFAULT NULL COMMENT '创建时间',
+  `updatetime` datetime DEFAULT NULL COMMENT '更新时间',
+  `account` varchar(10) DEFAULT NULL COMMENT '操作帐号',
+  `client_ip` varchar(32) DEFAULT NULL COMMENT '客户端IP',
+  `operate_status` tinyint(1) DEFAULT NULL COMMENT '操作状态 0成功 1失败',
+  `operate_type` tinyint(1) DEFAULT NULL COMMENT '操作类型 0登录 1其他',
+  `request_args` varchar(100) DEFAULT NULL COMMENT '请求参数',
+  `request_mothod` varchar(10) DEFAULT NULL COMMENT '请求方法',
+  `request_url` varchar(100) DEFAULT NULL COMMENT '请求URL',
+  `username` varchar(20) DEFAULT NULL COMMENT '用户名',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of get_sys_log
+-- ----------------------------
+INSERT INTO `get_sys_log` VALUES ('1', '2020-02-13 22:51:13', '2020-02-13 22:51:13', 'admin', '127.0.0.1', '0', '0', null, 'POST', 'http://127.0.0.1:8088/gem/login', 'admin');
+INSERT INTO `get_sys_log` VALUES ('6', '2020-02-13 22:55:16', '2020-02-13 22:55:16', 'admin', '127.0.0.1', '1', '0', null, 'POST', 'http://127.0.0.1:8088/gem/login', 'admin');
+INSERT INTO `get_sys_log` VALUES ('7', '2020-02-13 22:55:21', '2020-02-13 22:55:21', 'admin', '127.0.0.1', '1', '0', null, 'POST', 'http://127.0.0.1:8088/gem/login', 'admin');
+INSERT INTO `get_sys_log` VALUES ('8', '2020-02-13 22:55:27', '2020-02-13 22:55:27', 'admin', '127.0.0.1', '0', '0', null, 'POST', 'http://127.0.0.1:8088/gem/login', 'admin');
+INSERT INTO `get_sys_log` VALUES ('9', '2020-02-13 22:57:39', '2020-02-13 22:57:39', 'zhangsan', '127.0.0.1', '1', '0', null, 'POST', 'http://127.0.0.1:8088/gem/login', 'zhangsan');
+INSERT INTO `get_sys_log` VALUES ('10', '2020-02-13 22:57:44', '2020-02-13 22:57:44', 'admin', '127.0.0.1', '0', '0', null, 'POST', 'http://127.0.0.1:8088/gem/login', 'admin');
+INSERT INTO `get_sys_log` VALUES ('11', '2020-02-13 22:59:48', '2020-02-13 22:59:48', 'admin', '192.168.1.8', '1', '0', null, 'POST', 'http://192.168.1.6:8088/gem/login', 'admin');
+INSERT INTO `get_sys_log` VALUES ('12', '2020-02-13 23:00:07', '2020-02-13 23:00:07', 'admin', '192.168.1.8', '0', '0', null, 'POST', 'http://192.168.1.6:8088/gem/login', 'admin');
+INSERT INTO `get_sys_log` VALUES ('13', '2020-02-13 23:00:25', '2020-02-13 23:00:25', 'admin', '192.168.1.6', '0', '0', null, 'POST', 'http://192.168.1.6:8088/gem/login', 'admin');
+INSERT INTO `get_sys_log` VALUES ('14', '2020-02-13 23:14:30', '2020-02-13 23:14:30', 'admin', '127.0.0.1', '0', '0', null, 'POST', 'http://127.0.0.1:8088/gem/login', 'admin');
+INSERT INTO `get_sys_log` VALUES ('15', '2020-02-14 20:57:39', '2020-02-14 20:57:39', 'admin', '127.0.0.1', '1', '0', null, 'POST', 'http://127.0.0.1:8088/gem/login', 'admin');
+INSERT INTO `get_sys_log` VALUES ('16', '2020-02-14 20:57:44', '2020-02-14 20:57:44', 'admin', '127.0.0.1', '0', '0', null, 'POST', 'http://127.0.0.1:8088/gem/login', 'admin');
 
 -- ----------------------------
 -- Table structure for hibernate_sequence

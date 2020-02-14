@@ -37,7 +37,7 @@ spring:
   jpa:
     # 是否打印sql
     show-sql: false
-    generate-ddl: true
+    generate-ddl: false
     hibernate:
       # 开启自动建表功能，一般选update，每次启动会对比实体和数据表结构是否相同，不相同会更新
       ddl-auto: update
@@ -96,20 +96,20 @@ spring:
 #        login-password: 123456
 
     #初始化数据库表配置
-#    platform: mysql
-#    #启动时需要初始化的建表语句
-#    #schema: classpath:schema-mysql.sql
-#    #初始化的数据
-#    data: classpath:gem-mysql.sql
-#    # Initialize the datasource with available DDL and DML scripts.
-#    initialization-mode: always
-#    continue-on-error: false
-#    #schema-password:
-#    #schema-username:
-#    data-password: root
-#    data-username: root
-#    sql-script-encoding: utf-8
-#    separator: ;
+    platform: mysql
+    #启动时需要初始化的建表语句
+    #schema: classpath:schema-mysql.sql
+    #初始化的数据
+    data: classpath:gem-mysql.sql
+    # Initialize the datasource with available DDL and DML scripts.
+    initialization-mode: always
+    continue-on-error: false
+    #schema-password:
+    #schema-username:
+    data-password: root
+    data-username: root
+    sql-script-encoding: utf-8
+    separator: ;
 
   redis:
     host: 127.0.0.1
