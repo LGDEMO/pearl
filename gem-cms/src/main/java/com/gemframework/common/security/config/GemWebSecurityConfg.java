@@ -72,6 +72,7 @@ public class GemWebSecurityConfg extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin()//定义本系统使用表单认证方式
                 .loginPage("/login")
+                .loginProcessingUrl("/index")
 //                .successHandler(gemLoginSuccessHandler)//使用自定义的成功结果处理器
 //                .failureHandler(gemLoginFailureHandler)//使用自定义失败的结果处理器
                 .and()

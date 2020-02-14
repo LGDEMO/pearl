@@ -19,7 +19,7 @@ public interface RoleService {
 
     List<RoleVo> findPageAll(Pageable pageable);
 
-    PageInfo<RoleVo> findPageByParams(RoleVo vo, Pageable pageable);
+    PageInfo findPageByParams(RoleVo vo, Pageable pageable);
 
     void delete(Long id);
 

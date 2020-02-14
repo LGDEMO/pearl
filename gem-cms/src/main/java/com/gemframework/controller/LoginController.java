@@ -7,6 +7,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
+
 /**
  * @Title: LoginController.java
  * @Package: com.gemframework.gembasic.controller
@@ -32,23 +35,28 @@ public class LoginController {
 
     @GetMapping("/error")
     public String error(Model model){
-        model.addAttribute("code","cc");
-        return "error";
+        model.addAttribute("code","999");
+        model.addAttribute("msg","系统错误");
+        return "common/error";
     }
 
     @GetMapping("/403")
     public String denied(){
-        return "403";
+        return "common/refuse";
     }
 
     @GetMapping("/404")
     public String notFound(){
         gemMetadataSourceService.loadResourceDefine();
-        return "404";
+        return "common/notfind";
     }
 
     @GetMapping({"/index"})
-    public String index(){
+    public String index(HttpServletRequest request){
+        Principal principal = request.getUserPrincipal();
+        if(principal == null || principal.getName() == null){
+            return "login";
+        }
         return "index";
     }
 

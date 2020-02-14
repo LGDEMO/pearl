@@ -1,5 +1,9 @@
 package com.gemframework.common.aspect;
 
+import com.gemframework.common.enums.OperateType;
+import com.gemframework.model.po.SysLog;
+import com.gemframework.model.vo.SysLogVo;
+import com.gemframework.service.SysLogService;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
@@ -23,6 +27,8 @@ public class LogAspect {
 
     @Resource
     private HttpServletRequest request;
+    @Resource
+    private SysLogService sysLogService;
 
     /**
      * 在方法执行前进行切面
@@ -39,10 +45,11 @@ public class LogAspect {
     @Before("log()")
     public void before(JoinPoint point) {
         log.info("---------------------请求开始---------------------");
+        String username = "";
         if(request.getSession().getAttribute("session_username") != null){
-            String username = (String) request.getSession().getAttribute("session_username");
-            log.info("登录用户:"+username);
+            username = (String) request.getSession().getAttribute("session_username");
         }
+        log.info("登录用户:"+username);
         log.info("用户IP:"+getIpAddress(request));
         log.info("请求地址:"+request.getRequestURL().toString());
         log.info("请求方式:"+request.getMethod());

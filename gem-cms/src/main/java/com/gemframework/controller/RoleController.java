@@ -149,8 +149,7 @@ public class RoleController {
     @GetMapping("pageByParams")
     @ResponseBody
     public BaseResult pageByParams(RoleVo vo,Pageable pageable){
-
-        PageInfo<RoleVo> page =  roleService.findPageByParams(vo,pageable);
+        PageInfo page =  roleService.findPageByParams(vo,pageable);
         return BaseResult.SUCCESS(page);
     }
 

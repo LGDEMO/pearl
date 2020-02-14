@@ -188,7 +188,7 @@ public class RoleServiceImpl implements RoleService {
      * @Date: 2019-12-05 22:10:59
      */
     @Override
-    public PageInfo<RoleVo> findPageByParams(RoleVo vo,Pageable pageable) {
+    public PageInfo findPageByParams(RoleVo vo,Pageable pageable) {
         Role role = new Role();
         GemBeanUtils.copyProperties(vo,role);
         Example<Role> example =Example.of(role);
@@ -196,7 +196,7 @@ public class RoleServiceImpl implements RoleService {
         List<Role> list = page.getContent();
         List<RoleVo> vos = GemBeanUtils.copyCollections(list,RoleVo.class);
 
-        PageInfo<RoleVo> pageInfo = new PageInfo();
+        PageInfo pageInfo = new PageInfo();
         pageInfo.setRows(vos);
         pageInfo.setTotal(page.getTotalElements());
 

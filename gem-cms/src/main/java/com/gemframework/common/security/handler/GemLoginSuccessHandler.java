@@ -4,13 +4,17 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.gemframework.common.constant.GemConstant;
 import com.gemframework.common.enums.MenuType;
+import com.gemframework.common.enums.OperateStatus;
+import com.gemframework.common.enums.OperateType;
 import com.gemframework.common.security.config.GemSecurityProperties;
 import com.gemframework.common.security.authorization.GemMetadataSourceService;
+import com.gemframework.model.vo.SysLogVo;
 import com.gemframework.model.vo.tree.MenuSide;
 import com.gemframework.model.vo.MenuVo;
 import com.gemframework.model.vo.RoleVo;
 import com.gemframework.service.MenuService;
 import com.gemframework.service.RoleService;
+import com.gemframework.service.SysLogService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -19,14 +23,17 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
+import static com.gemframework.common.aspect.LogAspect.getIpAddress;
 import static com.gemframework.common.constant.GemConstant.Auth.ROLE_PREFIX;
 
 @Slf4j
@@ -38,6 +45,9 @@ public class GemLoginSuccessHandler extends SavedRequestAwareAuthenticationSucce
 
     @Autowired
     private MenuService menuService;
+
+    @Autowired
+    private SysLogService sysLogService;
 
     @Autowired
     private GemSecurityProperties gemSecurityProperties;
@@ -122,6 +132,19 @@ public class GemLoginSuccessHandler extends SavedRequestAwareAuthenticationSucce
         getRedirectStrategy().sendRedirect(request, response, gemSecurityProperties.getIndexPage());
         //TODO:这里写登录成功后的逻辑
         //api请求的话返回token
+
+
+        //记录操作日志
+        SysLogVo sysLogVo = SysLogVo.builder()
+                .account(getCurrentUsername())
+                .username(getCurrentUsername())
+                .clientIp(getIpAddress(request))
+                .operateType(OperateType.LOGIN.getCode())
+                .operateStatus(OperateStatus.SUCCESS.getCode())
+                .requestUrl(request.getRequestURL().toString())
+                .requestMothod(request.getMethod())
+                .build();
+        sysLogService.save(sysLogVo);
     }
 
 

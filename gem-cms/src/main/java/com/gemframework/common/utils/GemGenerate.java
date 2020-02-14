@@ -2,10 +2,12 @@ package com.gemframework.common.utils;
 
 import com.gemframework.common.constant.GemConstant;
 import com.gemframework.common.enums.CodeType;
+import com.google.common.io.ByteStreams;
 import lombok.Builder;
 import lombok.Data;
 import lombok.experimental.Tolerate;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ResourceUtils;
 
@@ -45,10 +47,11 @@ public class GemGenerate {
      * @Date: 2019/11/29 23:22
      */
     public static String uppercaseFirst(String str) {
-//        char[] chars = str.toCharArray();
-//        chars[0] += 32;
-//        return String.valueOf(chars);
-        return str.substring(0,1).toUpperCase().concat(str.substring(1).toLowerCase());
+        char[] chars = str.toCharArray();
+        if (chars[0] >= 'a' && chars[0] <= 'z') {
+            chars[0] = (char)(chars[0] - 32);
+        }
+        return new String(chars);
 
     }
 
@@ -106,7 +109,6 @@ public class GemGenerate {
         String packageName = tempParas.getPackageName();
         String lowerEntity = tempParas.getEntityEn();
         String upperEntity = uppercaseFirst(lowerEntity);
-        String entityCN = tempParas.getEntityCN();
         String lowerPkName = tempParas.getPkName();
         String upperPkName = uppercaseFirst(lowerPkName);
         Integer pageW = tempParas.getPageWidth();
@@ -262,7 +264,7 @@ public class GemGenerate {
                 }
             }
             content = content
-                    .replace("${entityCN}",entityCN)
+                    .replace("${entityCN}",upperEntity)
                     .replace("${pkName}",lowerPkName)
                     .replace("${pageW}",String.valueOf(pageW))
                     .replace("${pageH}",String.valueOf(pageH))
@@ -295,13 +297,20 @@ public class GemGenerate {
             String upperEntity = uppercaseFirst(lowerEntity);
 
             //spring boot中文件直接放在resources目录下
-            String tempControllerTxt = GemGenerate.readTxt(ResourceUtils.getFile("classpath:template/generate/java/contorller/TempController.txt"));
-            String tempServiceTxt = GemGenerate.readTxt(ResourceUtils.getFile("classpath:template/generate/java/service/TempService.txt"));
-            String tempServiceImplTxt = GemGenerate.readTxt(ResourceUtils.getFile("classpath:template/generate/java/service/impl/TempServiceImpl.txt"));
-            String tempRepositoryTxt = GemGenerate.readTxt(ResourceUtils.getFile("classpath:template/generate/java/repository/TempRepository.txt"));
+//            String tempControllerTxt = GemGenerate.readTxt(ResourceUtils.getFile("classpath:template/generate/java/contorller/TempController.txt"));
+            String tempControllerTxt = new String(ByteStreams.toByteArray(new ClassPathResource("\\templates\\generate\\java\\contorller\\TempController.txt").getInputStream()));
 
-            String tempEntityTxt = GemGenerate.readTxt(ResourceUtils.getFile("classpath:template/generate/java/model/po/TempEntity.txt"));
-            String tempEntityVoTxt = GemGenerate.readTxt(ResourceUtils.getFile("classpath:template/generate/java/model/vo/TempEntityVo.txt"));
+//            String tempServiceTxt = GemGenerate.readTxt(ResourceUtils.getFile("classpath:template/generate/java/service/TempService.txt"));
+            String tempServiceTxt = new String(ByteStreams.toByteArray(new ClassPathResource("\\templates\\generate\\java\\service\\TempService.txt").getInputStream()));
+
+//            String tempServiceImplTxt = GemGenerate.readTxt(ResourceUtils.getFile("classpath:templates/generate/java/service/impl/TempServiceImpl.txt"));
+            String tempServiceImplTxt = new String(ByteStreams.toByteArray(new ClassPathResource("\\templates\\generate\\java\\service\\impl\\TempServiceImpl.txt").getInputStream()));
+//            String tempRepositoryTxt = GemGenerate.readTxt(ResourceUtils.getFile("classpath:templates/generate/java/repository/TempRepository.txt"));
+            String tempRepositoryTxt = new String(ByteStreams.toByteArray(new ClassPathResource("\\templates\\generate\\java\\repository\\TempRepository.txt").getInputStream()));
+//            String tempEntityTxt = GemGenerate.readTxt(ResourceUtils.getFile("classpath:templates/generate/java/model/po/TempEntity.txt"));
+            String tempEntityTxt = new String(ByteStreams.toByteArray(new ClassPathResource("\\templates\\generate\\java\\model\\po\\TempEntity.txt").getInputStream()));
+//            String tempEntityVoTxt = GemGenerate.readTxt(ResourceUtils.getFile("classpath:templates/generate/java/model/vo/TempEntityVo.txt"));
+            String tempEntityVoTxt = new String(ByteStreams.toByteArray(new ClassPathResource("\\templates\\generate\\java\\model\\vo\\TempEntityVo.txt").getInputStream()));
 
 
             String javaCodePath = zipFilePath + "java/" +packageName+ "/";
@@ -323,31 +332,43 @@ public class GemGenerate {
             if (!folder1.exists() && !folder1.isDirectory()) {
                 log.info("文件夹路径不存在，创建路径:" + path1);
                 folder1.mkdirs();
+            }else {
+                folder1.delete();
             }
             //文件夹路径不存在
             if (!folder2.exists() && !folder2.isDirectory()) {
                 log.info("文件夹路径不存在，创建路径:" + path2);
                 folder2.mkdirs();
+            }else {
+                folder2.delete();
             }
             //文件夹路径不存在
             if (!folder3.exists() && !folder3.isDirectory()) {
                 log.info("文件夹路径不存在，创建路径:" + path3);
                 folder3.mkdirs();
+            }else {
+                folder3.delete();
             }
             //文件夹路径不存在
             if (!folder4.exists() && !folder4.isDirectory()) {
                 log.info("文件夹路径不存在，创建路径:" + path4);
                 folder4.mkdirs();
+            }else {
+                folder4.delete();
             }
             //文件夹路径不存在
             if (!folder5.exists() && !folder5.isDirectory()) {
                 log.info("文件夹路径不存在，创建路径:" + path5);
                 folder5.mkdirs();
+            }else {
+                folder5.delete();
             }
             //文件夹路径不存在
             if (!folder6.exists() && !folder6.isDirectory()) {
                 log.info("文件夹路径不存在，创建路径:" + path6);
                 folder6.mkdirs();
+            }else {
+                folder6.delete();
             }
 
             //生成文件
@@ -367,9 +388,12 @@ public class GemGenerate {
 
 
             //=================HTML======================
-            String listHtmlTxt = GemGenerate.readTxt(ResourceUtils.getFile("classpath:template/generate/html/list.txt"));
-            String addHtmlTxt = GemGenerate.readTxt(ResourceUtils.getFile("classpath:template/generate/html/add.txt"));
-            String editHtmlTxt = GemGenerate.readTxt(ResourceUtils.getFile("classpath:template/generate/html/edit.txt"));
+//            String listHtmlTxt = GemGenerate.readTxt(ResourceUtils.getFile("classpath:templates/generate/html/list.txt"));
+            String listHtmlTxt = new String(ByteStreams.toByteArray(new ClassPathResource("\\templates\\generate\\html\\list.txt").getInputStream()));
+//            String addHtmlTxt = GemGenerate.readTxt(ResourceUtils.getFile("classpath:templates/generate/html/add.txt"));
+            String addHtmlTxt = new String(ByteStreams.toByteArray(new ClassPathResource("\\templates\\generate\\html\\add.txt").getInputStream()));
+//            String editHtmlTxt = GemGenerate.readTxt(ResourceUtils.getFile("classpath:templates/generate/html/edit.txt"));
+            String editHtmlTxt = new String(ByteStreams.toByteArray(new ClassPathResource("\\templates\\generate\\html\\edit.txt").getInputStream()));
 
 
             String htmlCodePath = zipFilePath + "html/" +lowerEntity+ "/";
@@ -378,16 +402,21 @@ public class GemGenerate {
             if (!folderHtml.exists() && !folderHtml.isDirectory()) {
                 log.info("文件夹路径不存在，创建路径:" + folderHtml);
                 folderHtml.mkdirs();
+            }else {
+                folderHtml.delete();
             }
 
-            //生成add
-            File addHtml = new File(htmlCodePath+"add.html");
-            writeTxtFile(HTML,addHtmlTxt,tempParas,addHtml);
+            if(tempParas.isAdd){
+                //生成add
+                File addHtml = new File(htmlCodePath+"add.html");
+                writeTxtFile(HTML,addHtmlTxt,tempParas,addHtml);
+            }
 
-            //生成edit
-            File editHtml = new File(htmlCodePath+"edit.html");
-            writeTxtFile(HTML,editHtmlTxt,tempParas,editHtml);
-
+            if(tempParas.isEdit){
+                //生成edit
+                File editHtml = new File(htmlCodePath+"edit.html");
+                writeTxtFile(HTML,editHtmlTxt,tempParas,editHtml);
+            }
             //生成list
             File listHtml = new File(htmlCodePath+"list.html");
             writeTxtFile(HTML,listHtmlTxt,tempParas,listHtml);
@@ -449,10 +478,19 @@ public class GemGenerate {
     }
 
     public static void main(String[] args) {
-        String aa = "tx";
+        String aa = "txLog";
         String bb = uppercaseFirst(aa);
         String cc = aa.substring(0,1).toUpperCase().concat(aa.substring(1).toLowerCase());
-        System.out.println(cc);
+
+
+        char[] chars = aa.toCharArray();
+        if (chars[0] >= 'a' && chars[0] <= 'z') {
+            chars[0] = (char)(chars[0] - 32);
+        }
+        System.out.println(new String(chars));
+
+        String sss = GemBeanUtils.lineToHump(aa);
+        System.out.println(sss);
 
     }
 

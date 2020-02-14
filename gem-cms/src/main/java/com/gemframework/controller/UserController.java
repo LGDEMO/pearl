@@ -214,7 +214,7 @@ public class UserController {
     @GetMapping("pageByParams")
     @ResponseBody
     public BaseResult pageByParams(UserVo vo,Pageable pageable){
-        PageInfo<UserVo> page =  userService.findPageByParams(vo,pageable);
+        PageInfo page =  userService.findPageByParams(vo,pageable);
         return BaseResult.SUCCESS(page);
 
     }

@@ -196,14 +196,14 @@ public class UserServiceImpl implements UserService {
      */
     @Override
 
-    public PageInfo<UserVo> findPageByParams(UserVo vo,Pageable pageable) {
+    public PageInfo findPageByParams(UserVo vo,Pageable pageable) {
         User user = new User();
         GemBeanUtils.copyProperties(vo,user);
         Example<User> example =Example.of(user);
         Page<User> page = userRepository.findAll(example,pageable);
         List<User> list = page.getContent();
         List<UserVo> vos = GemBeanUtils.copyCollections(list,UserVo.class);
-        PageInfo<UserVo> pageInfo = new PageInfo();
+        PageInfo pageInfo = new PageInfo();
         pageInfo.setRows(vos);
         pageInfo.setTotal(page.getTotalElements());
         return pageInfo;

@@ -1,6 +1,7 @@
 package ${package}.service;
 
 import ${package}.model.vo.${Entity}Vo;
+import ${package}.model.vo.response.PageInfo;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
@@ -11,13 +12,15 @@ public interface ${Entity}Service {
 
     ${Entity}Vo save(${Entity}Vo vo);
 
+    Long count();
+
     List<${Entity}Vo> findListAll();
 
     List<${Entity}Vo> findListByParams(${Entity}Vo vo);
 
-    List<${Entity}Vo> findPageAll(Pageable pageable);
+    PageInfo findPageAll(Pageable pageable);
 
-    List<${Entity}Vo> findPageByParams(${Entity}Vo vo, Pageable pageable);
+    PageInfo findPageByParams(${Entity}Vo vo, Pageable pageable);
 
     void delete(Long id);
 

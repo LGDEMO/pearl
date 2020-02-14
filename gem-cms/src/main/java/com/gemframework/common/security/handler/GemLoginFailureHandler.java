@@ -1,8 +1,14 @@
 package com.gemframework.common.security.handler;
 
 import com.gemframework.common.constant.GemConstant;
+import com.gemframework.common.enums.OperateStatus;
+import com.gemframework.common.enums.OperateType;
+import com.gemframework.model.vo.SysLogVo;
+import com.gemframework.service.SysLogService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import org.springframework.stereotype.Component;
 
@@ -11,9 +17,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import static com.gemframework.common.aspect.LogAspect.getIpAddress;
+
 @Slf4j
 @Component("gemLoginFailureHandler")
 public class GemLoginFailureHandler extends SimpleUrlAuthenticationFailureHandler {
+
+    @Autowired
+    private SysLogService sysLogService;
 
     public GemLoginFailureHandler(){
         this.setDefaultFailureUrl("/login?error=true");
@@ -37,5 +48,18 @@ public class GemLoginFailureHandler extends SimpleUrlAuthenticationFailureHandle
 //            log.error("---auth error:{}","GemLoginFailureHandler");
 //            response.getWriter().write(GemJsonUtils.objectToJson(ResultData.getResultWithCode(GemErrorStatus.AUTHENTICATION_FAILED)));
 //        }
+
+        //记录操作日志
+        SysLogVo sysLogVo = SysLogVo.builder()
+                .account(request.getParameter("username").trim())
+                .username(request.getParameter("username").trim())
+                .clientIp(getIpAddress(request))
+                .operateType(OperateType.LOGIN.getCode())
+                .operateStatus(OperateStatus.FAIL.getCode())
+                .requestUrl(request.getRequestURL().toString())
+                .requestMothod(request.getMethod())
+                .build();
+        sysLogService.save(sysLogVo);
     }
+
 }

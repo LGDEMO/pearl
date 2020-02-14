@@ -23,7 +23,7 @@ layui.use(['form','laydate','laypage','layer','table'], function () {
         form.render();
     });
 
-    $('body').on("click",".btn-del",function () {
+    $('body').on("click",".btn-del",function (obj) {
         i--;
         var pre = $(this);
         $(pre).parent().parent().remove();
@@ -32,7 +32,7 @@ layui.use(['form','laydate','laypage','layer','table'], function () {
 
 
     function addstrs1(i) {
-        let strs1 = '<tr>\n' +
+        let strs1 = '<tr rowId="">\n' +
             '           <td>\n' +
             '               <input type="text" name="attrSort" class="layui-input" value="'+i+'">\n' +
             '           </td>\n' +
@@ -95,7 +95,7 @@ layui.use(['form','laydate','laypage','layer','table'], function () {
 
 function reViewData(data) {
     for(let i=0;i<data.length;i++){
-        let editHtml = '<tr>\n' +
+        let editHtml = '<tr rowId="'+data[i].id+'">\n' +
             '              <td>\n' +
             '                 <input type="hidden" name="id" class="layui-input" value="'+data[i].id+'" >' +
             '                 <input type="text" name="attrSort" class="layui-input" ' +

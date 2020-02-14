@@ -3,6 +3,7 @@ package com.gemframework.model;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gemframework.common.enums.ResultCode;
+import com.gemframework.model.vo.response.PageInfo;
 import lombok.Data;
 
 import java.util.List;
@@ -32,7 +33,7 @@ public class BaseResult {
     private String msg;
 
     // 响应中的数据
-    private Integer count;
+    private Long count;
 
     // 响应中的数据
     private Object data;
@@ -48,9 +49,19 @@ public class BaseResult {
     }
 
     public BaseResult(Object data) {
-        if(data instanceof List){
-            this.count = ((List) data).size();
+        if(data instanceof PageInfo){
+            this.data = ((PageInfo) data).getRows();
+            this.count = ((PageInfo) data).getTotal();
+        }else{
+            this.data = data;
         }
+        this.code = 0;
+        this.msg = "OK";
+
+    }
+
+    public BaseResult(Object data,Long count) {
+        this.count = count;
         this.code = 0;
         this.msg = "OK";
         this.data = data;
@@ -109,6 +120,18 @@ public class BaseResult {
      */
     public static BaseResult SUCCESS(Object data) {
         return new BaseResult(data);
+    }
+
+    /**
+     * @Title:  SUCCESS
+     * @MethodName:  SUCCESS
+     * @Param: [data]
+     * @Retrun: com.gemframework.model.BasicResult
+     * @Description:
+     * @Date: 2019/11/27 22:40
+     */
+    public static BaseResult SUCCESS(Object data,Long count) {
+        return new BaseResult(data,count);
     }
 
 
