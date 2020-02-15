@@ -7,6 +7,7 @@
     <div th:replace="common/links::menus_links"></div>
     <link rel="stylesheet" href="static/access/css/custom/index.css">
     <link rel="stylesheet" href="static/access/css/skins/_all-skins.css">
+    <div th:replace="common/links::layui_links"></div>
 </head>
 <body class="hold-transition skin-blue sidebar-mini" style="overflow:hidden;">
     <div id="ajax-loader" style="cursor: progress; position: fixed; top: -50%; left: -50%; width: 200%; height: 200%; background: #fff; z-index: 10000; overflow: hidden;">
@@ -23,6 +24,7 @@
     <div th:replace="common/links::common_script"></div>
     <div th:replace="common/links::menus_script"></div>
     <script src="static/access/js/custom/index.js"></script>
+    <div th:replace="common/links::layui_script"></div>
     <script>
         //屏蔽右键菜单
         document.oncontextmenu = function (event){
@@ -39,6 +41,29 @@
             }
         }
 
+        //获取微信
+        function getWechat() {
+            layer.photos({
+                photos: {
+                    "data": [{
+                        "src": "static/access/img/769990999.png",
+                    }]
+                }
+                ,area: ['320px','435px']
+                ,anim: 0
+                ,end: function(){
+                    layer.closeAll();
+                }
+                ,success: function(layero){
+                    layer.tips('您可以添加开发者咨询', layero, {
+                        tips: [1, '#3595CC']
+                        ,time: 0
+                    });
+                }
+            });
+        }
+
+        //用户信息
         function userinfo(){
             layer.open({
                 type: 2,

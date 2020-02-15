@@ -38,13 +38,13 @@ public class GemSwaggerConfig {
 	private ApiInfo apiInfo() {
 		return new ApiInfoBuilder()
 				//页面标题
-				.title("GemFrame 使用 Swagger2 构建RESTful API")
+				.title("GemFrame 开源框架")
 				//创建人
-				.contact(new Contact("Bryan", "http://blog.bianxh.top/", ""))
+				.contact(new Contact("gemteam", "http://www.gemframework.com/", "gemframe@163.com"))
 				//版本号
 				.version("1.0")
 				//描述
-				.description("GemFrame 在线API文档")
+				.description("Pearl权限管理系统在线API文档")
 				.build();
 	}
 

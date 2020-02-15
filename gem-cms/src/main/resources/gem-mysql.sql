@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50636
 File Encoding         : 65001
 
-Date: 2020-02-15 20:47:29
+Date: 2020-02-15 22:08:43
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -165,7 +165,7 @@ INSERT INTO `gem_menu` VALUES ('36', null, '2020-01-27 18:44:00', null, 'fas fa-
 INSERT INTO `gem_menu` VALUES ('37', null, '2020-02-13 21:11:57', null, 'fas fa-database', '36-37', '2', 'druid', 'MySQL监控', '36', '36', '99', 'menu_druid', '0', '99-36-99-36-37');
 INSERT INTO `gem_menu` VALUES ('38', null, '2020-01-27 18:43:13', null, 'fas fa-video', '38', '1', '#', '示例演示', '0', '38', '99', 'menu_demo', '0', '99-38');
 INSERT INTO `gem_menu` VALUES ('39', null, '2020-02-15 19:04:46', null, 'fab fa-first-order', '38-39', '2', 'demo/pages/redis', 'Redis示例', '38', '38', '99', 'menu_redis', '0', '99-38-99-38-39');
-INSERT INTO `gem_menu` VALUES ('40', null, '2020-01-27 18:44:22', null, 'fas fa-lightbulb', '38-40', '2', 'swagger-ui.html', '接口调试', '38', '38', '99', 'menu_swagger', '0', '99-38-99-38-40');
+INSERT INTO `gem_menu` VALUES ('40', null, '2020-02-15 22:08:37', null, 'fas fa-lightbulb', '36-40', '2', 'swagger-ui.html', '接口调试', '36', '36', '99', 'menu_swagger', '0', '99-36-99-36-40');
 INSERT INTO `gem_menu` VALUES ('41', null, '2020-01-27 18:48:18', null, '', '02-41', '2', 'orderInfo', '首页订单信息', '2', '02', '99', 'fun_index_order', '2', '08-02-99-02-41');
 INSERT INTO `gem_menu` VALUES ('44', null, '2020-01-27 18:44:33', null, 'fas fa-adjust', '38-44', '2', 'demo/list.html', '测试模块', '38', '38', '99', 'menu_test', '0', '99-38-99-38-44');
 INSERT INTO `gem_menu` VALUES ('45', null, '2020-01-27 18:42:31', null, 'fas fa-code', '45', '1', 'generate/code/list.html', '代码生成', '0', '45', '99', 'menu_code', '0', '99-45');
@@ -664,7 +664,7 @@ CREATE TABLE `get_sys_log` (
   `request_url` varchar(100) DEFAULT NULL COMMENT '请求URL',
   `username` varchar(20) DEFAULT NULL COMMENT '用户名',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of get_sys_log
@@ -693,6 +693,7 @@ INSERT INTO `get_sys_log` VALUES ('25', '2020-02-15 16:52:58', '2020-02-15 16:52
 INSERT INTO `get_sys_log` VALUES ('26', '2020-02-15 17:36:40', '2020-02-15 17:36:40', 'admin', '127.0.0.1', '0', '0', null, 'POST', 'http://127.0.0.1:8088/gem/login', 'admin');
 INSERT INTO `get_sys_log` VALUES ('27', '2020-02-15 18:52:20', '2020-02-15 18:52:20', 'admin', '127.0.0.1', '0', '0', null, 'POST', 'http://127.0.0.1:8088/gem/login', 'admin');
 INSERT INTO `get_sys_log` VALUES ('28', '2020-02-15 19:04:15', '2020-02-15 19:04:15', 'admin', '127.0.0.1', '0', '0', null, 'POST', 'http://127.0.0.1:8088/gem/login', 'admin');
+INSERT INTO `get_sys_log` VALUES ('29', '2020-02-15 21:58:52', '2020-02-15 21:58:52', 'admin', '127.0.0.1', '0', '0', null, 'POST', 'http://127.0.0.1:8088/gem/login', 'admin');
 
 -- ----------------------------
 -- Table structure for hibernate_sequence

@@ -8,7 +8,7 @@
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <link rel="stylesheet" href="https://www.layuicdn.com/layui/css/layui.css"  media="all">
+    <div th:replace="common/links::layui_links"></div>
     <div th:replace="common/links::custom_links"></div>
 </head>
 <body>
@@ -97,9 +97,8 @@
     </div>
 
 
-
-
-    <script src="https://www.layuicdn.com/layui/layui.js"></script>
+    <div th:replace="common/links::jquery_script"></div>
+    <div th:replace="common/links::layui_script"></div>
     <!--您的Layui代码start-->
     <script type="text/javascript">
         layui.use(['laydate', 'laypage', 'layer', 'table', 'carousel', 'upload', 'element'], function() {
