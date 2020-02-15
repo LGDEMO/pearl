@@ -115,8 +115,8 @@
             responseHandler: function (res) {
                 //这里注意，这里是后台接口返回的数据，需要把返回的数据分别对接rows和total 用于分页和展示
                 return {
-                    "rows": res.data.rows,
-                    "total": res.data.total
+                    "rows": res.data,
+                    "total": res.count
                 };
             },
 

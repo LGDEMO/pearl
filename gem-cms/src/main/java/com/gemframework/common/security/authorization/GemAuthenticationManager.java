@@ -39,6 +39,7 @@ public class GemAuthenticationManager implements AuthenticationManager {
 
     @Override
     public Authentication authenticate(Authentication auth) throws AuthenticationException {
+        log.info("authenticate");
         if (auth.getName().equals(auth.getCredentials())) {
             for (RoleVo role : roles) {
                 //增加用户角色

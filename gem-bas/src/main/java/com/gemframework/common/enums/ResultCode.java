@@ -17,6 +17,12 @@ import lombok.Getter;
 public enum ResultCode {
 
     SUCCESS(0,"返回成功"),
+    NOT_LOGINED(100,"用户未登录"),
+    UNKNOWN_REQUEST(404,"未知请求"),
+    PERMISSION_DENIED(403,"权限不足"),
+
+    ERROR_REQUEST(502,"访问错误"),
+    SERVICE_EXCEPTION(500,"服务异常"),
 
     //系统错误码 1000-9999
     PARAM_EXCEPTION(1000,"参数错误"),

@@ -11,13 +11,11 @@ import com.gemframework.service.SysLogService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
-import java.util.Optional;
 
 @Slf4j
 @Service
@@ -34,11 +32,6 @@ public class SysLogServiceImpl implements SysLogService {
         entity = sysLogRepository.save(entity);
         GemBeanUtils.copyProperties(entity,vo);
         return vo;
-    }
-
-    @Override
-    public Long count() {
-       return sysLogRepository.count();
     }
 
     @Override
@@ -62,7 +55,7 @@ public class SysLogServiceImpl implements SysLogService {
         Page<SysLog> page = sysLogRepository.findAll(pageable);
         List<SysLogVo> vos = GemBeanUtils.copyCollections(page.getContent(),SysLogVo.class);
         PageInfo pageInfo = PageInfo.builder()
-                .total(count())
+                .total(page.getTotalElements())
                 .rows(vos)
                 .build();
         return pageInfo;
@@ -75,7 +68,7 @@ public class SysLogServiceImpl implements SysLogService {
         Page<SysLog> page = sysLogRepository.findAll(Example.of(entity),pageable);
         List<SysLogVo> vos = GemBeanUtils.copyCollections(page.getContent(),SysLogVo.class);
         PageInfo pageInfo = PageInfo.builder()
-                .total(count())
+                .total(page.getTotalElements())
                 .rows(vos)
                 .build();
         return pageInfo;

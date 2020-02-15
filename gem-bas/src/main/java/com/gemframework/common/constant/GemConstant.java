@@ -29,6 +29,7 @@ public interface GemConstant {
 		public String SESSION_USERKEY = "SPRING_SECURITY_CONTEXT";
 	}
 
+
 	//常用的字符集编码类型
 	public interface Character{
 		// json编码

@@ -1,7 +1,10 @@
 package com.gemframework.common.security.authorization;
 
 import com.gemframework.common.constant.GemConstant;
-import com.gemframework.common.security.config.GemSecurityProperties;
+import com.gemframework.common.enums.ResultCode;
+import com.gemframework.common.enums.ResultURL;
+import com.gemframework.common.security.configure.GemSecurityProperties;
+import com.gemframework.common.response.GemResponse;
 import com.gemframework.model.vo.UserVo;
 import com.gemframework.service.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -134,28 +137,30 @@ public class GemFilterSecurityInterceptor extends  AbstractSecurityInterceptor i
         //如果是匿名用户  针对前后端分离app
         if (GemConstant.Auth.ANONY_MOUS_USER.equals(principal)) {
             Cookie[] cookies = request.getCookies();
-            log.info("============cookies=========="+cookies);
             if (cookies == null) {
                 //如果没有登录，跳转登录
-                getRedirectStrategy().sendRedirect(request, response, "/login");
+//                getRedirectStrategy().sendRedirect(request, response, "/login");
+                GemResponse.returnResult(request,response, ResultCode.NOT_LOGINED, ResultURL.LOGIN);
                 return;
             }
-            String sessionId = null;
+            String accessToken = null;
             for (Cookie cookie : cookies) {
+                log.info("cookie:"+cookie);
                 if (cookie.getName().equals(GemConstant.Auth.COOKIES_TOKEN_NAME)) {
-                    sessionId = cookie.getValue();
+                    accessToken = cookie.getValue();
                     break;
                 }
             }
-            log.info("============sessionId=========="+sessionId);
-            if(sessionId == null){
+            log.info("accessToken:"+accessToken);
+            if(accessToken == null){
                 //如果没有登录，跳转登录
-                getRedirectStrategy().sendRedirect(request, response, "/login");
+//                getRedirectStrategy().sendRedirect(request, response, "/login");
+                GemResponse.returnResult(request,response, ResultCode.NOT_LOGINED, ResultURL.LOGIN);
                 return;
             }
 
-            //如果sessionId没有失效
-            UserVo sessionUser = userService.getByLoginName(sessionId);
+            //如果accessToken没有失效
+            UserVo sessionUser = userService.getByLoginName(accessToken);
             log.info("============sessionUser=========="+sessionUser);
             if (sessionUser != null) {
                 Authentication authReq = new UsernamePasswordAuthenticationToken(sessionUser.getUsername(), sessionUser.getPassword());
@@ -163,22 +168,23 @@ public class GemFilterSecurityInterceptor extends  AbstractSecurityInterceptor i
                 Authentication result = gemAuthenticationManager.authenticate(authReq);
                 SecurityContextHolder.getContext().setAuthentication(result);
             } else {
-                log.info("[权限校验] 当前用户未登录");
+                log.info("[accessToken失效] 当前用户未登录");
                 //跳转到登录页
-                getRedirectStrategy().sendRedirect(request,response,"/login");
+                GemResponse.returnResult(request,response, ResultCode.NOT_LOGINED, ResultURL.LOGIN);
+//                getRedirectStrategy().sendRedirect(request,response,"/login");
                 return;
 
             }
         }
-
         //fi里面有一个被拦截的url
         //里面调用GemInvocationSecurityMetadataSource的getAttributes(Object object)这个方法获取fi对应的所有权限
         //再调用GemAccessDecisionManager的decide方法来校验用户的权限是否足够
         InterceptorStatusToken token = super.beforeInvocation(fi);
-        //没有权限跳转403
+        //未知访问
         if (token == null) {
-            log.info("[权限拦截] token空跳转拒绝访问========:{}", token);
-            getRedirectStrategy().sendRedirect(request, response, "/login");
+            log.info("[权限拦截] URL不存在拒绝访问========:{}", token);
+            GemResponse.returnResult(request,response, ResultCode.UNKNOWN_REQUEST, ResultURL.UNKNOWN);
+            //getRedirectStrategy().sendRedirect(request, response, "/403");
             return;
         }
 
@@ -219,5 +225,6 @@ public class GemFilterSecurityInterceptor extends  AbstractSecurityInterceptor i
     private RedirectStrategy getRedirectStrategy(){
         return new DefaultRedirectStrategy();
     }
+
 
 }

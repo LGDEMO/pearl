@@ -12,8 +12,6 @@ public interface ${Entity}Service {
 
     ${Entity}Vo save(${Entity}Vo vo);
 
-    Long count();
-
     List<${Entity}Vo> findListAll();
 
     List<${Entity}Vo> findListByParams(${Entity}Vo vo);

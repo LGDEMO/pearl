@@ -10,8 +10,6 @@ public interface SysLogService {
 
     SysLogVo save(SysLogVo vo);
 
-    Long count();
-
     List<SysLogVo> findListAll();
 
     List<SysLogVo> findListByParams(SysLogVo vo);

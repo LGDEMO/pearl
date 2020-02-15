@@ -1,7 +1,6 @@
 package com.gemframework.service.impl;
 
 import com.gemframework.common.constant.GemConstant;
-import com.gemframework.model.po.*;
 import com.gemframework.model.po.Dept;
 import com.gemframework.model.po.Role;
 import com.gemframework.model.po.User;
@@ -10,7 +9,6 @@ import com.gemframework.model.vo.RoleVo;
 import com.gemframework.model.vo.UserRolesVo;
 import com.gemframework.model.vo.UserVo;
 import com.gemframework.model.vo.response.PageInfo;
-import com.gemframework.repository.*;
 import com.gemframework.service.RoleService;
 import com.gemframework.service.UserRolesService;
 import com.gemframework.service.UserService;

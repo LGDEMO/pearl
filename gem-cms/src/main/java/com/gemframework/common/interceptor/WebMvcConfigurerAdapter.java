@@ -1,6 +1,6 @@
 package com.gemframework.common.interceptor;
 
-import com.gemframework.common.security.config.GemSecurityProperties;
+import com.gemframework.common.security.configure.GemSecurityProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;

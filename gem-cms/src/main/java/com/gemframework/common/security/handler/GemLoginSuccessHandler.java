@@ -6,7 +6,7 @@ import com.gemframework.common.constant.GemConstant;
 import com.gemframework.common.enums.MenuType;
 import com.gemframework.common.enums.OperateStatus;
 import com.gemframework.common.enums.OperateType;
-import com.gemframework.common.security.config.GemSecurityProperties;
+import com.gemframework.common.security.configure.GemSecurityProperties;
 import com.gemframework.common.security.authorization.GemMetadataSourceService;
 import com.gemframework.model.vo.SysLogVo;
 import com.gemframework.model.vo.tree.MenuSide;
@@ -23,13 +23,11 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.Resource;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 

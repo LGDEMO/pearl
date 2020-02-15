@@ -1,7 +1,9 @@
-package com.gemframework.common.security.config;
+package com.gemframework.common.security.configure;
 
 import com.gemframework.common.security.authorization.GemFilterSecurityInterceptor;
 import com.gemframework.common.security.authentication.GemUsernamePasswordAuthenticationConfig;
+import com.gemframework.common.security.handler.GemAccessDeniedHandler;
+import com.gemframework.common.security.handler.GemAuthenticationEntryPoint;
 import com.gemframework.service.impl.UserServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +19,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
-import org.springframework.security.web.authentication.AuthenticationFailureHandler;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 import javax.annotation.Resource;
 
@@ -42,16 +42,14 @@ public class GemWebSecurityConfg extends WebSecurityConfigurerAdapter {
     @Autowired
     private GemUsernamePasswordAuthenticationConfig gemUsernamePasswordAuthenticationConfig;
 
-    @Autowired
-    private AuthenticationSuccessHandler gemLoginSuccessHandler; //认证成功结果处理器
-
-    @Autowired
-    private AuthenticationFailureHandler gemLoginFailureHandler; //认证失败结果处理器
-
     @Resource
     private GemFilterSecurityInterceptor gemFilterSecurityInterceptor; //自定义拦截
 
+    @Autowired
+    private GemAuthenticationEntryPoint gemAuthenticationEntryPoint;
 
+    @Autowired
+    private GemAccessDeniedHandler gemAccessDeniedHandler;
 
     /**
      * 实现HttpSecurity的configure方法
@@ -73,11 +71,14 @@ public class GemWebSecurityConfg extends WebSecurityConfigurerAdapter {
                 .formLogin()//定义本系统使用表单认证方式
                 .loginPage("/login")
                 .loginProcessingUrl("/index")
-//                .successHandler(gemLoginSuccessHandler)//使用自定义的成功结果处理器
-//                .failureHandler(gemLoginFailureHandler)//使用自定义失败的结果处理器
                 .and()
                 .csrf().disable()//关闭跨域防护
         ;
+        http
+                .exceptionHandling()
+                .authenticationEntryPoint(gemAuthenticationEntryPoint)
+                .accessDeniedHandler(gemAccessDeniedHandler);
+
         http.headers().frameOptions().sameOrigin();
         //开启自动注销 退出登录的地址为 "/logout"，退出成功后跳转到页面 "/login"
         http.logout().logoutUrl("/logout").logoutSuccessUrl("/login");

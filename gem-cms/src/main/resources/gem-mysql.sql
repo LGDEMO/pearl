@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50636
 File Encoding         : 65001
 
-Date: 2020-02-14 21:03:06
+Date: 2020-02-14 21:58:03
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -287,7 +287,7 @@ CREATE TABLE `gem_role` (
 -- Records of gem_role
 -- ----------------------------
 INSERT INTO `gem_role` VALUES ('1', '2020-01-04 11:56:08', '2020-01-04 17:53:01', '3', '管理员', 'admin', '管理员');
-INSERT INTO `gem_role` VALUES ('18', '2020-01-09 22:17:09', '2020-01-09 22:17:09', '0', '', 'ces', '测试');
+INSERT INTO `gem_role` VALUES ('18', '2020-01-09 22:17:09', '2020-02-14 21:57:24', '0', '测试演示角色', 'test', '测试角色');
 
 -- ----------------------------
 -- Table structure for gem_role_depts
@@ -358,7 +358,7 @@ CREATE TABLE `gem_role_menus` (
   `menu_id` bigint(20) NOT NULL COMMENT '菜单ID',
   `role_id` bigint(20) NOT NULL COMMENT '角色ID',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=395 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=425 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of gem_role_menus
@@ -420,10 +420,6 @@ INSERT INTO `gem_role_menus` VALUES ('322', '2020-01-10 10:19:45', '2020-01-10 1
 INSERT INTO `gem_role_menus` VALUES ('323', '2020-01-10 10:19:45', '2020-01-10 10:19:45', '7', '1');
 INSERT INTO `gem_role_menus` VALUES ('324', '2020-01-10 10:19:45', '2020-01-10 10:19:45', '9', '1');
 INSERT INTO `gem_role_menus` VALUES ('325', '2020-01-10 10:19:45', '2020-01-10 10:19:45', '8', '1');
-INSERT INTO `gem_role_menus` VALUES ('326', '2020-01-10 10:36:51', '2020-01-10 10:36:51', '2', '18');
-INSERT INTO `gem_role_menus` VALUES ('327', '2020-01-10 10:36:51', '2020-01-10 10:36:51', '3', '18');
-INSERT INTO `gem_role_menus` VALUES ('328', '2020-01-10 10:36:51', '2020-01-10 10:36:51', '17', '18');
-INSERT INTO `gem_role_menus` VALUES ('329', '2020-01-10 10:36:51', '2020-01-10 10:36:51', '24', '18');
 INSERT INTO `gem_role_menus` VALUES ('330', '2020-01-12 12:07:45', '2020-01-12 12:07:45', '2', '19');
 INSERT INTO `gem_role_menus` VALUES ('331', '2020-01-12 12:07:45', '2020-01-12 12:07:45', '6', '19');
 INSERT INTO `gem_role_menus` VALUES ('332', '2020-01-12 12:07:45', '2020-01-12 12:07:45', '21', '19');
@@ -489,6 +485,36 @@ INSERT INTO `gem_role_menus` VALUES ('391', '2020-01-27 23:00:01', '2020-01-27 2
 INSERT INTO `gem_role_menus` VALUES ('392', '2020-01-27 23:00:01', '2020-01-27 23:00:01', '48', '20');
 INSERT INTO `gem_role_menus` VALUES ('393', '2020-01-27 23:00:01', '2020-01-27 23:00:01', '49', '20');
 INSERT INTO `gem_role_menus` VALUES ('394', '2020-01-27 23:00:01', '2020-01-27 23:00:01', '50', '20');
+INSERT INTO `gem_role_menus` VALUES ('395', '2020-02-14 21:57:24', '2020-02-14 21:57:24', '2', '18');
+INSERT INTO `gem_role_menus` VALUES ('396', '2020-02-14 21:57:24', '2020-02-14 21:57:24', '3', '18');
+INSERT INTO `gem_role_menus` VALUES ('397', '2020-02-14 21:57:24', '2020-02-14 21:57:24', '17', '18');
+INSERT INTO `gem_role_menus` VALUES ('398', '2020-02-14 21:57:24', '2020-02-14 21:57:24', '24', '18');
+INSERT INTO `gem_role_menus` VALUES ('399', '2020-02-14 21:57:24', '2020-02-14 21:57:24', '45', '18');
+INSERT INTO `gem_role_menus` VALUES ('400', '2020-02-14 21:57:24', '2020-02-14 21:57:24', '46', '18');
+INSERT INTO `gem_role_menus` VALUES ('401', '2020-02-14 21:57:24', '2020-02-14 21:57:24', '47', '18');
+INSERT INTO `gem_role_menus` VALUES ('402', '2020-02-14 21:57:24', '2020-02-14 21:57:24', '48', '18');
+INSERT INTO `gem_role_menus` VALUES ('403', '2020-02-14 21:57:24', '2020-02-14 21:57:24', '49', '18');
+INSERT INTO `gem_role_menus` VALUES ('404', '2020-02-14 21:57:24', '2020-02-14 21:57:24', '50', '18');
+INSERT INTO `gem_role_menus` VALUES ('405', '2020-02-14 21:57:24', '2020-02-14 21:57:24', '51', '18');
+INSERT INTO `gem_role_menus` VALUES ('406', '2020-02-14 21:57:24', '2020-02-14 21:57:24', '52', '18');
+INSERT INTO `gem_role_menus` VALUES ('407', '2020-02-14 21:57:24', '2020-02-14 21:57:24', '53', '18');
+INSERT INTO `gem_role_menus` VALUES ('408', '2020-02-14 21:57:24', '2020-02-14 21:57:24', '54', '18');
+INSERT INTO `gem_role_menus` VALUES ('409', '2020-02-14 21:57:24', '2020-02-14 21:57:24', '55', '18');
+INSERT INTO `gem_role_menus` VALUES ('410', '2020-02-14 21:57:24', '2020-02-14 21:57:24', '56', '18');
+INSERT INTO `gem_role_menus` VALUES ('411', '2020-02-14 21:57:24', '2020-02-14 21:57:24', '64', '18');
+INSERT INTO `gem_role_menus` VALUES ('412', '2020-02-14 21:57:24', '2020-02-14 21:57:24', '65', '18');
+INSERT INTO `gem_role_menus` VALUES ('413', '2020-02-14 21:57:24', '2020-02-14 21:57:24', '66', '18');
+INSERT INTO `gem_role_menus` VALUES ('414', '2020-02-14 21:57:24', '2020-02-14 21:57:24', '57', '18');
+INSERT INTO `gem_role_menus` VALUES ('415', '2020-02-14 21:57:24', '2020-02-14 21:57:24', '58', '18');
+INSERT INTO `gem_role_menus` VALUES ('416', '2020-02-14 21:57:24', '2020-02-14 21:57:24', '59', '18');
+INSERT INTO `gem_role_menus` VALUES ('417', '2020-02-14 21:57:24', '2020-02-14 21:57:24', '60', '18');
+INSERT INTO `gem_role_menus` VALUES ('418', '2020-02-14 21:57:24', '2020-02-14 21:57:24', '61', '18');
+INSERT INTO `gem_role_menus` VALUES ('419', '2020-02-14 21:57:24', '2020-02-14 21:57:24', '62', '18');
+INSERT INTO `gem_role_menus` VALUES ('420', '2020-02-14 21:57:24', '2020-02-14 21:57:24', '63', '18');
+INSERT INTO `gem_role_menus` VALUES ('421', '2020-02-14 21:57:24', '2020-02-14 21:57:24', '67', '18');
+INSERT INTO `gem_role_menus` VALUES ('422', '2020-02-14 21:57:24', '2020-02-14 21:57:24', '68', '18');
+INSERT INTO `gem_role_menus` VALUES ('423', '2020-02-14 21:57:24', '2020-02-14 21:57:24', '69', '18');
+INSERT INTO `gem_role_menus` VALUES ('424', '2020-02-14 21:57:24', '2020-02-14 21:57:24', '70', '18');
 
 -- ----------------------------
 -- Table structure for gem_user
@@ -543,7 +569,7 @@ INSERT INTO `gem_user` VALUES ('28', '2020-01-06 20:51:27', '2020-01-26 14:49:51
 INSERT INTO `gem_user` VALUES ('29', '2020-01-06 20:58:31', '2020-01-06 22:45:15', '北京市县延庆县山西省吉林省', null, null, null, '1358882222@qq.com', '$2a$10$H86l7PrVCMDN7AfiPvsJm.NHG3OVgCoiA0nhjkToSDUx1aAB7NTPe', '18200029040', '1', null, '', '刘松', '0', '', 'liusong', '2011', '', '13');
 INSERT INTO `gem_user` VALUES ('30', '2020-01-06 21:04:12', '2020-01-09 22:17:22', '北京市县延庆县山西省吉林省', null, null, null, '1344444@33', '$2a$10$fMNbehcWTf7VexrAOpW/MeWuHcZ5CmvxHgSfT.Loeh46yjRsskQ6e', '18500029022', '1', null, '', '121212', '0', '', 'niha', '1212', '', '1');
 INSERT INTO `gem_user` VALUES ('31', '2020-01-06 21:06:28', '2020-01-06 21:52:47', '北京市县延庆县山西省吉林省', null, null, null, '1338345222@qq.com', '$2a$10$/W2c5a9zBgLyu5MmGXo4.O5F2Eir2JyxB.7J0pqAg6eZzK4Z1zgj.', '18200034040', '1', null, '', '赵本山', '0', '', 'zhaobens', '2011', '', '3');
-INSERT INTO `gem_user` VALUES ('32', '2020-01-06 21:19:36', '2020-01-14 14:34:04', '天津市市辖区河西区', '120103', null, '120100', '112333424@33', '$2a$10$cNDrinyqmvD.4HMl0.oHEeJguWPJk1c/5iSoZ/Vq4tPkztWGj7k3C', '18500029020', '1', '120000', '', '121212', '0', '', 'aaa', '1212', '', '1');
+INSERT INTO `gem_user` VALUES ('32', '2020-01-06 21:19:36', '2020-02-14 21:57:53', '天津市市辖区河西区', '120103', null, '120100', '112333424@33', '$2a$10$a2FrbBdp2NdIozsph7/x0.7c86ovm4lc8cfFfeG/bspIlirvZnftW', '18500029020', '1', '120000', '', '121212', '0', '', 'test', '1212', '', '1');
 
 -- ----------------------------
 -- Table structure for gem_user_depts
@@ -606,17 +632,16 @@ CREATE TABLE `gem_user_roles` (
   `role_id` bigint(20) NOT NULL COMMENT '角色ID',
   `user_id` bigint(20) NOT NULL COMMENT '用户ID',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=57 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of gem_user_roles
 -- ----------------------------
 INSERT INTO `gem_user_roles` VALUES ('39', '2020-01-09 22:17:22', '2020-01-09 22:17:22', '1', '30');
 INSERT INTO `gem_user_roles` VALUES ('40', '2020-01-09 22:17:22', '2020-01-09 22:17:22', '18', '30');
-INSERT INTO `gem_user_roles` VALUES ('47', '2020-01-14 14:34:04', '2020-01-14 14:34:04', '18', '32');
-INSERT INTO `gem_user_roles` VALUES ('48', '2020-01-14 14:34:04', '2020-01-14 14:34:04', '19', '32');
 INSERT INTO `gem_user_roles` VALUES ('50', '2020-01-21 13:57:53', '2020-01-21 13:57:53', '1', '24');
 INSERT INTO `gem_user_roles` VALUES ('52', '2020-01-26 14:49:42', '2020-01-26 14:49:42', '1', '28');
+INSERT INTO `gem_user_roles` VALUES ('56', '2020-02-14 21:57:53', '2020-02-14 21:57:53', '18', '32');
 
 -- ----------------------------
 -- Table structure for get_sys_log
@@ -635,7 +660,7 @@ CREATE TABLE `get_sys_log` (
   `request_url` varchar(100) DEFAULT NULL COMMENT '请求URL',
   `username` varchar(20) DEFAULT NULL COMMENT '用户名',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of get_sys_log
@@ -652,6 +677,10 @@ INSERT INTO `get_sys_log` VALUES ('13', '2020-02-13 23:00:25', '2020-02-13 23:00
 INSERT INTO `get_sys_log` VALUES ('14', '2020-02-13 23:14:30', '2020-02-13 23:14:30', 'admin', '127.0.0.1', '0', '0', null, 'POST', 'http://127.0.0.1:8088/gem/login', 'admin');
 INSERT INTO `get_sys_log` VALUES ('15', '2020-02-14 20:57:39', '2020-02-14 20:57:39', 'admin', '127.0.0.1', '1', '0', null, 'POST', 'http://127.0.0.1:8088/gem/login', 'admin');
 INSERT INTO `get_sys_log` VALUES ('16', '2020-02-14 20:57:44', '2020-02-14 20:57:44', 'admin', '127.0.0.1', '0', '0', null, 'POST', 'http://127.0.0.1:8088/gem/login', 'admin');
+INSERT INTO `get_sys_log` VALUES ('17', '2020-02-14 21:55:46', '2020-02-14 21:55:46', 'admin', '127.0.0.1', '0', '0', null, 'POST', 'http://127.0.0.1:8088/gem/login', 'admin');
+INSERT INTO `get_sys_log` VALUES ('18', '2020-02-14 21:56:27', '2020-02-14 21:56:27', 'liusong', '127.0.0.1', '1', '0', null, 'POST', 'http://127.0.0.1:8088/gem/login', 'liusong');
+INSERT INTO `get_sys_log` VALUES ('19', '2020-02-14 21:56:37', '2020-02-14 21:56:37', 'liusong', '127.0.0.1', '1', '0', null, 'POST', 'http://127.0.0.1:8088/gem/login', 'liusong');
+INSERT INTO `get_sys_log` VALUES ('20', '2020-02-14 21:56:43', '2020-02-14 21:56:43', 'admin', '127.0.0.1', '0', '0', null, 'POST', 'http://127.0.0.1:8088/gem/login', 'admin');
 
 -- ----------------------------
 -- Table structure for hibernate_sequence

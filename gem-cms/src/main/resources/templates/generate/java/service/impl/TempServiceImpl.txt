@@ -38,11 +38,6 @@ public class ${Entity}ServiceImpl implements ${Entity}Service {
     }
 
     @Override
-    public Long count() {
-       return ${entity}Repository.count();
-    }
-
-    @Override
     public ${Entity}Vo save(${Entity}Vo vo) {
         ${Entity} entity = new ${Entity}();
         GemBeanUtils.copyProperties(vo,entity);
@@ -72,7 +67,7 @@ public class ${Entity}ServiceImpl implements ${Entity}Service {
         Page<${Entity}> page = ${entity}Repository.findAll(pageable);
         List<${Entity}Vo> vos = GemBeanUtils.copyCollections(page.getContent(),${Entity}Vo.class);
         PageInfo pageInfo = PageInfo.builder()
-                        .total(count())
+                        .total(page.getTotalElements())
                         .rows(vos)
                         .build();
         return pageInfo;
@@ -85,7 +80,7 @@ public class ${Entity}ServiceImpl implements ${Entity}Service {
         Page<${Entity}> page = ${entity}Repository.findAll(Example.of(entity),pageable);
         List<${Entity}Vo> vos = GemBeanUtils.copyCollections(page.getContent(),${Entity}Vo.class);
         PageInfo pageInfo = PageInfo.builder()
-                        .total(count())
+                        .total(page.getTotalElements())
                         .rows(vos)
                         .build();
         return pageInfo;

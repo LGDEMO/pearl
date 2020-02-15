@@ -48,6 +48,7 @@ public class GemMetadataSourceService implements FilterInvocationSecurityMetadat
      * @Date: 2019/12/8 22:22
      */
     public void loadResourceDefine() {
+        log.info("loadResourceDefine");
         map = new HashMap<>();
         // 此处添加的信息将会作为GemAccessDecisionManager类的decide的第三个参数获取值。
         ConfigAttribute cfg;

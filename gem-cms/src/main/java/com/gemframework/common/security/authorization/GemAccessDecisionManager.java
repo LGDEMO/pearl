@@ -1,5 +1,9 @@
 package com.gemframework.common.security.authorization;
 
+import com.gemframework.common.enums.ResultCode;
+import com.gemframework.common.enums.ResultURL;
+import com.gemframework.common.security.exception.GemAccessDeniedException;
+import com.gemframework.common.security.exception.GemAuthenticationException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.AccessDecisionManager;
 import org.springframework.security.access.AccessDeniedException;
@@ -55,12 +59,14 @@ public class GemAccessDecisionManager implements AccessDecisionManager {
             configAttribute = iter.next();
             needRole = configAttribute.getAttribute();
             for (GrantedAuthority ga : authentication.getAuthorities()) {
+                log.info("needRole.trim()="+needRole.trim());
+                log.info("ga.getAuthority()="+ga.getAuthority());
                 if (needRole.trim().equals(ga.getAuthority())) {
                     return;
                 }
             }
         }
-        throw new AccessDeniedException("no right");
+        throw new GemAccessDeniedException(ResultCode.PERMISSION_DENIED, ResultURL.REFUSE);
     }
 
     @Override
@@ -72,4 +78,5 @@ public class GemAccessDecisionManager implements AccessDecisionManager {
     public boolean supports(Class<?> clazz) {
         return true;
     }
+
 }
