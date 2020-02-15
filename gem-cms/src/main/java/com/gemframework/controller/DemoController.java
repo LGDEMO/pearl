@@ -4,8 +4,7 @@ import com.gemframework.common.enums.ResultCode;
 import com.gemframework.model.BaseResult;
 import com.gemframework.common.config.GemSystemProperties;
 import com.gemframework.common.utils.GemRedisUtils;
-import com.gemframework.model.vo.DemoVo;
-import com.gemframework.service.DemoService;
+import com.gemframework.model.vo.response.PageInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -38,17 +37,18 @@ public class DemoController {
 
     @Autowired
     private GemRedisUtils<String> gemRedisUtils;
-
     @Autowired
     private GemSystemProperties gemSystemProperties;
 
-    @Autowired
-    private DemoService demoService;
-
-    @GetMapping("/redis/index")
+    @GetMapping("/pages/redis")
     @ApiOperation("redis示例页面")
     public String redis(Model model){
         return "demo/redis.html";
+    }
+
+    @GetMapping("/pages/pageStyle")
+    public String pagestyle(Model model){
+        return "demo/pagestyle";
     }
 
     @GetMapping("/redis/get")
@@ -71,61 +71,5 @@ public class DemoController {
         return BaseResult.SUCCESS(gemSystemProperties);
     }
 
-
-
-    @GetMapping("list.html")
-    public String list(Model model){
-        return "demo/list";
-    }
-
-    @GetMapping("pageByParams")
-    @ResponseBody
-    public BaseResult pageByParams(DemoVo vo, Pageable pageable){
-//        PageInfo<DemoVo> pageInfo =  demoService.findPageByParams(vo,pageable);
-        List<DemoVo> list =  demoService.findPageByParams(vo,pageable);
-        return BaseResult.SUCCESS(list);
-    }
-
-    @GetMapping("add.html")
-    public String add(Model model){
-        return "demo/add";
-    }
-
-
-    @GetMapping("edit.html")
-    public String edit(Model model, Long id){
-        DemoVo vo = demoService.getById(id);
-        model.addAttribute("editInfo",vo);
-        return "demo/edit";
-    }
-
-    @PostMapping("add")
-    @ResponseBody
-    public BaseResult add(@Valid @RequestBody DemoVo vo, BindingResult bindingResult){
-        if(bindingResult.hasErrors()){
-            return BaseResult.ERROR(ResultCode.PARAM_EXCEPTION.getCode(),bindingResult.getFieldError().getDefaultMessage());
-        }
-        return BaseResult.SUCCESS(demoService.save(vo));
-    }
-
-    @PostMapping("delete/{id}")
-    @ResponseBody
-    public BaseResult delete(@PathVariable("id") Long id){
-        demoService.delete(id);
-        return BaseResult.SUCCESS();
-    }
-
-    @PostMapping("deleteBatch")
-    @ResponseBody
-    public BaseResult deleteBatch(@RequestBody List<DemoVo> vos){
-        demoService.deleteBatch(vos);
-        return BaseResult.SUCCESS();
-    }
-
-    @GetMapping("getOne")
-    @ResponseBody
-    public BaseResult get(Long id){
-        return BaseResult.SUCCESS(demoService.getById(id));
-    }
 
 }

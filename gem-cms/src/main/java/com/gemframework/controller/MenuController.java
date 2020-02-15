@@ -154,6 +154,13 @@ public class MenuController {
         return "menu/add";
     }
 
+    @GetMapping("addChild.html")
+    public String addChildHtml(Model model, Long id){
+        MenuVo menuVo = menuService.getById(id);
+        model.addAttribute("parent_menu",menuVo);
+        return "menu/addChild";
+    }
+
     @GetMapping("edit.html")
     public String editHtml(Model model, Long id){
         MenuVo menuVo = menuService.getById(id);

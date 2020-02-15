@@ -291,6 +291,7 @@ function deleteData(){
             error: function(e) {
                 // 请求失败函数
                 console.log("error:"+JSON.stringify(e));
+                alert("操作失败，请检查是否有相关操作权限！");
             }
         })
     }, function(){

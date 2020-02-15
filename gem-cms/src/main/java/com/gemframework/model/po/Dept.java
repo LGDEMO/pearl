@@ -38,7 +38,7 @@ public class Dept extends BasePo {
     @Column(columnDefinition = "tinyint(1) comment '级别'")
     private Integer level;
 
-    @Column(columnDefinition = "varchar(50) comment '描述'")
+    @Column(columnDefinition = "varchar(300) comment '描述'")
     private String desp;
 
     //系列 用于归类 存放家族一级分类ID 一级分类存自己ID

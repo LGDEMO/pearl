@@ -59,8 +59,6 @@ public class GemAccessDecisionManager implements AccessDecisionManager {
             configAttribute = iter.next();
             needRole = configAttribute.getAttribute();
             for (GrantedAuthority ga : authentication.getAuthorities()) {
-                log.info("needRole.trim()="+needRole.trim());
-                log.info("ga.getAuthority()="+ga.getAuthority());
                 if (needRole.trim().equals(ga.getAuthority())) {
                     return;
                 }

@@ -82,7 +82,6 @@
             method: "get",
             dataType: "json",
             contentType: "application/x-www-form-urlencoded",
-
             striped: true,                      //是否显示行间隔色
             cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
             pagination: true,                   //是否显示分页（*）
@@ -93,7 +92,7 @@
             sortOrder: "desc",                   //排序方式
             sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
             pageNumber: 1,                      //初始化加载第一页，默认第一页,并记录
-            pageSize: 14,                        //每页的记录行数（*）
+            pageSize: 10,                        //每页的记录行数（*）
             pageList: [10, 20, 50, 100,"All"],        //可供选择的每页的行数（*）
             smartDisplay:false,
             clickToSelect: true,                //是否启用点击选中行
@@ -255,8 +254,7 @@
         }, function(){
             $.ajax({
                 type: "post",
-                url: "delete/"+id,
-                // data: JSON.stringify($('#form').serializeObject()),
+                url: "delete",
                 data: {'id':id},
                 async:true, // 异步请求
                 cache:false, // 设置为 false 将不缓存此页面

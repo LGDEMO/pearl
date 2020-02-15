@@ -32,9 +32,11 @@ public class GemResponse {
 
         //判断请求头。如果包含"Authorization"则为第三方应用请求
         if(request.getHeader(GemConstant.Auth.HEADER_AUTHOR) == null){
+            log.info("访问类型：pages");
             String redirectUrl = "http://"+request.getServerName()+":"+request.getServerPort()+request.getContextPath()+"/"+url.getUrl();
             response.sendRedirect(redirectUrl);
         }else{
+            log.info("访问类型：api");
             response.getWriter().println(JSON.toJSONString(BaseResult.ERROR(resultCode)));
         }
     }

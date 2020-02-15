@@ -10,7 +10,6 @@
         <div th:replace="common/links::checkbox_links"></div>
         <!--图标选择器-->
         <link rel="stylesheet" type="text/css" th:href="@{/static/access/css/fontawesome-iconpicker.css}">
-
         <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
         <!--[if lt IE 9]>
         <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -79,7 +78,7 @@
                                         <div class="radio radio-info radio-inline">
                                             <input type="radio" name="type" id="type3"
                                                    value="2"/>
-                                            <label for="type3">其他</label>
+                                            <label for="type3">权限</label>
                                         </div>
                                     </td>
                                     <td th:if="${edit_menu.type}==1">
@@ -96,7 +95,7 @@
                                         <div class="radio radio-info radio-inline">
                                             <input type="radio" name="type" id="type6"
                                                    value="2"/>
-                                            <label for="type6">其他</label>
+                                            <label for="type6">权限</label>
                                         </div>
                                     </td>
                                     <td th:if="${edit_menu.type}==2">
@@ -113,7 +112,7 @@
                                         <div class="radio radio-info radio-inline">
                                             <input type="radio" name="type" id="type9"
                                                    value="2" checked/>
-                                            <label for="type9">其他</label>
+                                            <label for="type9">权限</label>
                                         </div>
                                     </td>
                                     <td th:if="${edit_menu.type}==null">
@@ -130,7 +129,7 @@
                                         <div class="radio radio-info radio-inline">
                                             <input type="radio" name="type" id="type12"
                                                    value="2"/>
-                                            <label for="type12">其他</label>
+                                            <label for="type12">权限</label>
                                         </div>
                                     </td>
                                 </tr>
@@ -238,6 +237,7 @@
                                     ,anim: 4 //动画类型
                                 });
                             }
+                            window.parent.location.reload();
                         }else {
                             layer.alert("["+res.code+"]"+res.msg, {
                                 skin: 'layui-layer-lan'
