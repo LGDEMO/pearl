@@ -10,14 +10,14 @@
     <meta name="description" content="基于SpringBoot2.0+的国产优秀的框架&GemFrame开源权限管理系统v1.0.0">
     <meta name="author" content="gemframework.com">
     <!-- Google Web Fonts -->
-    <link rel="stylesheet" th:href="@{static/cms/assets/css/fonts/fonts-style.css}">
+    <link rel="stylesheet" th:href="@{static/access/css/fonts/fonts-style.css}">
     <link rel="stylesheet" th:href="@{static/access/css/font-ubuntu.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/static/access/css/font-awesome-all.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/static/access/css/font-awesome.css}">
     <!-- Bootstrap CSS CDN -->
     <link rel="stylesheet" th:href="@{/static/access/js/bootstrap/bootstrap.min.css}">
     <!-- Page CSS -->
-    <link rel="stylesheet" th:href="@{static/cms/assets/css/custompages/login1.css}">
+    <link rel="stylesheet" th:href="@{static/access/css/custom/login1.css}">
     <style>
         .verifycode {
             display: block;
@@ -116,7 +116,8 @@
 <!--    </div>-->
 </div>
 <!-- Bootstrap JS -->
-<script th:src="@{static/cms/assets/js/jquery/jquery.min.js}"></script>
+<!--<script th:src="@{static/cms/assets/js/jquery/jquery.min.js}"></script>-->
+<div th:replace="common/links::jquery_script"></div>
 <script th:src="@{http://cdn.bootstrapmb.com/bootstrap/4.1.0/js/bootstrap.min.js}"></script>
 <div th:replace="common/links::layui_script"></div>
 <script th:inline="javascript">
