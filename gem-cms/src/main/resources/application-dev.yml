@@ -106,8 +106,8 @@ spring:
     continue-on-error: false
     #schema-password:
     #schema-username:
-    data-password: root
     data-username: root
+    data-password: root
     sql-script-encoding: utf-8
     separator: ;
 
