@@ -1,12 +1,11 @@
 package com.gemframework.model.vo;
 
-import com.gemframework.model.vo.BaseVo;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 /**
- * @Title: RoleVo.java
+ * @Title: UserRoleVo.java
  * @Package: com.gemframework.model.vo
  * @Date: 2019/11/30 22:40
  * @Version: v1.0
@@ -20,12 +19,13 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper=true)
-public class RoleMenusVo extends BaseVo {
+public class UserDeptsVo extends BaseVo {
 
     private Long id;
 
-    private String roleId;
+    private Long userId;
 
-    private String menuId;
+    private Long deptId;
+
 
 }

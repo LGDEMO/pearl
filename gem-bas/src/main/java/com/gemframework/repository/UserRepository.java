@@ -25,13 +25,13 @@ public interface UserRepository extends JpaRepository<User, Long> {
     User getByPhone(String phone);
 
     @Query("select user from User user where phone=?1 and id <> ?2")
-    User getByPhone(String phone,Long id);
+    User getByPhone(String phone, Long id);
 
     @Query("select user from User user where username=?1")
     User getByUserName(String username);
 
     @Query("select user from User user where username=?1 and id <> ?2")
-    User getByUserName(String username,Long id);
+    User getByUserName(String username, Long id);
 
     @Query("select user from User user where id=?1")
     User getById(Long id);

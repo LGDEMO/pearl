@@ -1,6 +1,5 @@
 package com.gemframework.model.vo;
 
-import com.gemframework.model.vo.BaseVo;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;

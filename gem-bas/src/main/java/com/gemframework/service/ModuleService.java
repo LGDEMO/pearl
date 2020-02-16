@@ -12,7 +12,7 @@ public interface ModuleService {
 
     ModuleVo save(ModuleVo vo);
 
-    void updateIsGenerate(WhetherEnum whetherEnum,Long id);
+    void updateIsGenerate(WhetherEnum whetherEnum, Long id);
 
     List<ModuleVo> findListAll();
 

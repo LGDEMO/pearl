@@ -24,5 +24,5 @@ public interface DeptRepository extends JpaRepository<Dept, Long> {
     Dept getByName(String name);
 
     @Query("select dept from Dept dept where name=?1 and id <> ?2")
-    Dept exist(String name,Long id);
+    Dept exist(String name, Long id);
 }

@@ -1,6 +1,9 @@
 package com.gemframework.service.impl;
 
 import com.gemframework.common.constant.GemConstant;
+import com.gemframework.common.enums.ResultCode;
+import com.gemframework.common.exception.GemException;
+import com.gemframework.common.utils.GemBeanUtils;
 import com.gemframework.model.po.Dept;
 import com.gemframework.model.po.Role;
 import com.gemframework.model.po.User;
@@ -9,17 +12,13 @@ import com.gemframework.model.vo.RoleVo;
 import com.gemframework.model.vo.UserRolesVo;
 import com.gemframework.model.vo.UserVo;
 import com.gemframework.model.vo.response.PageInfo;
-import com.gemframework.service.RoleService;
-import com.gemframework.service.UserRolesService;
-import com.gemframework.service.UserService;
-import com.gemframework.common.enums.ResultCode;
-import com.gemframework.common.exception.GemException;
-import com.gemframework.common.utils.GemBeanUtils;
-
 import com.gemframework.repository.DeptRepository;
 import com.gemframework.repository.RoleRepository;
 import com.gemframework.repository.UserRepository;
 import com.gemframework.repository.UserRolesRepository;
+import com.gemframework.service.RoleService;
+import com.gemframework.service.UserRolesService;
+import com.gemframework.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
@@ -32,9 +31,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-
 import javax.annotation.Resource;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.gemframework.common.constant.GemConstant.System.DEF_PASSWORD;
 

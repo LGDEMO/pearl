@@ -1,9 +1,9 @@
 package com.gemframework.service.impl;
 
+import com.gemframework.common.enums.MenuType;
 import com.gemframework.common.enums.ResultCode;
 import com.gemframework.common.exception.GemException;
 import com.gemframework.common.utils.GemBeanUtils;
-import com.gemframework.common.enums.MenuType;
 import com.gemframework.model.po.Menu;
 import com.gemframework.model.po.RoleMenus;
 import com.gemframework.model.vo.MenuVo;

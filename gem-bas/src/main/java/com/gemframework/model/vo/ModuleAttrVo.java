@@ -1,7 +1,5 @@
 package com.gemframework.model.vo;
 
-import com.gemframework.model.vo.BaseVo;
-import io.swagger.models.auth.In;
 import lombok.*;
 
 /**

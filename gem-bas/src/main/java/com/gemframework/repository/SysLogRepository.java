@@ -3,7 +3,9 @@ package com.gemframework.repository;
 import com.gemframework.model.po.SysLog;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+
 import java.util.List;
+
 /**
  * @Title: SysLogRepository.java
  * @Package: com.gemframework.repository

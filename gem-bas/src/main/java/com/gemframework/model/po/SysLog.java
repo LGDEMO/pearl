@@ -1,10 +1,8 @@
 package com.gemframework.model.po;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
-import javax.persistence.*;
 
-import java.util.*;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "get_sysLog")

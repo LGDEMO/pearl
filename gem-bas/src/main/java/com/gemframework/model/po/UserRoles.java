@@ -1,6 +1,5 @@
 package com.gemframework.model.po;
 
-import com.gemframework.model.po.BasePo;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -8,7 +7,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 /**
- * @Title: UserDepts.java
+ * @Title: UserRoles.java
  * @Package: com.gemframework.model.po
  * @Date: 2019/11/30 17:54
  * @Version: v1.0
@@ -19,11 +18,11 @@ import javax.persistence.*;
  * @Company: www.gemframework.com
  */
 @Entity
-@Table(name = "gem_user_depts")
+@Table(name = "gem_user_roles")
 @Data
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper=true)
-public class UserDepts extends BasePo {
+public class UserRoles extends BasePo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,5 +32,6 @@ public class UserDepts extends BasePo {
     private Long userId;
 
     @Column(columnDefinition = "bigint(20) not null comment '角色ID'")
-    private Long deptId;
+    private Long roleId;
+
 }

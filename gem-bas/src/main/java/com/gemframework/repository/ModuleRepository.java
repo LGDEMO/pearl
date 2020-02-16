@@ -30,5 +30,5 @@ public interface ModuleRepository extends JpaRepository<Module, Long> {
     @Modifying
     @Transactional
     @Query("update Module module set isGenerate=?1 where id=?2")
-    void updateIsGenerate(Integer statu,Long id);
+    void updateIsGenerate(Integer statu, Long id);
 }

@@ -25,7 +25,7 @@ public interface MenuRepository extends JpaRepository<Menu, Long> {
 
     //根据ID和类型查询
     @Query("select menu from Menu menu where id = ?1 and type = ?2")
-    Menu getById(Long id,Integer type);
+    Menu getById(Long id, Integer type);
 
     //查询所有数据列表根据sortPath排序
     @Query("select menu from Menu menu  ORDER BY sortPath ASC")
