@@ -22,7 +22,7 @@ a:hover{text-decoration:none}
 .custom-control-label::before,.custom-control-label::after{right:265px;top:6px;left:auto;}
 }
 .bg-login {
-	background-image: url('../../../assets/images/bg-01.jpg');
+	background-image: url('../../img/bg/bg-01.jpg');
 	/*background-repeat:no-repeat;*/
 	/*background-size:100% 100%;*/
 	/*-moz-background-size:100% 100%;*/

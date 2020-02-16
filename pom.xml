@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.gemframework</groupId>
     <artifactId>gem</artifactId>
-    <version>${gem.version}</version>
+    <version>1.1.0</version>
     <name>gem</name>
     <packaging>pom</packaging>
     <description>parent project for gemframe</description>
@@ -22,7 +22,6 @@
     </modules>
 
     <properties>
-        <gem.version>1.1.0</gem.version>
         <java.version>1.8</java.version>
         <fastjson.version>1.2.58</fastjson.version>
         <springfox.swagger.version>2.6.1</springfox.swagger.version>

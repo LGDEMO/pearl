@@ -17,7 +17,7 @@
     <!-- Bootstrap CSS CDN -->
     <link rel="stylesheet" th:href="@{/static/access/js/bootstrap/bootstrap.min.css}">
     <!-- Page CSS -->
-    <link rel="stylesheet" th:href="@{static/access/css/custom/login1.css}">
+    <link rel="stylesheet" th:href="@{/static/access/css/custom/login1.css}">
     <style>
         .verifycode {
             display: block;
@@ -127,9 +127,7 @@
             alert("登录超时，请重新登录！");
             top.location.href=self.location.href;
         }
-        if(top.location.href.indexOf("127.0.0.1") == -1){
-            helloGem();
-        }
+        console.log(top.location.href.indexOf("127.0.0.1"));
         layui.use(['laydate', 'laypage', 'layer', 'table', 'carousel', 'upload', 'element'], function() {
             var laydate = layui.laydate //日期
                 ,laypage = layui.laypage //分页
@@ -138,6 +136,9 @@
                 ,carousel = layui.carousel //轮播
                 ,upload = layui.upload //上传
                 ,element = layui.element; //元素操作 等等...
+            if(top.location.href.indexOf("127.0.0.1") == -1){
+                helloGem();
+            }
         });
     });
 
