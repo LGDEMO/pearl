@@ -10,38 +10,10 @@ Target Server Type    : MYSQL
 Target Server Version : 50636
 File Encoding         : 65001
 
-Date: 2020-02-15 22:08:43
+Date: 2020-02-16 18:13:35
 */
 
 SET FOREIGN_KEY_CHECKS=0;
-
--- ----------------------------
--- Table structure for gem_code
--- ----------------------------
-DROP TABLE IF EXISTS `gem_code`;
-CREATE TABLE `gem_code` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `createtime` datetime DEFAULT NULL COMMENT '创建时间',
-  `updatetime` datetime DEFAULT NULL COMMENT '更新时间',
-  `name_cn` varchar(60) NOT NULL COMMENT '模块中文名称',
-  `name_en` varchar(30) NOT NULL COMMENT '模块英文名称',
-  `package_name` varchar(30) NOT NULL COMMENT '包名',
-  `is_del` varchar(60) NOT NULL COMMENT '是否具备删除功能',
-  `is_edit` varchar(60) NOT NULL COMMENT '是否具备编辑功能',
-  `is_query` varchar(60) NOT NULL COMMENT '主键名称',
-  `pk_nane` varchar(60) NOT NULL COMMENT '主键名称',
-  `is_add` tinyint(1) NOT NULL COMMENT '是否具备添加功能 0：是 1：否',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
-
--- ----------------------------
--- Records of gem_code
--- ----------------------------
-INSERT INTO `gem_code` VALUES ('1', null, '2020-01-28 12:13:50', '车辆管理', 'car', 'com.gemframework.bas', '', '', '', '', '0');
-INSERT INTO `gem_code` VALUES ('4', null, '2020-01-28 12:12:54', '111121212', 'car11211112121212', 'com.gemframework.bas1', '', '', '', '', '0');
-INSERT INTO `gem_code` VALUES ('5', '2020-01-27 22:00:29', '2020-01-27 22:00:29', '222', '2222', 'com.gemframework.bas12', '', '', '', '', '0');
-INSERT INTO `gem_code` VALUES ('6', '2020-01-28 12:05:23', '2020-01-28 12:05:23', '34', '21212', '12', '', '', '', '', '0');
-INSERT INTO `gem_code` VALUES ('7', null, '2020-01-28 12:13:05', '1212', '121212', 'WWWW', '', '', '', '', '0');
 
 -- ----------------------------
 -- Table structure for gem_demo
@@ -664,7 +636,7 @@ CREATE TABLE `get_sys_log` (
   `request_url` varchar(100) DEFAULT NULL COMMENT '请求URL',
   `username` varchar(20) DEFAULT NULL COMMENT '用户名',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of get_sys_log
@@ -694,6 +666,7 @@ INSERT INTO `get_sys_log` VALUES ('26', '2020-02-15 17:36:40', '2020-02-15 17:36
 INSERT INTO `get_sys_log` VALUES ('27', '2020-02-15 18:52:20', '2020-02-15 18:52:20', 'admin', '127.0.0.1', '0', '0', null, 'POST', 'http://127.0.0.1:8088/gem/login', 'admin');
 INSERT INTO `get_sys_log` VALUES ('28', '2020-02-15 19:04:15', '2020-02-15 19:04:15', 'admin', '127.0.0.1', '0', '0', null, 'POST', 'http://127.0.0.1:8088/gem/login', 'admin');
 INSERT INTO `get_sys_log` VALUES ('29', '2020-02-15 21:58:52', '2020-02-15 21:58:52', 'admin', '127.0.0.1', '0', '0', null, 'POST', 'http://127.0.0.1:8088/gem/login', 'admin');
+INSERT INTO `get_sys_log` VALUES ('30', '2020-02-16 16:20:27', '2020-02-16 16:20:27', 'admin', '127.0.0.1', '0', '0', null, 'POST', 'http://127.0.0.1/admin/login', 'admin');
 
 -- ----------------------------
 -- Table structure for hibernate_sequence

@@ -300,7 +300,7 @@
             $(window).on('load',function(){
                 window.setTimeout(function () {
                     $('#ajax-loader').fadeOut();
-                }, 300);
+                }, 0);
             });
         },
         jsonWhere: function (data, action) {
