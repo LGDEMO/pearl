@@ -9,11 +9,12 @@
         <relativePath/>
     </parent>
     <groupId>com.gemframework</groupId>
-    <artifactId>gem-cms</artifactId>
-    <name>gem-cms</name>
+    <artifactId>gem-api</artifactId>
+    <name>gem-api</name>
     <version>${parent.version}</version>
-    <packaging>war</packaging>
-    <description>gem-cms project for Spring Boot</description>
+    <packaging>jar</packaging>
+    <description>Api project for Spring Boot</description>
+
 
     <dependencies>
         <!--gem-->
@@ -78,8 +79,9 @@
         </dependency>
     </dependencies>
 
+
     <build>
-        <finalName>pearl-admin-v${parent.version}</finalName>
+        <finalName>pearl-api-v${parent.version}</finalName>
 
         <plugins>
             <plugin>
@@ -99,37 +101,7 @@
                     <skipTests>true</skipTests>
                 </configuration>
             </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-resources-plugin</artifactId>
-                <configuration>
-                    <nonFilteredFileExtensions>
-                        <nonFilteredFileExtension>ttf</nonFilteredFileExtension>
-                        <nonFilteredFileExtension>woff</nonFilteredFileExtension>
-                        <nonFilteredFileExtension>woff2</nonFilteredFileExtension>
-                    </nonFilteredFileExtensions>
-                </configuration>
-            </plugin>
         </plugins>
-        <!-- 解决字体文件 -->
-        <resources>
-            <resource>
-                <directory>src/main/resources</directory>
-                <filtering>true</filtering>
-                <excludes>
-                    <exclude>static/**/fonts/**</exclude>
-                    <exclude>static/**/webfonts/**</exclude>
-                </excludes>
-            </resource>
-            <resource>
-                <directory>src/main/resources</directory>
-                <filtering>false</filtering>
-                <includes>
-                    <include>static/**/fonts/**</include>
-                    <include>static/**/webfonts/**</include>
-                </includes>
-            </resource>
-        </resources>
     </build>
+
 </project>
