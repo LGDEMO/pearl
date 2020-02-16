@@ -316,7 +316,7 @@ td{border: none !important;}
 
 .skin-blue .main-header .logo2{background-color: #a92626;color: #ffffff;border-bottom: 0 solid transparent;}
 .skin-blue .main-header .navbar2{background-color: #a92626;}
-.skin-blue .left-side2{background-color: #963232;}
+.skin-blue .left-side2{background-color: #222d32;}
 .skin-blue .sidebar-menu > li.header2{color: #eedcdc;background: #571d1d;}
 .skin-blue .sidebar-menu > li.active > a .a2{color: #ffffff;background: #1e282c;border-left-color: lightseagreen;}
 .skin-blue .sidebar-menu > li > .treeview-menu2{margin: 0 1px;background: #ad3939;}
@@ -331,7 +331,7 @@ td{border: none !important;}
 
 .skin-blue .main-header .logo4{background-color: #d6443a;color: #ffffff;border-bottom: 0 solid transparent;}
 .skin-blue .main-header .navbar4{background-color: #d6443a;}
-.skin-blue .left-side4{background-color: #d6443a;}
+.skin-blue .left-side4{background-color: #222d32;}
 .skin-blue .sidebar-menu > li.header4{color: #eedcdc;background: #a6352d;}
 .skin-blue .sidebar-menu > li.active > a .a4{color: #ffffff;background: #a6352d;border-left-color: lightseagreen;}
 .skin-blue .sidebar-menu > li > .treeview-menu4{margin: 0 1px;background: #a6352d;}
@@ -339,10 +339,17 @@ td{border: none !important;}
 
 .skin-blue .main-header .logo5{background-color: #167ae0;color: #ffffff;border-bottom: 0 solid transparent;}
 .skin-blue .main-header .navbar5{background-color: #167ae0;}
-.skin-blue .left-side5{background-color: #18436f;}
+.skin-blue .left-side5{background-color: #042648;}
 .skin-blue .sidebar-menu > li.header5{color: #eedcdc;background: #0f2740;}
 .skin-blue .sidebar-menu > li.active > a .a5{color: #ffffff;background: #112d4a;border-left-color: lightseagreen;}
 .skin-blue .sidebar-menu > li > .treeview-menu5{margin: 0 1px;background: #112d4a;}
+
+.skin-blue .main-header .logo6{background-color: #042648;color: #ffffff;border-bottom: 0 solid transparent;}
+.skin-blue .main-header .navbar6{background-color: #042648;}
+.skin-blue .left-side6{background-color: #042648;}
+.skin-blue .sidebar-menu > li.header6{color: #eedcdc;background: #0f2740;}
+.skin-blue .sidebar-menu > li.active > a .a6{color: #ffffff;background: #112d4a;border-left-color: lightseagreen;}
+.skin-blue .sidebar-menu > li > .treeview-menu6{margin: 0 1px;background: #112d4a;}
 
 .layui-btn {
     background-color: #337ab7;

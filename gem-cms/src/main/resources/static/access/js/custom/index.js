@@ -472,7 +472,7 @@
         });
         $(".color_ul li").each(function(index){
             $(this).click(function(){
-                if(index<5){
+                if(index<6){
                     changeColor(index)
                 }else {
                     changeColor(0)
@@ -481,7 +481,20 @@
             })
         })
     });
+
+    var removeElement = function (nums, val) {
+        for (var i = 0; i < nums.length; i++) {
+            console.log(nums.length)
+            if (nums[i] == val) {
+                nums.splice(i, 1)
+                i = i - 1
+            }
+        }
+        return nums;
+    };
+
     function changeColor(index){
+        // alert(index);
         var logo = $(".logo");
         var navbar = $(".skin-blue .main-header .navbar");
         var left_Side = $(".skin-blue .wrapper, .skin-blue .main-sidebar, .skin-blue .left-side");
@@ -489,190 +502,25 @@
         var treeview_menu = $(".skin-blue .sidebar-menu > li > .treeview-menu");
         var aa = $(".skin-blue .sidebar-menu > li.active > a");
         var page_tabs_content = $(".content-wrapper .content-tabs .page-tabs .page-tabs-content a");
-        if(index==0) {
-            logo.addClass("logo1");
-            navbar.addClass("navbar1");
-            left_Side.addClass("left-side1");
-            header.addClass("header1");
-            treeview_menu.addClass("treeview-menu1");
-            aa.addClass("a0");
-
-            logo.removeClass("logo2");
-            navbar.removeClass("navbar2");
-            left_Side.removeClass("left-side2");
-            header.removeClass("header2");
-            treeview_menu.removeClass("treeview-menu2");
-            aa.removeClass("a2");
-
-            logo.removeClass("logo3");
-            navbar.removeClass("navbar3");
-            left_Side.removeClass("left-side3");
-            header.removeClass("header3");
-            treeview_menu.removeClass("treeview-menu3");
-            aa.removeClass("a3");
-
-            logo.removeClass("logo4");
-            navbar.removeClass("navbar4");
-            left_Side.removeClass("left-side4");
-            header.removeClass("header4");
-            treeview_menu.removeClass("treeview-menu4");
-            aa.removeClass("a4");
-
-            logo.removeClass("logo5");
-            navbar.removeClass("navbar5");
-            left_Side.removeClass("left-side5");
-            header.removeClass("header5");
-            treeview_menu.removeClass("treeview-menu5");
-            aa.removeClass("a5");
-        }else if(index==1){
-            logo.removeClass("logo1");
-            navbar.removeClass("navbar1");
-            left_Side.removeClass("left-side1");
-            header.removeClass("header1");
-            treeview_menu.removeClass("treeview-menu1");
-            aa.removeClass("a0");
-
-            logo.addClass("logo2");
-            navbar.addClass("navbar2");
-            left_Side.addClass("left-side2");
-            header.addClass("header2");
-            treeview_menu.addClass("treeview-menu2");
-            aa.addClass("a2");
-
-            logo.removeClass("logo3");
-            navbar.removeClass("navbar3");
-            left_Side.removeClass("left-side3");
-            header.removeClass("header3");
-            treeview_menu.removeClass("treeview-menu3");
-            aa.removeClass("a3");
-
-            logo.removeClass("logo4");
-            navbar.removeClass("navbar4");
-            left_Side.removeClass("left-side4");
-            header.removeClass("header4");
-            treeview_menu.removeClass("treeview-menu4");
-            aa.removeClass("a4");
-
-
-            logo.removeClass("logo5");
-            navbar.removeClass("navbar5");
-            left_Side.removeClass("left-side5");
-            header.removeClass("header5");
-            treeview_menu.removeClass("treeview-menu5");
-            aa.removeClass("a5");
-
-        }else if(index==2){
-            logo.removeClass("logo1");
-            navbar.removeClass("navbar1");
-            left_Side.removeClass("left-side1");
-            header.removeClass("header1");
-            treeview_menu.removeClass("treeview-menu1");
-            aa.removeClass("a0");
-
-            logo.removeClass("logo2");
-            navbar.removeClass("navbar2");
-            left_Side.removeClass("left-side2");
-            header.removeClass("header2");
-            treeview_menu.removeClass("treeview-menu2");
-            aa.removeClass("a2");
-
-            logo.addClass("logo3");
-            navbar.addClass("navbar3");
-            left_Side.addClass("left-side3");
-            header.addClass("header3");
-            treeview_menu.addClass("treeview-menu3");
-            aa.addClass("a3");
-
-
-            logo.removeClass("logo4");
-            navbar.removeClass("navbar4");
-            left_Side.removeClass("left-side4");
-            header.removeClass("header4");
-            treeview_menu.removeClass("treeview-menu4");
-            aa.removeClass("a4");
-
-            logo.removeClass("logo5");
-            navbar.removeClass("navbar5");
-            left_Side.removeClass("left-side5");
-            header.removeClass("header5");
-            treeview_menu.removeClass("treeview-menu5");
-            aa.removeClass("a5");
-
-        }else if(index==3){
-            logo.removeClass("logo1");
-            navbar.removeClass("navbar1");
-            left_Side.removeClass("left-side1");
-            header.removeClass("header1");
-            treeview_menu.removeClass("treeview-menu1");
-            aa.removeClass("a0");
-
-            logo.removeClass("logo2");
-            navbar.removeClass("navbar2");
-            left_Side.removeClass("left-side2");
-            header.removeClass("header2");
-            treeview_menu.removeClass("treeview-menu2");
-            aa.removeClass("a2");
-
-            logo.removeClass("logo3");
-            navbar.removeClass("navbar3");
-            left_Side.removeClass("left-side3");
-            header.removeClass("header3");
-            treeview_menu.removeClass("treeview-menu3");
-            aa.removeClass("a3");
-
-
-            logo.addClass("logo4");
-            navbar.addClass("navbar4");
-            left_Side.addClass("left-side4");
-            header.addClass("header4");
-            treeview_menu.addClass("treeview-menu4");
-            aa.addClass("a4");
-
-
-            logo.removeClass("logo5");
-            navbar.removeClass("navbar5");
-            left_Side.removeClass("left-side5");
-            header.removeClass("header5");
-            treeview_menu.removeClass("treeview-menu5");
-            aa.removeClass("a5");
-
+        if(index == ""){
+            index=0;
         }
-        else if(index==4){
-            logo.removeClass("logo1");
-            navbar.removeClass("navbar1");
-            left_Side.removeClass("left-side1");
-            header.removeClass("header1");
-            treeview_menu.removeClass("treeview-menu1");
-            aa.removeClass("a0");
-
-            logo.removeClass("logo2");
-            navbar.removeClass("navbar2");
-            left_Side.removeClass("left-side2");
-            header.removeClass("header2");
-            treeview_menu.removeClass("treeview-menu2");
-            aa.removeClass("a2");
-
-            logo.removeClass("logo3");
-            navbar.removeClass("navbar3");
-            left_Side.removeClass("left-side3");
-            header.removeClass("header3");
-            treeview_menu.removeClass("treeview-menu3");
-            aa.removeClass("a3");
-
-
-            logo.removeClass("logo4");
-            navbar.removeClass("navbar4");
-            left_Side.removeClass("left-side4");
-            header.removeClass("header4");
-            treeview_menu.removeClass("treeview-menu4");
-            aa.removeClass("a4");
-
-            logo.addClass("logo5");
-            navbar.addClass("navbar5");
-            left_Side.addClass("left-side5");
-            header.addClass("header5");
-            treeview_menu.addClass("treeview-menu5");
-            aa.addClass("a5");
+        let arr = [0,1,2,3,4,5];
+        arr = removeElement(arr,index);
+        for(j = 0,len=arr.length; j < len; j++) {
+            let removeIndex = arr[j];
+            logo.removeClass("logo"+(removeIndex+1)+"");
+            navbar.removeClass("navbar"+(removeIndex+1)+"");
+            left_Side.removeClass("left-side"+(removeIndex+1)+"");
+            header.removeClass("header"+(removeIndex+1)+"");
+            treeview_menu.removeClass("treeview-menu"+(removeIndex+1)+"");
+            aa.removeClass("a"+(removeIndex)+"");
         }
+        logo.addClass("logo"+(index+1)+"");
+        navbar.addClass("navbar"+(index+1)+"");
+        left_Side.addClass("left-side"+(index+1)+"");
+        header.addClass("header"+(index+1)+"");
+        treeview_menu.addClass("treeview-menu"+(index+1)+"");
+        aa.addClass("a"+(index)+"");
     }
 })(jQuery);
