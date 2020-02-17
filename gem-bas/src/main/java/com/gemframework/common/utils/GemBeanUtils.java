@@ -1,9 +1,13 @@
 package com.gemframework.common.utils;
 
+import com.gemframework.model.po.SysLog;
+import com.gemframework.model.vo.SysLogVo;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeanWrapperImpl;
 
+import java.lang.reflect.Field;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -62,6 +66,7 @@ public class GemBeanUtils {
         return t;
     }
 
+
     /**
      * 列表对象属性复制
      *
@@ -81,10 +86,10 @@ public class GemBeanUtils {
     }
 
 
-    private static Pattern linePattern = Pattern.compile("_(\\w)");
     /**
      * 下划线转驼峰
      */
+    private static Pattern linePattern = Pattern.compile("_(\\w)");
     public static String lineToHump(String str) {
         str = str.toLowerCase();
         Matcher matcher = linePattern.matcher(str);
@@ -97,11 +102,10 @@ public class GemBeanUtils {
     }
 
 
-    private static Pattern humpPattern = Pattern.compile("[A-Z]");
-
     /**
      * 驼峰转下划线
      */
+    private static Pattern humpPattern = Pattern.compile("[A-Z]");
     public static String humpToLine(String str) {
         Matcher matcher = humpPattern.matcher(str);
         StringBuffer sb = new StringBuffer();
@@ -112,15 +116,26 @@ public class GemBeanUtils {
         return sb.toString();
     }
 
-    public static void main(String[] args) {
-        String name = "model_name_a";
-        String name1= lineToHump(name);
-        String A = "ModelNameA";
-        String name2= humpToLine(A);
-        String B = "modelNameB";
-        String name3= humpToLine(B);
-        System.out.println(name1);
-        System.out.println(name2);
-        System.out.println(name3);
+
+    public static void main(String[] args) throws Exception {
+//        SysLog log = new SysLog();
+//        log.setAccount("a");
+//        log.setClientIp("b");
+//        log.setCreateTime(new Date());
+//
+//        SysLogVo sysLogVo = GemBeanUtils.copyProperties(log,SysLogVo.class);
+//        System.out.println("1==="+sysLogVo.toString());
+//
+//        SysLogVo sysLogVo2 = new SysLogVo();
+//        GemBeanUtils.cpoyObjAttr(log,sysLogVo2,log.getClass());
+//        System.out.println("2==="+sysLogVo2.toString());
+//
+//        SysLogVo sysLogVo3 = new SysLogVo();
+//        GemBeanUtils.copyProperties(log,sysLogVo3);
+//        System.out.println("3==="+sysLogVo3.toString());
+//
+//        SysLogVo sysLogVo4 = new SysLogVo();
+//        sysLogVo4 = BeanMapper.map(log,SysLogVo.class);
+//        System.out.println("4==="+sysLogVo4.toString());
     }
 }

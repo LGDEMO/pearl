@@ -2,10 +2,10 @@ package com.gemframework.common.security.handler;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
+import com.gemframework.common.config.GemSystemProperties;
 import com.gemframework.common.constant.GemConstant;
-import com.gemframework.common.enums.MenuType;
-import com.gemframework.common.enums.OperateStatus;
-import com.gemframework.common.enums.OperateType;
+import com.gemframework.common.enums.*;
+import com.gemframework.common.response.GemResponse;
 import com.gemframework.common.security.configure.GemSecurityProperties;
 import com.gemframework.common.security.authorization.GemMetadataSourceService;
 import com.gemframework.model.vo.SysLogVo;
@@ -51,6 +51,9 @@ public class GemLoginSuccessHandler extends SavedRequestAwareAuthenticationSucce
     private GemSecurityProperties gemSecurityProperties;
 
     @Autowired
+    private GemSystemProperties gemSystemProperties;
+
+    @Autowired
     GemMetadataSourceService gemMetadataSourceService;
 
     @Override
@@ -60,8 +63,52 @@ public class GemLoginSuccessHandler extends SavedRequestAwareAuthenticationSucce
         //重新设置用户权限
         gemMetadataSourceService.loadResourceDefine();
         //页面：登录成功后加载权限菜单
-        //判断用户角色
-        //根据角色查询菜单信息
+        initSessionSideMenus(request,response,authentication);
+        //初始化session
+        initSession(request);
+        //api请求的话返回token & 页面跳转到首页
+        GemResponse.returnResult(request,response, ResultCode.SUCCESS, ResultURL.INDEX);
+
+        //记录操作日志
+        SysLogVo sysLogVo = SysLogVo.builder()
+                .account(getCurrentUsername())
+                .username(getCurrentUsername())
+                .clientIp(getIpAddress(request))
+                .operateType(OperateType.LOGIN.getCode())
+                .operateStatus(OperateStatus.SUCCESS.getCode())
+                .requestUrl(request.getRequestURL().toString())
+                .requestMothod(request.getMethod())
+                .build();
+        sysLogService.save(sysLogVo);
+    }
+
+
+    public String getCurrentUsername() {
+        return SecurityContextHolder.getContext().getAuthentication().getName();
+    }
+
+    private String getRoleFlag(String fullFalg){
+        return fullFalg.replaceAll(ROLE_PREFIX,"");
+    }
+
+
+    /***
+     * 初始化Session
+     * @param request
+     */
+    private void initSession(HttpServletRequest request){
+        request.getSession().setAttribute("session_username",getCurrentUsername());
+        request.getSession().setAttribute("session_runtime",gemSystemProperties.getRuntime());
+    }
+    /**
+     * 初始化左侧菜单Session
+     * 判断用户角色
+     * 根据角色查询菜单信息
+     * @param request
+     * @param response
+     * @param authentication
+     */
+    private void initSessionSideMenus(HttpServletRequest request, HttpServletResponse response, Authentication authentication){
         List<RoleVo> roles = new ArrayList<>();
         Collection<? extends GrantedAuthority> collection = authentication.getAuthorities();
         boolean isSuperAdmin = false;
@@ -124,33 +171,6 @@ public class GemLoginSuccessHandler extends SavedRequestAwareAuthenticationSucce
                 request.getSession().setAttribute("session_sidebar_menus", menuSides);
             }
         }
-        request.getSession().setAttribute("session_username",getCurrentUsername());
-
-        //页面跳转到首页
-        getRedirectStrategy().sendRedirect(request, response, gemSecurityProperties.getIndexPage());
-        //TODO:这里写登录成功后的逻辑
-        //api请求的话返回token
-
-
-        //记录操作日志
-        SysLogVo sysLogVo = SysLogVo.builder()
-                .account(getCurrentUsername())
-                .username(getCurrentUsername())
-                .clientIp(getIpAddress(request))
-                .operateType(OperateType.LOGIN.getCode())
-                .operateStatus(OperateStatus.SUCCESS.getCode())
-                .requestUrl(request.getRequestURL().toString())
-                .requestMothod(request.getMethod())
-                .build();
-        sysLogService.save(sysLogVo);
     }
 
-
-    public String getCurrentUsername() {
-        return SecurityContextHolder.getContext().getAuthentication().getName();
-    }
-
-    private String getRoleFlag(String fullFalg){
-        return fullFalg.replaceAll(ROLE_PREFIX,"");
-    }
 }

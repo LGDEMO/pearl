@@ -65,10 +65,9 @@ public class ${Entity}ServiceImpl implements ${Entity}Service {
     @Override
     public PageInfo findPageAll(Pageable pageable) {
         Page<${Entity}> page = ${entity}Repository.findAll(pageable);
-        List<${Entity}Vo> vos = GemBeanUtils.copyCollections(page.getContent(),${Entity}Vo.class);
         PageInfo pageInfo = PageInfo.builder()
                         .total(page.getTotalElements())
-                        .rows(vos)
+                        .rows(page.getContent())
                         .build();
         return pageInfo;
 }
@@ -78,10 +77,9 @@ public class ${Entity}ServiceImpl implements ${Entity}Service {
         ${Entity} entity = new ${Entity}();
         GemBeanUtils.copyProperties(vo,entity);
         Page<${Entity}> page = ${entity}Repository.findAll(Example.of(entity),pageable);
-        List<${Entity}Vo> vos = GemBeanUtils.copyCollections(page.getContent(),${Entity}Vo.class);
         PageInfo pageInfo = PageInfo.builder()
                         .total(page.getTotalElements())
-                        .rows(vos)
+                        .rows(page.getContent())
                         .build();
         return pageInfo;
     }

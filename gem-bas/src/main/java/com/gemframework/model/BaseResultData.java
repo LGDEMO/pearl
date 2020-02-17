@@ -21,7 +21,7 @@ import java.util.List;
  */
 
 @Data
-public class BaseResult {
+public class BaseResultData {
 
     // 定义jackson对象
     private static final ObjectMapper mapper = new ObjectMapper();
@@ -38,17 +38,17 @@ public class BaseResult {
     // 响应中的数据
     private Object data;
 
-    public BaseResult() {
+    public BaseResultData() {
 
     }
 
-    public BaseResult(Integer code, String msg, Object data) {
+    public BaseResultData(Integer code, String msg, Object data) {
         this.code = code;
         this.msg = msg;
         this.data = data;
     }
 
-    public BaseResult(Object data) {
+    public BaseResultData(Object data) {
         if(data instanceof PageInfo){
             this.data = ((PageInfo) data).getRows();
             this.count = ((PageInfo) data).getTotal();
@@ -60,14 +60,14 @@ public class BaseResult {
 
     }
 
-    public BaseResult(Object data,Long count) {
+    public BaseResultData(Object data, Long count) {
         this.count = count;
         this.code = 0;
         this.msg = "OK";
         this.data = data;
     }
 
-    public BaseResult(ResultCode resultCode) {
+    public BaseResultData(ResultCode resultCode) {
         this.code = resultCode.getCode();
         this.msg = resultCode.getMsg();
         this.data = null;
@@ -81,8 +81,8 @@ public class BaseResult {
      * @Description:
      * @Date: 2019/11/27 22:39
      */
-    public static BaseResult build(Integer status, String msg, Object data) {
-        return new BaseResult(status, msg, data);
+    public static BaseResultData build(Integer status, String msg, Object data) {
+        return new BaseResultData(status, msg, data);
     }
 
     /**
@@ -93,8 +93,8 @@ public class BaseResult {
      * @Description:
      * @Date: 2019/11/27 22:40
      */
-    public static BaseResult ERROR(Integer code, String msg) {
-        return new BaseResult(code, msg, null);
+    public static BaseResultData ERROR(Integer code, String msg) {
+        return new BaseResultData(code, msg, null);
     }
 
     /**
@@ -105,9 +105,9 @@ public class BaseResult {
      * @Description:
      * @Date: 2019/11/29 14:37
      */
-    public static BaseResult ERROR(ResultCode resultCode) {
+    public static BaseResultData ERROR(ResultCode resultCode) {
 
-        return new BaseResult(resultCode.getCode(), resultCode.getMsg(), null);
+        return new BaseResultData(resultCode.getCode(), resultCode.getMsg(), null);
     }
 
     /**
@@ -118,8 +118,8 @@ public class BaseResult {
      * @Description:
      * @Date: 2019/11/27 22:40
      */
-    public static BaseResult SUCCESS(Object data) {
-        return new BaseResult(data);
+    public static BaseResultData SUCCESS(Object data) {
+        return new BaseResultData(data);
     }
 
     /**
@@ -130,8 +130,8 @@ public class BaseResult {
      * @Description:
      * @Date: 2019/11/27 22:40
      */
-    public static BaseResult SUCCESS(Object data,Long count) {
-        return new BaseResult(data,count);
+    public static BaseResultData SUCCESS(Object data, Long count) {
+        return new BaseResultData(data,count);
     }
 
 
@@ -143,7 +143,7 @@ public class BaseResult {
      * @Description:
      * @Date: 2019/11/27 22:41
      */
-    public static BaseResult SUCCESS() {
+    public static BaseResultData SUCCESS() {
         return SUCCESS(null);
     }
 
@@ -154,9 +154,9 @@ public class BaseResult {
      * @author leechenxiang
      * @date 2016年4月22日 下午8:35:21
      */
-    public static BaseResult format(String json) {
+    public static BaseResultData format(String json) {
         try {
-            return mapper.readValue(json, BaseResult.class);
+            return mapper.readValue(json, BaseResultData.class);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -171,11 +171,11 @@ public class BaseResult {
      * @Description: 将json转化为对象
      * @Date: 2019/11/25 13:44
      */
-    public static BaseResult formatToClazz(String jsonString, Class<?> clazz) {
+    public static BaseResultData formatToClazz(String jsonString, Class<?> clazz) {
 
         try {
             if (clazz == null) {
-                return mapper.readValue(jsonString, BaseResult.class);
+                return mapper.readValue(jsonString, BaseResultData.class);
             }
             JsonNode jsonNode = mapper.readTree(jsonString);
             JsonNode data = jsonNode.get("data");
@@ -201,7 +201,7 @@ public class BaseResult {
      * @Description: 将json转化为list clazz为list对象
      * @Date: 2019/11/25 13:45
      */
-    public static BaseResult formatToList(String jsonString, Class<?> clazz) {
+    public static BaseResultData formatToList(String jsonString, Class<?> clazz) {
 
         try {
             JsonNode jsonNode = mapper.readTree(jsonString);

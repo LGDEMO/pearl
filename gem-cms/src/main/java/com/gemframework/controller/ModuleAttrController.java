@@ -1,7 +1,7 @@
 package com.gemframework.controller;
 
 import com.gemframework.common.enums.ResultCode;
-import com.gemframework.model.BaseResult;
+import com.gemframework.model.BaseResultData;
 import com.gemframework.model.vo.ModuleAttrVo;
 import com.gemframework.service.ModuleAttrService;
 import lombok.extern.slf4j.Slf4j;
@@ -45,9 +45,9 @@ public class ModuleAttrController {
 
     @GetMapping("pageByParams")
     @ResponseBody
-    public BaseResult pageByParams(ModuleAttrVo vo, Pageable pageable){
+    public BaseResultData pageByParams(ModuleAttrVo vo, Pageable pageable){
         List<ModuleAttrVo> list =  moduleAttrService.findPageByParams(vo,pageable);
-        return BaseResult.SUCCESS(list);
+        return BaseResultData.SUCCESS(list);
     }
 
     @GetMapping("add.html")
@@ -67,31 +67,31 @@ public class ModuleAttrController {
 
     @PostMapping("add")
     @ResponseBody
-    public BaseResult add(@Valid @RequestBody ModuleAttrVo vo, BindingResult bindingResult){
+    public BaseResultData add(@Valid @RequestBody ModuleAttrVo vo, BindingResult bindingResult){
         if(bindingResult.hasErrors()){
-            return BaseResult.ERROR(ResultCode.PARAM_EXCEPTION.getCode(),bindingResult.getFieldError().getDefaultMessage());
+            return BaseResultData.ERROR(ResultCode.PARAM_EXCEPTION.getCode(),bindingResult.getFieldError().getDefaultMessage());
         }
-        return BaseResult.SUCCESS(moduleAttrService.save(vo));
+        return BaseResultData.SUCCESS(moduleAttrService.save(vo));
     }
 
     @PostMapping("delete")
     @ResponseBody
-    public BaseResult delete(Long id){
+    public BaseResultData delete(Long id){
         moduleAttrService.delete(id);
-        return BaseResult.SUCCESS();
+        return BaseResultData.SUCCESS();
     }
 
     @PostMapping("deleteBatch")
     @ResponseBody
-    public BaseResult deleteBatch(@RequestBody List<ModuleAttrVo> vos){
+    public BaseResultData deleteBatch(@RequestBody List<ModuleAttrVo> vos){
         moduleAttrService.deleteBatch(vos);
-        return BaseResult.SUCCESS();
+        return BaseResultData.SUCCESS();
     }
 
     @GetMapping("getOne")
     @ResponseBody
-    public BaseResult get(Long id){
-        return BaseResult.SUCCESS(moduleAttrService.getById(id));
+    public BaseResultData get(Long id){
+        return BaseResultData.SUCCESS(moduleAttrService.getById(id));
     }
 
 

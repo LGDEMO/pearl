@@ -1,7 +1,7 @@
 package com.gemframework.controller;
 
 import com.gemframework.common.enums.ResultCode;
-import com.gemframework.model.BaseResult;
+import com.gemframework.model.BaseResultData;
 import com.gemframework.model.vo.RoleVo;
 import com.gemframework.model.vo.UserVo;
 import com.gemframework.model.vo.response.PageInfo;
@@ -46,13 +46,13 @@ public class RoleController {
      */
     @PostMapping("add")
     @ResponseBody
-    public BaseResult add(@Valid @RequestBody RoleVo vo, BindingResult bindingResult){
+    public BaseResultData add(@Valid @RequestBody RoleVo vo, BindingResult bindingResult){
 
         if(bindingResult.hasErrors()){
-            return BaseResult.ERROR(ResultCode.PARAM_EXCEPTION.getCode(),bindingResult.getFieldError().getDefaultMessage());
+            return BaseResultData.ERROR(ResultCode.PARAM_EXCEPTION.getCode(),bindingResult.getFieldError().getDefaultMessage());
         }
 
-        return BaseResult.SUCCESS(roleService.save(vo));
+        return BaseResultData.SUCCESS(roleService.save(vo));
     }
 
     /**
@@ -65,9 +65,9 @@ public class RoleController {
      */
     @PostMapping("delete")
     @ResponseBody
-    public BaseResult delete(Long id){
+    public BaseResultData delete(Long id){
         roleService.delete(id);
-        return BaseResult.SUCCESS();
+        return BaseResultData.SUCCESS();
     }
 
     /**
@@ -80,9 +80,9 @@ public class RoleController {
      */
     @PostMapping("deleteBatch")
     @ResponseBody
-    public BaseResult deleteBatch(@RequestBody List<UserVo> vos){
+    public BaseResultData deleteBatch(@RequestBody List<UserVo> vos){
         roleService.deleteBatch(vos);
-        return BaseResult.SUCCESS();
+        return BaseResultData.SUCCESS();
     }
 
 
@@ -96,9 +96,9 @@ public class RoleController {
      */
     @GetMapping("list")
     @ResponseBody
-    public BaseResult list(){
+    public BaseResultData list(){
         List list = roleService.findListAll();
-        return BaseResult.SUCCESS(list);
+        return BaseResultData.SUCCESS(list);
     }
 
 
@@ -112,9 +112,9 @@ public class RoleController {
      */
     @GetMapping("listByParams")
     @ResponseBody
-    public BaseResult listByParams(RoleVo vo){
+    public BaseResultData listByParams(RoleVo vo){
         List<RoleVo> list = roleService.findListByParams(vo);
-        return BaseResult.SUCCESS(list);
+        return BaseResultData.SUCCESS(list);
     }
 
     /**
@@ -133,9 +133,9 @@ public class RoleController {
      */
     @GetMapping("page")
     @ResponseBody
-    public BaseResult page(Pageable pageable){
+    public BaseResultData page(Pageable pageable){
         List<RoleVo> vo = roleService.findPageAll(pageable);
-        return BaseResult.SUCCESS(vo);
+        return BaseResultData.SUCCESS(vo);
     }
 
     /**
@@ -148,9 +148,9 @@ public class RoleController {
      */
     @GetMapping("pageByParams")
     @ResponseBody
-    public BaseResult pageByParams(RoleVo vo,Pageable pageable){
+    public BaseResultData pageByParams(RoleVo vo, Pageable pageable){
         PageInfo page =  roleService.findPageByParams(vo,pageable);
-        return BaseResult.SUCCESS(page);
+        return BaseResultData.SUCCESS(page);
     }
 
 

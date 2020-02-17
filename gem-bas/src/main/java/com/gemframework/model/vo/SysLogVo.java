@@ -19,6 +19,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper=true)
+@ToString(callSuper = true)
 public class SysLogVo extends BaseVo {
 
     private Long id;

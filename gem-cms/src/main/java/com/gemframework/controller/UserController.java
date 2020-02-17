@@ -6,7 +6,7 @@ import com.gemframework.model.vo.request.ResetPasswordReq;
 import com.gemframework.model.vo.response.PageInfo;
 import com.gemframework.service.UserService;
 import com.gemframework.common.enums.ResultCode;
-import com.gemframework.model.BaseResult;
+import com.gemframework.model.BaseResultData;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -48,13 +48,13 @@ public class UserController {
      */
     @PostMapping("add")
     @ResponseBody
-    public BaseResult add(@Valid @RequestBody UserVo vo, BindingResult bindingResult){
+    public BaseResultData add(@Valid @RequestBody UserVo vo, BindingResult bindingResult){
 
         if(bindingResult.hasErrors()){
-            return BaseResult.ERROR(ResultCode.PARAM_EXCEPTION.getCode(),bindingResult.getFieldError().getDefaultMessage());
+            return BaseResultData.ERROR(ResultCode.PARAM_EXCEPTION.getCode(),bindingResult.getFieldError().getDefaultMessage());
         }
         vo = userService.save(vo);
-        return BaseResult.SUCCESS(vo);
+        return BaseResultData.SUCCESS(vo);
     }
 
     /**
@@ -67,9 +67,9 @@ public class UserController {
      */
     @PostMapping("delete/{id}")
     @ResponseBody
-    public BaseResult delete(@PathVariable("id") Long id){
+    public BaseResultData delete(@PathVariable("id") Long id){
         userService.delete(id);
-        return BaseResult.SUCCESS();
+        return BaseResultData.SUCCESS();
     }
 
     /**
@@ -82,9 +82,9 @@ public class UserController {
      */
     @PostMapping("deleteBatch")
     @ResponseBody
-    public BaseResult deleteBatch(@RequestBody List<UserVo> vos){
+    public BaseResultData deleteBatch(@RequestBody List<UserVo> vos){
         userService.deleteBatch(vos);
-        return BaseResult.SUCCESS();
+        return BaseResultData.SUCCESS();
     }
 
     /**
@@ -97,9 +97,9 @@ public class UserController {
      */
     @PostMapping("deleteAll")
     @ResponseBody
-    public BaseResult deleteAll(){
+    public BaseResultData deleteAll(){
         userService.deleteAll();
-        return BaseResult.SUCCESS();
+        return BaseResultData.SUCCESS();
     }
 
     /**
@@ -112,11 +112,11 @@ public class UserController {
      */
     @PostMapping("edit")
     @ResponseBody
-    public BaseResult edit(@Valid @RequestBody UserVo vo, BindingResult bindingResult){
+    public BaseResultData edit(@Valid @RequestBody UserVo vo, BindingResult bindingResult){
         if(bindingResult.hasErrors()){
-            return BaseResult.ERROR(ResultCode.PARAM_EXCEPTION.getCode(),bindingResult.getFieldError().getDefaultMessage());
+            return BaseResultData.ERROR(ResultCode.PARAM_EXCEPTION.getCode(),bindingResult.getFieldError().getDefaultMessage());
         }
-        return BaseResult.SUCCESS(userService.save(vo));
+        return BaseResultData.SUCCESS(userService.save(vo));
     }
 
     /**
@@ -129,11 +129,11 @@ public class UserController {
      */
     @PostMapping("resetPassword")
     @ResponseBody
-    public BaseResult resetPassword(@RequestBody ResetPasswordReq req){
+    public BaseResultData resetPassword(@RequestBody ResetPasswordReq req){
         UserVo vo = new UserVo();
         vo.setId(req.getId());
         vo.setPassword(req.getNewPass());
-        return BaseResult.SUCCESS(userService.save(vo));
+        return BaseResultData.SUCCESS(userService.save(vo));
     }
 
     /**
@@ -146,8 +146,8 @@ public class UserController {
      */
     @GetMapping("getOne")
     @ResponseBody
-    public BaseResult get(Long id){
-        return BaseResult.SUCCESS(userService.getById(id));
+    public BaseResultData get(Long id){
+        return BaseResultData.SUCCESS(userService.getById(id));
     }
 
 
@@ -161,9 +161,9 @@ public class UserController {
      */
     @GetMapping("list")
     @ResponseBody
-    public BaseResult list(){
+    public BaseResultData list(){
         List list = userService.findListAll();
-        return BaseResult.SUCCESS(list);
+        return BaseResultData.SUCCESS(list);
     }
 
     /**
@@ -176,9 +176,9 @@ public class UserController {
      */
     @GetMapping("listByParams")
     @ResponseBody
-    public BaseResult listByParams(UserVo vo){
+    public BaseResultData listByParams(UserVo vo){
         List list = userService.findListByParams(vo);
-        return BaseResult.SUCCESS(null);
+        return BaseResultData.SUCCESS(null);
     }
 
     /**
@@ -197,10 +197,10 @@ public class UserController {
      */
     @GetMapping("/page")
     @ResponseBody
-    public BaseResult page(Pageable pageable){
+    public BaseResultData page(Pageable pageable){
         Page<User> page =  userService.findPageAll(pageable);
         List list = page.getContent();
-        return BaseResult.SUCCESS(list);
+        return BaseResultData.SUCCESS(list);
     }
 
     /**
@@ -213,9 +213,9 @@ public class UserController {
      */
     @GetMapping("pageByParams")
     @ResponseBody
-    public BaseResult pageByParams(UserVo vo,Pageable pageable){
+    public BaseResultData pageByParams(UserVo vo, Pageable pageable){
         PageInfo page =  userService.findPageByParams(vo,pageable);
-        return BaseResult.SUCCESS(page);
+        return BaseResultData.SUCCESS(page);
 
     }
 

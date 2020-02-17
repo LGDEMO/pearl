@@ -2,7 +2,7 @@ package com.gemframework.controller;
 
 import com.gemframework.model.vo.UserVo;
 import com.gemframework.service.UserService;
-import com.gemframework.model.BaseResult;
+import com.gemframework.model.BaseResultData;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -37,6 +37,6 @@ class UserControllerTest {
         vo.setPhone("18500029045");
         UserVo user = userService.save(vo);
         log.info("用户信息="+user.toString());
-        log.info(BaseResult.SUCCESS(user).toString());
+        log.info(BaseResultData.SUCCESS(user).toString());
     }
 }

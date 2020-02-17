@@ -18,6 +18,7 @@ public enum ResultCode {
 
     SUCCESS(0,"返回成功"),
     NOT_LOGINED(100,"用户未登录"),
+    LOGIN_FAIL(101,"登录失败"),
     UNKNOWN_REQUEST(404,"未知请求"),
     PERMISSION_DENIED(403,"权限不足"),
 

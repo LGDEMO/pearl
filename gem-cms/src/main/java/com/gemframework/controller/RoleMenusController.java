@@ -1,7 +1,7 @@
 package com.gemframework.controller;
 
 import com.gemframework.common.enums.ResultCode;
-import com.gemframework.model.BaseResult;
+import com.gemframework.model.BaseResultData;
 import com.gemframework.model.vo.RoleMenusVo;
 import com.gemframework.service.RoleMenusService;
 import lombok.extern.slf4j.Slf4j;
@@ -41,13 +41,13 @@ public class RoleMenusController {
      * @Date: 2019-12-05 22:22:33
      */
     @PostMapping("add")
-    public BaseResult add(@Valid @RequestBody RoleMenusVo vo, BindingResult bindingResult){
+    public BaseResultData add(@Valid @RequestBody RoleMenusVo vo, BindingResult bindingResult){
 
         if(bindingResult.hasErrors()){
-            return BaseResult.ERROR(ResultCode.PARAM_EXCEPTION.getCode(),bindingResult.getFieldError().getDefaultMessage());
+            return BaseResultData.ERROR(ResultCode.PARAM_EXCEPTION.getCode(),bindingResult.getFieldError().getDefaultMessage());
         }
 
-        return BaseResult.SUCCESS(roleMenusService.save(vo));
+        return BaseResultData.SUCCESS(roleMenusService.save(vo));
     }
 
     /**
@@ -59,9 +59,9 @@ public class RoleMenusController {
      * @Date: 2019-12-05 22:22:33
      */
     @PostMapping("delete/{id}")
-    public BaseResult delete(@PathVariable("id") Long id){
+    public BaseResultData delete(@PathVariable("id") Long id){
         roleMenusService.delete(id);
-        return BaseResult.SUCCESS();
+        return BaseResultData.SUCCESS();
     }
 
     /**
@@ -73,8 +73,8 @@ public class RoleMenusController {
      * @Date: 2019-12-05 22:22:33
      */
     @PostMapping("update")
-    public BaseResult update(RoleMenusVo vo){
-        return BaseResult.SUCCESS(roleMenusService.update(vo));
+    public BaseResultData update(RoleMenusVo vo){
+        return BaseResultData.SUCCESS(roleMenusService.update(vo));
     }
 
     /**
@@ -86,9 +86,9 @@ public class RoleMenusController {
      * @Date: 2019-12-05 22:22:33
      */
     @GetMapping("list")
-    public BaseResult list(){
+    public BaseResultData list(){
         List list = roleMenusService.findListAll();
-        return BaseResult.SUCCESS(list);
+        return BaseResultData.SUCCESS(list);
     }
 
 
@@ -101,9 +101,9 @@ public class RoleMenusController {
      * @Date: 2019-12-05 22:22:33
      */
     @GetMapping("listByParams")
-    public BaseResult listByParams(RoleMenusVo vo){
+    public BaseResultData listByParams(RoleMenusVo vo){
         List<RoleMenusVo> list = roleMenusService.findListByParams(vo);
-        return BaseResult.SUCCESS(list);
+        return BaseResultData.SUCCESS(list);
     }
 
     /**
@@ -121,9 +121,9 @@ public class RoleMenusController {
      * @Date: 2019-12-05 22:22:33
      */
     @GetMapping("page")
-    public BaseResult page(Pageable pageable){
+    public BaseResultData page(Pageable pageable){
         List<RoleMenusVo> vo = roleMenusService.findPageAll(pageable);
-        return BaseResult.SUCCESS(vo);
+        return BaseResultData.SUCCESS(vo);
     }
 
     /**
@@ -135,9 +135,9 @@ public class RoleMenusController {
      * @Date: 2019-12-05 22:22:33
      */
     @GetMapping("pageByParams")
-    public BaseResult pageByParams(RoleMenusVo vo,Pageable pageable){
+    public BaseResultData pageByParams(RoleMenusVo vo, Pageable pageable){
         List<RoleMenusVo> list =  roleMenusService.findPageByParams(vo,pageable);
-        return BaseResult.SUCCESS(list);
+        return BaseResultData.SUCCESS(list);
     }
 
 }

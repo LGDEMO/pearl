@@ -73,6 +73,9 @@
 <div th:replace="common/links::common_script"></div>
 <script th:src="@{/static/access/js/jquery.treetable.js}"></script>
 <script  th:inline="javascript">
+
+    let runtime  = [[${session.session_runtime}]]
+
     $("#menusTree").treetable({
         expandable: true,
         clickableNodeNames:true,//点击节点名称也打开子节点.
@@ -124,6 +127,10 @@
 
     //编辑
     function editView(id){
+        if(runtime == "demo"){
+            layer.msg("演示环境，不允许操作！", {icon:4});
+            return;
+        }
         window.id = id;
         layer.open({
             type: 2,
@@ -144,6 +151,10 @@
     }
 
     function deleteData(id){
+        if(runtime == "demo"){
+            layer.msg("演示环境，不允许操作！", {icon:4});
+            return;
+        }
         layer.confirm('确定删除吗？亲~', {
             btn: ['确定','再想想'] //按钮
         }, function(){

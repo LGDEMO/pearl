@@ -3,7 +3,7 @@ package com.gemframework.controller;
 import com.alibaba.fastjson.JSON;
 import com.gemframework.common.enums.ResultCode;
 import com.gemframework.common.security.authorization.GemMetadataSourceService;
-import com.gemframework.model.BaseResult;
+import com.gemframework.model.BaseResultData;
 import com.gemframework.model.vo.MenuVo;
 import com.gemframework.service.MenuService;
 import lombok.extern.slf4j.Slf4j;
@@ -49,13 +49,13 @@ public class MenuController {
      */
     @PostMapping("add")
     @ResponseBody
-    public BaseResult add(@Valid @RequestBody MenuVo vo, BindingResult bindingResult){
+    public BaseResultData add(@Valid @RequestBody MenuVo vo, BindingResult bindingResult){
 
         if(bindingResult.hasErrors()){
-            return BaseResult.ERROR(ResultCode.PARAM_EXCEPTION.getCode(),bindingResult.getFieldError().getDefaultMessage());
+            return BaseResultData.ERROR(ResultCode.PARAM_EXCEPTION.getCode(),bindingResult.getFieldError().getDefaultMessage());
         }
 
-        return BaseResult.SUCCESS(menuService.save(vo));
+        return BaseResultData.SUCCESS(menuService.save(vo));
     }
 
     /**
@@ -68,9 +68,9 @@ public class MenuController {
      */
     @PostMapping("delete")
     @ResponseBody
-    public BaseResult delete(@RequestParam(value = "id") Long id){
+    public BaseResultData delete(@RequestParam(value = "id") Long id){
         menuService.delete(id);
-        return BaseResult.SUCCESS();
+        return BaseResultData.SUCCESS();
     }
 
     /**
@@ -82,8 +82,8 @@ public class MenuController {
      * @Date: 2019-12-05 22:22:32
      */
     @PostMapping("edit")
-    public BaseResult edit(MenuVo vo){
-        return BaseResult.SUCCESS(menuService.update(vo));
+    public BaseResultData edit(MenuVo vo){
+        return BaseResultData.SUCCESS(menuService.update(vo));
     }
 
     /**
@@ -95,9 +95,9 @@ public class MenuController {
      * @Date: 2019-12-05 22:22:32
      */
     @GetMapping("list")
-    public BaseResult list(){
+    public BaseResultData list(){
         List<MenuVo> list = menuService.findListAll();
-        return BaseResult.SUCCESS(list);
+        return BaseResultData.SUCCESS(list);
     }
 
 
@@ -110,9 +110,9 @@ public class MenuController {
      * @Date: 2019-12-05 22:22:32
      */
     @GetMapping("listByParams")
-    public BaseResult listByParams(MenuVo vo){
+    public BaseResultData listByParams(MenuVo vo){
         List<MenuVo> list = menuService.findListByParams(vo);
-        return BaseResult.SUCCESS(list);
+        return BaseResultData.SUCCESS(list);
     }
 
     /**
@@ -130,9 +130,9 @@ public class MenuController {
      * @Date: 2019-12-05 22:22:32
      */
     @GetMapping("page")
-    public BaseResult page(Pageable pageable){
+    public BaseResultData page(Pageable pageable){
         List<MenuVo> vo = menuService.findPageAll(pageable);
-        return BaseResult.SUCCESS(vo);
+        return BaseResultData.SUCCESS(vo);
     }
 
     /**
@@ -144,9 +144,9 @@ public class MenuController {
      * @Date: 2019-12-05 22:22:32
      */
     @GetMapping("pageByParams")
-    public BaseResult pageByParams(MenuVo vo,Pageable pageable){
+    public BaseResultData pageByParams(MenuVo vo, Pageable pageable){
         List<MenuVo> list =  menuService.findPageByParams(vo,pageable);
-        return BaseResult.SUCCESS(list);
+        return BaseResultData.SUCCESS(list);
     }
 
     @GetMapping("add.html")

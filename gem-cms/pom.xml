@@ -20,7 +20,7 @@
         <dependency>
             <groupId>com.gemframework</groupId>
             <artifactId>gem-bas</artifactId>
-            <version>${parent.version}</version>
+            <version>${parent.version}-SNAPSHOT</version>
         </dependency>
 
         <!--安全框架-->

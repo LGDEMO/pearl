@@ -1,13 +1,15 @@
 package com.gemframework.controller;
 
 import com.gemframework.common.annotation.ValidToken;
-import com.gemframework.model.BaseResult;
+import com.gemframework.common.config.GemSystemProperties;
+import com.gemframework.model.BaseResultData;
 import com.gemframework.common.enums.MenuType;
 import com.gemframework.model.vo.MenuVo;
 import com.gemframework.model.vo.tree.MenuSide;
 import com.gemframework.model.vo.view.Home;
 import com.gemframework.service.MenuService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -45,7 +47,7 @@ public class HomeController {
      */
     @GetMapping("/initAllMenus")
     @ResponseBody
-    public BaseResult initAllMenus(){
+    public BaseResultData initAllMenus(){
         List<MenuVo> menus = menuService.findListAllByType(MenuType.MENU);
         List<MenuSide> menuSides = new ArrayList<>();
         for(MenuVo menuVo:menus){
@@ -58,7 +60,7 @@ public class HomeController {
                     .F_UrlAddress(menuVo.getLink()).build();
             menuSides.add(menuSide);
         }
-        return BaseResult.SUCCESS(menuSides);
+        return BaseResultData.SUCCESS(menuSides);
     }
 
     /***
@@ -68,9 +70,9 @@ public class HomeController {
      */
     @GetMapping("/initMenus")
     @ResponseBody
-    public BaseResult initMenus(HttpServletRequest request){
+    public BaseResultData initMenus(HttpServletRequest request){
         List<MenuSide> menuSides = (List<MenuSide>) request.getSession().getAttribute("session_sidebar_menus");
-        return BaseResult.SUCCESS(menuSides);
+        return BaseResultData.SUCCESS(menuSides);
     }
 
     /***
@@ -80,7 +82,7 @@ public class HomeController {
     @ValidToken
     @GetMapping("/orderInfo")
     @ResponseBody
-    public BaseResult orderInfo(){
+    public BaseResultData orderInfo(){
         int random = (int)(Math.random()*100);
         Home.Order order = Home.Order.builder()
                 .waitPay(random)
@@ -92,7 +94,7 @@ public class HomeController {
                 .refund(random)
                 .success(random)
                 .build();
-        return BaseResult.SUCCESS(order);
+        return BaseResultData.SUCCESS(order);
     }
 
     @GetMapping("")

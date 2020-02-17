@@ -37,6 +37,7 @@ public class SysLogServiceImpl implements SysLogService {
     @Override
     public List<SysLogVo> findListAll() {
         List<SysLog> list = sysLogRepository.findAll();
+        log.info("============"+list);
         List<SysLogVo> vos = GemBeanUtils.copyCollections(list,SysLogVo.class);
         return vos;
     }
@@ -46,6 +47,7 @@ public class SysLogServiceImpl implements SysLogService {
         SysLog entity = new SysLog();
         GemBeanUtils.copyProperties(vo,entity);
         List<SysLog> list = sysLogRepository.findAll(Example.of(entity));
+
         List<SysLogVo> vos = GemBeanUtils.copyCollections(list,SysLogVo.class);
         return vos;
     }
@@ -53,10 +55,9 @@ public class SysLogServiceImpl implements SysLogService {
     @Override
     public PageInfo findPageAll(Pageable pageable) {
         Page<SysLog> page = sysLogRepository.findAll(pageable);
-        List<SysLogVo> vos = GemBeanUtils.copyCollections(page.getContent(),SysLogVo.class);
         PageInfo pageInfo = PageInfo.builder()
                 .total(page.getTotalElements())
-                .rows(vos)
+                .rows(page.getContent())
                 .build();
         return pageInfo;
 }
@@ -66,10 +67,9 @@ public class SysLogServiceImpl implements SysLogService {
         SysLog entity = new SysLog();
         GemBeanUtils.copyProperties(vo,entity);
         Page<SysLog> page = sysLogRepository.findAll(Example.of(entity),pageable);
-        List<SysLogVo> vos = GemBeanUtils.copyCollections(page.getContent(),SysLogVo.class);
         PageInfo pageInfo = PageInfo.builder()
                 .total(page.getTotalElements())
-                .rows(vos)
+                .rows(page.getContent())
                 .build();
         return pageInfo;
     }

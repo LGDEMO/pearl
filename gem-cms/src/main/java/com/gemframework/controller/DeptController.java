@@ -1,7 +1,7 @@
 package com.gemframework.controller;
 
 import com.gemframework.common.enums.ResultCode;
-import com.gemframework.model.BaseResult;
+import com.gemframework.model.BaseResultData;
 import com.gemframework.model.vo.DeptVo;
 import com.gemframework.service.DeptService;
 import lombok.extern.slf4j.Slf4j;
@@ -44,13 +44,13 @@ public class DeptController {
      */
     @PostMapping("add")
     @ResponseBody
-    public BaseResult add(@Valid @RequestBody DeptVo vo, BindingResult bindingResult){
+    public BaseResultData add(@Valid @RequestBody DeptVo vo, BindingResult bindingResult){
 
         if(bindingResult.hasErrors()){
-            return BaseResult.ERROR(ResultCode.PARAM_EXCEPTION.getCode(),bindingResult.getFieldError().getDefaultMessage());
+            return BaseResultData.ERROR(ResultCode.PARAM_EXCEPTION.getCode(),bindingResult.getFieldError().getDefaultMessage());
         }
 
-        return BaseResult.SUCCESS(deptService.save(vo));
+        return BaseResultData.SUCCESS(deptService.save(vo));
     }
 
     /**
@@ -63,9 +63,9 @@ public class DeptController {
      */
     @PostMapping("delete/{id}")
     @ResponseBody
-    public BaseResult delete(@PathVariable("id") Long id){
+    public BaseResultData delete(@PathVariable("id") Long id){
         deptService.delete(id);
-        return BaseResult.SUCCESS();
+        return BaseResultData.SUCCESS();
     }
 
     /**
@@ -78,11 +78,11 @@ public class DeptController {
      */
     @PostMapping("update")
     @ResponseBody
-    public BaseResult update(@Valid @RequestBody DeptVo vo, BindingResult bindingResult){
+    public BaseResultData update(@Valid @RequestBody DeptVo vo, BindingResult bindingResult){
         if(bindingResult.hasErrors()){
-            return BaseResult.ERROR(ResultCode.PARAM_EXCEPTION.getCode(),bindingResult.getFieldError().getDefaultMessage());
+            return BaseResultData.ERROR(ResultCode.PARAM_EXCEPTION.getCode(),bindingResult.getFieldError().getDefaultMessage());
         }
-        return BaseResult.SUCCESS(deptService.update(vo));
+        return BaseResultData.SUCCESS(deptService.update(vo));
     }
 
     /**
@@ -95,8 +95,8 @@ public class DeptController {
      */
     @GetMapping("getOne")
     @ResponseBody
-    public BaseResult get(Long id){
-        return BaseResult.SUCCESS(deptService.getById(id));
+    public BaseResultData get(Long id){
+        return BaseResultData.SUCCESS(deptService.getById(id));
     }
 
     /**
@@ -109,9 +109,9 @@ public class DeptController {
      */
     @GetMapping("list")
     @ResponseBody
-    public BaseResult list(){
+    public BaseResultData list(){
         List list = deptService.findListAll();
-        return BaseResult.SUCCESS(list);
+        return BaseResultData.SUCCESS(list);
     }
 
 
@@ -125,9 +125,9 @@ public class DeptController {
      */
     @GetMapping("listByParams")
     @ResponseBody
-    public BaseResult listByParams(DeptVo vo){
+    public BaseResultData listByParams(DeptVo vo){
         List<DeptVo> list = deptService.findListByParams(vo);
-        return BaseResult.SUCCESS(list);
+        return BaseResultData.SUCCESS(list);
     }
 
     /**
@@ -146,9 +146,9 @@ public class DeptController {
      */
     @GetMapping("page")
     @ResponseBody
-    public BaseResult page(Pageable pageable){
+    public BaseResultData page(Pageable pageable){
         List<DeptVo> vo = deptService.findPageAll(pageable);
-        return BaseResult.SUCCESS(vo);
+        return BaseResultData.SUCCESS(vo);
     }
 
     /**
@@ -161,9 +161,9 @@ public class DeptController {
      */
     @GetMapping("pageByParams")
     @ResponseBody
-    public BaseResult pageByParams(DeptVo vo,Pageable pageable){
+    public BaseResultData pageByParams(DeptVo vo, Pageable pageable){
         List<DeptVo> list =  deptService.findPageByParams(vo,pageable);
-        return BaseResult.SUCCESS(list);
+        return BaseResultData.SUCCESS(list);
     }
 
 

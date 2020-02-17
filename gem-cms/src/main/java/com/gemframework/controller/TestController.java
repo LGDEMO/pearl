@@ -1,7 +1,7 @@
 package com.gemframework.controller;
 
 import com.gemframework.common.utils.GemRedisUtils;
-import com.gemframework.model.BaseResult;
+import com.gemframework.model.BaseResultData;
 import com.gemframework.model.po.User;
 import com.gemframework.service.CacheService;
 import lombok.extern.slf4j.Slf4j;
@@ -36,22 +36,22 @@ public class TestController {
     private GemRedisUtils<String> gemRedisUtils;
 
     @GetMapping("/redis/set")
-    public BaseResult set(String key,String val){
+    public BaseResultData set(String key, String val){
         gemRedisUtils.set(key,val);
         gemRedisUtils.expire(key,10, TimeUnit.SECONDS);
-        return BaseResult.SUCCESS(key+":"+val);
+        return BaseResultData.SUCCESS(key+":"+val);
     }
 
     @GetMapping("/redis/get")
-    public BaseResult get(String key){
+    public BaseResultData get(String key){
         String val = gemRedisUtils.get(key);
-        return BaseResult.SUCCESS(val);
+        return BaseResultData.SUCCESS(val);
     }
 
     @GetMapping("/cache/getUser")
-    public BaseResult getUser(Long id){
+    public BaseResultData getUser(Long id){
         User user = cacheService.getById(id);
-        return BaseResult.SUCCESS(user);
+        return BaseResultData.SUCCESS(user);
     }
 
 }

@@ -1,7 +1,7 @@
 package com.gemframework.controller;
 
 import com.gemframework.common.enums.ResultCode;
-import com.gemframework.model.BaseResult;
+import com.gemframework.model.BaseResultData;
 import com.gemframework.model.vo.UserRolesVo;
 import com.gemframework.service.UserRolesService;
 import lombok.extern.slf4j.Slf4j;
@@ -41,13 +41,13 @@ public class UserRolesController {
      * @Date: 2019-12-05 22:22:33
      */
     @PostMapping("add")
-    public BaseResult add(@Valid @RequestBody UserRolesVo vo, BindingResult bindingResult){
+    public BaseResultData add(@Valid @RequestBody UserRolesVo vo, BindingResult bindingResult){
 
         if(bindingResult.hasErrors()){
-            return BaseResult.ERROR(ResultCode.PARAM_EXCEPTION.getCode(),bindingResult.getFieldError().getDefaultMessage());
+            return BaseResultData.ERROR(ResultCode.PARAM_EXCEPTION.getCode(),bindingResult.getFieldError().getDefaultMessage());
         }
 
-        return BaseResult.SUCCESS(userRolesService.save(vo));
+        return BaseResultData.SUCCESS(userRolesService.save(vo));
     }
 
     /**
@@ -59,9 +59,9 @@ public class UserRolesController {
      * @Date: 2019-12-05 22:22:33
      */
     @PostMapping("delete/{id}")
-    public BaseResult delete(@PathVariable("id") Long id){
+    public BaseResultData delete(@PathVariable("id") Long id){
         userRolesService.delete(id);
-        return BaseResult.SUCCESS();
+        return BaseResultData.SUCCESS();
     }
 
     /**
@@ -73,8 +73,8 @@ public class UserRolesController {
      * @Date: 2019-12-05 22:22:33
      */
     @PostMapping("update")
-    public BaseResult update(UserRolesVo vo){
-        return BaseResult.SUCCESS(userRolesService.update(vo));
+    public BaseResultData update(UserRolesVo vo){
+        return BaseResultData.SUCCESS(userRolesService.update(vo));
     }
 
     /**
@@ -86,9 +86,9 @@ public class UserRolesController {
      * @Date: 2019-12-05 22:22:33
      */
     @GetMapping("list")
-    public BaseResult list(){
+    public BaseResultData list(){
         List list = userRolesService.findListAll();
-        return BaseResult.SUCCESS(list);
+        return BaseResultData.SUCCESS(list);
     }
 
 
@@ -101,9 +101,9 @@ public class UserRolesController {
      * @Date: 2019-12-05 22:22:33
      */
     @GetMapping("listByParams")
-    public BaseResult listByParams(UserRolesVo vo){
+    public BaseResultData listByParams(UserRolesVo vo){
         List<UserRolesVo> list = userRolesService.findListByParams(vo);
-        return BaseResult.SUCCESS(list);
+        return BaseResultData.SUCCESS(list);
     }
 
     /**
@@ -121,9 +121,9 @@ public class UserRolesController {
      * @Date: 2019-12-05 22:22:33
      */
     @GetMapping("page")
-    public BaseResult page(Pageable pageable){
+    public BaseResultData page(Pageable pageable){
         List<UserRolesVo> vo = userRolesService.findPageAll(pageable);
-        return BaseResult.SUCCESS(vo);
+        return BaseResultData.SUCCESS(vo);
     }
 
     /**
@@ -135,9 +135,9 @@ public class UserRolesController {
      * @Date: 2019-12-05 22:22:33
      */
     @GetMapping("pageByParams")
-    public BaseResult pageByParams(UserRolesVo vo,Pageable pageable){
+    public BaseResultData pageByParams(UserRolesVo vo, Pageable pageable){
         List<UserRolesVo> list =  userRolesService.findPageByParams(vo,pageable);
-        return BaseResult.SUCCESS(list);
+        return BaseResultData.SUCCESS(list);
     }
 
 }

@@ -8,7 +8,7 @@ import com.gemframework.common.exception.GemException;
 import com.gemframework.common.utils.GemBeanUtils;
 import com.gemframework.common.utils.GemFilesUtils;
 import com.gemframework.common.utils.GemGenerate;
-import com.gemframework.model.BaseResult;
+import com.gemframework.model.BaseResultData;
 import com.gemframework.model.vo.ModuleVo;
 import com.gemframework.service.ModuleService;
 import lombok.extern.slf4j.Slf4j;
@@ -55,7 +55,7 @@ public class ModuleController {
 
     @GetMapping("pageByParams")
     @ResponseBody
-    public BaseResult pageByParams(ModuleVo vo, Pageable pageable) {
+    public BaseResultData pageByParams(ModuleVo vo, Pageable pageable) {
         List<ModuleVo> list = moduleService.findPageByParams(vo, pageable);
         for(ModuleVo moduleVo:list){
             String downLoadPath = gemSystemProperties.getGenerateCodeServerPath()+"/code_"+moduleVo.getId()+".zip";
@@ -67,12 +67,12 @@ public class ModuleController {
                 moduleService.updateIsGenerate(WhetherEnum.NO,moduleVo.getId());
             }
         }
-        return BaseResult.SUCCESS(list);
+        return BaseResultData.SUCCESS(list);
     }
 
     @GetMapping("list")
     @ResponseBody
-    public BaseResult list(HttpServletRequest request) {
+    public BaseResultData list(HttpServletRequest request) {
         List<ModuleVo> list = moduleService.findListAll();
         String moduleId = request.getParameter("moduleId");
         if (moduleId != null
@@ -82,7 +82,7 @@ public class ModuleController {
             vo.setId(Long.valueOf(moduleId));
             list = moduleService.findListByParams(vo);
         }
-        return BaseResult.SUCCESS(list);
+        return BaseResultData.SUCCESS(list);
     }
 
     @GetMapping("add.html")
@@ -100,36 +100,36 @@ public class ModuleController {
 
     @PostMapping("add")
     @ResponseBody
-    public BaseResult add(@Valid @RequestBody ModuleVo vo, BindingResult bindingResult) {
+    public BaseResultData add(@Valid @RequestBody ModuleVo vo, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return BaseResult.ERROR(ResultCode.PARAM_EXCEPTION.getCode(), bindingResult.getFieldError().getDefaultMessage());
+            return BaseResultData.ERROR(ResultCode.PARAM_EXCEPTION.getCode(), bindingResult.getFieldError().getDefaultMessage());
         }
-        return BaseResult.SUCCESS(moduleService.save(vo));
+        return BaseResultData.SUCCESS(moduleService.save(vo));
     }
 
     @PostMapping("delete")
     @ResponseBody
-    public BaseResult delete(Long id) {
+    public BaseResultData delete(Long id) {
         moduleService.delete(id);
-        return BaseResult.SUCCESS();
+        return BaseResultData.SUCCESS();
     }
 
     @PostMapping("deleteBatch")
     @ResponseBody
-    public BaseResult deleteBatch(@RequestBody List<ModuleVo> vos) {
+    public BaseResultData deleteBatch(@RequestBody List<ModuleVo> vos) {
         moduleService.deleteBatch(vos);
-        return BaseResult.SUCCESS();
+        return BaseResultData.SUCCESS();
     }
 
     @GetMapping("getOne")
     @ResponseBody
-    public BaseResult get(Long id) {
-        return BaseResult.SUCCESS(moduleService.getById(id));
+    public BaseResultData get(Long id) {
+        return BaseResultData.SUCCESS(moduleService.getById(id));
     }
 
     @PostMapping("generateCode")
     @ResponseBody
-    public BaseResult generate(@RequestBody ModuleVo vo) {
+    public BaseResultData generate(@RequestBody ModuleVo vo) {
         if (vo.getModuleAttrs() == null || vo.getModuleAttrs().size() == 0) {
             throw new GemException(ResultCode.MODULE_ATTR_ERROR);
         }
@@ -159,7 +159,7 @@ public class ModuleController {
         if(result){
             moduleService.updateIsGenerate(WhetherEnum.YES,vo.getId());
         }
-        return BaseResult.SUCCESS();
+        return BaseResultData.SUCCESS();
     }
 
 

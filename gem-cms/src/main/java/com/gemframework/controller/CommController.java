@@ -1,7 +1,7 @@
 package com.gemframework.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.gemframework.model.BaseResult;
+import com.gemframework.model.BaseResultData;
 import com.gemframework.common.enums.MenuType;
 import com.gemframework.model.vo.DeptVo;
 import com.gemframework.model.vo.MenuVo;
@@ -46,7 +46,7 @@ public class CommController {
      * @return
      */
     @GetMapping("/findAllMenusTree")
-    public BaseResult findAllMenusTree(){
+    public BaseResultData findAllMenusTree(){
         List<MenuVo> menus = menuService.findListAll();
         List<ZtreeEntity> ztreeEntities = new ArrayList<>();
         ZtreeEntity ztreeEntity = ZtreeEntity.builder()
@@ -71,7 +71,7 @@ public class CommController {
                     .build();
             ztreeEntities.add(ztreeEntity);
         }
-        return BaseResult.SUCCESS(toTree(ztreeEntities));
+        return BaseResultData.SUCCESS(toTree(ztreeEntities));
     }
 
     /***
@@ -79,7 +79,7 @@ public class CommController {
      * @return
      */
     @GetMapping("/findMenusTree")
-    public BaseResult findMenusTree(){
+    public BaseResultData findMenusTree(){
         List<MenuVo> menus = menuService.findListAllByType(MenuType.MENU);
         List<ZtreeEntity> ztreeEntities = new ArrayList<>();
         ZtreeEntity ztreeEntity = ZtreeEntity.builder()
@@ -104,7 +104,7 @@ public class CommController {
                     .build();
             ztreeEntities.add(ztreeEntity);
         }
-        return BaseResult.SUCCESS(toTree(ztreeEntities));
+        return BaseResultData.SUCCESS(toTree(ztreeEntities));
     }
 
     /***
@@ -112,7 +112,7 @@ public class CommController {
      * @return
      */
     @GetMapping("/findAllDeptTree")
-    public BaseResult findAllDeptTree(){
+    public BaseResultData findAllDeptTree(){
         List<DeptVo> depts = deptService.findListAll();
         List<ZtreeEntity> ztreeEntities = new ArrayList<>();
         ZtreeEntity ztreeEntity = ZtreeEntity.builder()
@@ -137,7 +137,7 @@ public class CommController {
                     .build();
             ztreeEntities.add(ztreeEntity);
         }
-        return BaseResult.SUCCESS(toTree(ztreeEntities));
+        return BaseResultData.SUCCESS(toTree(ztreeEntities));
     }
 
 
@@ -171,7 +171,7 @@ public class CommController {
      * @return
      */
     @GetMapping("/resetSideMenus")
-    public BaseResult resetLeftMenus(HttpServletRequest request){
+    public BaseResultData resetLeftMenus(HttpServletRequest request){
         List<MenuSide> menuSides = new ArrayList<>();
         List<MenuVo> menus = menuService.findListAllByType(MenuType.MENU);
         if(menus!=null && menus.size()>0){
@@ -189,7 +189,7 @@ public class CommController {
             log.info("menuSides = "+ JSON.toJSONString(menuSides));
             request.getSession().setAttribute("session_sidebar_menus", menuSides);
         }
-        return BaseResult.SUCCESS();
+        return BaseResultData.SUCCESS();
     }
 
 }

@@ -1,7 +1,7 @@
 package com.gemframework.common.exception;
 
 import com.gemframework.common.enums.ResultCode;
-import com.gemframework.model.BaseResult;
+import com.gemframework.model.BaseResultData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -27,15 +27,15 @@ public class GemExceptionHandle {
 
     @ExceptionHandler(Exception.class)
     @ResponseBody
-    public BaseResult handleExp(HttpServletRequest request, Exception ex) {
+    public BaseResultData handleExp(HttpServletRequest request, Exception ex) {
         ex.printStackTrace();
         if (ex instanceof GemException) {
             logger.error("GemException: code:{},msg:{}" ,((GemException) ex).getCode(), ex.getMessage());
             GemException gemException = (GemException) ex;
-            return BaseResult.ERROR(gemException.getCode(), gemException.getMessage());
+            return BaseResultData.ERROR(gemException.getCode(), gemException.getMessage());
         } else {
             logger.error("System Exception: code:{},msg:{}" , ex.getStackTrace(),ex.getMessage());
-            return BaseResult.ERROR(ResultCode.SYSTEM_EXCEPTION.getCode(), ResultCode.SYSTEM_EXCEPTION.getMsg());
+            return BaseResultData.ERROR(ResultCode.SYSTEM_EXCEPTION.getCode(), ResultCode.SYSTEM_EXCEPTION.getMsg());
         }
     }
 }

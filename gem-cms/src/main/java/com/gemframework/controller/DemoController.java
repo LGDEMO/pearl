@@ -1,22 +1,15 @@
 package com.gemframework.controller;
 
-import com.gemframework.common.enums.ResultCode;
-import com.gemframework.model.BaseResult;
+import com.gemframework.model.BaseResultData;
 import com.gemframework.common.config.GemSystemProperties;
 import com.gemframework.common.utils.GemRedisUtils;
-import com.gemframework.model.vo.response.PageInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
-import java.util.List;
 
 /**
  * @Title: IndexController.java
@@ -37,8 +30,6 @@ public class DemoController {
 
     @Autowired
     private GemRedisUtils<String> gemRedisUtils;
-    @Autowired
-    private GemSystemProperties gemSystemProperties;
 
     @GetMapping("/pages/redis")
     @ApiOperation("redis示例页面")
@@ -53,22 +44,16 @@ public class DemoController {
 
     @GetMapping("/redis/get")
     @ResponseBody
-    public BaseResult get(String key){
+    public BaseResultData get(String key){
         String val = gemRedisUtils.get(key);
-        return BaseResult.SUCCESS(val);
+        return BaseResultData.SUCCESS(val);
     }
 
     @GetMapping("/redis/set")
     @ResponseBody
-    public BaseResult set(String key,String val){
+    public BaseResultData set(String key, String val){
         gemRedisUtils.set(key,val);
-        return BaseResult.SUCCESS(key+"="+val);
-    }
-
-    @GetMapping("/BB")
-    @ResponseBody
-    public BaseResult BB(){
-        return BaseResult.SUCCESS(gemSystemProperties);
+        return BaseResultData.SUCCESS(key+"="+val);
     }
 
 

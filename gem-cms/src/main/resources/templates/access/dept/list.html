@@ -151,42 +151,8 @@
 <script type="text/javascript" th:src="@{/static/access/js/custom/ztree.js}"></script>
 <script type="text/javascript" th:src="@{/static/access/js/custom/depttree.js}"></script>
 
-<script>
-    $(function(){
-        console.log("==1234")
-    });
-
-
-    //保存
-    $("#form").submit(function () {
-        console.log("ajax...")
-        $.ajax({
-            type: "post",
-            url: "add",
-            data:JSON.stringify($('#form').serializeObject()),
-            async:true, // 异步请求
-            cache:false, // 设置为 false 将不缓存此页面
-            dataType: "json", // 返回对象
-            contentType:"application/json;charset=UTF-8",
-            success: function(res) {
-                if (res.code == "0") {
-                    alert("操作成功~");
-                    resetTree();
-                }else {
-                    layer.alert("["+res.code+"]"+res.msg, {
-                        skin: 'layui-layer-lan'
-                        ,closeBtn: 0
-                        ,anim: 4 //动画类型
-                    });
-                }
-            },
-            error: function(e) {
-                // 请求失败函数
-                console.log("error:"+JSON.stringify(e));
-                alert("操作失败，请检查是否有相关操作权限！");
-            }
-        })
-    })
+<script  th:inline="javascript">
+    let runtime  = [[${session.session_runtime}]]
 </script>
 </body>
 </html>

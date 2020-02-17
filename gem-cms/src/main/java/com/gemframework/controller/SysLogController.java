@@ -1,7 +1,7 @@
 package com.gemframework.controller;
 
 import com.gemframework.common.enums.ResultCode;
-import com.gemframework.model.BaseResult;
+import com.gemframework.model.BaseResultData;
 import com.gemframework.model.vo.SysLogVo;
 import com.gemframework.model.vo.response.PageInfo;
 import com.gemframework.service.SysLogService;
@@ -39,16 +39,16 @@ public class SysLogController {
 
     @GetMapping("list.html")
     public String list(HttpServletRequest request, Model model){
+        sysLogService.findListAll();
         return "sysLog/list";
     }
 
+
     @GetMapping("pageByParams")
     @ResponseBody
-    public BaseResult pageByParams(SysLogVo vo, Pageable pageable){
-
-//        pageable.getSort().Order(Sort.Direction.DESC, "createTime");
+    public BaseResultData pageByParams(SysLogVo vo, Pageable pageable){
         PageInfo pageInfo =  sysLogService.findPageByParams(vo,pageable);
-        return BaseResult.SUCCESS(pageInfo);
+        return BaseResultData.SUCCESS(pageInfo);
     }
 
     @GetMapping("add.html")
@@ -66,31 +66,31 @@ public class SysLogController {
 
     @PostMapping("add")
     @ResponseBody
-    public BaseResult add(@Valid @RequestBody SysLogVo vo, BindingResult bindingResult){
+    public BaseResultData add(@Valid @RequestBody SysLogVo vo, BindingResult bindingResult){
         if(bindingResult.hasErrors()){
-            return BaseResult.ERROR(ResultCode.PARAM_EXCEPTION.getCode(),bindingResult.getFieldError().getDefaultMessage());
+            return BaseResultData.ERROR(ResultCode.PARAM_EXCEPTION.getCode(),bindingResult.getFieldError().getDefaultMessage());
         }
-        return BaseResult.SUCCESS(sysLogService.save(vo));
+        return BaseResultData.SUCCESS(sysLogService.save(vo));
     }
 
     @PostMapping("delete")
     @ResponseBody
-    public BaseResult delete(Long id){
+    public BaseResultData delete(Long id){
         sysLogService.delete(id);
-        return BaseResult.SUCCESS();
+        return BaseResultData.SUCCESS();
     }
 
     @PostMapping("deleteBatch")
     @ResponseBody
-    public BaseResult deleteBatch(@RequestBody List<SysLogVo> vos){
+    public BaseResultData deleteBatch(@RequestBody List<SysLogVo> vos){
         sysLogService.deleteBatch(vos);
-        return BaseResult.SUCCESS();
+        return BaseResultData.SUCCESS();
     }
 
     @GetMapping("getOne")
     @ResponseBody
-    public BaseResult get(Long id){
-        return BaseResult.SUCCESS(sysLogService.getById(id));
+    public BaseResultData get(Long id){
+        return BaseResultData.SUCCESS(sysLogService.getById(id));
     }
 
 

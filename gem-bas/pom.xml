@@ -10,7 +10,7 @@
     <groupId>com.gemframework</groupId>
     <artifactId>gem-bas</artifactId>
     <name>gem-bas</name>
-    <version>${parent.version}</version>
+    <version>${parent.version}-SNAPSHOT</version>
     <packaging>jar</packaging>
     <description>basic module</description>
 
@@ -53,6 +53,10 @@
             <scope>compile</scope>
         </dependency>
 
+        <dependency>
+            <groupId>net.sf.dozer</groupId>
+            <artifactId>dozer</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

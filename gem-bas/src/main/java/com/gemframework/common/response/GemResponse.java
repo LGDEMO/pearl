@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.gemframework.common.constant.GemConstant;
 import com.gemframework.common.enums.ResultCode;
 import com.gemframework.common.enums.ResultURL;
-import com.gemframework.model.BaseResult;
+import com.gemframework.model.BaseResultData;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.servlet.http.HttpServletRequest;
@@ -37,7 +37,7 @@ public class GemResponse {
             response.sendRedirect(redirectUrl);
         }else{
             log.info("访问类型：api");
-            response.getWriter().println(JSON.toJSONString(BaseResult.ERROR(resultCode)));
+            response.getWriter().println(JSON.toJSONString(BaseResultData.ERROR(resultCode)));
         }
     }
 }

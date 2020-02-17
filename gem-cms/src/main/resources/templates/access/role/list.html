@@ -37,9 +37,9 @@
        <button class="check_btn" onclick="searchData()">查询</button>
         <div class="notice_nav r_right">
             <a class="btn btn-default" onclick="addView()"><span class="glyphicon glyphicon-plus"></span>新增</a>
-            <a class="btn btn-default" onclick="deleteBatch()"><span class="glyphicon glyphicon-remove"></span>删除</a>
             <a class="btn btn-default" onclick="editView()"><span class="glyphicon glyphicon-pencil"></span>编辑</a>
-            <a class="btn btn-default" onclick="resetPassword()"><span class="glyphicon glyphicon-tag"></span>角色授权</a>
+            <a class="btn btn-default" onclick="deleteBatch()"><span class="glyphicon glyphicon-remove"></span>删除</a>
+            <a class="btn btn-default"><span class="glyphicon glyphicon-tag"></span>预览按钮</a>
         </div>
         <div class="clear"></div>
     </div>
@@ -50,7 +50,8 @@
 <div th:replace="common/links::ztree_script"></div>
 <div th:replace="common/links::table_script"></div>
 
-<script>
+<script  th:inline="javascript">
+    let runtime  = [[${session.session_runtime}]]
     $(function(){
         buildTable();
         changeSearchParam();
@@ -114,7 +115,7 @@
                 //这里注意，这里是后台接口返回的数据，需要把返回的数据分别对接rows和total 用于分页和展示
                 return {
                     "rows": res.data,
-                    "total": res.count
+                    "total": res.count==null?0:res.count
                 };
             },
             columns: [
@@ -217,7 +218,6 @@
 
     //打开编辑窗口（顶部编辑按钮和操作列）
     function editView(id){
-
         //顶部编辑按钮
         if(id == null || id == ""){
             var rows = $('#table').bootstrapTable("getSelections");
@@ -232,7 +232,10 @@
             }
             id = rows[0].id;
         }
-
+        if(runtime == "demo" && id == 1){
+            layer.msg("演示环境，不允许操作！", {icon:4});
+            return;
+        }
         layer.open({
             type: 2,
             title: '编辑角色',
@@ -251,6 +254,11 @@
 
     //删除数据
     function deleteData(id) {
+        if(runtime == "demo"){
+            layer.msg("演示环境，不允许操作！", {icon:4});
+            return;
+        }
+
         layer.confirm('确定删除吗？亲~', {
             btn: ['确定','再想想'] //按钮
         }, function(){
@@ -288,6 +296,10 @@
 
     //公共按钮-批量删除
     function deleteBatch() {
+        if(runtime == "demo"){
+            layer.msg("演示环境，不允许操作！", {icon:4});
+            return;
+        }
         var rows = $('#table').bootstrapTable("getSelections");
         var names = "";
         if(rows == null || rows.length == 0){
