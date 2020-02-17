@@ -60,23 +60,17 @@ public class RoleServiceImpl implements RoleService {
         if(!exist(vo)){
             throw new GemException(ResultCode.ROLE_EXIST);
         }
-        //新增用户
         Role role = new Role();
-        //编辑用户
-        if(vo.getId() != null && vo.getId() != 0){
-            role = roleRepository.getById(vo.getId());
-        }
         GemBeanUtils.copyProperties(vo,role);
         role = roleRepository.save(role);
-        GemBeanUtils.copyProperties(role,vo);
 
 
         //第二步：保存角色与菜单的关系
         List<MenuVo> menuVoList = vo.getMenus();
         if(menuVoList != null){
-            //编辑用户前先删除
+            //编辑前先删除
             if(vo.getId() != null && vo.getId() != 0){
-                roleMenusRepository.deleteByRoleId(role.getId());
+                roleMenusRepository.deleteByRoleId(vo.getId());
             }
             //循环保存
             for(MenuVo menuVo:menuVoList){
@@ -91,7 +85,7 @@ public class RoleServiceImpl implements RoleService {
         if(deptVoList != null){
             //编辑用户前先删除
             if(vo.getId() != null && vo.getId() != 0){
-                roleDeptsRepository.deleteByRoleId(role.getId());
+                roleDeptsRepository.deleteByRoleId(vo.getId());
             }
             //循环保存
             for(DeptVo deptVo:deptVoList){
@@ -101,7 +95,7 @@ public class RoleServiceImpl implements RoleService {
                 roleDeptsRepository.save(roleDepts);
             }
         }
-
+        GemBeanUtils.copyProperties(role,vo);
         return vo;
     }
 

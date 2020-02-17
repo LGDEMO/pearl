@@ -123,11 +123,6 @@
 <script th:inline="javascript">
 
     $(function () {
-        if(top.location.href != self.location.href){
-            alert("登录超时，请重新登录！");
-            top.location.href=self.location.href;
-        }
-        console.log(top.location.href.indexOf("127.0.0.1"));
         layui.use(['laydate', 'laypage', 'layer', 'table', 'carousel', 'upload', 'element'], function() {
             var laydate = layui.laydate //日期
                 ,laypage = layui.laypage //分页
@@ -138,6 +133,15 @@
                 ,element = layui.element; //元素操作 等等...
             if(top.location.href.indexOf("127.0.0.1") == -1){
                 helloGem();
+            }
+            if(top.location.href != self.location.href){
+                layer.alert("登录超时，请重新登录！",{
+                    closeBtn: 0
+                    ,icon: 5
+                    ,anim: 4 //动画类型
+                },function(){
+                    top.location.href=self.location.href;
+                });
             }
         });
     });
