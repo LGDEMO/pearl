@@ -5,7 +5,7 @@ import lombok.*;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "get_sysLog")
+@Table(name = "gem_sysLog")
 @Data
 @Builder
 @NoArgsConstructor
