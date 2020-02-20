@@ -3,6 +3,7 @@ package com.gemframework.common.security.handler;
 import com.gemframework.common.constant.GemConstant;
 import com.gemframework.common.enums.OperateStatus;
 import com.gemframework.common.enums.OperateType;
+import com.gemframework.common.utils.GemIPHandler;
 import com.gemframework.model.vo.SysLogVo;
 import com.gemframework.service.SysLogService;
 import lombok.extern.slf4j.Slf4j;
@@ -54,6 +55,7 @@ public class GemLoginFailureHandler extends SimpleUrlAuthenticationFailureHandle
                 .account(request.getParameter("username").trim())
                 .username(request.getParameter("username").trim())
                 .clientIp(getIpAddress(request))
+                .address(GemIPHandler.ipToAddress(getIpAddress(request)))
                 .operateType(OperateType.LOGIN.getCode())
                 .operateStatus(OperateStatus.FAIL.getCode())
                 .requestUrl(request.getRequestURL().toString())

@@ -26,9 +26,11 @@ public class SysLogVo extends BaseVo {
     private String username;
     private String account;
     private String clientIp;
+    private String address;
     private Integer operateType;
     private Integer operateStatus;
     private String requestUrl;
     private String requestMothod;
     private String requestArgs;
+
 }

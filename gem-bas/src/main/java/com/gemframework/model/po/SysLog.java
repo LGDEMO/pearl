@@ -33,6 +33,9 @@ public class SysLog extends BasePo {
     @Column(columnDefinition = "varchar(32) comment '客户端IP'")
     private String clientIp;
 
+    @Column(columnDefinition = "varchar(32) comment '地理地址'")
+    private String address;
+
     @Column(columnDefinition = "varchar(100) comment '请求URL'")
     private String requestUrl;
 

@@ -8,6 +8,7 @@ import com.gemframework.common.enums.*;
 import com.gemframework.common.response.GemResponse;
 import com.gemframework.common.security.configure.GemSecurityProperties;
 import com.gemframework.common.security.authorization.GemMetadataSourceService;
+import com.gemframework.common.utils.GemIPHandler;
 import com.gemframework.model.vo.SysLogVo;
 import com.gemframework.model.vo.tree.MenuSide;
 import com.gemframework.model.vo.MenuVo;
@@ -74,6 +75,7 @@ public class GemLoginSuccessHandler extends SavedRequestAwareAuthenticationSucce
                 .account(getCurrentUsername())
                 .username(getCurrentUsername())
                 .clientIp(getIpAddress(request))
+                .address(GemIPHandler.ipToAddress(getIpAddress(request)))
                 .operateType(OperateType.LOGIN.getCode())
                 .operateStatus(OperateStatus.SUCCESS.getCode())
                 .requestUrl(request.getRequestURL().toString())
