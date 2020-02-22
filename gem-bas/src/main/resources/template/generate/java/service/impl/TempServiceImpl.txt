@@ -1,10 +1,11 @@
 package ${package}.service.impl;
 
-import ResultCode;
-import GemException;
-import GemBeanUtils;
+import ${package}.common.enums.ResultCode;
+import ${package}.common.exception.GemException;
+import ${package}.common.utils.GemBeanUtils;
 import ${package}.model.po.${Entity};
 import ${package}.model.vo.${Entity}Vo;
+import ${package}.model.vo.response.PageInfo;
 import ${package}.repository.${Entity}Repository;
 import ${package}.service.${Entity}Service;
 import lombok.extern.slf4j.Slf4j;
@@ -62,19 +63,25 @@ public class ${Entity}ServiceImpl implements ${Entity}Service {
     }
 
     @Override
-    public List<${Entity}Vo> findPageAll(Pageable pageable) {
+    public PageInfo findPageAll(Pageable pageable) {
         Page<${Entity}> page = ${entity}Repository.findAll(pageable);
-        List<${Entity}Vo> vos = GemBeanUtils.copyCollections(page.getContent(),${Entity}Vo.class);
-        return vos;
+        PageInfo pageInfo = PageInfo.builder()
+                        .total(page.getTotalElements())
+                        .rows(page.getContent())
+                        .build();
+        return pageInfo;
 }
 
     @Override
-    public List<${Entity}Vo> findPageByParams(${Entity}Vo vo,Pageable pageable) {
+    public PageInfo findPageByParams(${Entity}Vo vo,Pageable pageable) {
         ${Entity} entity = new ${Entity}();
         GemBeanUtils.copyProperties(vo,entity);
         Page<${Entity}> page = ${entity}Repository.findAll(Example.of(entity),pageable);
-        List<${Entity}Vo> vos = GemBeanUtils.copyCollections(page.getContent(),${Entity}Vo.class);
-        return vos;
+        PageInfo pageInfo = PageInfo.builder()
+                        .total(page.getTotalElements())
+                        .rows(page.getContent())
+                        .build();
+        return pageInfo;
     }
 
     @Override

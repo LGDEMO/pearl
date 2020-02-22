@@ -4,11 +4,14 @@ import com.gemframework.common.enums.ResultCode;
 import com.gemframework.common.exception.GemException;
 import com.gemframework.common.utils.GemBeanUtils;
 import com.gemframework.model.po.Dept;
+import com.gemframework.model.po.Menu;
 import com.gemframework.model.vo.DeptVo;
+import com.gemframework.model.vo.response.PageInfo;
 import com.gemframework.repository.DeptRepository;
 import com.gemframework.service.DeptService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -46,7 +49,7 @@ public class DeptServiceImpl implements DeptService {
         }
         Dept dept = new Dept();
         GemBeanUtils.copyProperties(vo,dept);
-        dept = deptRepository.save(dept);
+        dept = deptRepository.saveAndFlush(dept);
 
         //更新id_path,series开始
         DeptVo parentVo = getById(vo.getPid());
@@ -108,21 +111,6 @@ public class DeptServiceImpl implements DeptService {
         return vos;
     }
 
-    /**
-     * @Title:  findPageAll
-     * @MethodName:  findPageAll
-     * @Param: [pageable]
-     * @Retrun: org.springframework.data.domain.Page
-     * @Description: 【分页】查询所有数据
-     * @Date: 2019-12-05 22:07:32
-     */
-    @Override
-    public List<DeptVo> findPageAll(Pageable pageable) {
-        Page<Dept> page = deptRepository.findAll(pageable);
-        List<Dept> list = page.getContent();
-        List<DeptVo> vos = GemBeanUtils.copyCollections(list,DeptVo.class);
-        return vos;
-    }
 
     /**
      * @Title:  findPageByParams
@@ -133,54 +121,20 @@ public class DeptServiceImpl implements DeptService {
      * @Date: 2019-12-05 22:07:32
      */
     @Override
-    public List<DeptVo> findPageByParams(DeptVo vo,Pageable pageable) {
+    public PageInfo findPageByParams(DeptVo vo, Pageable pageable) {
         Dept dept = new Dept();
         GemBeanUtils.copyProperties(vo,dept);
-        Example<Dept> example =Example.of(dept);
+        //创建匹配器，即如何使用查询条件
+        ExampleMatcher matcher = ExampleMatcher.matching() //构建对象
+                .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING) //改变默认字符串匹配方式：模糊查询
+                .withIgnoreCase(true); //改变默认大小写忽略方式：忽略大小写
+        Example<Dept> example =Example.of(dept,matcher);
         Page<Dept> page = deptRepository.findAll(example,pageable);
-        List<Dept> list = page.getContent();
-        List<DeptVo> vos = GemBeanUtils.copyCollections(list,DeptVo.class);
-        return vos;
-    }
-
-    /**
-     * @Title:  update
-     * @MethodName:  update
-     * @Param: [vo]
-     * @Retrun: com.gemframework.model.po.User
-     * @Description: 更新数据
-     * @Date: 2019-12-05 22:07:32
-     */
-    @Override
-    public DeptVo update(DeptVo vo) {
-        Dept dept = new Dept();
-        GemBeanUtils.copyProperties(vo,dept);
-        dept = deptRepository.saveAndFlush(dept);
-
-        //更新id_path,series开始
-        DeptVo parentVo = getById(vo.getPid());
-        String idPath = String.valueOf(dept.getId());
-        if(dept.getId()<10){
-            idPath = "0"+dept.getId();
-        }
-        if(parentVo != null && parentVo.getIdPath() != null){
-            idPath = parentVo.getIdPath()+"-"+idPath;
-        }
-        //设置idpath
-        dept.setIdPath(idPath);
-
-        //设置series
-        String series = dept.getIdPath();
-        if(series.indexOf("-")>0){
-            series = series.substring(0,series.indexOf("-"));
-        }
-        dept.setSeries(series);
-        //更新
-        dept = deptRepository.save(dept);
-        //更新id_path,series结束
-
-        GemBeanUtils.copyProperties(dept,vo);
-        return vo;
+        PageInfo pageInfo = PageInfo.builder()
+                .total(page.getTotalElements())
+                .rows(page.getContent())
+                .build();
+        return pageInfo;
     }
 
     /**

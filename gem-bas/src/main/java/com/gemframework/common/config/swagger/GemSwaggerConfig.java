@@ -48,6 +48,10 @@ public class GemSwaggerConfig {
 				.build();
 	}
 
+	/**
+	 * 设置请求头参数
+	 * @return
+	 */
 	private List<Parameter> setHearderParams() {
 		List<Parameter> arrayList = new ArrayList<Parameter>();
 		ParameterBuilder tokenPar = new ParameterBuilder();

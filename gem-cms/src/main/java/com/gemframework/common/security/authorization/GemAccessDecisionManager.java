@@ -64,6 +64,7 @@ public class GemAccessDecisionManager implements AccessDecisionManager {
                 }
             }
         }
+        //没有权限 抛出拒绝访问异常
         throw new GemAccessDeniedException(ResultCode.PERMISSION_DENIED, ResultURL.REFUSE);
     }
 

@@ -4,10 +4,7 @@ import com.gemframework.common.constant.GemConstant;
 import com.gemframework.common.enums.ResultCode;
 import com.gemframework.common.exception.GemException;
 import com.gemframework.common.utils.GemBeanUtils;
-import com.gemframework.model.po.Dept;
-import com.gemframework.model.po.Role;
-import com.gemframework.model.po.User;
-import com.gemframework.model.po.UserRoles;
+import com.gemframework.model.po.*;
 import com.gemframework.model.vo.RoleVo;
 import com.gemframework.model.vo.UserRolesVo;
 import com.gemframework.model.vo.UserVo;
@@ -21,10 +18,12 @@ import com.gemframework.service.UserRolesService;
 import com.gemframework.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -112,18 +111,7 @@ public class UserServiceImpl implements UserService {
         user = userRepository.save(user);
         GemBeanUtils.copyProperties(user,vo);
 
-//        //第二步：保存用户关联部门
-//        List<DeptVo> deptVoList = vo.getDepts();
-//        if(deptVoList != null){
-//            for(DeptVo deptVo:deptVoList){
-//                UserDepts userDepts = new UserDepts();
-//                userDepts.setUserId(user.getId());
-//                userDepts.setDeptId(deptVo.getId());
-//                userDeptsRepository.save(userDepts);
-//            }
-//        }
-
-        //第三步：保存用户关联角色
+        //第2步：保存用户关联角色
         List<RoleVo> roleVoList = vo.getRoles();
         if(roleVoList != null){
             userRolesRepository.deleteByUserId(user.getId());
@@ -196,7 +184,11 @@ public class UserServiceImpl implements UserService {
     public PageInfo findPageByParams(UserVo vo,Pageable pageable) {
         User user = new User();
         GemBeanUtils.copyProperties(vo,user);
-        Example<User> example =Example.of(user);
+        //创建匹配器，即如何使用查询条件
+        ExampleMatcher matcher = ExampleMatcher.matching() //构建对象
+                .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING) //改变默认字符串匹配方式：模糊查询
+                .withIgnoreCase(true); //改变默认大小写忽略方式：忽略大小写
+        Example<User> example =Example.of(user,matcher);
         Page<User> page = userRepository.findAll(example,pageable);
         List<User> list = page.getContent();
         List<UserVo> vos = GemBeanUtils.copyCollections(list,UserVo.class);

@@ -1,6 +1,7 @@
 package com.gemframework.service;
 
 import com.gemframework.model.vo.DeptVo;
+import com.gemframework.model.vo.response.PageInfo;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
@@ -15,11 +16,7 @@ public interface DeptService {
 
     List<DeptVo> findListByParams(DeptVo vo);
 
-    List<DeptVo> findPageAll(Pageable pageable);
-
-    List<DeptVo> findPageByParams(DeptVo vo, Pageable pageable);
-
-    DeptVo update(DeptVo vo);
+    PageInfo findPageByParams(DeptVo vo, Pageable pageable);
 
     void delete(Long id);
 

@@ -19,8 +19,6 @@ public interface UserService extends UserDetailsService {
 
     List findListByParams(UserVo vo);
 
-    Page findPageAll(Pageable pageable);
-
     PageInfo findPageByParams(UserVo vo, Pageable pageable);
 
     UserVo getByLoginName(String loginName);

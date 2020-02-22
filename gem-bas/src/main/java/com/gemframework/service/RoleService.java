@@ -17,8 +17,6 @@ public interface RoleService {
 
     List<RoleVo> findListByParams(RoleVo vo);
 
-    List<RoleVo> findPageAll(Pageable pageable);
-
     PageInfo findPageByParams(RoleVo vo, Pageable pageable);
 
     void delete(Long id);

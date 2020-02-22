@@ -14,8 +14,6 @@ public interface SysLogService {
 
     List<SysLogVo> findListByParams(SysLogVo vo);
 
-    PageInfo findPageAll(Pageable pageable);
-
     PageInfo findPageByParams(SysLogVo vo, Pageable pageable);
 
     void delete(Long id);

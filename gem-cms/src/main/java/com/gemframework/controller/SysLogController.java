@@ -43,14 +43,6 @@ public class SysLogController {
         return "sysLog/list";
     }
 
-
-    @GetMapping("pageByParams")
-    @ResponseBody
-    public BaseResultData pageByParams(SysLogVo vo, Pageable pageable){
-        PageInfo pageInfo =  sysLogService.findPageByParams(vo,pageable);
-        return BaseResultData.SUCCESS(pageInfo);
-    }
-
     @GetMapping("add.html")
     public String add(HttpServletRequest request,Model model){
         return "sysLog/add";
@@ -62,6 +54,13 @@ public class SysLogController {
         SysLogVo vo = sysLogService.getById(id);
         model.addAttribute("editInfo",vo);
         return "sysLog/edit";
+    }
+
+    @GetMapping("pageByParams")
+    @ResponseBody
+    public BaseResultData pageByParams(SysLogVo vo, Pageable pageable){
+        PageInfo pageInfo =  sysLogService.findPageByParams(vo,pageable);
+        return BaseResultData.SUCCESS(pageInfo);
     }
 
     @PostMapping("add")
@@ -92,7 +91,4 @@ public class SysLogController {
     public BaseResultData get(Long id){
         return BaseResultData.SUCCESS(sysLogService.getById(id));
     }
-
-
-
 }

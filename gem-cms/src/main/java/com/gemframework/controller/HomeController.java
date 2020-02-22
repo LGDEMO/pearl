@@ -2,6 +2,8 @@ package com.gemframework.controller;
 
 import com.gemframework.common.annotation.ValidToken;
 import com.gemframework.common.config.GemSystemProperties;
+import com.gemframework.common.security.configure.GemSecurityProperties;
+import com.gemframework.common.security.configure.GemWebSecurityConfg;
 import com.gemframework.model.BaseResultData;
 import com.gemframework.common.enums.MenuType;
 import com.gemframework.model.vo.MenuVo;
@@ -40,6 +42,9 @@ public class HomeController {
     @Resource
     private MenuService menuService;
 
+    @Autowired
+    private GemSecurityProperties gemSecurityProperties;
+
 
     /***
      * 加载全部用户的左侧菜单栏MenuSide
@@ -47,7 +52,7 @@ public class HomeController {
      */
     @GetMapping("/initAllMenus")
     @ResponseBody
-    public BaseResultData initAllMenus(){
+    public BaseResultData initAllMenus(HttpServletRequest request){
         List<MenuVo> menus = menuService.findListAllByType(MenuType.MENU);
         List<MenuSide> menuSides = new ArrayList<>();
         for(MenuVo menuVo:menus){
@@ -60,6 +65,7 @@ public class HomeController {
                     .F_UrlAddress(menuVo.getLink()).build();
             menuSides.add(menuSide);
         }
+        request.getSession().setAttribute("session_sidebar_menus", menuSides);
         return BaseResultData.SUCCESS(menuSides);
     }
 
@@ -71,8 +77,12 @@ public class HomeController {
     @GetMapping("/initMenus")
     @ResponseBody
     public BaseResultData initMenus(HttpServletRequest request){
-        List<MenuSide> menuSides = (List<MenuSide>) request.getSession().getAttribute("session_sidebar_menus");
-        return BaseResultData.SUCCESS(menuSides);
+        if(gemSecurityProperties.isOpen()){
+            List<MenuSide> menuSides = (List<MenuSide>) request.getSession().getAttribute("session_sidebar_menus");
+            return BaseResultData.SUCCESS(menuSides);
+        }else{
+            return initAllMenus(request);
+        }
     }
 
     /***

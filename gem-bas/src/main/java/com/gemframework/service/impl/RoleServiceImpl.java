@@ -13,6 +13,7 @@ import com.gemframework.repository.*;
 import com.gemframework.service.RoleService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -155,21 +156,6 @@ public class RoleServiceImpl implements RoleService {
         return vos;
     }
 
-    /**
-     * @Title:  findPageAll
-     * @MethodName:  findPageAll
-     * @Param: [pageable]
-     * @Retrun: org.springframework.data.domain.Page
-     * @Description: 【分页】查询所有数据
-     * @Date: 2019-12-05 22:10:59
-     */
-    @Override
-    public List<RoleVo> findPageAll(Pageable pageable) {
-        Page<Role> page = roleRepository.findAll(pageable);
-        List<Role> list = page.getContent();
-        List<RoleVo> vos = GemBeanUtils.copyCollections(list,RoleVo.class);
-        return vos;
-    }
 
     /**
      * @Title:  findPageByParams
@@ -183,11 +169,14 @@ public class RoleServiceImpl implements RoleService {
     public PageInfo findPageByParams(RoleVo vo,Pageable pageable) {
         Role role = new Role();
         GemBeanUtils.copyProperties(vo,role);
-        Example<Role> example =Example.of(role);
+        //创建匹配器，即如何使用查询条件
+        ExampleMatcher matcher = ExampleMatcher.matching() //构建对象
+                .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING) //改变默认字符串匹配方式：模糊查询
+                .withIgnoreCase(true); //改变默认大小写忽略方式：忽略大小写
+        Example<Role> example =Example.of(role,matcher);
         Page<Role> page = roleRepository.findAll(example,pageable);
         List<Role> list = page.getContent();
         List<RoleVo> vos = GemBeanUtils.copyCollections(list,RoleVo.class);
-
         PageInfo pageInfo = new PageInfo();
         pageInfo.setRows(vos);
         pageInfo.setTotal(page.getTotalElements());

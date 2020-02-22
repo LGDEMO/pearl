@@ -3,6 +3,7 @@ package com.gemframework.controller;
 import com.gemframework.common.enums.ResultCode;
 import com.gemframework.model.BaseResultData;
 import com.gemframework.model.vo.ModuleAttrVo;
+import com.gemframework.model.vo.response.PageInfo;
 import com.gemframework.service.ModuleAttrService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
@@ -46,8 +47,8 @@ public class ModuleAttrController {
     @GetMapping("pageByParams")
     @ResponseBody
     public BaseResultData pageByParams(ModuleAttrVo vo, Pageable pageable){
-        List<ModuleAttrVo> list =  moduleAttrService.findPageByParams(vo,pageable);
-        return BaseResultData.SUCCESS(list);
+        PageInfo info =  moduleAttrService.findPageByParams(vo,pageable);
+        return BaseResultData.SUCCESS(info);
     }
 
     @GetMapping("add.html")

@@ -8,11 +8,13 @@ import com.gemframework.model.po.Module;
 import com.gemframework.model.po.ModuleAttr;
 import com.gemframework.model.vo.ModuleAttrVo;
 import com.gemframework.model.vo.ModuleVo;
+import com.gemframework.model.vo.response.PageInfo;
 import com.gemframework.repository.ModuleAttrRepository;
 import com.gemframework.repository.ModuleRepository;
 import com.gemframework.service.ModuleService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -103,24 +105,25 @@ public class ModuleServiceImpl implements ModuleService {
     }
 
     @Override
-    public List<ModuleVo> findPageAll(Pageable pageable) {
-        Page<Module> page = moduleRepository.findAll(pageable);
-        List<ModuleVo> vos = GemBeanUtils.copyCollections(page.getContent(),ModuleVo.class);
-        return vos;
-}
-
-    @Override
-    public List<ModuleVo> findPageByParams(ModuleVo vo,Pageable pageable) {
+    public PageInfo findPageByParams(ModuleVo vo, Pageable pageable) {
         Module entity = new Module();
         GemBeanUtils.copyProperties(vo,entity);
-        Page<Module> page = moduleRepository.findAll(Example.of(entity),pageable);
+        //创建匹配器，即如何使用查询条件
+        ExampleMatcher matcher = ExampleMatcher.matching() //构建对象
+                .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING) //改变默认字符串匹配方式：模糊查询
+                .withIgnoreCase(true); //改变默认大小写忽略方式：忽略大小写
+        Page<Module> page = moduleRepository.findAll(Example.of(entity,matcher),pageable);
         List<ModuleVo> vos = GemBeanUtils.copyCollections(page.getContent(),ModuleVo.class);
         if(vos!=null && vos.size()>0){
             for(ModuleVo moduleVo:vos){
                 setModuleAttrs(moduleVo);
             }
         }
-        return vos;
+        PageInfo pageInfo = PageInfo.builder()
+                .total(page.getTotalElements())
+                .rows(vos)
+                .build();
+        return pageInfo;
     }
 
     @Override

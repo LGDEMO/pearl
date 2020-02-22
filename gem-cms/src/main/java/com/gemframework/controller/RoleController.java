@@ -117,26 +117,6 @@ public class RoleController {
         return BaseResultData.SUCCESS(list);
     }
 
-    /**
-     * @Title:  page
-     * @MethodName:  page
-     * @Param: [pageable]
-     * @Retrun: com.gemframework.model.BaseResult
-     * @Description:
-     * page ：第几页，从0开始，默认为第0页
-     * size ：每一页的大小，默认为10
-     * sort ：排序相关的信息，以`property[,ASC|DESC]`的方式组织，例如`sort=firstname&sort=lastname,desc`表示在按firstname正序排列基础上按lastname倒序排列。
-     * @SortDefault.SortDefaults({@SortDefault(sort = "userName", direction = Sort.Direction.DESC),
-     *             @SortDefault(sort = "id", direction = Sort.Direction.ASC)})
-     * @PageableDefault(page = 0, size = 2)
-     * @Date: 2019-12-05 22:22:32
-     */
-    @GetMapping("page")
-    @ResponseBody
-    public BaseResultData page(Pageable pageable){
-        List<RoleVo> vo = roleService.findPageAll(pageable);
-        return BaseResultData.SUCCESS(vo);
-    }
 
     /**
      * @Title:  pageByParams

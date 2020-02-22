@@ -19,7 +19,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper=true)
-public class ${entity}Vo extends BaseVo {
+public class ${Entity}Vo extends BaseVo {
 
     private Long id;
 

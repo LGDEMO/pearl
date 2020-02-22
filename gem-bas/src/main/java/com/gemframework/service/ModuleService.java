@@ -2,6 +2,7 @@ package com.gemframework.service;
 
 import com.gemframework.common.enums.WhetherEnum;
 import com.gemframework.model.vo.ModuleVo;
+import com.gemframework.model.vo.response.PageInfo;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
@@ -18,9 +19,7 @@ public interface ModuleService {
 
     List<ModuleVo> findListByParams(ModuleVo vo);
 
-    List<ModuleVo> findPageAll(Pageable pageable);
-
-    List<ModuleVo> findPageByParams(ModuleVo vo, Pageable pageable);
+    PageInfo findPageByParams(ModuleVo vo, Pageable pageable);
 
     void delete(Long id);
 

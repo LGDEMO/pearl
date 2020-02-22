@@ -1,6 +1,7 @@
 package com.gemframework.service;
 
 import com.gemframework.model.vo.ModuleAttrVo;
+import com.gemframework.model.vo.response.PageInfo;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
@@ -15,9 +16,7 @@ public interface ModuleAttrService {
 
     List<ModuleAttrVo> findListByParams(ModuleAttrVo vo);
 
-    List<ModuleAttrVo> findPageAll(Pageable pageable);
-
-    List<ModuleAttrVo> findPageByParams(ModuleAttrVo vo, Pageable pageable);
+    PageInfo findPageByParams(ModuleAttrVo vo, Pageable pageable);
 
     void delete(Long id);
 

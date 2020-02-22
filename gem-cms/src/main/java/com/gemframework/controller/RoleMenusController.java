@@ -3,6 +3,7 @@ package com.gemframework.controller;
 import com.gemframework.common.enums.ResultCode;
 import com.gemframework.model.BaseResultData;
 import com.gemframework.model.vo.RoleMenusVo;
+import com.gemframework.model.vo.response.PageInfo;
 import com.gemframework.service.RoleMenusService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,18 +65,6 @@ public class RoleMenusController {
         return BaseResultData.SUCCESS();
     }
 
-    /**
-     * @Title:  update
-     * @MethodName:  改
-     * @Param: [vo]
-     * @Retrun: com.gemframework.model.BaseResult
-     * @Description:
-     * @Date: 2019-12-05 22:22:33
-     */
-    @PostMapping("update")
-    public BaseResultData update(RoleMenusVo vo){
-        return BaseResultData.SUCCESS(roleMenusService.update(vo));
-    }
 
     /**
      * @Title:  list
@@ -106,25 +95,6 @@ public class RoleMenusController {
         return BaseResultData.SUCCESS(list);
     }
 
-    /**
-     * @Title:  page
-     * @MethodName:  page
-     * @Param: [pageable]
-     * @Retrun: com.gemframework.model.BaseResult
-     * @Description:
-     * page ：第几页，从0开始，默认为第0页
-     * size ：每一页的大小，默认为10
-     * sort ：排序相关的信息，以`property[,ASC|DESC]`的方式组织，例如`sort=firstname&sort=lastname,desc`表示在按firstname正序排列基础上按lastname倒序排列。
-     * @SortDefault.SortDefaults({@SortDefault(sort = "userName", direction = Sort.Direction.DESC),
-     *             @SortDefault(sort = "id", direction = Sort.Direction.ASC)})
-     * @PageableDefault(page = 0, size = 2)
-     * @Date: 2019-12-05 22:22:33
-     */
-    @GetMapping("page")
-    public BaseResultData page(Pageable pageable){
-        List<RoleMenusVo> vo = roleMenusService.findPageAll(pageable);
-        return BaseResultData.SUCCESS(vo);
-    }
 
     /**
      * @Title:  pageByParams
@@ -136,8 +106,8 @@ public class RoleMenusController {
      */
     @GetMapping("pageByParams")
     public BaseResultData pageByParams(RoleMenusVo vo, Pageable pageable){
-        List<RoleMenusVo> list =  roleMenusService.findPageByParams(vo,pageable);
-        return BaseResultData.SUCCESS(list);
+        PageInfo page =  roleMenusService.findPageByParams(vo,pageable);
+        return BaseResultData.SUCCESS(page);
     }
 
 }

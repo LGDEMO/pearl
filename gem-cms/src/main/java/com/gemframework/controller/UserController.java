@@ -182,28 +182,6 @@ public class UserController {
     }
 
     /**
-     * @Title:  page
-     * @MethodName:  page
-     * @Param: [pageable]
-     * @Retrun: com.gemframework.model.BaseResult
-     * @Description:
-     * page ：第几页，从0开始，默认为第0页
-     * size ：每一页的大小，默认为10
-     * sort ：排序相关的信息，以`property[,ASC|DESC]`的方式组织，例如`sort=firstname&sort=lastname,desc`表示在按firstname正序排列基础上按lastname倒序排列。
-     * @SortDefault.SortDefaults({@SortDefault(sort = "userName", direction = Sort.Direction.DESC),
-     *             @SortDefault(sort = "id", direction = Sort.Direction.ASC)})
-     * @PageableDefault(page = 0, size = 2)
-     * @Date: 2019/11/29 16:38
-     */
-    @GetMapping("/page")
-    @ResponseBody
-    public BaseResultData page(Pageable pageable){
-        Page<User> page =  userService.findPageAll(pageable);
-        List list = page.getContent();
-        return BaseResultData.SUCCESS(list);
-    }
-
-    /**
      * @Title:  pageByParams
      * @MethodName:  pageByParams
      * @Param: [vo, pageable]

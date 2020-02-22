@@ -3,6 +3,7 @@ package com.gemframework.controller;
 import com.gemframework.common.enums.ResultCode;
 import com.gemframework.model.BaseResultData;
 import com.gemframework.model.vo.DeptVo;
+import com.gemframework.model.vo.response.PageInfo;
 import com.gemframework.service.DeptService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,23 +70,6 @@ public class DeptController {
     }
 
     /**
-     * @Title:  update
-     * @MethodName:  改
-     * @Param: [vo]
-     * @Retrun: com.gemframework.model.BaseResult
-     * @Description:
-     * @Date: 2019-12-05 22:22:32
-     */
-    @PostMapping("update")
-    @ResponseBody
-    public BaseResultData update(@Valid @RequestBody DeptVo vo, BindingResult bindingResult){
-        if(bindingResult.hasErrors()){
-            return BaseResultData.ERROR(ResultCode.PARAM_EXCEPTION.getCode(),bindingResult.getFieldError().getDefaultMessage());
-        }
-        return BaseResultData.SUCCESS(deptService.update(vo));
-    }
-
-    /**
      * @Title:  查询单个
      * @MethodName:  查询
      * @Param: [vo]
@@ -130,26 +114,6 @@ public class DeptController {
         return BaseResultData.SUCCESS(list);
     }
 
-    /**
-     * @Title:  page
-     * @MethodName:  page
-     * @Param: [pageable]
-     * @Retrun: com.gemframework.model.BaseResult
-     * @Description:
-     * page ：第几页，从0开始，默认为第0页
-     * size ：每一页的大小，默认为10
-     * sort ：排序相关的信息，以`property[,ASC|DESC]`的方式组织，例如`sort=firstname&sort=lastname,desc`表示在按firstname正序排列基础上按lastname倒序排列。
-     * @SortDefault.SortDefaults({@SortDefault(sort = "userName", direction = Sort.Direction.DESC),
-     *             @SortDefault(sort = "id", direction = Sort.Direction.ASC)})
-     * @PageableDefault(page = 0, size = 2)
-     * @Date: 2019-12-05 22:22:32
-     */
-    @GetMapping("page")
-    @ResponseBody
-    public BaseResultData page(Pageable pageable){
-        List<DeptVo> vo = deptService.findPageAll(pageable);
-        return BaseResultData.SUCCESS(vo);
-    }
 
     /**
      * @Title:  pageByParams
@@ -162,8 +126,8 @@ public class DeptController {
     @GetMapping("pageByParams")
     @ResponseBody
     public BaseResultData pageByParams(DeptVo vo, Pageable pageable){
-        List<DeptVo> list =  deptService.findPageByParams(vo,pageable);
-        return BaseResultData.SUCCESS(list);
+        PageInfo page =  deptService.findPageByParams(vo,pageable);
+        return BaseResultData.SUCCESS(page);
     }
 
 

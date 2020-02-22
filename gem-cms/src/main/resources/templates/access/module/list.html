@@ -10,13 +10,32 @@
     <div th:replace="common/links::layui_links"></div>
 </head>
 <body>
+<div class="demoTable layui-card-header">
+    <div class="layui-inline">
+        <div class="layui-input-inline">
+            <input type="text" class="layui-input" id="nameEn" name="nameEn" placeholder="模块英文名">
+        </div>
+    </div>
+    <div class="layui-inline">
+        <button class="layui-btn" data-type="reload">搜索</button>
+    </div>
+    <div class="layui-inline">
+        <button class="layui-btn" data-type="add">
+            <i class="layui-icon">&#xe654;</i>添加模块
+        </button>
+    </div>
+    <div class="layui-inline">
+        <button class="layui-btn" data-type="deleteBatch">
+            <i class="layui-icon">&#xe640;</i>批量删除
+        </button>
+    </div>
+</div>
 <table class="layui-hide" id="pageList" lay-filter="pageList"></table>
 
 <script type="text/html" id="top_bar">
     <div class="layui-btn-container">
         <button class="layui-btn layui-btn-sm" lay-event="add">添加</button>
         <button class="layui-btn layui-btn-primary layui-btn-sm" lay-event="deleteBatch">批量删除</button>
-        <!--            <button class="layui-btn layui-btn-primary layui-btn-sm" lay-event="search">高级查询</button>-->
     </div>
 </script>
 
@@ -25,7 +44,6 @@
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
     <a class="layui-btn layui-btn-warm layui-btn-xs" lay-event="addAttr">添加属性</a>
     <a id="generate_{{d.id}}" class="generate layui-btn layui-btn-normal layui-btn-xs" lay-event="generate">代码生成</a>
-<!--    <a id="download_{{d.id}}" class="generate layui-btn layui-btn-normal layui-btn-xs" href="downloadCode?id={{d.id}}">代码下载</a>-->
     <a id="download_{{d.id}}" class="generate layui-btn layui-btn-normal layui-btn-xs" lay-event="download">代码下载</a>
 </script>
 
@@ -69,7 +87,6 @@
         , {field: 'packageName', title: '包名',width: 220, sort: false, edit: 'null'}
         , {field: 'nameEn', title: '模块名[英]', sort: false, edit: 'null'}
         , {field: 'nameCn', title: '模块名[中]', sort: false, edit: 'null'}
-        // , {field: 'pkNane', title: '主键名称', sort: false, edit: 'null'}
         , {field: 'isAdd', title: '添加方法', sort: false, edit: 'null',templet: '#isAdd'}
         , {field: 'isEdit', title: '编辑方法', sort: false, edit: 'null',templet: '#isEdit'}
         , {field: 'isDel', title: '删除方法', sort: false, edit: 'null',templet: '#isDel'}
@@ -81,12 +98,11 @@
         var table = layui.table;
         var laytpl = layui.laytpl;
         table.render({
-            elem: '#pageList'
+            id:"dataTable"
+            ,elem: '#pageList'
             , url: 'pageByParams'
             , async: false
             , startByZero: true //分页查询从page=0页开始
-            , toolbar: '#top_bar' //开启头部工具栏，并为其绑定左侧模板
-            , defaultToolbar: ['filter', 'exports', 'print']
             , title: '用户数据表'
             , cols: [data]
             , done: function (res, curr, count) {
@@ -105,82 +121,6 @@
                 pageName: 'page' //页码的参数名称，默认：page
                 , limitName: 'size' //每页数据量的参数名，默认：limit
             }
-        });
-
-        //头工具栏事件
-        table.on('toolbar(pageList)', function (obj) {
-            var checkStatus = table.checkStatus(obj.config.id);
-            switch (obj.event) {
-                //添加
-                case 'add':
-                    var index = layer.open({
-                        type: 2,
-                        title: '添加代码生成模块',
-                        shadeClose: true,
-                        skin: 'layui-layer-lan',
-                        shade: 0.5,
-                        closeBtn: 1,
-                        area: ['750px', '450px'],
-                        maxmin: true,
-                        content: 'add.html',
-                        end: function () {
-                            if($(".layui-laypage-btn")[0] == null){
-                                location.reload();
-                            }else{
-                                $(".layui-laypage-btn")[0].click();
-                            }
-                        }
-                    });
-                    layer.full(index);
-                    break;
-                //批量删除
-                case 'deleteBatch':
-                    //顶部编辑按钮
-                    var names = "";
-                    if (checkStatus.data.length == 0) {
-                        layer.msg("你好像什么也没有选中！");
-                        return;
-                    } else {
-                        for (var i = 0; i < checkStatus.data.length; i++) {
-                            names += checkStatus.data[i].nameEn + ","
-                        }
-                        names = names.substring(0, names.length - 1);
-                        layer.confirm('确定删除[' + names + ']吗？亲~', {
-                            btn: ['确定', '再想想'] //按钮
-                        }, function () {
-                            $.ajax({
-                                type: "post",
-                                url: "deleteBatch",
-                                data: JSON.stringify(checkStatus.data),
-                                contentType: "application/json;charset=UTF-8",
-                                async: true, // 异步请求
-                                cache: false, // 设置为 false 将不缓存此页面
-                                dataType: "json", // 返回对象
-                                success: function (res) {
-                                    if (res.code == "0") {
-                                        layer.msg('删除成功！', {icon: 1});
-                                        location.reload();
-                                    } else {
-                                        layer.alert("[" + res.code + "]" + res.msg, {
-                                            skin: 'layui-layer-lan'
-                                            , closeBtn: 0
-                                            , anim: 4 //动画类型
-                                        });
-                                    }
-                                },
-                                error: function (e) {
-                                    // 请求失败函数
-                                    console.log("error:" + JSON.stringify(e));
-                                    alert("操作失败，请检查是否有相关操作权限！");
-                                }
-                            })
-                        }, function () {
-                            return;
-                        })
-                    }
-                    break;
-            }
-            ;
         });
 
         //监听行工具事件
@@ -284,7 +224,7 @@
                     location.href = "downloadCode?id="+id;
                 }
             } else if (obj.event === 'addAttr') {
-                var index = layer.open({
+                let index = layer.open({
                     type: 2,
                     title: '添加模块属性',
                     shadeClose: true,
@@ -300,7 +240,104 @@
                 layer.full(index);
             }
         });
+
+        //监听按钮data-type及定义方法
+        let $ = layui.$, active = {
+            reload: function(){
+                let nameEn = $('#nameEn');
+                //执行重载
+                table.reload('dataTable', {
+                    page: {
+                        curr: 0 //重新从第 1 页开始
+                    }
+                    ,where: {
+                        nameEn: nameEn.val() //排序字段
+                    }
+                    , request: {
+                        pageName: 'page' //页码的参数名称，默认：page
+                        ,limitName: 'size' //每页数据量的参数名，默认：limit
+                    }
+                }, 'data');
+            }
+            ,add:function() {
+                add();
+            }
+            ,deleteBatch:function() {
+                let checkStatus = table.checkStatus("dataTable");
+                //顶部编辑按钮
+                let names = "";
+                if (checkStatus.data.length == 0) {
+                    layer.msg("你好像什么也没有选中！");
+                    return;
+                } else {
+                    for (let i = 0; i < checkStatus.data.length; i++) {
+                        names += checkStatus.data[i].nameEn + ","
+                    }
+                    names = names.substring(0, names.length - 1);
+                    layer.confirm('确定删除[' + names + ']吗？亲~', {
+                        btn: ['确定', '再想想'] //按钮
+                    }, function () {
+                        $.ajax({
+                            type: "post",
+                            url: "deleteBatch",
+                            data: JSON.stringify(checkStatus.data),
+                            contentType: "application/json;charset=UTF-8",
+                            async: true, // 异步请求
+                            cache: false, // 设置为 false 将不缓存此页面
+                            dataType: "json", // 返回对象
+                            success: function (res) {
+                                if (res.code == "0") {
+                                    layer.msg('删除成功！', {icon: 1});
+                                    location.reload();
+                                } else {
+                                    layer.alert("[" + res.code + "]" + res.msg, {
+                                        skin: 'layui-layer-lan'
+                                        , closeBtn: 0
+                                        , anim: 4 //动画类型
+                                    });
+                                }
+                            },
+                            error: function (e) {
+                                // 请求失败函数
+                                console.log("error:" + JSON.stringify(e));
+                                alert("操作失败，请检查是否有相关操作权限！");
+                            }
+                        })
+                    }, function () {
+                        return;
+                    })
+                }
+            }
+        };
+        $('.demoTable .layui-btn').on('click', function(){
+            let type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
+        });
     });
+
+
+
+    function add() {
+        let index = layer.open({
+            type: 2,
+            title: '添加代码生成模块',
+            shadeClose: true,
+            skin: 'layui-layer-lan',
+            shade: 0.5,
+            closeBtn: 1,
+            area: ['750px', '450px'],
+            maxmin: true,
+            content: 'add.html',
+            end: function () {
+                if($(".layui-laypage-btn")[0] == null){
+                    location.reload();
+                }else{
+                    $(".layui-laypage-btn")[0].click();
+                }
+            }
+        });
+        layer.full(index);
+    }
 </script>
 </body>
 </html>

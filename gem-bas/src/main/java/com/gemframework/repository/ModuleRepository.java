@@ -1,7 +1,7 @@
 package com.gemframework.repository;
 
 import com.gemframework.model.po.Module;
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.gemframework.repository.database.DatabaseRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
@@ -19,7 +19,7 @@ import java.util.List;
  * @Copyright: Copyright (c) 2019 GemStudio
  * @Company: www.gemframework.com
  */
-public interface ModuleRepository extends JpaRepository<Module, Long> {
+public interface ModuleRepository extends DatabaseRepository<Module, Long> {
 
     @Query("select module from Module module where id = ?1")
     Module getById(Long id);

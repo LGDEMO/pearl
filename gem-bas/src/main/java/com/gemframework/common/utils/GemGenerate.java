@@ -2,19 +2,31 @@ package com.gemframework.common.utils;
 
 import com.gemframework.common.constant.GemConstant;
 import com.gemframework.common.enums.CodeType;
+import com.gemframework.common.exception.GemException;
+import com.gemframework.model.vo.database.Column;
+import com.gemframework.model.vo.database.Tables;
 import com.google.common.io.ByteStreams;
 import lombok.Builder;
 import lombok.Data;
 import lombok.experimental.Tolerate;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.configuration.Configuration;
+import org.apache.commons.configuration.ConfigurationException;
+import org.apache.commons.configuration.PropertiesConfiguration;
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.WordUtils;
+import org.apache.velocity.Template;
+import org.apache.velocity.VelocityContext;
+import org.apache.velocity.app.Velocity;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
-import org.springframework.util.ResourceUtils;
 
 import java.io.*;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 import static com.gemframework.common.enums.CodeType.HTML;
 import static com.gemframework.common.enums.CodeType.JAVA;
@@ -321,6 +333,12 @@ public class GemGenerate {
             String path4 = javaCodePath + "repository/";
             String path5 = javaCodePath + "model/po/";
             String path6 = javaCodePath + "model/vo/";
+            File zipFolder = new File(zipFilePath);
+            if (zipFolder.exists()){
+                zipFolder.delete();
+                log.info(zipFolder+"文件夹路径存在，删除");
+            }
+
             File folder1 = new File(path1);
             File folder2 = new File(path2);
             File folder3 = new File(path3);
@@ -332,43 +350,31 @@ public class GemGenerate {
             if (!folder1.exists() && !folder1.isDirectory()) {
                 log.info("文件夹路径不存在，创建路径:" + path1);
                 folder1.mkdirs();
-            }else {
-                folder1.delete();
             }
             //文件夹路径不存在
             if (!folder2.exists() && !folder2.isDirectory()) {
                 log.info("文件夹路径不存在，创建路径:" + path2);
                 folder2.mkdirs();
-            }else {
-                folder2.delete();
             }
             //文件夹路径不存在
             if (!folder3.exists() && !folder3.isDirectory()) {
                 log.info("文件夹路径不存在，创建路径:" + path3);
                 folder3.mkdirs();
-            }else {
-                folder3.delete();
             }
             //文件夹路径不存在
             if (!folder4.exists() && !folder4.isDirectory()) {
                 log.info("文件夹路径不存在，创建路径:" + path4);
                 folder4.mkdirs();
-            }else {
-                folder4.delete();
             }
             //文件夹路径不存在
             if (!folder5.exists() && !folder5.isDirectory()) {
                 log.info("文件夹路径不存在，创建路径:" + path5);
                 folder5.mkdirs();
-            }else {
-                folder5.delete();
             }
             //文件夹路径不存在
             if (!folder6.exists() && !folder6.isDirectory()) {
                 log.info("文件夹路径不存在，创建路径:" + path6);
                 folder6.mkdirs();
-            }else {
-                folder6.delete();
             }
 
             //生成文件
@@ -402,8 +408,6 @@ public class GemGenerate {
             if (!folderHtml.exists() && !folderHtml.isDirectory()) {
                 log.info("文件夹路径不存在，创建路径:" + folderHtml);
                 folderHtml.mkdirs();
-            }else {
-                folderHtml.delete();
             }
 
             if(tempParas.isAdd){
@@ -492,6 +496,202 @@ public class GemGenerate {
         String sss = GemBeanUtils.lineToHump(aa);
         System.out.println(sss);
 
+    }
+
+
+    public static List<String> getTemplates(){
+        List<String> templates = new ArrayList<String>();
+        templates.add("template/generate/velocity/Entity.java.vm");
+        templates.add("template/generate/velocity/Dao.java.vm");
+        templates.add("template/generate/velocity/Service.java.vm");
+        templates.add("template/generate/velocity/ServiceImpl.java.vm");
+        templates.add("template/generate/velocity/Controller.java.vm");
+//        templates.add("template/generate/velocity/menu.sql.vm");
+
+        templates.add("template/generate/velocity/html/list.html.vm");
+        templates.add("template/generate/velocity/html/add.html.vm");
+        templates.add("template/generate/velocity/html/edit.html.vm");
+
+        return templates;
+    }
+
+    /**
+     * 生成代码
+     */
+    public static void generatorCode(Map<String, String> table,
+                                     List<Map<String, String>> columns, ZipOutputStream zip) {
+        //配置信息
+        Configuration config = getConfig();
+        boolean hasBigDecimal = false;
+        //表信息
+        Tables tables = new Tables();
+        tables.setTableName(table.get("tableName" ));
+        tables.setComments(table.get("tableComment" ));
+        //表名转换成Java类名
+        String className = tableToJava(tables.getTableName(), config.getStringArray("tablePrefix"));
+        tables.setClassName(className);
+        tables.setClassname(StringUtils.uncapitalize(className));
+
+        //列信息
+        List<Column> columsList = new ArrayList<>();
+        for(Map<String, String> column : columns){
+            Column columnEntity = new Column();
+            columnEntity.setColumnName(column.get("columnName" ));
+            columnEntity.setDataType(column.get("dataType" ));
+            columnEntity.setComments(column.get("columnComment" ));
+            columnEntity.setExtra(column.get("extra" ));
+
+            //列名转换成Java属性名
+            String attrName = columnToJava(columnEntity.getColumnName());
+            columnEntity.setAttrName(attrName);
+            columnEntity.setAttrname(StringUtils.uncapitalize(attrName));
+
+            //列的数据类型，转换成Java类型
+            String attrType = config.getString(columnEntity.getDataType(), "unknowType" );
+            columnEntity.setAttrType(attrType);
+            if (!hasBigDecimal && attrType.equals("BigDecimal" )) {
+                hasBigDecimal = true;
+            }
+            //是否主键
+            if ("PRI".equalsIgnoreCase(column.get("columnKey" )) && tables.getPk() == null) {
+                tables.setPk(columnEntity);
+            }
+
+            columsList.add(columnEntity);
+        }
+        tables.setColumns(columsList);
+
+        //没主键，则第一个字段为主键
+        if (tables.getPk() == null) {
+            tables.setPk(tables.getColumns().get(0));
+        }
+
+        //设置velocity资源加载器
+        Properties prop = new Properties();
+        prop.put("file.resource.loader.class", "org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader" );
+        Velocity.init(prop);
+        String mainPath = config.getString("mainPath" );
+        mainPath = StringUtils.isBlank(mainPath) ? "com.gemframework" : mainPath;
+        //封装模板数据
+        Map<String, Object> map = new HashMap<>();
+        map.put("tableName", tables.getTableName());
+        map.put("comments", tables.getComments());
+        map.put("pk", tables.getPk());
+        map.put("className", tables.getClassName());
+        map.put("classname", tables.getClassname());
+        map.put("pathName", tables.getClassname().toLowerCase());
+        map.put("columns", tables.getColumns());
+        map.put("hasBigDecimal", hasBigDecimal);
+        map.put("mainPath", mainPath);
+        map.put("package", config.getString("package" ));
+        map.put("moduleName", config.getString("moduleName" ));
+        map.put("author", config.getString("author" ));
+        map.put("email", config.getString("email" ));
+        String datetime = GemDateUtils.format(new Date(), GemDateUtils.DATE_TIME_PATTERN);
+        map.put("datetime",datetime);
+        VelocityContext context = new VelocityContext(map);
+
+        //获取模板列表
+        List<String> templates = getTemplates();
+        for (String template : templates) {
+            //渲染模板
+            StringWriter sw = new StringWriter();
+            Template tpl = Velocity.getTemplate(template, "UTF-8" );
+            tpl.merge(context, sw);
+
+            try {
+                //添加到zip
+                zip.putNextEntry(new ZipEntry(getFileName(template, tables.getClassName(), config.getString("package" ), config.getString("moduleName" ))));
+                IOUtils.write(sw.toString(), zip, "UTF-8" );
+                IOUtils.closeQuietly(sw);
+                zip.closeEntry();
+            } catch (IOException e) {
+                throw new GemException(-1,"渲染模板失败，表名：" + tables.getTableName()+",e="+ e);
+            }
+        }
+    }
+
+
+    /**
+     * 列名转换成Java属性名
+     */
+    public static String columnToJava(String columnName) {
+        return WordUtils.capitalizeFully(columnName, new char[]{'_'}).replace("_", "" );
+    }
+
+    /**
+     * 表名转换成Java类名
+     */
+    public static String tableToJava(String tableName, String[] tablePrefixArray) {
+        if(null != tablePrefixArray && tablePrefixArray.length>0){
+            for(String tablePrefix : tablePrefixArray){
+                tableName = tableName.replace(tablePrefix, "");
+            }
+        }
+        return columnToJava(tableName);
+    }
+
+    /**
+     * 获取配置信息
+     */
+    public static Configuration getConfig() {
+        try {
+            return new PropertiesConfiguration("generator.properties" );
+        } catch (ConfigurationException e) {
+            throw new GemException(-1,"获取配置文件失败，"+ e);
+        }
+    }
+
+    /**
+     * 获取文件名
+     */
+    public static String getFileName(String template, String className, String packageName, String moduleName) {
+        String packagePath = "main" + File.separator + "java" + File.separator;
+        if (StringUtils.isNotBlank(packageName)) {
+            packagePath += packageName.replace(".", File.separator) + File.separator + moduleName + File.separator;
+        }
+
+        if (template.contains("Entity.java.vm" )) {
+            return packagePath + "entity" + File.separator + className + "Entity.java";
+        }
+
+        if (template.contains("Dao.java.vm" )) {
+            return packagePath + "dao" + File.separator + className + "Dao.java";
+        }
+
+        if (template.contains("Service.java.vm" )) {
+            return packagePath + "service" + File.separator + className + "Service.java";
+        }
+
+        if (template.contains("ServiceImpl.java.vm" )) {
+            return packagePath + "service" + File.separator + "impl" + File.separator + className + "ServiceImpl.java";
+        }
+
+        if (template.contains("Controller.java.vm" )) {
+            return packagePath + "controller" + File.separator + className + "Controller.java";
+        }
+
+        if (template.contains("Dao.xml.vm" )) {
+            return "main" + File.separator + "resources" + File.separator + "mapper" + File.separator + moduleName + File.separator + className + "Dao.xml";
+        }
+
+        if (template.contains("menu.sql.vm" )) {
+            return className.toLowerCase() + "_menu.sql";
+        }
+
+        if (template.contains("list.html.vm" )) {
+            return "html" + File.separator + moduleName + File.separator + "list.html";
+        }
+
+        if (template.contains("edit.html.vm" )) {
+            return "html" + File.separator + moduleName + File.separator + "edit.html";
+        }
+
+        if (template.contains("add.html.vm" )) {
+            return "html" + File.separator + moduleName + File.separator + "add.html";
+        }
+
+        return null;
     }
 
 }

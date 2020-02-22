@@ -8,11 +8,13 @@ import com.gemframework.model.po.Menu;
 import com.gemframework.model.po.RoleMenus;
 import com.gemframework.model.vo.MenuVo;
 import com.gemframework.model.vo.RoleVo;
+import com.gemframework.model.vo.response.PageInfo;
 import com.gemframework.repository.MenuRepository;
 import com.gemframework.repository.RoleMenusRepository;
 import com.gemframework.service.MenuService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -227,21 +229,6 @@ public class MenuServiceImpl implements MenuService {
         return menusToTree(list);
     }
 
-    /**
-     * @Title:  findPageAll
-     * @MethodName:  findPageAll
-     * @Param: [pageable]
-     * @Retrun: org.springframework.data.domain.Page
-     * @Description: 【分页】查询所有数据
-     * @Date: 2019-12-05 22:10:15
-     */
-    @Override
-    public List<MenuVo> findPageAll(Pageable pageable) {
-        Page<Menu> page = menuRepository.findAll(pageable);
-        List<Menu> list = page.getContent();
-        List<MenuVo> vos = GemBeanUtils.copyCollections(list,MenuVo.class);
-        return vos;
-    }
 
     /**
      * @Title:  findPageByParams
@@ -252,37 +239,22 @@ public class MenuServiceImpl implements MenuService {
      * @Date: 2019-12-05 22:10:15
      */
     @Override
-    public List<MenuVo> findPageByParams(MenuVo vo,Pageable pageable) {
+    public PageInfo findPageByParams(MenuVo vo, Pageable pageable) {
         Menu menu = new Menu();
         GemBeanUtils.copyProperties(vo,menu);
-        Example<Menu> example =Example.of(menu);
+        //创建匹配器，即如何使用查询条件
+        ExampleMatcher matcher = ExampleMatcher.matching() //构建对象
+                .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING) //改变默认字符串匹配方式：模糊查询
+                .withIgnoreCase(true); //改变默认大小写忽略方式：忽略大小写
+        Example<Menu> example =Example.of(menu,matcher);
         Page<Menu> page = menuRepository.findAll(example,pageable);
-        List<Menu> list = page.getContent();
-        List<MenuVo> vos = GemBeanUtils.copyCollections(list,MenuVo.class);
-        return vos;
+        PageInfo pageInfo = PageInfo.builder()
+                .total(page.getTotalElements())
+                .rows(page.getContent())
+                .build();
+        return pageInfo;
     }
 
-    /**
-     * @Title:  update
-     * @MethodName:  update
-     * @Param: [vo]
-     * @Retrun: com.gemframework.model.po.User
-     * @Description: 更新数据
-     * @Date: 2019-12-05 22:10:15
-     */
-    @Override
-    public MenuVo update(MenuVo vo) {
-        Optional<Menu> optional= menuRepository.findById(vo.getId());
-        if(optional.isPresent()){
-            Menu menu = optional.get();
-            GemBeanUtils.copyProperties(vo,menu);
-            menu = menuRepository.save(menu);
-            GemBeanUtils.copyProperties(menu,vo);
-            return vo;
-        }
-        return null;
-
-    }
 
     /**
      * @Title:  delete

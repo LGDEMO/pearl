@@ -5,6 +5,7 @@ import com.gemframework.common.exception.GemException;
 import com.gemframework.common.utils.GemBeanUtils;
 import com.gemframework.model.po.UserRoles;
 import com.gemframework.model.vo.UserRolesVo;
+import com.gemframework.model.vo.response.PageInfo;
 import com.gemframework.repository.UserRolesRepository;
 import com.gemframework.service.UserRolesService;
 import lombok.extern.slf4j.Slf4j;
@@ -91,22 +92,6 @@ public class UserRolesServiceImpl implements UserRolesService {
     }
 
     /**
-     * @Title:  findPageAll
-     * @MethodName:  findPageAll
-     * @Param: [pageable]
-     * @Retrun: org.springframework.data.domain.Page
-     * @Description: 【分页】查询所有数据
-     * @Date: 2019-12-05 22:09:48
-     */
-    @Override
-    public List<UserRolesVo> findPageAll(Pageable pageable) {
-        Page<UserRoles> page = userRolesRepository.findAll(pageable);
-        List<UserRoles> list = page.getContent();
-        List<UserRolesVo> vos = GemBeanUtils.copyCollections(list,UserRolesVo.class);
-        return vos;
-    }
-
-    /**
      * @Title:  findPageByParams
      * @MethodName:  findPageByParams
      * @Param: [vo, pageable]
@@ -115,14 +100,16 @@ public class UserRolesServiceImpl implements UserRolesService {
      * @Date: 2019-12-05 22:09:48
      */
     @Override
-    public List<UserRolesVo> findPageByParams(UserRolesVo vo,Pageable pageable) {
+    public PageInfo findPageByParams(UserRolesVo vo, Pageable pageable) {
         UserRoles userRoles = new UserRoles();
         GemBeanUtils.copyProperties(vo,userRoles);
         Example<UserRoles> example =Example.of(userRoles);
         Page<UserRoles> page = userRolesRepository.findAll(example,pageable);
-        List<UserRoles> list = page.getContent();
-        List<UserRolesVo> vos = GemBeanUtils.copyCollections(list,UserRolesVo.class);
-        return vos;
+        PageInfo pageInfo = PageInfo.builder()
+                .total(page.getTotalElements())
+                .rows(page.getContent())
+                .build();
+        return pageInfo;
     }
 
     /**

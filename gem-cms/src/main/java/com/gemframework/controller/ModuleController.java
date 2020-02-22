@@ -10,6 +10,7 @@ import com.gemframework.common.utils.GemFilesUtils;
 import com.gemframework.common.utils.GemGenerate;
 import com.gemframework.model.BaseResultData;
 import com.gemframework.model.vo.ModuleVo;
+import com.gemframework.model.vo.response.PageInfo;
 import com.gemframework.service.ModuleService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
@@ -56,8 +57,8 @@ public class ModuleController {
     @GetMapping("pageByParams")
     @ResponseBody
     public BaseResultData pageByParams(ModuleVo vo, Pageable pageable) {
-        List<ModuleVo> list = moduleService.findPageByParams(vo, pageable);
-        for(ModuleVo moduleVo:list){
+        PageInfo page = moduleService.findPageByParams(vo, pageable);
+        for(ModuleVo moduleVo:(List<ModuleVo>)page.getRows()){
             String downLoadPath = gemSystemProperties.getGenerateCodeServerPath()+"/code_"+moduleVo.getId()+".zip";
             log.info("文件路径："+downLoadPath);
             File file = new File(downLoadPath);
@@ -67,7 +68,7 @@ public class ModuleController {
                 moduleService.updateIsGenerate(WhetherEnum.NO,moduleVo.getId());
             }
         }
-        return BaseResultData.SUCCESS(list);
+        return BaseResultData.SUCCESS(page);
     }
 
     @GetMapping("list")
