@@ -27,11 +27,6 @@ public class ${className} extends BaseVo {
 	/**
 	 * $column.comments
 	 */
-		#if($column.columnName == $pk.columnName)
-		@Id
-		@GeneratedValue(strategy = GenerationType.IDENTITY)
-		#end
-	@Column(columnDefinition = "$column.attrType comment '$column.comments'")
-	private $column.attrType $column.attrname;
+		private $column.attrType $column.attrname;
 	#end
 }

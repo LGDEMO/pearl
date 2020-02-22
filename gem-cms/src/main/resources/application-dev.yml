@@ -127,7 +127,7 @@ spring:
 #      suffix: .html
 
   thymeleaf:
-    prefix: classpath:/templates/access/
+    prefix: classpath:/templates/
     suffix: .html
     encoding: UTF-8
     mode: HTML

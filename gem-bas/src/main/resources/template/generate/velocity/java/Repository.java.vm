@@ -17,7 +17,7 @@ import java.util.List;
  */
 public interface ${className}Repository extends JpaRepository<${className}, Long> {
 
-    @Query("select ${classname} from {className} ${classname} where id = ?1")
+    @Query("select ${classname} from ${className} ${classname} where id = ?1")
     ${className} getById(Long id);
 
     @Query("select ${classname} from ${className} ${classname} where name=?1 and id <> ?2")

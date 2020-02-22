@@ -157,19 +157,6 @@ public class UserServiceImpl implements UserService {
         return list;
     }
 
-    /**
-     * @Title:  findPageAll
-     * @MethodName:  findPageAll
-     * @Param: [pageable]
-     * @Retrun: org.springframework.data.domain.Page
-     * @Description: 【分页】查询所有数据
-     * @Date: 2019/11/29 20:42
-     */
-    @Override
-    public Page findPageAll(Pageable pageable) {
-        Page<User> page = userRepository.findAll(pageable);
-        return page;
-    }
 
     /**
      * @Title:  findPageByParams

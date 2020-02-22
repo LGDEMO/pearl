@@ -501,11 +501,12 @@ public class GemGenerate {
 
     public static List<String> getTemplates(){
         List<String> templates = new ArrayList<String>();
-        templates.add("template/generate/velocity/Entity.java.vm");
-        templates.add("template/generate/velocity/Dao.java.vm");
-        templates.add("template/generate/velocity/Service.java.vm");
-        templates.add("template/generate/velocity/ServiceImpl.java.vm");
-        templates.add("template/generate/velocity/Controller.java.vm");
+        templates.add("template/generate/velocity/java/Entity.java.vm");
+        templates.add("template/generate/velocity/java/EntityVo.java.vm");
+        templates.add("template/generate/velocity/java/Repository.java.vm");
+        templates.add("template/generate/velocity/java/Service.java.vm");
+        templates.add("template/generate/velocity/java/ServiceImpl.java.vm");
+        templates.add("template/generate/velocity/java/Controller.java.vm");
 //        templates.add("template/generate/velocity/menu.sql.vm");
 
         templates.add("template/generate/velocity/html/list.html.vm");
@@ -646,17 +647,21 @@ public class GemGenerate {
      * 获取文件名
      */
     public static String getFileName(String template, String className, String packageName, String moduleName) {
-        String packagePath = "main" + File.separator + "java" + File.separator;
+        String packagePath = File.separator + "java" + File.separator;
         if (StringUtils.isNotBlank(packageName)) {
             packagePath += packageName.replace(".", File.separator) + File.separator + moduleName + File.separator;
         }
 
         if (template.contains("Entity.java.vm" )) {
-            return packagePath + "entity" + File.separator + className + "Entity.java";
+            return packagePath + "model" + File.separator +"po"+ File.separator + className + ".java";
         }
 
-        if (template.contains("Dao.java.vm" )) {
-            return packagePath + "dao" + File.separator + className + "Dao.java";
+        if (template.contains("EntityVo.java.vm" )) {
+            return packagePath + "model" + File.separator +"vo"+ File.separator + className + "Vo.java";
+        }
+
+        if (template.contains("Repository.java.vm" )) {
+            return packagePath + "repository" + File.separator + className + "Repository.java";
         }
 
         if (template.contains("Service.java.vm" )) {
@@ -671,24 +676,16 @@ public class GemGenerate {
             return packagePath + "controller" + File.separator + className + "Controller.java";
         }
 
-        if (template.contains("Dao.xml.vm" )) {
-            return "main" + File.separator + "resources" + File.separator + "mapper" + File.separator + moduleName + File.separator + className + "Dao.xml";
-        }
-
-        if (template.contains("menu.sql.vm" )) {
-            return className.toLowerCase() + "_menu.sql";
-        }
-
         if (template.contains("list.html.vm" )) {
-            return "html" + File.separator + moduleName + File.separator + "list.html";
+            return "html" + File.separator + className + File.separator + "list.html";
         }
 
         if (template.contains("edit.html.vm" )) {
-            return "html" + File.separator + moduleName + File.separator + "edit.html";
+            return "html" + File.separator + className + File.separator + "edit.html";
         }
 
         if (template.contains("add.html.vm" )) {
-            return "html" + File.separator + moduleName + File.separator + "add.html";
+            return "html" + File.separator + className + File.separator + "add.html";
         }
 
         return null;
