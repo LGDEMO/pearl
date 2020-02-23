@@ -9,6 +9,8 @@ import com.gemframework.common.response.GemResponse;
 import com.gemframework.common.security.configure.GemSecurityProperties;
 import com.gemframework.common.security.authorization.GemMetadataSourceService;
 import com.gemframework.common.utils.GemIPHandler;
+import com.gemframework.controller.CommController;
+import com.gemframework.controller.HomeController;
 import com.gemframework.model.vo.SysLogVo;
 import com.gemframework.model.vo.tree.MenuSide;
 import com.gemframework.model.vo.MenuVo;
@@ -64,7 +66,7 @@ public class GemLoginSuccessHandler extends SavedRequestAwareAuthenticationSucce
         //重新设置用户权限
         gemMetadataSourceService.loadResourceDefine();
         //页面：登录成功后加载权限菜单
-        initSessionSideMenus(request,response,authentication);
+        initSessionSideMenus(request,roleService,menuService,authentication);
         //初始化session
         initSession(request);
         //api请求的话返回token & 页面跳转到首页
@@ -89,10 +91,6 @@ public class GemLoginSuccessHandler extends SavedRequestAwareAuthenticationSucce
         return SecurityContextHolder.getContext().getAuthentication().getName();
     }
 
-    private String getRoleFlag(String fullFalg){
-        return fullFalg.replaceAll(ROLE_PREFIX,"");
-    }
-
 
     /***
      * 初始化Session
@@ -102,15 +100,23 @@ public class GemLoginSuccessHandler extends SavedRequestAwareAuthenticationSucce
         request.getSession().setAttribute("session_username",getCurrentUsername());
         request.getSession().setAttribute("session_runtime",gemSystemProperties.getRuntime());
     }
+
+
     /**
      * 初始化左侧菜单Session
      * 判断用户角色
      * 根据角色查询菜单信息
      * @param request
-     * @param response
      * @param authentication
      */
-    private void initSessionSideMenus(HttpServletRequest request, HttpServletResponse response, Authentication authentication){
+    public static void initSessionSideMenus(HttpServletRequest request,
+                                            RoleService roleService,
+                                            MenuService menuService,
+                                            Authentication authentication){
+
+        List<MenuSide> menuSides = new ArrayList<>();
+        //如果权限验证关闭
+        List<MenuVo> menus = null;
         List<RoleVo> roles = new ArrayList<>();
         Collection<? extends GrantedAuthority> collection = authentication.getAuthorities();
         boolean isSuperAdmin = false;
@@ -124,55 +130,35 @@ public class GemLoginSuccessHandler extends SavedRequestAwareAuthenticationSucce
                 roles.add(vo);
             }
         }
+        //如果存在角色
         if(roles != null && roles.size() > 0){
-            List<MenuVo> menus = menuService.findListByRoles(roles);
-            List<MenuSide> menuSides = new ArrayList<>();
-            //如果权限验证关闭 或者 是超级管理员
-            if(!gemSecurityProperties.isOpen()){
-                String menusData_def = "[\n" +
-                        "                {\n" +
-                        "                        \"f_ModuleId\": \"111\",\n" +
-                        "                        \"f_ParentId\": \"0\",\n" +
-                        "                        \"f_EnCode\": \"SysManage\",\n" +
-                        "                        \"f_FullName\": \"系统默认\",\n" +
-                        "                        \"f_Icon\": \"fa fa-desktop\",\n" +
-                        "                        \"f_UrlAddress\": \"/default\",\n" +
-                        "                },\n" +
-                        "                {\n" +
-                        "                        \"f_ModuleId\": \"21\",\n" +
-                        "                        \"f_ParentId\": \"111\",\n" +
-                        "                        \"f_EnCode\": \"MenuManage\",\n" +
-                        "                        \"f_FullName\": \"菜单管理\",\n" +
-                        "                        \"f_Icon\": \"fa fa-sitemap\",\n" +
-                        "                        \"f_UrlAddress\": \"menu/list.html\",\n" +
-                        "                } ]";
-                List<MenuSide> defMenuSides = (List<MenuSide>) JSONArray.parseArray(menusData_def, MenuSide.class);
-                menuSides.addAll(defMenuSides);
-                //查询所有菜单
-                menus = menuService.findListAllByType(MenuType.MENU);
-            }
-
+            //如果是超级管理员
             if(isSuperAdmin){
                 //查询所有菜单
                 menus = menuService.findListAllByType(MenuType.MENU);
-            }
-
-            if(menus!=null && menus.size()>0){
-                for(MenuVo menuVo:menus){
-                    MenuSide menuSide = MenuSide.builder()
-                            .F_ModuleId(String.valueOf(menuVo.getId()))
-                            .F_ParentId(String.valueOf(menuVo.getPid()))
-                            .F_EnCode(menuVo.getTag())
-                            .F_FullName(menuVo.getName())
-                            .F_Icon(menuVo.getIcon())
-                            .F_UrlAddress(menuVo.getLink()).build();
-                    menuSides.add(menuSide);
-                }
-
-                log.info("menuSides = "+JSON.toJSONString(menuSides));
-                request.getSession().setAttribute("session_sidebar_menus", menuSides);
+            }else{
+                //通过角色查询菜单信息
+                menus = menuService.findListByRoles(roles);
             }
         }
+        if(menus!=null && menus.size()>0){
+            for(MenuVo menuVo:menus){
+                MenuSide menuSide = MenuSide.builder()
+                        .F_ModuleId(String.valueOf(menuVo.getId()))
+                        .F_ParentId(String.valueOf(menuVo.getPid()))
+                        .F_EnCode(menuVo.getTag())
+                        .F_FullName(menuVo.getName())
+                        .F_Icon(menuVo.getIcon())
+                        .F_UrlAddress(menuVo.getLink()).build();
+                menuSides.add(menuSide);
+            }
+            log.info("menuSides = "+ JSON.toJSONString(menuSides));
+        }
+        request.getSession().setAttribute("session_sidebar_menus", menuSides);
     }
 
+
+    private static String getRoleFlag(String fullFalg){
+        return fullFalg.replaceAll(ROLE_PREFIX,"");
+    }
 }

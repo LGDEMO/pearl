@@ -166,16 +166,14 @@
                         }else{
                             layer.alert("编辑成功", {
                                 skin: 'layui-layer-lan'
-                                ,closeBtn: 0
-                                ,anim: 4 //动画类型
+
                             });
                         }
                         window.parent.location.reload();
                     }else {
                         layer.alert("["+res.code+"]"+res.msg, {
                             skin: 'layui-layer-lan'
-                            ,closeBtn: 0
-                            ,anim: 4 //动画类型
+
                         });
                     }
                 },

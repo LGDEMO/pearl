@@ -146,8 +146,7 @@
                             } else {
                                 layer.alert("[" + res.code + "]" + res.msg, {
                                     skin: 'layui-layer-lan'
-                                    , closeBtn: 0
-                                    , anim: 4 //动画类型
+
                                 });
                             }
                         },
@@ -181,8 +180,7 @@
                 if(obj.data.moduleAttrs == null){
                     layer.alert("请先点击“添加属性”按钮完善模块属性信息。", {
                         skin: 'layui-layer-lan'
-                        , closeBtn: 0
-                        , anim: 4 //动画类型
+
                     });
                     return;
                 }
@@ -201,8 +199,7 @@
                         } else {
                             layer.alert("[" + res.code + "]" + res.msg, {
                                 skin: 'layui-layer-lan'
-                                , closeBtn: 0
-                                , anim: 4 //动画类型
+
                             });
                         }
                     },
@@ -217,8 +214,7 @@
                 if(data.isGenerate=="0"){
                     layer.alert("请先点击“生成代码”按钮进行生成。", {
                         skin: 'layui-layer-lan'
-                        , closeBtn: 0
-                        , anim: 4 //动画类型
+
                     });
                 }else{
                     location.href = "downloadCode?id="+id;
@@ -292,8 +288,7 @@
                                 } else {
                                     layer.alert("[" + res.code + "]" + res.msg, {
                                         skin: 'layui-layer-lan'
-                                        , closeBtn: 0
-                                        , anim: 4 //动画类型
+
                                     });
                                 }
                             },

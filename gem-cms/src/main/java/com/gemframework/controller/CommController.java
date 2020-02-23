@@ -1,23 +1,33 @@
 package com.gemframework.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.gemframework.common.security.configure.GemSecurityProperties;
 import com.gemframework.model.BaseResultData;
 import com.gemframework.common.enums.MenuType;
 import com.gemframework.model.vo.DeptVo;
 import com.gemframework.model.vo.MenuVo;
+import com.gemframework.model.vo.RoleVo;
 import com.gemframework.model.vo.tree.MenuSide;
 import com.gemframework.model.vo.tree.ZtreeEntity;
 import com.gemframework.service.DeptService;
 import com.gemframework.service.MenuService;
+import com.gemframework.service.RoleService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+
+import static com.gemframework.common.constant.GemConstant.Auth.ROLE_PREFIX;
 
 /**
  * @Title: CommController.java
@@ -40,6 +50,12 @@ public class CommController {
 
     @Autowired
     private DeptService deptService;
+
+    @Autowired
+    private RoleService roleService;
+
+    @Autowired
+    private GemSecurityProperties gemSecurityProperties;
 
     /***
      * 加载当前权限用户的菜单树
@@ -165,31 +181,4 @@ public class CommController {
         }
         return trees;
     }
-
-    /***
-     * 重置左侧菜单
-     * @return
-     */
-    @GetMapping("/resetSideMenus")
-    public BaseResultData resetLeftMenus(HttpServletRequest request){
-        List<MenuSide> menuSides = new ArrayList<>();
-        List<MenuVo> menus = menuService.findListAllByType(MenuType.MENU);
-        if(menus!=null && menus.size()>0){
-            for(MenuVo menuVo:menus){
-                MenuSide menuSide = MenuSide.builder()
-                        .F_ModuleId(String.valueOf(menuVo.getId()))
-                        .F_ParentId(String.valueOf(menuVo.getPid()))
-                        .F_EnCode(menuVo.getTag())
-                        .F_FullName(menuVo.getName())
-                        .F_Icon(menuVo.getIcon())
-                        .F_UrlAddress(menuVo.getLink()).build();
-                menuSides.add(menuSide);
-            }
-
-            log.info("menuSides = "+ JSON.toJSONString(menuSides));
-            request.getSession().setAttribute("session_sidebar_menus", menuSides);
-        }
-        return BaseResultData.SUCCESS();
-    }
-
 }

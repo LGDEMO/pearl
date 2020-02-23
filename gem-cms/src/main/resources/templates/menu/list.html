@@ -79,7 +79,7 @@
         indent : 30,//每个分支缩进的像素数。
         initialState:"expanded",//初始化状态 expanded：展开 collapsed:关闭
         onNodeExpand: function(){
-            var node = this;
+            let node = this;
         },
     });
 
@@ -170,8 +170,7 @@
                     }else {
                         layer.alert("["+res.code+"]"+res.msg, {
                             skin: 'layui-layer-lan'
-                            ,closeBtn: 0
-                            ,anim: 4 //动画类型
+
                         });
                     }
                 },
@@ -201,8 +200,6 @@
                 }else {
                     layer.alert("["+res.code+"]"+res.msg, {
                         skin: 'layui-layer-lan'
-                        ,closeBtn: 0
-                        ,anim: 4 //动画类型
                     });
                 }
             },

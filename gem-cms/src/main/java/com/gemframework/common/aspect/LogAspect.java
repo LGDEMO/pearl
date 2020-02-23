@@ -44,18 +44,18 @@ public class LogAspect {
 
     @Before("log()")
     public void before(JoinPoint point) {
-        log.info("---------------------请求开始---------------------");
-        String username = "";
-        if(request.getSession().getAttribute("session_username") != null){
-            username = (String) request.getSession().getAttribute("session_username");
-        }
-        log.info("登录用户:"+username);
-        log.info("用户IP:"+getIpAddress(request));
-        log.info("请求地址:"+request.getRequestURL().toString());
-        log.info("请求方式:"+request.getMethod());
-        log.info("请求类方法:"+point.getSignature());
-        log.info("请求类方法参数:"+ Arrays.toString(point.getArgs()));
-        log.info("-------------------------------------------------");
+//        log.info("---------------------请求开始---------------------");
+//        String username = "";
+//        if(request.getSession().getAttribute("session_username") != null){
+//            username = (String) request.getSession().getAttribute("session_username");
+//        }
+//        log.info("登录用户:"+username);
+//        log.info("用户IP:"+getIpAddress(request));
+//        log.info("请求地址:"+request.getRequestURL().toString());
+//        log.info("请求方式:"+request.getMethod());
+//        log.info("请求类方法:"+point.getSignature());
+//        log.info("请求类方法参数:"+ Arrays.toString(point.getArgs()));
+//        log.info("-------------------------------------------------");
 
     }
 

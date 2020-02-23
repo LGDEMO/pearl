@@ -1,7 +1,9 @@
 package com.gemframework.model.vo.tree;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * @Title: MenuSide.java
@@ -17,6 +19,8 @@ import lombok.Data;
 
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class MenuSide {
 
 //   "F_ModuleId": "1",

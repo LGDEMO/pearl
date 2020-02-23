@@ -1,6 +1,7 @@
 package com.gemframework.service;
 
 import com.gemframework.common.enums.MenuType;
+import com.gemframework.model.po.Menu;
 import com.gemframework.model.vo.MenuVo;
 import com.gemframework.model.vo.RoleVo;
 import com.gemframework.model.vo.response.PageInfo;

@@ -338,7 +338,6 @@
                 type: "get",
                 url: "home/initMenus",
                 data: {
-                    // "id": id
                 },
                 async:false, // 异步请求
                 cache:false, // 设置为 false 将不缓存此页面

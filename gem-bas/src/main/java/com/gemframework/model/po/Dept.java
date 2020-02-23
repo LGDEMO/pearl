@@ -3,6 +3,7 @@ package com.gemframework.model.po;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+//import org.hibernate.annotations.Table;
 
 import javax.persistence.*;
 import java.util.List;

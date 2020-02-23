@@ -28,24 +28,16 @@ public interface MenuRepository extends JpaRepository<Menu, Long> {
     Menu getById(Long id, Integer type);
 
     //查询所有数据列表根据sortPath排序
-    @Query("select menu from Menu menu  ORDER BY sortPath ASC")
-    List<Menu> findAll();
-
-    //根据标识查询数据列表
-    @Query("select menu from Menu menu  where tag = ?1 ORDER BY sortPath ASC")
-    List<Menu> findListByTag(String tag);
-
-    //根据类型查询数据列表
-    @Query("select menu from Menu menu  where type = ?1 ORDER BY idPath ASC")
-    List<Menu> findListByType(Integer type);
+    @Query("select menu from Menu menu  where LEVEL = 1 ORDER BY sortNumber ASC")
+    List<Menu> findRootAll();
 
     //根据PID查询数据列表
     @Query("select menu from Menu menu  where pid = ?1 ORDER BY sortNumber ASC")
     List<Menu> findListByPid(Long pid);
 
-    //根据系列号查询数据列表
-    @Query("select menu from Menu menu  where series = ?1 ORDER BY sortNumber ASC")
-    List<Menu> findListBySeries(String series);
+    //根据类型查询数据列表
+    @Query("select menu from Menu menu  where type = ?1 ORDER BY idPath ASC")
+    List<Menu> findListByType(Integer type);
 
     //查询是否存在
     @Query("select menu from Menu menu  where (link = ?1 or tag = ?2) and id <> ?3")

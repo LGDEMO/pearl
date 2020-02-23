@@ -35,7 +35,7 @@ public class Menu extends BasePo {
     private String link;
     @Column(columnDefinition = "tinyint(1) comment '类型 0菜单 1按钮 2其他'")
     private Integer type;
-    @Column(columnDefinition = "tinyint(1) comment '级别，最大支持三级'")
+    @Column(columnDefinition = "tinyint(1) comment '级别，最大支持四级'")
     private Integer level;
     //图标
     @Column(columnDefinition = "varchar(30) comment '图标'")
@@ -50,17 +50,9 @@ public class Menu extends BasePo {
     @Column(columnDefinition = "int(10) comment '排序编号'")
     private Integer sortNumber;
 
-    //排序路径 用于treetable页面渲染
-    @Column(columnDefinition = "varchar(50) comment '排序编号路径'")
-    private String sortPath;
-
     //路径 1-2-1 用于treetable页面渲染
     @Column(columnDefinition = "varchar(50) comment 'ID路径'")
     private String idPath;
-
-    //系列 用于归类 存放家族一级分类ID 一级分类存自己ID
-    @Column(columnDefinition = "varchar(20) comment '所属系列'")
-    private String series;
 
     //父级的路径 1-2-1 用于treetable页面渲染
     @Transient

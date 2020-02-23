@@ -53,63 +53,34 @@ public class MenuServiceImpl implements MenuService {
             log.info(ResultCode.MENU_EXIST.getMsg() + ":[name="+vo.getName()+",tag="+vo.getTag()+"]");
             throw new GemException(ResultCode.MENU_EXIST);
         }
+
+        Menu pMenu = menuRepository.getById(vo.getPid());
+        if(pMenu != null){
+            if (isParent(pMenu,vo.getId())){
+                throw new GemException(ResultCode.MENU_LEVEL_EX);
+            }
+        }
+        //第一步：保存按钮
         Menu menu = new Menu();
         GemBeanUtils.copyProperties(vo,menu);
-        menu = menuRepository.save(menu);
+        menu = menuRepository.saveAndFlush(menu);
 
-        //更新id_path,sortPath,series
+        //第二步：更新id_path
+        //查询父级
         MenuVo parentVo = getById(vo.getPid());
-
         //====设置idpath 开始====
         String idPath = String.valueOf(menu.getId());
         if(menu.getId()<10){
             idPath = "0"+menu.getId();
         }
+        //父级不为空 idpath=父级pathid+自己pathid
         if(parentVo != null && parentVo.getIdPath() != null){
             idPath = parentVo.getIdPath()+"-"+idPath;
         }
         //设置idpath
         menu.setIdPath(idPath);
         //====设置idpath 结束====
-
-        //====设置series 开始====
-        String series = menu.getIdPath();
-        if(series.indexOf("-")>0){
-            series = series.substring(0,series.indexOf("-"));
-        }
-        menu.setSeries(series);
-        //====设置series 结束====
-
-        //====设置sortPath 开始====
-        //更新自身sortpath  默认 sort+idpath
-        String sortPath = String.valueOf(menu.getSortNumber())+"-"+menu.getIdPath();
-        if(menu.getSortNumber()<10){
-            sortPath = "0"+menu.getSortNumber()+"-"+menu.getIdPath();
-        }
-        if(parentVo != null && parentVo.getSortNumber() != null){
-            sortPath = parentVo.getSortPath()+"-"+sortPath;
-        }
-        //设置sortPath
-        menu.setSortPath(sortPath);
         menu = menuRepository.save(menu);
-
-        //更新所有子节点sortpath
-        List<Menu> seriesMenus = menuRepository.findListBySeries(menu.getSeries());
-        if(seriesMenus != null && seriesMenus.size() > 0){
-            for(Menu sm:seriesMenus){
-                //如果是子节点
-                if(sm.getLevel() > menu.getLevel()){
-                    MenuVo parentSm = getById(sm.getPid());
-                    sm.setSortPath(parentSm.getSortPath()+"-"+sm.getSortNumber()+"-"+sm.getIdPath());
-                    if(sm.getSortNumber()<10){
-                        sm.setSortPath(parentSm.getSortPath()+"-0"+sm.getSortNumber()+"-"+sm.getIdPath());
-                    }
-                    menuRepository.save(sm);
-                }
-            }
-        }
-        //====设置sortPath 结束====
-
         GemBeanUtils.copyProperties(menu,vo);
         return vo;
     }
@@ -124,13 +95,24 @@ public class MenuServiceImpl implements MenuService {
      */
     @Override
     public List<MenuVo> findListAll() {
-        List<Menu> list = menuRepository.findAll();
-        List<MenuVo> vos = GemBeanUtils.copyCollections(list,MenuVo.class);
+        //第1步：准备一个list 返回
+        List<Menu> resultList = new ArrayList<>();
+        //第2步：查询所有的一级菜单
+        List<Menu> rootList = menuRepository.findRootAll();
+        if(rootList != null && rootList.size()>0){
+            for(Menu rootMenu:rootList){
+                resultList.add(rootMenu);
+                //第3步：循环主菜单 查找子菜单
+                resultList = findChildMenu(resultList,rootMenu.getId());
+            }
+        }
+        List<MenuVo> vos = GemBeanUtils.copyCollections(resultList,MenuVo.class);
         for(MenuVo menuVo :vos){
-            if(menuVo!=null && menuVo.getIdPath()!=null){
-                if(menuVo.getIdPath().lastIndexOf("-")>0){
-                    menuVo.setParentIdPath(menuVo.getIdPath().substring(0,menuVo.getIdPath().lastIndexOf("-")));
-                }
+            Long pid = menuVo.getPid();
+            //如果PID不等于0 表示子节点，那么将
+            if(pid!=0){
+                Menu parent = menuRepository.getById(pid);
+                menuVo.setParentIdPath(parent.getIdPath());
             }
         }
         return vos;
@@ -338,8 +320,34 @@ public class MenuServiceImpl implements MenuService {
     }
 
 
-    public static void main(String[] args) {
-        String aa = "00-01-12-33";
-        System.out.println("=="+aa.indexOf("#"));
+    /**
+     * 递归查找子菜单
+     * @param list
+     * @param pid
+     * @return
+     */
+    private List<Menu> findChildMenu(List<Menu> list,Long pid){
+        List<Menu> parentList = menuRepository.findListByPid(pid);
+        if (parentList !=null && parentList.size()>0){
+            for (Menu parentMenu:parentList){
+                list.add(parentMenu);
+                findChildMenu(list,parentMenu.getId());
+            }
+        }
+        return list;
+    }
+
+    private boolean isParent(Menu child,Long parentId){
+        //查询父级ID
+        Menu parent = menuRepository.getById(child.getPid());
+        if(parent == null){
+            return false;
+        }else{
+            if(parent.getId() == parentId){
+                return true;
+            }else{
+               return isParent(parent,parentId);
+            }
+        }
     }
 }

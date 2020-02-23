@@ -187,7 +187,7 @@
         <script type="text/javascript" th:src="@{/static/js/custom/menutree.js}"></script>
         <!--图标选择器-->
         <script type="text/javascript" th:src="@{/static/js/fontawesome-iconpicker.js}"></script>
-        <script>
+        <script  th:inline="javascript">
             $(function () {
                 $('.icp-auto').iconpicker({
                     title: '请选择一个图标',
@@ -218,6 +218,21 @@
 
 
             $('#btn_save').on('click', function() {
+                let id  = [[${edit_menu.id}]];
+                let pid  = $("#pid").val();
+                let parentPid  = $("#parentPid").val();
+                if(pid == id){
+                   layer.alert("所属上级菜单请勿选择自己！",{
+                       skin: 'layui-layer-lan'
+                   });
+                   return;
+                }
+                if(parentPid == id){
+                   layer.alert("所属上级菜单请勿选择自己下级！",{
+                       skin: 'layui-layer-lan'
+                   });
+                   return;
+                }
                 $.ajax({
                     type: "post",
                     url: "add",
@@ -233,16 +248,12 @@
                             }else{
                                 layer.alert("编辑成功", {
                                     skin: 'layui-layer-lan'
-                                    ,closeBtn: 0
-                                    ,anim: 4 //动画类型
                                 });
                             }
                             window.parent.location.reload();
                         }else {
                             layer.alert("["+res.code+"]"+res.msg, {
                                 skin: 'layui-layer-lan'
-                                ,closeBtn: 0
-                                ,anim: 4 //动画类型
                             });
                         }
                     },

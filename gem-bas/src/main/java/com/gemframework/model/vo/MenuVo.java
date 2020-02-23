@@ -37,7 +37,7 @@ public class MenuVo extends BaseVo implements Comparable<MenuVo>{
     //类型 0 菜单 1 按钮 2 其他
     private Integer type;
     //级别 菜单级别 最大支持三级
-    @Max(value = 4, message = "级别最大支持三级")
+    @Max(value = 4, message = "级别最大支持四级")
     private Integer level;
     //图标
     private String icon;
@@ -49,16 +49,12 @@ public class MenuVo extends BaseVo implements Comparable<MenuVo>{
     private Integer active;
     //排序
     private Integer sortNumber;
-    //排序路径
-    private String sortPath;
 
     List<MenuVo> childs;
     //路径 1-2-1 用于treetable页面渲染
     private String idPath;
     //父级的路径 1-2 用于treetable页面渲染
     private String parentIdPath;
-    //系列 用于归类 存放家族一级分类ID 一级分类存自己ID
-    private String series;
 
     @Override
     public int compareTo(MenuVo o) {

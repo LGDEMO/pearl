@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.gemframework.common.enums.ResultCode;
 import com.gemframework.common.security.authorization.GemMetadataSourceService;
 import com.gemframework.model.BaseResultData;
+import com.gemframework.model.po.Menu;
 import com.gemframework.model.vo.MenuVo;
 import com.gemframework.model.vo.response.PageInfo;
 import com.gemframework.service.MenuService;
@@ -51,11 +52,9 @@ public class MenuController {
     @PostMapping("add")
     @ResponseBody
     public BaseResultData add(@Valid @RequestBody MenuVo vo, BindingResult bindingResult){
-
         if(bindingResult.hasErrors()){
             return BaseResultData.ERROR(ResultCode.PARAM_EXCEPTION.getCode(),bindingResult.getFieldError().getDefaultMessage());
         }
-
         return BaseResultData.SUCCESS(menuService.save(vo));
     }
 
@@ -118,6 +117,15 @@ public class MenuController {
         return BaseResultData.SUCCESS(page);
     }
 
+
+    @GetMapping("list.html")
+
+    public String list(Model model){
+        List<MenuVo> list = menuService.findListAll();
+        model.addAttribute("list_menus",list);
+        return "menu/list";
+    }
+
     @GetMapping("add.html")
     public String addHtml(){
         return "menu/add";
@@ -136,15 +144,5 @@ public class MenuController {
         model.addAttribute("edit_menu",menuVo);
         return "menu/edit";
     }
-
-    @GetMapping("list.html")
-
-    public String list(Model model){
-        List<MenuVo> list = menuService.findListAll();
-        log.info("===>"+JSON.toJSONString(list));
-        model.addAttribute("list_menus",list);
-        return "menu/list";
-    }
-
 
 }

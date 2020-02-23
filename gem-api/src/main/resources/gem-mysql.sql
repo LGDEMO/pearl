@@ -114,7 +114,7 @@ CREATE TABLE `gem_menu` (
   `active` tinyint(1) DEFAULT NULL COMMENT '是否选中 0 未选中 1 选中',
   `icon` varchar(30) DEFAULT NULL COMMENT '图标',
   `id_path` varchar(20) DEFAULT NULL COMMENT 'ID路径',
-  `level` tinyint(1) DEFAULT NULL COMMENT '级别，最大支持三级',
+  `level` tinyint(1) DEFAULT NULL COMMENT '级别，最大支持四级',
   `link` varchar(50) DEFAULT NULL COMMENT '菜单/按钮链接',
   `name` varchar(10) DEFAULT NULL COMMENT '菜单/按钮名称',
   `pid` bigint(20) DEFAULT '0' COMMENT '父级ID',

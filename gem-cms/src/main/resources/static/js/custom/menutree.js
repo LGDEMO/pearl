@@ -1,5 +1,5 @@
 /**
- * Created by Administrator on 2016/8/4.
+ * Created by gemteam on 2020年1月23日 14:38:30
  */
 var setting = {
 
