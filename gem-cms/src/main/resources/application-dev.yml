@@ -12,7 +12,7 @@ gem:
 #  desc: 这是自定义配置，最小值${gem.min},最大值${gem.max}
 #  outPut: asb
   security:
-    open: false
+    open: true
     login-page: /login
     error-page: /error
     denied-page: /403
