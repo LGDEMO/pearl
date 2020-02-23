@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50636
 File Encoding         : 65001
 
-Date: 2020-02-23 22:10:11
+Date: 2020-02-23 22:24:52
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -465,7 +465,7 @@ CREATE TABLE `gem_sys_log` (
   `request_url` varchar(100) DEFAULT NULL COMMENT '请求URL',
   `username` varchar(20) DEFAULT NULL COMMENT '用户名',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COMMENT='系统日志表';
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COMMENT='系统日志表';
 
 -- ----------------------------
 -- Records of gem_sys_log
@@ -478,6 +478,8 @@ INSERT INTO `gem_sys_log` VALUES ('5', '2020-02-21 18:57:00', '2020-02-21 18:57:
 INSERT INTO `gem_sys_log` VALUES ('6', '2020-02-21 19:46:57', '2020-02-21 19:46:57', 'admin', '内网IP,内网IP', '127.0.0.1', '0', '0', null, 'POST', 'http://127.0.0.1:8088/admin/login', 'admin');
 INSERT INTO `gem_sys_log` VALUES ('7', '2020-02-21 19:50:08', '2020-02-21 19:50:08', 'admin', '内网IP,内网IP', '127.0.0.1', '0', '0', null, 'POST', 'http://127.0.0.1:8088/admin/login', 'admin');
 INSERT INTO `gem_sys_log` VALUES ('9', '2020-02-21 19:55:47', '2020-02-21 19:55:47', 'admin', '获取IP地址异常：null', '127.0.0.1', '0', '0', null, 'POST', 'http://127.0.0.1:8088/admin/login', 'admin');
+INSERT INTO `gem_sys_log` VALUES ('13', '2020-02-23 22:13:39', '2020-02-23 22:13:39', 'admin', '获取IP地址异常：null', '127.0.0.1', '1', '0', null, 'POST', 'http://127.0.0.1:8088/admin/login', 'admin');
+INSERT INTO `gem_sys_log` VALUES ('14', '2020-02-23 22:23:51', '2020-02-23 22:23:51', 'admin', '获取IP地址异常：null', '127.0.0.1', '0', '0', null, 'POST', 'http://127.0.0.1:8088/admin/login', 'admin');
 
 -- ----------------------------
 -- Table structure for gem_user
@@ -511,7 +513,7 @@ CREATE TABLE `gem_user` (
 -- ----------------------------
 -- Records of gem_user
 -- ----------------------------
-INSERT INTO `gem_user` VALUES ('1', '北京市市辖区朝阳区', '110105', '2020-01-01 00:00:00', '110100', 'gem@163.com', '$2a$10$Onwyte3EpQW7rTOM7lbaKeuceCIh1412oy9wl6fQJfsWu0nmdJuz6', '18522299991', '1', '110000', '', 'gem', '0', '', 'admin', '2001', '', '15', null, '2020-02-23 21:32:56');
+INSERT INTO `gem_user` VALUES ('1', '北京市市辖区朝阳区', '110105', '2020-01-01 00:00:00', '110100', 'gem@163.com', '$2a$10$qg0H7hcsvzy7BlFkq2YQwu4dMJH3GqRxPrEP7oO.0fAKrL.o.vaRq', '18522299991', '1', '110000', '', 'gem', '0', '', 'admin', '2001', '', '15', null, '2020-02-23 22:23:26');
 INSERT INTO `gem_user` VALUES ('7', '北京市市辖区顺义区北京庄园', '110113', null, '110100', '769990999@qq.com', '$2a$10$rMuB65K93Ch2QQ.mcklt..rROCWThLWRsLnbL2fv4xt2FjNAYLIHa', '13338880040', '1', '110000', '', '张先生', '1', '', 'zhangysh', '1001', '123', '5', null, null);
 INSERT INTO `gem_user` VALUES ('8', '河北省秦皇岛市山海关区', '130303', '2020-01-31 00:00:00', '130300', '769922@qq.com', '$2a$10$g5HO4XFXVmvvqRRC10EkwOM0cewbXLzasjV4YQSjEFI8QA1sfPvO6', '13338880041', '1', '130000', '', '刘三', '0', '', 'zhaoxy', '1002', '', '8', null, null);
 INSERT INTO `gem_user` VALUES ('9', '河北省唐山市路南区', '130202', null, '130200', 'wukong@qq.com', '', '13338880022', '3', '130000', '', '孙悟空', '1', '022-1233212', 'sunwuk', '1003', '', '4', null, null);
@@ -529,7 +531,7 @@ INSERT INTO `gem_user` VALUES ('25', '山东省烟台市莱山区', '370613', nu
 INSERT INTO `gem_user` VALUES ('26', '河北省秦皇岛市昌黎县', null, null, null, 'sem@163.com', '$2a$10$GnFgIefqqi9uKmJRAM5V.utKr43RqVA6y1GxtHiFHnxofGM99GzXu', '13338880010', '3', null, '', '史小菲', '1', '', 'shixiaof', '2008', '', '5', null, '2020-02-23 21:34:31');
 INSERT INTO `gem_user` VALUES ('27', '内蒙古自治区乌海市市辖区', '150301', '2020-01-24 00:00:00', '150300', 'lem@163.com', '$2a$10$zdvFAj69Rrau6E1HoNfYmufBBRDwaPdBkew/nsZf4a7F8AYO5R22i', '13338880031', '1', '150000', '', '李库', '1', '', 'liku', '2009', '', '13', null, null);
 INSERT INTO `gem_user` VALUES ('29', '北京市县延庆县山西省吉林省', null, null, null, '1358882222@qq.com', '$2a$10$9RAnOoz/LI9Al4YpjKQGwO4z4jYiK5DWkdpFmJpQStoDhPNzzJCl2', '18200029040', '1', null, '', '刘松', '0', '', 'liusong', '2011', '', '13', null, '2020-02-23 22:08:03');
-INSERT INTO `gem_user` VALUES ('31', '北京市县延庆县山西省吉林省', null, null, null, '1338345222@qq.com', '$2a$10$V9OAwTjR6EwHEf/NoxAVJOF7V0NKqPRbyNEfpOpNkFzRHy5n4kHb6', '18200034040', '1', null, '', '赵本山', '0', '', 'zhaobens', '2011', '', '3', null, '2020-02-23 21:33:18');
+INSERT INTO `gem_user` VALUES ('31', '北京市县延庆县山西省吉林省', null, null, null, '1338345222@qq.com', '$2a$10$af4ISQ2FvQCaFEtlwOfxE.D1.uYW/seB2IG2.F/bVjbnnHsRryI6m', '18200034040', '1', null, '', '赵本山', '0', '', 'zhaobens', '2011', '', '3', null, '2020-02-23 22:23:13');
 
 -- ----------------------------
 -- Table structure for gem_user_depts
@@ -592,7 +594,7 @@ CREATE TABLE `gem_user_roles` (
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=65 DEFAULT CHARSET=utf8mb4 COMMENT='用户角色关系表';
+) ENGINE=InnoDB AUTO_INCREMENT=66 DEFAULT CHARSET=utf8mb4 COMMENT='用户角色关系表';
 
 -- ----------------------------
 -- Records of gem_user_roles
@@ -606,6 +608,7 @@ INSERT INTO `gem_user_roles` VALUES ('61', '1', '20', '2020-02-23 21:32:56', '20
 INSERT INTO `gem_user_roles` VALUES ('62', '1', '31', '2020-02-23 21:33:18', '2020-02-23 21:33:18');
 INSERT INTO `gem_user_roles` VALUES ('63', '1', '26', '2020-02-23 21:34:31', '2020-02-23 21:34:31');
 INSERT INTO `gem_user_roles` VALUES ('64', '1', '29', '2020-02-23 22:08:03', '2020-02-23 22:08:03');
+INSERT INTO `gem_user_roles` VALUES ('65', '1', '1', '2020-02-23 22:14:33', '2020-02-23 22:14:33');
 
 -- ----------------------------
 -- Table structure for hibernate_sequence
