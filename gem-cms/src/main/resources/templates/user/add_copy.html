@@ -255,7 +255,7 @@
                             //第二步：校验归属部门选中并且把选中值赋予input
                             var dept = GetCheckedAll("userformTree");
                             if(dept == null || dept == ""){
-                                alert("请选择归属部门！");
+                                layer.alert("请选择归属部门！");
                                 return;
                             }else{
                                 $("#dept_id").val(dept[0].id);
@@ -265,7 +265,7 @@
                             //第三步：校验关联部门选中并且生成list=[{"dept_id":1},{"dept_id":1},....]
                             var depts = GetCheckedAll("userformTree2");
                             if(depts == null || depts.length == 0){
-                                alert("请选择关联部门！");
+                                layer.alert("请选择关联部门！");
                                 return;
                             }else{
                                 var deptArr = [];
@@ -309,7 +309,7 @@
                     }else {
                         layer.alert("["+res.code+"]"+res.msg, {
                             skin: 'layui-layer-lan'
-
+                            ,closeBtn: 0
                         });
                     }
                 },

@@ -162,7 +162,7 @@
                             //第二步：校验归属部门选中并且把选中值赋予input
                             var menus = GetCheckedAll("checkboxTree");
                             if(menus == null || menus == ""){
-                                alert("请选择资源信息！");
+                                layer.alert("请选择资源信息！");
                                 return;
                             }else{
                                 for (var i = 0; i < menus.length; i++) {
@@ -188,13 +188,13 @@
         function addData() {
             //判断deptsArr
             if($("input[name='datarange']:checked").val() == null){
-                alert("请选择数据权限范围！");
+                layer.alert("请选择数据权限范围！");
                 return;
             }else{
                 if($("input[name='datarange']:checked").val() == 3){
                     var depts = GetCheckedAll("userformTree2");
                     if(depts == null || depts == ""){
-                        alert("请选择关联部门！");
+                        layer.alert("请选择关联部门！");
                         return;
                     }else{
                         for (var i = 0; i < depts.length; i++) {
@@ -233,14 +233,14 @@
                     }else {
                         layer.alert("["+res.code+"]"+res.msg, {
                             skin: 'layui-layer-lan'
-
+                            ,closeBtn: 0
                         });
                     }
                 },
                 error: function(e) {
                     // 请求失败函数
                     console.log("error:"+JSON.stringify(e));
-                    alert("操作失败，请检查是否有相关操作权限！");
+                    layer.msg("操作失败，请检查是否有相关操作权限！");
                 }
             })
         }

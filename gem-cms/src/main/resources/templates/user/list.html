@@ -7,6 +7,7 @@
     <div th:replace="common/links::font_links"></div>
     <div th:replace="common/links::ztree_links"></div>
     <div th:replace="common/links::table_list_links"></div>
+    <div th:replace="common/links::layui_links"></div>
     <style>
         .notice_nav a:nth-child(3){border-top-right-radius: 0;border-bottom-right-radius:0}
         .notice_nav a:nth-child(4){border-top-right-radius: 4px;border-bottom-right-radius: 4px}
@@ -66,6 +67,7 @@
 <div th:replace="common/links::common_script"></div>
 <div th:replace="common/links::ztree_script"></div>
 <div th:replace="common/links::table_script"></div>
+<div th:replace="common/links::layui_script"></div>
 
 <script type="text/javascript" th:src="@{/static/js/custom/ztree.js}"></script>
 <script type="text/javascript" th:src="@{/static/js/custom/depttree.js}"></script>
@@ -169,7 +171,7 @@
             onLoadSuccess: function () {
             },
             onLoadError: function () {
-                alert("数据加载失败！");
+                layer.alert("数据加载失败！");
             },
             onDblClickRow: function (row, $element) {
                 var id = row.id;
@@ -188,7 +190,7 @@
     }
     window.operateEvents = {
         'click #btn_detail': function (e, value, row, index) {
-            alert("您选中了用户:"+JSON.stringify(row));
+            layer.alert("您选中了用户:"+JSON.stringify(row));
         },
         'click #btn_edit': function (e, value, row, index) {
             editView(row.id);
@@ -206,7 +208,7 @@
             shadeClose: true,
             shade: 0.5,
             skin: 'layui-layer-rim',
-            closeBtn:1,
+            closeBtn:0,
             area: ['750px', '574px'],
             content: 'add.html',
             end:function () {
@@ -220,11 +222,11 @@
         if(id == null || id == ""){
             var rows = $('#table').bootstrapTable("getSelections");
             if(rows == null || rows.length == 0){
-                alert("你好像什么也没有选中！");
+                layer.msg("你好像什么也没有选中！");
                 return;
             }else{
                 if(rows.length > 1){
-                    alert("编辑只允许选择一行哦~");
+                    layer.alert("编辑只允许选择一行哦~");
                     return;
                 }
             }
@@ -240,7 +242,7 @@
             shadeClose: true,
             shade: 0.5,
             skin: 'layui-layer-rim',
-            closeBtn:1,
+            closeBtn:0,
             area: ['750px', '574px'],
             content: 'edit.html?id='+id,
             end:function () {
@@ -258,6 +260,7 @@
         }
         layer.confirm('确定删除吗？亲~', {
             btn: ['确定','再想想'] //按钮
+            ,closeBtn:0
         }, function(){
             $.ajax({
                 type: "post",
@@ -276,14 +279,14 @@
                     }else {
                         layer.alert("["+res.code+"]"+res.msg, {
                             skin: 'layui-layer-lan'
-
+                            ,closeBtn: 0
                         });
                     }
                 },
                 error: function(e) {
                     // 请求失败函数
                     console.log("error:"+JSON.stringify(e));
-                    alert("操作失败，请检查是否有相关操作权限！");
+                    layer.msg("操作失败，请检查是否有相关操作权限！");
                 }
             })
         }, function(){
@@ -301,7 +304,7 @@
         var names = "";
         console.log("rows="+JSON.stringify(rows));
         if(rows == null || rows.length == 0){
-            alert("你好像什么也没有选中！");
+            layer.msg("你好像什么也没有选中！");
             return;
         }else{
             for(var i = 0; i<rows.length; i++){
@@ -330,14 +333,14 @@
                     }else {
                         layer.alert("["+res.code+"]"+res.msg, {
                             skin: 'layui-layer-lan'
-
+                            ,closeBtn: 0
                         });
                     }
                 },
                 error: function(e) {
                     // 请求失败函数
                     console.log("error:"+JSON.stringify(e));
-                    alert("操作失败，请检查是否有相关操作权限！");
+                    layer.msg("操作失败，请检查是否有相关操作权限！");
                 }
             })
         }, function(){
@@ -350,11 +353,11 @@
         if(id == null || id == ""){
             var rows = $('#table').bootstrapTable("getSelections");
             if(rows == null || rows.length == 0){
-                alert("你好像什么也没有选中！");
+                layer.msg("你好像什么也没有选中！");
                 return;
             }else{
                 if(rows.length > 1){
-                    alert("编辑只允许选择一行哦~");
+                    layer.msg("编辑只允许选择一行哦~");
                     return;
                 }
             }
@@ -383,14 +386,14 @@
                     }else {
                         layer.alert("["+res.code+"]"+res.msg, {
                             skin: 'layui-layer-lan'
-
+                            ,closeBtn: 0
                         });
                     }
                 },
                 error: function(e) {
                     // 请求失败函数
                     console.log("error:"+JSON.stringify(e));
-                    alert("操作失败，请检查是否有相关操作权限！");
+                    layer.msg("操作失败，请检查是否有相关操作权限！");
                 }
             })
 

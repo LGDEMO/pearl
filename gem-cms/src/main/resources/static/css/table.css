@@ -680,7 +680,11 @@
 
 
 *,h6,button,ul,li{padding: 0;margin: 0}
-
+.layui-layer-btn .layui-layer-btn0 {
+    border-color: #4898d5;
+    background-color: #4898d5;
+    color: #fff;
+}
 .layui-layer-title{background-color: #3c8dbc !important;font-weight:500;color:#fff !important; border:none !important;height: 36px !important;line-height: 36px !important;}
 .layui-layer-rim {border: 0 solid #8D8D8D !important;border-radius: 5px;box-shadow: 0 5px 15px rgba(0,0,0,.4)!important;  }
 .notice_check{padding: 16px 15px;font-size: 12px}
@@ -731,7 +735,7 @@ ul{list-style: none}
 .r_right{float: right}
 .clear{clear: both}
 th{background-color: #e7f0f6 !important;}
-.layui-layer-title{background-color: #3c8dbc !important;font-weight:bold;color:#fff !important; border:none !important;height: 33px;line-height: 33px;}
+/*.layui-layer-title{background-color: #3c8dbc !important;font-weight:bold;color:#fff !important; border:none !important;height: 33px;line-height: 33px;}*/
 .layui-layer-rim {border: 0px solid #8D8D8D !important;border-radius: 5px;box-shadow: 0 5px 15px rgba(0,0,0,.4)!important;  }
 
 .notice_main{height: 98%;width: 100%;border: 1px #ccc solid;background-color: #fff;overflow: auto}

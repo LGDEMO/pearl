@@ -224,12 +224,14 @@
                 if(pid == id){
                    layer.alert("所属上级菜单请勿选择自己！",{
                        skin: 'layui-layer-lan'
+                       ,closeBtn: 0
                    });
                    return;
                 }
                 if(parentPid == id){
                    layer.alert("所属上级菜单请勿选择自己下级！",{
                        skin: 'layui-layer-lan'
+                       ,closeBtn: 0
                    });
                    return;
                 }
@@ -248,12 +250,14 @@
                             }else{
                                 layer.alert("编辑成功", {
                                     skin: 'layui-layer-lan'
+                                    ,closeBtn: 0
                                 });
                             }
                             window.parent.location.reload();
                         }else {
                             layer.alert("["+res.code+"]"+res.msg, {
                                 skin: 'layui-layer-lan'
+                                ,closeBtn: 0
                             });
                         }
                     },

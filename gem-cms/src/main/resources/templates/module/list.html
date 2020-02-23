@@ -130,6 +130,8 @@
             if (obj.event === 'del') {
                 layer.confirm('确定删除吗？亲~', {
                     btn: ['确定', '再想想'] //按钮
+                    ,closeBtn:0
+                    ,skin: 'layui-layer-lan'
                 }, function () {
                     $.ajax({
                         type: "post",
@@ -153,7 +155,7 @@
                         error: function (e) {
                             // 请求失败函数
                             console.log("error:" + JSON.stringify(e));
-                            alert("操作失败，请检查是否有相关操作权限！");
+                            layer.msg("操作失败，请检查是否有相关操作权限！");
                         }
                     })
                 }, function () {
@@ -180,7 +182,7 @@
                 if(obj.data.moduleAttrs == null){
                     layer.alert("请先点击“添加属性”按钮完善模块属性信息。", {
                         skin: 'layui-layer-lan'
-
+                        ,closeBtn: 0
                     });
                     return;
                 }
@@ -199,14 +201,14 @@
                         } else {
                             layer.alert("[" + res.code + "]" + res.msg, {
                                 skin: 'layui-layer-lan'
-
+                                ,closeBtn: 0
                             });
                         }
                     },
                     error: function (e) {
                         // 请求失败函数
                         console.log("error:" + JSON.stringify(e));
-                        alert("操作失败，请检查是否有相关操作权限！");
+                        layer.msg("操作失败，请检查是否有相关操作权限！");
                     }
                 })
             } else if (obj.event === 'download') {
@@ -214,7 +216,7 @@
                 if(data.isGenerate=="0"){
                     layer.alert("请先点击“生成代码”按钮进行生成。", {
                         skin: 'layui-layer-lan'
-
+                        ,closeBtn: 0
                     });
                 }else{
                     location.href = "downloadCode?id="+id;
@@ -288,14 +290,14 @@
                                 } else {
                                     layer.alert("[" + res.code + "]" + res.msg, {
                                         skin: 'layui-layer-lan'
-
+                                        ,closeBtn: 0
                                     });
                                 }
                             },
                             error: function (e) {
                                 // 请求失败函数
                                 console.log("error:" + JSON.stringify(e));
-                                alert("操作失败，请检查是否有相关操作权限！");
+                                layer.msg("操作失败，请检查是否有相关操作权限！");
                             }
                         })
                     }, function () {

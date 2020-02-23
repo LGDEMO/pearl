@@ -91,7 +91,7 @@
             shadeClose: true,
             shade: 0.5,
             skin: 'layui-layer-rim',
-            closeBtn:1,
+            closeBtn:0,
             area: ['690px', '440px'],
             content: 'add.html',
             end:function () {
@@ -109,7 +109,7 @@
             shadeClose: true,
             shade: 0.5,
             skin: 'layui-layer-rim',
-            closeBtn:1,
+            closeBtn:0,
             area: ['690px', '440px'],
             content: 'addChild.html?id='+id,
             end:function () {
@@ -134,7 +134,7 @@
             shadeClose: true,
             shade: 0.5,
             skin: 'layui-layer-rim',
-            closeBtn:1,
+            closeBtn:0,
             area: ['690px', '440px'],
             content: 'edit.html?id='+id,
             end:function () {
@@ -153,6 +153,7 @@
         }
         layer.confirm('确定删除吗？亲~', {
             btn: ['确定','再想想'] //按钮
+            ,closeBtn:0
         }, function(){
             $.ajax({
                 type: "post",
@@ -170,14 +171,14 @@
                     }else {
                         layer.alert("["+res.code+"]"+res.msg, {
                             skin: 'layui-layer-lan'
-
+                            ,closeBtn: 0
                         });
                     }
                 },
                 error: function(e) {
                     // 请求失败函数
                     console.log("error:"+JSON.stringify(e));
-                    alert("操作失败，请检查是否有相关操作权限！");
+                    layer.msg("操作失败，请检查是否有相关操作权限！");
                 }
             })
         }, function(){
@@ -206,7 +207,9 @@
             error: function(e) {
                 // 请求失败函数
                 console.log("error:"+JSON.stringify(e));
-                alert("操作失败，请检查是否有相关操作权限！");
+                layer.msg("操作失败，请检查是否有相关操作权限！",{
+                    time: 4000000
+                });
             }
         })
     }

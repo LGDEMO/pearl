@@ -260,12 +260,7 @@ function deleteData(){
         return;
     }
     if(currentActiveNode == null){
-        layer.alert("啥也没选，点删除你要作甚？", {
-            skin: 'layui-layer-lan'
-            ,btn: ['我错了'] //按钮
-            ,closeBtn: 1
-            ,anim: 4 //动画类型
-        });
+        layer.msg("啥也没选，点删除你要作甚？");
         return;
     }
     layer.confirm('确定删除吗？三思三思再三思！', {
