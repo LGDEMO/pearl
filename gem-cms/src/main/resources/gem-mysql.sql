@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50636
 File Encoding         : 65001
 
-Date: 2020-02-23 15:37:58
+Date: 2020-02-23 20:00:54
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -48,7 +48,7 @@ INSERT INTO `gem_dept` VALUES ('4', '', '', '', '', '02-04', '2', '广州分公�
 INSERT INTO `gem_dept` VALUES ('5', '海淀', '李四', '海淀办事处', 'wanyongedu@163.com', '01-05', '2', '海淀办事处', '01001', '1', '01', '010-66889988', '内部', null, null);
 INSERT INTO `gem_dept` VALUES ('6', '', '', '', '', '06', '1', '上海分公司', '', '0', '06', '', '', null, null);
 INSERT INTO `gem_dept` VALUES ('7', '', '1212', '', '', '07', '1', '河北分公司', '1212', '0', '07', '', '', null, null);
-INSERT INTO `gem_dept` VALUES ('8', '', '', '', '', '08', '1', '天津分公司', '', '0', '08', '', '', null, null);
+INSERT INTO `gem_dept` VALUES ('8', '', '', '', '', '08', '1', '天津分公司', '', '0', '08', '', '', null, '2020-02-23 15:58:54');
 INSERT INTO `gem_dept` VALUES ('10', '', '', '', '', '10', '1', '重庆分公司', '', '0', '10', '', '', null, null);
 INSERT INTO `gem_dept` VALUES ('11', '', '', '', '', '06-11', '2', '浦东分公司', '', '6', '06', '', '', null, null);
 INSERT INTO `gem_dept` VALUES ('12', 'SHFGSI', '张松', '', 'shanghai@qq.com', '06-12', '2', '松江分公司', '1001', '6', '06', '022-80898213', '自营', null, null);
@@ -79,7 +79,7 @@ CREATE TABLE `gem_menu` (
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=86 DEFAULT CHARSET=utf8mb4 COMMENT='系统菜单表';
+) ENGINE=InnoDB AUTO_INCREMENT=87 DEFAULT CHARSET=utf8mb4 COMMENT='系统菜单表';
 
 -- ----------------------------
 -- Records of gem_menu
@@ -153,6 +153,7 @@ INSERT INTO `gem_menu` VALUES ('82', null, 'fas fa-file-alt', '38-82', '2', 'dem
 INSERT INTO `gem_menu` VALUES ('83', null, 'far fa-comments', '83', '1', 'doc.html', '消息管理', '0', '83', '99', 'message', '0', '99-83', null, '2020-02-21 19:47:38');
 INSERT INTO `gem_menu` VALUES ('84', null, 'fas fa-angle-double-right', '38-45-84', '2', 'module/list.html', '正向生成', '45', '45', '99', 'zxsc', '0', '99-45-99-45-84', null, '2020-02-23 15:28:51');
 INSERT INTO `gem_menu` VALUES ('85', null, 'fas fa-angle-double-left', '45-85', '2', 'code/list.html', '逆向生成', '45', '45', '99', 'nxsc', '0', '99-45-99-45-85', null, '2020-02-22 13:18:02');
+INSERT INTO `gem_menu` VALUES ('86', null, '', '45-85-86', '3', 'code/page', '分页查询', '85', null, '99', 'code/page', '1', null, '2020-02-23 20:00:29', '2020-02-23 20:00:29');
 
 -- ----------------------------
 -- Table structure for gem_module
@@ -211,9 +212,6 @@ CREATE TABLE `gem_module_attr` (
 -- ----------------------------
 -- Records of gem_module_attr
 -- ----------------------------
-INSERT INTO `gem_module_attr` VALUES ('37', 'name', 'text', '描述', null, '0', '1', '0', '0', '10', '20', '2', null, '2', null, null);
-INSERT INTO `gem_module_attr` VALUES ('38', 'name1', 'text', '1212', null, '1', '0', '1', '1', '12', '212', '2', null, '2', null, null);
-INSERT INTO `gem_module_attr` VALUES ('39', '12121', 'text', '1212', null, '1', '1', '0', '1', '212', '121', '2', null, '3', null, null);
 INSERT INTO `gem_module_attr` VALUES ('42', 'client_ip', 'text', '日志名称', null, '1', '1', '1', '1', '20', '1', '39', null, '4', null, null);
 INSERT INTO `gem_module_attr` VALUES ('43', 'type', 'text', '日志类型', null, '1', '1', '1', '1', '2', '1', '39', null, '5', null, null);
 INSERT INTO `gem_module_attr` VALUES ('44', 'desp', 'text', '日志内容', null, '1', '1', '1', '1', '200', '0', '39', null, '6', null, null);
@@ -509,7 +507,6 @@ INSERT INTO `gem_sys_log` VALUES ('8', '2020-02-21 19:55:47', '2020-02-21 19:55:
 INSERT INTO `gem_sys_log` VALUES ('9', '2020-02-21 19:55:47', '2020-02-21 19:55:47', 'admin', '获取IP地址异常：null', '127.0.0.1', '0', '0', null, 'POST', 'http://127.0.0.1:8088/admin/login', 'admin');
 INSERT INTO `gem_sys_log` VALUES ('10', '2020-02-21 19:55:53', '2020-02-21 19:55:53', 'admin', '内网IP,内网IP', '127.0.0.1', '0', '0', null, 'POST', 'http://127.0.0.1:8088/admin/login', 'admin');
 INSERT INTO `gem_sys_log` VALUES ('11', '2020-02-21 20:05:32', '2020-02-21 20:05:32', 'test', '获取IP地址异常：null', '127.0.0.1', '0', '0', null, 'POST', 'http://127.0.0.1:8088/admin/login', 'test');
-INSERT INTO `gem_sys_log` VALUES ('12', '2020-02-21 20:19:07', '2020-02-21 20:19:07', 'admin', '内网IP,内网IP', '127.0.0.1', '0', '0', null, 'POST', 'http://127.0.0.1:8088/admin/login', 'admin');
 
 -- ----------------------------
 -- Table structure for gem_user
@@ -560,11 +557,8 @@ INSERT INTO `gem_user` VALUES ('24', '河北省邢台市临城县', '130522', '2
 INSERT INTO `gem_user` VALUES ('25', '山东省烟台市莱山区', '370613', null, '370600', 'niuize@qq.com', '$2a$10$/5a5yufxiJf66faZUF9ffuYyBVmVxZxQp4saIpAs76UySGQouBLmG', '15338880042', '1', '370000', '', '妞紫', '1', '', 'niuniu', '2005', '', '10', null, null);
 INSERT INTO `gem_user` VALUES ('26', '河北省秦皇岛市昌黎县', null, null, null, 'sem@163.com', '$2a$10$/GzcBUpnKfei5EwJ1nZZx.RTyaG5YiK2A2RU1MDyZxpmLX/4JNv9i', '13338880010', '3', null, '', '史小菲', '1', '', 'shixiaof', '2008', '', '5', null, null);
 INSERT INTO `gem_user` VALUES ('27', '内蒙古自治区乌海市市辖区', '150301', '2020-01-24 00:00:00', '150300', 'lem@163.com', '$2a$10$zdvFAj69Rrau6E1HoNfYmufBBRDwaPdBkew/nsZf4a7F8AYO5R22i', '13338880031', '1', '150000', '', '李库', '1', '', 'liku', '2009', '', '13', null, null);
-INSERT INTO `gem_user` VALUES ('28', '内蒙古自治区呼和浩特市市辖区', '150101', '2020-01-10 00:00:00', '150100', '1558882222@qq.com', '$2a$10$oxp97zlAjJ/12kNxXo6sBuTv1iR6cdooL4ffE4rijpJLsA8D9w5Ve', '18500029041', '1', '150000', '', '管理员', '0', '', 'admin', '888', '', '11', null, null);
 INSERT INTO `gem_user` VALUES ('29', '北京市县延庆县山西省吉林省', null, null, null, '1358882222@qq.com', '$2a$10$H86l7PrVCMDN7AfiPvsJm.NHG3OVgCoiA0nhjkToSDUx1aAB7NTPe', '18200029040', '1', null, '', '刘松', '0', '', 'liusong', '2011', '', '13', null, null);
-INSERT INTO `gem_user` VALUES ('30', '北京市县延庆县山西省吉林省', null, null, null, '1344444@33', '$2a$10$WZ7JiYZKal.3AnpKnG6hQ.Q0U7DIp0BzUGyLwBP6Fewp0Xmzkgl3.', '18500029022', '1', null, '', '121212', '0', '', 'niha', '1212', '', '1', null, '2020-02-21 20:36:16');
 INSERT INTO `gem_user` VALUES ('31', '北京市县延庆县山西省吉林省', null, null, null, '1338345222@qq.com', '$2a$10$.xY5qgEIuTfHq5hAoqiYxOtFMoBkn.xqeP/GjWrB7j8JXRH1L6WRa', '18200034040', '1', null, '', '赵本山', '0', '', 'zhaobens', '2011', '', '3', null, '2020-02-21 20:28:35');
-INSERT INTO `gem_user` VALUES ('32', '天津市市辖区河西区', '120103', null, '120100', '112333424@33', '$2a$10$b2PYGoInsBf6WiqyqrvXGuD5ffCwmg8jKTzJaGb8qZldqJz1QSEtq', '18500029020', '1', '120000', '', '121212', '0', '', 'test', '1212', '', '1', null, '2020-02-21 20:28:38');
 
 -- ----------------------------
 -- Table structure for gem_user_depts
