@@ -182,7 +182,7 @@
         }
 
         if(roleArr.length == 0){
-            layer.alert("请授予角色！");
+            layer.msg("请授予角色！");
             $(".multiselect").css("border-color", "#eb1815");
             $(".multiselect").css("color", "#eb1815");
             return;
@@ -203,7 +203,7 @@
                 success: function(res) {
                     if (res.code == "0") {
                         if($("#btn_save_close").is(':checked')){
-                            alert("修改成功",Colse);
+                            alert("修改成功", Colse);
                         }
                     }else {
                         layer.alert("["+res.code+"]"+res.msg, {

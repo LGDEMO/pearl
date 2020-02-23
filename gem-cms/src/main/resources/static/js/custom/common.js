@@ -1,10 +1,9 @@
 
 //重写alert
 window.alert = function(msg, callback){
-	parent.layer.alert(msg,{
+	layer.alert(msg,{
         skin: 'layui-layer-lan'
         ,closeBtn: 0
-        ,anim: 4 //动画类型
 	},function(index){
 		parent.layer.close(index);
 		if(typeof(callback) === "function"){
