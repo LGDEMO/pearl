@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50636
 File Encoding         : 65001
 
-Date: 2020-02-22 18:39:33
+Date: 2020-02-23 15:37:58
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -67,7 +67,7 @@ CREATE TABLE `gem_menu` (
   `active` tinyint(1) DEFAULT NULL COMMENT '是否选中 0 未选中 1 选中',
   `icon` varchar(30) DEFAULT NULL COMMENT '图标',
   `id_path` varchar(20) DEFAULT NULL COMMENT 'ID路径',
-  `level` tinyint(1) DEFAULT NULL COMMENT '级别，最大支四三级',
+  `level` tinyint(1) DEFAULT NULL COMMENT '级别，最大支持三级',
   `link` varchar(50) DEFAULT NULL COMMENT '菜单/按钮链接',
   `name` varchar(10) DEFAULT NULL COMMENT '菜单/按钮名称',
   `pid` bigint(20) DEFAULT '0' COMMENT '父级ID',
@@ -89,10 +89,10 @@ INSERT INTO `gem_menu` VALUES ('3', null, 'fas fa-user-circle', '02-03', '2', 'u
 INSERT INTO `gem_menu` VALUES ('4', null, 'fas fa-sitemap', '02-04', '2', 'dept/list.html', '部门管理', '2', '02', '4', 'menu_dept', '0', '08-02-04-02-04', null, null);
 INSERT INTO `gem_menu` VALUES ('5', null, 'fas fa-rocket', '02-05', '2', 'role/list.html', '角色管理', '2', '02', '2', 'menu_role', '0', '08-02-02-02-05', null, null);
 INSERT INTO `gem_menu` VALUES ('6', null, 'fab fa-adn', '02-06', '2', 'menu/list.html', '菜单管理', '2', '02', '1', 'menu_menu', '0', '08-02-01-02-06', null, null);
-INSERT INTO `gem_menu` VALUES ('7', null, 'fas fa-box', '07', '1', '#', '外部网站', '0', '07', '998', 'menu_website', '0', '998-07', null, null);
+INSERT INTO `gem_menu` VALUES ('7', null, 'fas fa-box', '38-07', '2', '#', '外部网站', '38', '07', '998', 'menu_website', '0', '998-07', null, '2020-02-23 15:30:17');
 INSERT INTO `gem_menu` VALUES ('8', null, 'fab fa-angular', '07-08', '2', 'http://www.baidu.com', '百度一下', '7', '07', '4', 'menu_api', '0', '998-07-04-07-08', null, null);
 INSERT INTO `gem_menu` VALUES ('9', null, 'fab fa-apple', '07-09', '2', 'http://www.gemframework.com/shouquan.html', '商业授权', '7', '07', '3', 'menu_app', '0', '998-07-03-07-09', null, null);
-INSERT INTO `gem_menu` VALUES ('10', null, 'fab fa-amilia', '10', '1', '#', '一级菜单', '0', '10', '999', 'menu_1', '0', '999-10', null, null);
+INSERT INTO `gem_menu` VALUES ('10', null, 'fab fa-amilia', '10', '1', '#', '一级菜单', '0', '10', '999', 'menu_1', '0', '999-10', null, '2020-02-23 15:26:50');
 INSERT INTO `gem_menu` VALUES ('11', null, 'fab fa-amazon', '10-11', '2', '123', '二级菜单', '10', '10', '99', 'menu_2', '0', '999-10-99-10-11', null, null);
 INSERT INTO `gem_menu` VALUES ('12', null, 'fas fa-angle-double-right', '10-11-12', '3', 'HTTP://JSON.CN', '三级菜单', '11', '10', '99', 'menu_json', '0', '999-10-99-10-11-99-10-11-12', null, null);
 INSERT INTO `gem_menu` VALUES ('14', null, '', '02-06-14', '3', 'menu/delete', '删除按钮', '6', '02', '3', 'btn_menu_del', '1', '08-02-01-02-06-03-02-06-14', null, null);
@@ -112,24 +112,24 @@ INSERT INTO `gem_menu` VALUES ('28', null, '', '02-05-28', '3', 'role/edit.html'
 INSERT INTO `gem_menu` VALUES ('29', null, '', '02-05-29', '3', 'role/delete', '删除按钮', '5', '02', '99', 'btn_role_del', '1', '08-02-02-02-05-99-02-05-29', null, null);
 INSERT INTO `gem_menu` VALUES ('30', null, '', '02-03-30', '3', 'user/add.html', '添加按钮', '3', '02', '99', 'btn_user_add', '1', '08-02-05-02-03-99-02-03-30', null, null);
 INSERT INTO `gem_menu` VALUES ('31', null, '', '02-03-31', '3', 'user/edit.html', '编辑按钮', '3', '02', '99', 'btn_user_edit', '1', '08-02-05-02-03-99-02-03-31', null, null);
-INSERT INTO `gem_menu` VALUES ('32', null, 'fas fa-globe', '32', '1', '#', '源码下载', '0', '32', '997', 'menu_src', '0', '997-32', null, null);
+INSERT INTO `gem_menu` VALUES ('32', null, 'fas fa-globe', '38-32', '2', '#', '源码下载', '38', '32', '997', 'menu_src', '0', '997-32', null, '2020-02-23 15:30:33');
 INSERT INTO `gem_menu` VALUES ('33', null, 'fab fa-github', '32-33', '2', 'https://gitee.com/gemteam/gemframe', '码云地址', '32', '32', '2', 'menu_gitee', '0', '997-32-02-32-33', null, null);
 INSERT INTO `gem_menu` VALUES ('34', null, 'fab fa-windows', '32-34', '2', 'http://www.gemframework.com', 'GemFrame官网', '32', '32', '3', 'menu_gem', '0', '997-32-03-32-34', null, null);
 INSERT INTO `gem_menu` VALUES ('35', null, 'fas fa-basketball-ball', '32-35', '2', 'http://www.gemframework.com/bbs', '官方社区', '32', '32', '1', 'menu_bbs', '0', '997-32-01-32-35', null, null);
 INSERT INTO `gem_menu` VALUES ('36', null, 'fas fa-desktop', '36', '1', '112', '系统监控', '0', '36', '99', 'menu_monitor', '0', '99-36', null, '2020-02-21 20:42:24');
 INSERT INTO `gem_menu` VALUES ('37', null, 'fas fa-database', '36-37', '2', 'druid', 'MySQL监控', '36', '36', '99', 'menu_druid', '0', '99-36-99-36-37', null, null);
 INSERT INTO `gem_menu` VALUES ('38', null, 'fas fa-video', '38', '1', '#', '示例演示', '0', '38', '99', 'menu_demo', '0', '99-38', null, null);
-INSERT INTO `gem_menu` VALUES ('39', null, 'fab fa-first-order', '38-39', '2', 'demo/pages/redis', 'Redis示例', '38', '38', '99', 'menu_redis', '0', '99-38-99-38-39', null, null);
+INSERT INTO `gem_menu` VALUES ('39', null, 'fab fa-first-order', '38-39', '2', 'demo/pages/redis', 'Redis示例', '38', '38', '1', 'menu_redis', '0', '99-38-99-38-39', null, '2020-02-23 15:27:44');
 INSERT INTO `gem_menu` VALUES ('40', null, 'fas fa-lightbulb', '36-40', '2', 'doc.html', '接口调试', '36', '36', '99', 'menu_swagger', '0', '99-36-99-36-40', null, '2020-02-21 19:56:39');
 INSERT INTO `gem_menu` VALUES ('41', null, '', '02-41', '2', 'orderInfo', '首页订单信息', '2', '02', '99', 'fun_index_order', '2', '08-02-99-02-41', null, null);
-INSERT INTO `gem_menu` VALUES ('45', null, 'fas fa-code', '45', '1', 'generate/code/list.html', '代码生成', '0', '45', '99', 'menu_code', '0', '99-45', null, null);
-INSERT INTO `gem_menu` VALUES ('51', null, 'fab fa-modx', '45-84-51', '3', 'module/list.html', '模块管理', '84', '45', '99', 'menu_module', '0', '99-45-99-45-84-99-45-84-51', null, '2020-02-21 20:52:23');
+INSERT INTO `gem_menu` VALUES ('45', null, 'fas fa-code', '38-45', '2', 'generate/code/list.html', '代码生成', '38', '45', '99', 'menu_code', '0', '99-45', null, '2020-02-23 15:27:13');
+INSERT INTO `gem_menu` VALUES ('51', null, 'fab fa-modx', '38-45-84-51', '3', 'module/list.html', '模块管理', '84', '45', '99', 'menu_module', '2', '99-45-99-45-84-99-45-84-51', null, '2020-02-23 15:28:59');
 INSERT INTO `gem_menu` VALUES ('52', null, '', '45-84-51-52', '3', 'module/pageByParams', '分页查询', '51', '45', '99', 'fun_module_page', '1', '99-45-99-45-84-99-45-84-51-99-45-84-51-52', null, '2020-02-21 20:53:15');
 INSERT INTO `gem_menu` VALUES ('53', null, '', '45-84-51-53', '3', 'module/add.html', '添加按钮', '51', '45', '99', 'btn_module_add', '1', '99-45-99-45-84-99-45-84-51-99-45-84-51-53', null, '2020-02-21 20:55:11');
 INSERT INTO `gem_menu` VALUES ('54', null, '', '45-84-51-54', '3', 'module/edit.html', '编辑按钮', '51', '45', '99', 'btn_module_edit', '1', '99-45-99-45-84-99-45-84-51-99-45-84-51-54', null, '2020-02-21 20:55:13');
 INSERT INTO `gem_menu` VALUES ('55', null, '', '45-84-51-55', '3', 'module/delete', '删除按钮', '51', '45', '99', 'btn_module_del', '1', '99-45-99-45-84-99-45-84-51-99-45-84-51-55', null, '2020-02-21 20:55:17');
 INSERT INTO `gem_menu` VALUES ('56', null, '', '45-84-51-56', '3', 'module/add', '添加/编辑', '51', '45', '99', 'fun_module_add', '1', '99-45-99-45-84-99-45-84-51-99-45-84-51-56', null, '2020-02-21 20:55:20');
-INSERT INTO `gem_menu` VALUES ('57', null, 'fas fa-certificate', '45-84-57', '3', 'moduleAttr/list.html', '属性管理', '84', '45', '99', 'menu_module_attr', '0', '99-45-99-45-84-99-45-84-57', null, '2020-02-22 17:13:35');
+INSERT INTO `gem_menu` VALUES ('57', null, 'fas fa-certificate', '45-84-57', '3', 'moduleAttr/list.html', '属性管理', '84', '45', '99', 'menu_module_attr', '2', '99-45-99-45-84-99-45-84-57', null, '2020-02-22 21:17:37');
 INSERT INTO `gem_menu` VALUES ('58', null, '', '45-84-57-58', '3', 'moduleAttr/pageByParams', '分页查询', '57', '45', '99', 'fun_moduleAttr_page', '1', '99-45-99-45-84-99-45-84-57-99-45-84-57-58', null, '2020-02-21 20:53:47');
 INSERT INTO `gem_menu` VALUES ('59', null, '', '45-84-57-59', '3', 'moduleAttr/add.html', '添加按钮', '57', '45', '99', 'btn_moduleAttr_add', '1', '99-45-99-45-84-99-45-84-57-99-45-84-57-59', null, '2020-02-21 20:53:41');
 INSERT INTO `gem_menu` VALUES ('60', null, '', '45-84-57-60', '3', 'moduleAttr/edit.html', '编辑按钮', '57', '45', '99', 'btn_moduleAttr_edit', '1', '99-45-99-45-84-99-45-84-57-99-45-84-57-60', null, '2020-02-21 20:53:37');
@@ -140,18 +140,18 @@ INSERT INTO `gem_menu` VALUES ('64', null, '', '45-84-51-64', '3', 'module/gener
 INSERT INTO `gem_menu` VALUES ('65', null, '', '45-84-51-65', '3', 'module/downloadCode', '代码下载', '51', '45', '99', 'btn_module_download', '1', '99-45-99-45-84-99-45-84-51-99-45-84-51-65', null, '2020-02-21 20:54:52');
 INSERT INTO `gem_menu` VALUES ('66', null, '', '45-84-51-66', '3', 'module/deleteBatch', '批量删除', '51', '45', '99', 'plsc', '1', '99-45-99-45-84-99-45-84-51-99-45-84-51-66', null, '2020-02-21 20:53:55');
 INSERT INTO `gem_menu` VALUES ('67', null, '', '45-84-57-67', '3', 'moduleAttr/deleteBatch', '批量删除', '57', '45', '99', 'plsc1', '1', '99-45-99-45-84-99-45-84-57-99-45-84-57-67', null, '2020-02-21 20:53:21');
-INSERT INTO `gem_menu` VALUES ('68', null, 'fas fa-exclamation-circle', '68', '1', 'errorpages', '错误页面', '0', '68', '99', 'errorpages', '0', '99-68', null, null);
-INSERT INTO `gem_menu` VALUES ('69', null, 'far fa-flag', '68-69', '2', '404', '404', '68', '68', '99', '404', '0', '99-68-99-68-69', null, null);
-INSERT INTO `gem_menu` VALUES ('70', null, 'fas fa-flag-checkered', '68-70', '2', '403', '403', '68', '68', '99', '403', '0', '99-68-99-68-70', null, null);
+INSERT INTO `gem_menu` VALUES ('68', null, 'fas fa-exclamation-circle', '38-68', '2', 'errorpages', '错误页面', '38', '68', '99', 'errorpages', '0', '99-68', null, '2020-02-23 15:29:46');
+INSERT INTO `gem_menu` VALUES ('69', null, 'far fa-flag', '68-69', '2', '404', '公益404', '68', '68', '99', '404', '0', '99-68-99-68-69', null, '2020-02-22 20:25:25');
+INSERT INTO `gem_menu` VALUES ('70', null, 'fas fa-flag-checkered', '68-70', '2', '403', '常规403', '68', '68', '99', '403', '0', '99-68-99-68-70', null, '2020-02-22 20:26:49');
 INSERT INTO `gem_menu` VALUES ('71', null, 'fas fa-th-large', '36-71', '2', 'sysLog/list.html', '系统日志', '36', '36', '99', 'log', '0', '99-36-99-36-71', null, null);
 INSERT INTO `gem_menu` VALUES ('73', null, '', '36-71-73', '3', 'sysLog/pageByParams', '分页查询日志', '71', '36', '99', 'logpage', '1', '99-36-99-36-71-99-36-71-73', null, null);
 INSERT INTO `gem_menu` VALUES ('74', null, '', '36-71-74', '3', 'sysLog/deleteBatch', '清空日志', '71', '36', '99', 'deleteBatch', '1', '99-36-99-36-71-99-36-71-74', null, null);
 INSERT INTO `gem_menu` VALUES ('75', null, '', '02-06-75', '3', 'menu/addChild.html', '添加子节点', '6', '02', '99', 'addChild', '1', '08-02-01-02-06-99-02-06-75', null, null);
 INSERT INTO `gem_menu` VALUES ('79', null, '', '02-03-79', '3', 'user/resetPassword', '重置密码', '3', '02', '99', 'user/resetPasswor', '1', '08-02-05-02-03-99-02-03-79', null, null);
 INSERT INTO `gem_menu` VALUES ('81', null, '', '02-06-81', '3', 'common/resetSideMenus', '同步侧菜单信息', '6', '02', '99', 'resetSideMenus', '1', '08-02-01-02-06-99-02-06-81', null, null);
-INSERT INTO `gem_menu` VALUES ('82', null, 'fas fa-file-alt', '38-82', '2', 'demo/pages/pageStyle', '页面风格', '38', '38', '99', 'pagestyle', '0', '99-38-99-38-82', null, null);
+INSERT INTO `gem_menu` VALUES ('82', null, 'fas fa-file-alt', '38-82', '2', 'demo/pages/pageStyle', '页面风格', '38', '38', '10', 'pagestyle', '0', '99-38-99-38-82', null, '2020-02-23 15:27:35');
 INSERT INTO `gem_menu` VALUES ('83', null, 'far fa-comments', '83', '1', 'doc.html', '消息管理', '0', '83', '99', 'message', '0', '99-83', null, '2020-02-21 19:47:38');
-INSERT INTO `gem_menu` VALUES ('84', null, 'fas fa-angle-double-right', '45-84', '2', '123', '正向生成', '45', '45', '99', 'zxsc', '0', '99-45-99-45-84', '2020-02-21 20:51:42', '2020-02-21 20:51:43');
+INSERT INTO `gem_menu` VALUES ('84', null, 'fas fa-angle-double-right', '38-45-84', '2', 'module/list.html', '正向生成', '45', '45', '99', 'zxsc', '0', '99-45-99-45-84', null, '2020-02-23 15:28:51');
 INSERT INTO `gem_menu` VALUES ('85', null, 'fas fa-angle-double-left', '45-85', '2', 'code/list.html', '逆向生成', '45', '45', '99', 'nxsc', '0', '99-45-99-45-85', null, '2020-02-22 13:18:02');
 
 -- ----------------------------
