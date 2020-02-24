@@ -18,7 +18,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import static com.gemframework.common.aspect.LogAspect.getIpAddress;
+import static com.gemframework.common.utils.GemIPHandler.getIpAddr;
+
 
 @Slf4j
 @Component("gemLoginFailureHandler")
@@ -54,8 +55,8 @@ public class GemLoginFailureHandler extends SimpleUrlAuthenticationFailureHandle
         SysLogVo sysLogVo = SysLogVo.builder()
                 .account(request.getParameter("username").trim())
                 .username(request.getParameter("username").trim())
-                .clientIp(getIpAddress(request))
-                .address(GemIPHandler.ipToAddress(getIpAddress(request)))
+                .clientIp(getIpAddr(request))
+                .address(GemIPHandler.ipToAddress(getIpAddr(request)))
                 .operateType(OperateType.LOGIN.getCode())
                 .operateStatus(OperateStatus.FAIL.getCode())
                 .requestUrl(request.getRequestURL().toString())

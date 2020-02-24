@@ -34,8 +34,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import static com.gemframework.common.aspect.LogAspect.getIpAddress;
 import static com.gemframework.common.constant.GemConstant.Auth.ROLE_PREFIX;
+import static com.gemframework.common.utils.GemIPHandler.getIpAddr;
 
 @Slf4j
 @Component("gemLoginSuccessHandler")
@@ -76,8 +76,8 @@ public class GemLoginSuccessHandler extends SavedRequestAwareAuthenticationSucce
         SysLogVo sysLogVo = SysLogVo.builder()
                 .account(getCurrentUsername())
                 .username(getCurrentUsername())
-                .clientIp(getIpAddress(request))
-                .address(GemIPHandler.ipToAddress(getIpAddress(request)))
+                .clientIp(getIpAddr(request))
+                .address(GemIPHandler.ipToAddress(getIpAddr(request)))
                 .operateType(OperateType.LOGIN.getCode())
                 .operateStatus(OperateStatus.SUCCESS.getCode())
                 .requestUrl(request.getRequestURL().toString())
