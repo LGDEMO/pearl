@@ -6,15 +6,15 @@
         <groupId>com.gemframework</groupId>
         <artifactId>gem</artifactId>
         <version>1.0.0</version>
+        <!--<relativePath/>-->
     </parent>
-
     <groupId>com.gemframework</groupId>
-    <artifactId>gem-api</artifactId>
+    <artifactId>gem-admin</artifactId>
     <version>${parent.version}</version>
 
-    <name>gem-api</name>
-    <description>Gem对外提供API模块</description>
-    <packaging>jar</packaging>
+    <name>gem-admin</name>
+    <description>Gem后台管理系统</description>
+    <packaging>war</packaging>
 
     <dependencies>
         <!--gem-->
@@ -44,7 +44,6 @@
             <scope>true</scope>
         </dependency>
 
-
         <!--测试相关-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -65,9 +64,8 @@
         </dependency>
     </dependencies>
 
-
     <build>
-        <finalName>pearl-api-v${parent.version}</finalName>
+        <finalName>pearl-admin-v${parent.version}</finalName>
 
         <plugins>
             <plugin>
@@ -79,15 +77,45 @@
                 </configuration>
             </plugin>
 
-            <!-- 跳过单元测试 -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
+                    <!-- 跳过单元测试 -->
                     <skipTests>true</skipTests>
                 </configuration>
             </plugin>
-        </plugins>
-    </build>
 
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <configuration>
+                    <nonFilteredFileExtensions>
+                        <nonFilteredFileExtension>ttf</nonFilteredFileExtension>
+                        <nonFilteredFileExtension>woff</nonFilteredFileExtension>
+                        <nonFilteredFileExtension>woff2</nonFilteredFileExtension>
+                    </nonFilteredFileExtensions>
+                </configuration>
+            </plugin>
+        </plugins>
+        <!-- 解决字体文件 -->
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+                <excludes>
+                    <exclude>static/**/fonts/**</exclude>
+                    <exclude>static/**/webfonts/**</exclude>
+                </excludes>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>false</filtering>
+                <includes>
+                    <include>static/**/fonts/**</include>
+                    <include>static/**/webfonts/**</include>
+                </includes>
+            </resource>
+        </resources>
+    </build>
 </project>

@@ -19,8 +19,8 @@
 
     <modules>
         <module>gem-api</module>
-        <module>gem-bas</module>
-        <module>gem-cms</module>
+        <module>gem-base</module>
+        <module>gem-admin</module>
     </modules>
 
     <properties>
