@@ -93,16 +93,22 @@ gem
 #### 安装教程
 
 - 通过git下载源码
-- 创建数据库gemframedb，数据库编码为UTF-8
+- 创建数据库gem，数据库编码为UTF8
 - 修改application.properties/application.yml文件，更新MySQL账号和密码
 - 运行gem-work-jpa即可生成数据库表结构
-- 执行db/gemframe-init.sql文件，初始化表数据
+- 执行resrouce/gem-mysql.sql文件，初始化表数据
 - 在gemframe目录下，执行mvn clean install
 - Eclipse、IDEA打开项目
-- 运行gem-cms中的EurekaServerApplication.java
-- gem-cms访问地址：http://localhost:xxxx/gem/login
-- 账号密码：admin/123456
+- 运行gem-cms中的CmsApplication.java
+- gem-cms访问地址：http://localhost:xxxx/admin/login
+- 账号密码：admin/123
 - swagger接口测试：http://localhost:[业务端口]/swagger-ui.html
+
+> 如果用户名密码不正确
+    修改配置
+    gem:
+      security:
+        open:  **false** 关闭权限校验
 
 #### 使用说明
 
