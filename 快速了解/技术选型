@@ -1,0 +1,41 @@
+技术选型
+===
+
+前端技术栈
+---
+
+BootStrap 4.x
+BootStrap.Table
+BootStrap.Multiselect
+JQuery 3.x
+JQuery.Treetable
+JQuery.Validate
+JQuery.Ztree
+
+Layui 2.5.x
+Layer 3.1.x
+
+Ionicons
+Googleapis
+FontUbuntu
+FontAwesome
+
+
+后端技术栈
+---
+
+Java 1.8+
+Maven
+MySQL
+Redis
+SpringBoot 2.2+
+SpringSecurity
+Spring Data JPA
+Thymeleaf
+Devtools
+Fastjson
+Swagger
+Druid
+Kaptcha
+Lombok
+
