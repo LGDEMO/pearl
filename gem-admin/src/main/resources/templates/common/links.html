@@ -18,6 +18,11 @@
         <link rel="stylesheet" type="text/css" th:href="@{/static/plugins/layui/css/layui.css}">
     </div>
 
+    <div th:fragment="admin_links">
+        <!--layui css-->
+        <link rel="stylesheet" type="text/css" th:href="@{/static/plugins/admin/css/admin.css}">
+    </div>
+
     <div th:fragment="checkbox_links">
         <link rel="stylesheet" type="text/css" th:href="@{/static/css/checkbox/build.css}">
     </div>
@@ -106,6 +111,12 @@
     <!--layui页面-->
     <div th:fragment="layui_script">
         <script type="text/javascript" th:src="@{/static/plugins/layui/layui.js}"></script>
+    </div>
+
+    <!--layui页面-->
+    <div th:fragment="admin_script">
+        <script type="text/javascript" th:src="@{/static/plugins/admin/js/admin.js}"></script>
+        <script type="text/javascript" th:src="@{/static/plugins/admin/js/common.js}"></script>
     </div>
 
     <!--有table页面-->
