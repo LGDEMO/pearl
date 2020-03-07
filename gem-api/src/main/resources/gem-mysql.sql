@@ -113,7 +113,7 @@ INSERT INTO `gem_menu` VALUES ('29', null, '', '02-05-29', '3', 'role/delete', '
 INSERT INTO `gem_menu` VALUES ('30', null, '', '02-03-30', '3', 'user/add.html', '添加按钮', '3', '02', '99', 'btn_user_add', '1', '08-02-05-02-03-99-02-03-30', null, null);
 INSERT INTO `gem_menu` VALUES ('31', null, '', '02-03-31', '3', 'user/edit.html', '编辑按钮', '3', '02', '99', 'btn_user_edit', '1', '08-02-05-02-03-99-02-03-31', null, null);
 INSERT INTO `gem_menu` VALUES ('32', null, 'fas fa-globe', '38-32', '2', '#', '源码下载', '38', '32', '997', 'menu_src', '0', '997-32', null, '2020-02-23 15:30:33');
-INSERT INTO `gem_menu` VALUES ('33', null, 'fab fa-github', '32-33', '2', 'https://gitee.com/gemteam/gemframe', '码云地址', '32', '32', '2', 'menu_gitee', '0', '997-32-02-32-33', null, null);
+INSERT INTO `gem_menu` VALUES ('33', null, 'fab fa-github', '32-33', '2', 'https://gitee.com/gemteam', '码云地址', '32', '32', '2', 'menu_gitee', '0', '997-32-02-32-33', null, null);
 INSERT INTO `gem_menu` VALUES ('34', null, 'fab fa-windows', '32-34', '2', 'http://www.gemframework.com', 'GemFrame官网', '32', '32', '3', 'menu_gem', '0', '997-32-03-32-34', null, null);
 INSERT INTO `gem_menu` VALUES ('35', null, 'fas fa-basketball-ball', '32-35', '2', 'http://www.gemframework.com/bbs', '官方社区', '32', '32', '1', 'menu_bbs', '0', '997-32-01-32-35', null, null);
 INSERT INTO `gem_menu` VALUES ('36', null, 'fas fa-desktop', '36', '1', '112', '系统监控', '0', '36', '99', 'menu_monitor', '0', '99-36', null, '2020-02-21 20:42:24');
