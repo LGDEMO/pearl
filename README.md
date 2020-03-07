@@ -15,8 +15,20 @@ GemFrame团队致力为全球中小型企业提供更多基础框架最全面的
  `._____.'   '.__.' [___||__||__] |_____|    [___]    \'-;__/ [___||__||__]  '.__.'
 
          GemFrame一款基于SpringBoot优秀的国产开源框架 http://www.gemframework.com
-```
 
+```
+#### 演示地址
+
+[http://demo.gemframework.com](http://113.59.224.167:9040/admin/index)  _推荐单机鼠标右键选择新页面打开_ 
+
+用户名：admin
+密码：123
+
+#### 官方社区
+
+[http://bbs.gemframework.com](http://www.gemframework.com/bbs) _推荐单机鼠标右键选择新页面打开_ 
+
+支持我就帮忙在上方依次Watch、Star一波再离开，感激支持！
 
 #### 软件架构
 ![Gem架构图](https://images.gitee.com/uploads/images/2019/1215/223822_6d41d924_1388237.png "屏幕截图.png")
@@ -43,40 +55,23 @@ gem
 - 代码风格优雅简洁、通俗易懂，符合《阿里巴巴JAVA开发手册》规范要求，可作为企业代码规范
 
 
-#### 技术选型
-##### 前端集成
+| 前端集成 | 后端技术 |
+| -------- | -------- |
+| BootStrap 4.x|Java 1.8+|
+| BootStrap.Table|Maven
+| BootStrap.Multiselect|MySQL
+| Bootstrap.Switch|Druid
+| JQuery 3.x|Redis
+| JQuery.Treetable|SpringBoot 2.2+
+| JQuery.Validate|SpringSecurity
+| JQuery.Ztree|Spring Data JPA
+| Layui 2.5.x|Thymeleaf
+| Layer 3.1.x|Devtools
+| Ionicons|Fastjson
+| Googleapis|Swagger
+| FontUbuntu|Lombok
+| FontAwesome|Kaptcha
 
-- BootStrap 4.x
-- BootStrap.Table
-- BootStrap.Multiselect
-- JQuery 3.x
-- JQuery.Treetable
-- JQuery.Validate
-- JQuery.Ztree
-- Layui 2.5.x
-- Layer 3.1.x
-- Ionicons
-- Googleapis
-- FontUbuntu
-- FontAwesome
-
-
-##### 后端集成
-
-- Java 1.8+
-- Maven
-- MySQL
-- Redis
-- SpringBoot 2.2+
-- SpringSecurity
-- Spring Data JPA
-- Thymeleaf
-- Devtools
-- Fastjson
-- Swagger
-- Druid
-- Kaptcha
-- Lombok
 
 #### 内置功能
 
@@ -118,13 +113,9 @@ gem
         open:  **false** 关闭权限校验
 
 
-#### 演示地址
-
-[http://demo.gemframework.com](http://www.gemframework.com)
 
 #### 系统截图
 
-- 开发中...
 ![输入图片说明](https://images.gitee.com/uploads/images/2020/0112/202419_01b37b94_1388237.png "在这里输入图片标题")
 ![输入图片说明](https://images.gitee.com/uploads/images/2020/0112/211111_9b025f61_1388237.png "首页1.png")
 ![输入图片说明](https://images.gitee.com/uploads/images/2020/0112/211120_5a5c3dd2_1388237.png "菜单.png")
@@ -145,10 +136,15 @@ gem
 #### 问题反馈
 
 1.  开发文档：暂无
-2.  项目文档：暂无
-3.  官方社区：https://www.gemframework.com/bbs
-4.  gitee仓库：https://gitee.com/zzimo/gem
-5.  github仓库：暂无
+2.  项目文档：http://pearl.mydoc.io/
+3.  官方社区：http://www.gemframework.com/bbs
+4.  gitee：https://gitee.com/zzimo/gem
+5.  github：https://github.com/gem-team/gem-pearl
 6.  官方网站：http://www.gemframework.com
 7.  官方QQ群：72940788、446017307
-8.  如需关注项目最新动态，请Watch、Star项目，同时也是对项目最好的支持 技术讨论、二次开发等咨询、问题和建议，请移步到官方社区，我会在第一时间进行解答和回复！
+8.  如需关注项目最新动态，#### 演示地址
+
+[http://demo.gemframework.com](http://113.59.224.167:9040/admin/index)
+用户名：admin
+密码：123
+，同时也是对项目最好的支持 技术讨论、二次开发等咨询、问题和建议，请移步到官方社区，我会在第一时间进行解答和回复！
