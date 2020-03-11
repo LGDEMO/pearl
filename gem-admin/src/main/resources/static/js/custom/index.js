@@ -297,11 +297,7 @@
             //         $('#ajax-loader').fadeOut();
             //     }, 300);
             // });
-            $(window).on('load',function(){
-                window.setTimeout(function () {
-                    $('#ajax-loader').fadeOut();
-                }, 0);
-            });
+            $('#ajax-loader').fadeOut();
         },
         jsonWhere: function (data, action) {
             if (action == null) return;
