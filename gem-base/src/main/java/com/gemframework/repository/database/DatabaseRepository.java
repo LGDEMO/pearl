@@ -1,6 +1,5 @@
 package com.gemframework.repository.database;
 
-import com.gemframework.model.vo.database.Tables;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.NoRepositoryBean;
@@ -15,7 +14,7 @@ import java.util.Map;
  * @Package: com.gemframework.gembasic.repository
  * @Date: 2019-12-05 22:07:32
  * @Version: v1.0
- * @Description: 这里写描述
+ * @Description: 读取数据库Schema信息
 
  * @Author: zhangys
  * @Copyright: Copyright (c) 2019 GemStudio

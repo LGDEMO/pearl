@@ -1,7 +1,6 @@
 package com.gemframework.common.handler;
 
 import org.springframework.core.MethodParameter;
-import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
@@ -52,7 +51,6 @@ public class GemHandlerMethodArgumentResolver implements HandlerMethodArgumentRe
 
     /**
      * 当参数前有@RequestBody注解时， 解析该参数 会使用此 解析器
-     * <p>
      * 注:此方法的返回值将决定:是否使用此解析器解析该参数
      */
     @Override
@@ -76,7 +74,6 @@ public class GemHandlerMethodArgumentResolver implements HandlerMethodArgumentRe
         String contentType = request.getContentType();
         /*
          * 如果ContentType是application/x-www-form-urlencoded，那么使用ServletModelAttributeMethodProcessor解析器
-         *
          * 注:其实默认的，当系统识别到参数前有@RequestBody注解时，就会走RequestResponseBodyMethodProcessor解析器;这里就
          *    相当于在走默认的解析器前走了个判断而已。
          */

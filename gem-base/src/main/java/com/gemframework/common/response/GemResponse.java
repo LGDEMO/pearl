@@ -25,7 +25,6 @@ import java.io.IOException;
 @Slf4j
 public class GemResponse {
 
-
     public static void returnResult(HttpServletRequest request, HttpServletResponse response, ResultCode resultCode, ResultURL url) throws IOException {
         request.setCharacterEncoding(GemConstant.Character.UTF8);
         response.setCharacterEncoding(GemConstant.Character.UTF8);
