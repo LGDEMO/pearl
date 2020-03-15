@@ -58,7 +58,7 @@
                         </div>
                         <div class="form-inline">
                             <input type="text" id="validcode" name="verifycode" class="verifycode" placeholder="验证码" required >
-                            <img id="verifyImg" src="common/code" width="130" height="35" style="margin-left: 10px" onclick="refreshImg()">
+                            <img id="verifyImg" src="common/code" width="130" height="35" style="margin-left: 10px">
                         </div>
 
                         <hr/>
@@ -144,9 +144,10 @@
         });
     });
 
-    function refreshImg() {
-        document.getElementById("verifyImg").src="common/code?"+Math.random();
-    }
+    // 图形验证码
+    $('#verifyImg').click(function () {
+        this.src = this.src + '?t=' + (new Date).getTime();
+    });
 </script>
 </body>
 </html>
