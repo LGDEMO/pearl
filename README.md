@@ -7,6 +7,8 @@
 Pearl 企业快速开发框架，后端技术基于SpringBoot2.2、SpringJPA、SpringSecurity；前端页面采用BootStrap、LayUI开发的用户权限系统，内置强大基础业务能力，完善的权限控制体系，高效稳定的底层支撑。为企业提供拿来即用的基础框架，也是您学习Java企业级微服务平台的最佳学习案例。[http://www.gemframework.com](http://www.gemframework.com)
 
 
+获取基于SpringBoot2.2、Mybatis、Shiro开发的权限基础框架，请移步[Coral快速开发框架](https://gitee.com/gemteam/coral)
+
 ### 项目背景
 一直以来忙于公司项目（相信很多人这一点跟我一样），总是没有时间真正的静下来为做一些自己喜欢的事情，直到一年前公司那套“古老的”项目框架要更新，开始在网上浏览了很多项目，也对比了很多商用产品，多多少少都有些不太满意。于是在公司需求和个人情怀的驱动下萌生了这个想法，基于当下交互趋势和主流技术开发一套简单而又真正实用的快速开发框架，Pearl 诞生了！
 
