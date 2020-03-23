@@ -4,7 +4,7 @@
 ### 项目简介  
 > Pearl 是Gem家族成员之一，于2020年首次与大家见面。她精如其名，虽“轻盈小巧”但“价值连城”！
 
-Pearl 企业快速开发框架，基于SpringBoot2.2+开发的用户权限系统，内置强大基础业务能力，完善的权限控制体系，高效稳定的底层支撑。为企业提供拿来即用的基础框架，也是您学习Java企业级微服务平台的最佳学习案例。[http://www.gemframework.com](http://www.gemframework.com)
+Pearl 企业快速开发框架，基于SpringBoot2.2、SpringJPA、SpringSecurity开发的用户权限系统，内置强大基础业务能力，完善的权限控制体系，高效稳定的底层支撑。为企业提供拿来即用的基础框架，也是您学习Java企业级微服务平台的最佳学习案例。[http://www.gemframework.com](http://www.gemframework.com)
 
 
 ### 项目背景
