@@ -160,9 +160,10 @@ gem
 5.  github：https://github.com/gem-team/gem-pearl
 6.  官方网站：http://www.gemframework.com
 7.  官方QQ群：72940788、446017307
-8.  如需关注项目最新动态，#### 演示地址
+8.  如需关注项目最新动态，同时也是对项目最好的支持 技术讨论、二次开发等咨询、问题和建议，请移步到官方社区，我会在第一时间进行解答和回复！
 
-[http://demo.gemframework.com](http://113.59.224.167:9040/admin/index)
-用户名：admin
-密码：123
-，同时也是对项目最好的支持 技术讨论、二次开发等咨询、问题和建议，请移步到官方社区，我会在第一时间进行解答和回复！
+### 请作者喝杯咖啡
+
+![微信支付](https://images.gitee.com/uploads/images/2020/0324/225514_e980e3d0_2671379.png "微信支付.png")                                        ![支付宝](https://images.gitee.com/uploads/images/2020/0324/225522_cb4dd187_2671379.png "支付宝支付.png")
+##### 赞赏请务必备注您的联系方式
+ **非常感谢您的赞赏，我一直再努力!**
