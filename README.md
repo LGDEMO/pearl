@@ -1,13 +1,29 @@
 :tw-1f1ec:  :tw-1f1ea:  :tw-1f1f2:  :tw-1f1eb:  :tw-1f1f7:  :tw-1f1e6:   :tw-1f1f2:  :tw-1f1ea:     
 **支持我就帮忙在上方依次Watch、Star一波再离开，感激支持！**  
 :tw-1f345:  :tw-1f345:  :tw-1f345:  :tw-1f345:  :tw-1f345: :tw-1f345:  :tw-1f345:  :tw-1f345:  :tw-1f345:  :tw-1f345: :tw-1f345:  :tw-1f345:  :tw-1f345:  :tw-1f345:  :tw-1f345: :tw-1f345:  :tw-1f345:  :tw-1f345:  :tw-1f345:  :tw-1f345: :tw-1f345:  :tw-1f345:  :tw-1f345:  :tw-1f345:  :tw-1f345: :tw-1f345:  :tw-1f345:  :tw-1f345:  :tw-1f345:  :tw-1f345: :tw-1f345:  :tw-1f345:  :tw-1f345:  :tw-1f345:  :tw-1f345: :tw-1f345:  :tw-1f345:  :tw-1f345:  :tw-1f345:  :tw-1f345: 
-#### 项目简介  
-Pearl 是Gem生态中的成员之一，基于SpringBoot2.2+开发的用户权限系统，内置强大基础业务能力，完善的权限控制体系，高效稳定的底层支撑。为企业提供拿来即用的基础框架，也是您学习Java企业级微服务平台的最佳学习案例。
-http://www.gemframework.com
 
-基础能力建设：精细化权限管理，自定义菜单配置，安全身份认证，系统监控，代码生成，示例演示等。官方提供完善的API文档、部署文档、架构介绍文档以及视频教程帮助您快速学习入门，快速上手使用。
+***
 
-GemFrame团队致力为全球中小型企业提供更多基础框架最全面的解决方案！
+[![License](https://img.shields.io/badge/License-MIT-blue)](http://www.gemframework.com) [![SpringBoot](https://img.shields.io/badge/SpringBoot-v2.2.x-blue)](https://spring.io/projects/spring-boot/)  [![SpringJPA](https://img.shields.io/badge/SpringJPA-强大-yellow)](https://spring.io/projects/spring-boot/)  [![SpringSecurity](https://img.shields.io/badge/SpringSecurity-强大-brightgreen)](https://spring.io/projects/spring-security) [![BootStrap](https://img.shields.io/badge/BootStrap-v4.0-blue)](https://www.bootcss.com/) [![Layui](https://img.shields.io/badge/Layui-v2.5.6-orange)](http://www.layui.com/) [![QQ1群](https://img.shields.io/badge/QQ%E7%BE%A4:72940788-%E6%BB%A1-red)](https://shang.qq.com/wpa/qunwpa?idkey=c39908fa28cb73b3e85d697436a52ca91e66b8870d020fcf4f555c51dca13b9a) [![QQ2群](https://img.shields.io/badge/QQ%E2%91%A1%E7%BE%A4-650255887-green)](https://shang.qq.com/wpa/qunwpa?idkey=c39908fa28cb73b3e85d697436a52ca91e66b8870d020fcf4f555c51dca13b9a)
+
+
+***
+### 项目简介  
+> Pearl 是Gem家族成员之一，于2020年首次与大家见面。她精如其名，虽“轻盈小巧”但“价值连城”！
+
+Pearl 企业快速开发框架，后端技术基于SpringBoot2.2、SpringJPA、SpringSecurity；前端页面采用BootStrap、LayUI开发的用户权限系统，内置强大基础业务能力，完善的权限控制体系，高效稳定的底层支撑。为企业提供拿来即用的基础框架，也是您学习Java企业级微服务平台的最佳学习案例。[http://www.gemframework.com](http://www.gemframework.com)
+
+
+获取基于SpringBoot2.2、Mybatis、Shiro开发的权限基础框架，请移步[Coral快速开发框架](https://gitee.com/gemteam/coral)
+
+### 项目背景
+一直以来忙于公司项目（相信很多人这一点跟我很像），总是没有时间真正的静下来为做一些自己喜欢的事情，直到一年前公司那套“古老的”项目框架要更新，开始在网上浏览了很多项目，也对比了很多商用产品，多多少少都有些不太满意。于是在公司需求和个人情怀的驱动下萌生了这个想法，基于当下交互趋势和主流技术开发一套简单且真正实用的快速开发框架，Pearl 诞生了！
+
+#### Pearl 建设理念：
+这是一个技术栈爆炸的时代，我们不谈概念，不搞逼格，在我看来根据实际需求进行技术选型和功能实现是最重要的，技术没有好与坏，只有适不适合。因此让我们一起化繁为简，轻装上阵吧...
+
+#### Pearl 基础能力：
+精细化权限管理，自定义菜单配置，安全身份认证，系统监控，代码生成，示例演示等。官方提供完善的API文档、部署文档、架构介绍文档以及视频教程帮助您快速学习入门，快速上手使用。
 
 ```
    ______                          ________
@@ -20,6 +36,8 @@ GemFrame团队致力为全球中小型企业提供更多基础框架最全面的
          GemFrame一款基于SpringBoot优秀的国产开源框架 http://www.gemframework.com
 
 ```
+
+
 #### 演示地址
 
 [http://demo.gemframework.com](http://113.59.224.167:9040/admin/index)  _推荐单机鼠标右键选择新页面打开_ 
@@ -37,6 +55,8 @@ GemFrame团队致力为全球中小型企业提供更多基础框架最全面的
 
 #### 软件架构
 ![Gem架构图](https://images.gitee.com/uploads/images/2019/1215/223822_6d41d924_1388237.png "屏幕截图.png")
+
+> 注：此架构图为GemFrame架构设计图，此架构属基于SpringCloud微服务架构，代码永久开源，欢迎各界大佬一起增砖添瓦。[项目地址](https://gitee.com/gemteam/gem)
 
 #### 代码结构
 ```
@@ -147,9 +167,10 @@ gem
 5.  github：https://github.com/gem-team/gem-pearl
 6.  官方网站：http://www.gemframework.com
 7.  官方QQ群：72940788、446017307
-8.  如需关注项目最新动态，#### 演示地址
+8.  如需关注项目最新动态，同时也是对项目最好的支持 技术讨论、二次开发等咨询、问题和建议，请移步到官方社区，我会在第一时间进行解答和回复！
 
-[http://demo.gemframework.com](http://113.59.224.167:9040/admin/index)
-用户名：admin
-密码：123
-，同时也是对项目最好的支持 技术讨论、二次开发等咨询、问题和建议，请移步到官方社区，我会在第一时间进行解答和回复！
+### 请作者喝杯咖啡
+
+![微信支付](https://images.gitee.com/uploads/images/2020/0324/225514_e980e3d0_2671379.png "微信支付.png")                                        ![支付宝](https://images.gitee.com/uploads/images/2020/0324/225522_cb4dd187_2671379.png "支付宝支付.png")
+##### 赞赏请务必备注您的联系方式
+ **非常感谢您的赞赏，我一直再努力!**
