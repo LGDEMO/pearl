@@ -1,17 +1,11 @@
 /**
- * Copyright 2018 gemframe
- * <p>
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License at
- * <p>
- * http://www.apache.org/licenses/LICENSE-2.0
- * <p>
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
- * the License.
+ * 严肃声明：
+ * 开源版本请务必保留此注释头信息，若删除gemframe官方保留所有法律责任追究！
+ * 本软件受国家版权局知识产权以及国家计算机软件著作权保护（登记号：2018SR503328）
+ * 不得恶意分享产品源代码、二次转售等，违者必究。
+ * Copyright (c) 2020 gemframework all rights reserved.
+ * http://www.gemframework.com
+ * 版权所有，侵权必究！
  */
 
 package com.gemframework.common.aspect;
