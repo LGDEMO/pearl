@@ -184,21 +184,21 @@ var user_form_setting = {
 // 添加用户关联部门 开启checkbox
 var user_form_2_setting = {
 
-    view: {
-        dblClickExpand: true,//双击节点时，是否自动展开父节点的标识
-        addDiyDom : null,//用于在节点上固定显示用户自定义控件
-        addHoverDom : null,//用于当鼠标移动到节点上时，显示用户自定义控件，显示隐藏状态同 zTree 内部的编辑、删除按钮
-        removeHoverDom : null,//用于当鼠标移出节点时，隐藏用户自定义控件，显示隐藏状态同 zTree 内部的编辑、删除按钮
-        autoCancelSelected : true,//点击节点时，按下 Ctrl 或 Cmd 键是否允许取消选择操作。
-        expandSpeed : "fast",//zTree 节点展开、折叠时的动画速度，设置方法同 JQuery 动画效果中 speed 参数。
-        fontCss : {}, //个性化文字样式，只针对 zTree 在节点上显示的<A>对象。
-        nameIsHTML : false,//设置 name 属性是否支持 HTML 脚本
-        selectedMulti : true,//设置是否允许同时选中多个节点。
-        showIcon : true,//设置 zTree 是否显示节点的图标。
-        showLine : true,//设置 zTree 是否显示节点之间的连线。
-        showTitle : true,//设置 zTree 是否显示节点的 title 提示信息(即节点 DOM 的 title 属性)。
-        txtSelectedEnable : false//设置 zTree 是否允许可以选择 zTree DOM 内的文本。
-    },
+    // view: {
+    //     dblClickExpand: true,//双击节点时，是否自动展开父节点的标识
+    //     addDiyDom : null,//用于在节点上固定显示用户自定义控件
+    //     addHoverDom : null,//用于当鼠标移动到节点上时，显示用户自定义控件，显示隐藏状态同 zTree 内部的编辑、删除按钮
+    //     removeHoverDom : null,//用于当鼠标移出节点时，隐藏用户自定义控件，显示隐藏状态同 zTree 内部的编辑、删除按钮
+    //     autoCancelSelected : true,//点击节点时，按下 Ctrl 或 Cmd 键是否允许取消选择操作。
+    //     expandSpeed : "fast",//zTree 节点展开、折叠时的动画速度，设置方法同 JQuery 动画效果中 speed 参数。
+    //     fontCss : {}, //个性化文字样式，只针对 zTree 在节点上显示的<A>对象。
+    //     nameIsHTML : false,//设置 name 属性是否支持 HTML 脚本
+    //     selectedMulti : true,//设置是否允许同时选中多个节点。
+    //     showIcon : true,//设置 zTree 是否显示节点的图标。
+    //     showLine : true,//设置 zTree 是否显示节点之间的连线。
+    //     showTitle : true,//设置 zTree 是否显示节点的 title 提示信息(即节点 DOM 的 title 属性)。
+    //     txtSelectedEnable : false//设置 zTree 是否允许可以选择 zTree DOM 内的文本。
+    // },
 
     check: {//设置zTree是否可以被勾选,及勾选的参数配置
         enable: true,//设置 zTree 的节点上是否显示 checkbox / radio 默认值: false
