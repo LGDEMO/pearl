@@ -42,7 +42,7 @@ Pearl 企业快速开发框架，后端技术基于SpringBoot2.2、SpringJPA、S
 
 #### 演示地址
 
-[http://demo.gemframework.com](http://113.59.224.167:9040/admin/index)  _推荐单机鼠标右键选择新页面打开_ 
+[http://demo.gemframework.com](http://49.7.123.0:9040/admin/login)  _推荐单机鼠标右键选择新页面打开_ 
 
 用户名：admin
 密码：123
