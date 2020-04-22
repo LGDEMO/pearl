@@ -1,8 +1,10 @@
-:tw-1f1ec:  :tw-1f1ea:  :tw-1f1f2:  :tw-1f1eb:  :tw-1f1f7:  :tw-1f1e6:   :tw-1f1f2:  :tw-1f1ea:     
-**支持我就帮忙在上方依次Watch、Star一波再离开，感激支持！**  
-:tw-1f345:  :tw-1f345:  :tw-1f345:  :tw-1f345:  :tw-1f345: :tw-1f345:  :tw-1f345:  :tw-1f345:  :tw-1f345:  :tw-1f345: :tw-1f345:  :tw-1f345:  :tw-1f345:  :tw-1f345:  :tw-1f345: :tw-1f345:  :tw-1f345:  :tw-1f345:  :tw-1f345:  :tw-1f345: :tw-1f345:  :tw-1f345:  :tw-1f345:  :tw-1f345:  :tw-1f345: :tw-1f345:  :tw-1f345:  :tw-1f345:  :tw-1f345:  :tw-1f345: :tw-1f345:  :tw-1f345:  :tw-1f345:  :tw-1f345:  :tw-1f345: :tw-1f345:  :tw-1f345:  :tw-1f345:  :tw-1f345:  :tw-1f345: 
+## :tw-1f1ec:  :tw-1f1ea:  :tw-1f1f2:  :tw-1f1eb:  :tw-1f1f7:  :tw-1f1e6:   :tw-1f1f2:  :tw-1f1ea:     
+## **支持我就帮忙在上方依次Watch、Star一波再离开，感激支持！**  
+:tw-1f345:  :tw-1f345:  :tw-1f345:  :tw-1f345:  :tw-1f345: :tw-1f345:  :tw-1f345:  :tw-1f345:  :tw-1f345:  :tw-1f345: :tw-1f345:  :tw-1f345:  :tw-1f345:  :tw-1f345:  :tw-1f345: :tw-1f345:  :tw-1f345:  :tw-1f345:  :tw-1f345:  :tw-1f345: :tw-1f345:  :tw-1f345:  :tw-1f345:  :tw-1f345:  :tw-1f345: :tw-1f345:  :tw-1f345:  :tw-1f345:  :tw-1f345:  :tw-1f345: :tw-1f345:  :tw-1f345:  :tw-1f345:  :tw-1f345:  :tw-1f345: :tw-1f345:  :tw-1f345:  :tw-1f345:  :tw-1f345:  :tw-1f345: :tw-1f345:  :tw-1f345:  :tw-1f345:  :tw-1f345:  :tw-1f345: :tw-1f345:  :tw-1f345:  :tw-1f345:  :tw-1f345:  :tw-1f345: 
 
 ***
+![输入图片说明](https://images.gitee.com/uploads/images/2020/0405/203717_f19cccea_1388237.png "gemlogo.png")
+
 
 [![License](https://img.shields.io/badge/License-MIT-blue)](http://www.gemframework.com) [![SpringBoot](https://img.shields.io/badge/SpringBoot-v2.2.x-blue)](https://spring.io/projects/spring-boot/)  [![SpringJPA](https://img.shields.io/badge/SpringJPA-强大-yellow)](https://spring.io/projects/spring-boot/)  [![SpringSecurity](https://img.shields.io/badge/SpringSecurity-强大-brightgreen)](https://spring.io/projects/spring-security) [![BootStrap](https://img.shields.io/badge/BootStrap-v4.0-blue)](https://www.bootcss.com/) [![Layui](https://img.shields.io/badge/Layui-v2.5.6-orange)](http://www.layui.com/) [![QQ1群](https://img.shields.io/badge/QQ%E7%BE%A4:72940788-%E6%BB%A1-red)](https://shang.qq.com/wpa/qunwpa?idkey=c39908fa28cb73b3e85d697436a52ca91e66b8870d020fcf4f555c51dca13b9a) [![QQ2群](https://img.shields.io/badge/QQ%E2%91%A1%E7%BE%A4-650255887-green)](https://shang.qq.com/wpa/qunwpa?idkey=c39908fa28cb73b3e85d697436a52ca91e66b8870d020fcf4f555c51dca13b9a)
 
@@ -40,7 +42,7 @@ Pearl 企业快速开发框架，后端技术基于SpringBoot2.2、SpringJPA、S
 
 #### 演示地址
 
-[http://demo.gemframework.com](http://113.59.224.167:9040/admin/index)  _推荐单机鼠标右键选择新页面打开_ 
+[http://demo.gemframework.com](http://49.7.123.0:9040/admin/login)  _推荐单机鼠标右键选择新页面打开_ 
 
 用户名：admin
 密码：123
@@ -141,8 +143,9 @@ gem
 
 #### 系统截图
 
-![输入图片说明](https://images.gitee.com/uploads/images/2020/0112/202419_01b37b94_1388237.png "在这里输入图片标题")
+![输入图片说明](https://images.gitee.com/uploads/images/2020/0112/202419_01b37b94_1388237.png "登录页")
 ![输入图片说明](https://images.gitee.com/uploads/images/2020/0112/211111_9b025f61_1388237.png "首页1.png")
+![输入图片说明](https://images.gitee.com/uploads/images/2020/0327/123407_115f2442_1388237.png "新首页.png")
 ![输入图片说明](https://images.gitee.com/uploads/images/2020/0112/211120_5a5c3dd2_1388237.png "菜单.png")
 ![输入图片说明](https://images.gitee.com/uploads/images/2020/0112/211132_ca350253_1388237.png "添加.png")
 ![输入图片说明](https://images.gitee.com/uploads/images/2020/0112/211141_086a5606_1388237.png "角色.png")
