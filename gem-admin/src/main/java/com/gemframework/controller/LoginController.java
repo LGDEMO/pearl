@@ -42,22 +42,23 @@ public class LoginController {
         return "login";
     }
 
-    @GetMapping("/error")
+
+    @GetMapping("/500")
     public String error(Model model){
         model.addAttribute("code","999");
         model.addAttribute("msg","系统错误");
-        return "common/error";
+        return "error/500";
     }
 
     @GetMapping("/403")
     public String denied(){
-        return "common/refuse";
+        return "error/403";
     }
 
     @GetMapping("/404")
     public String notFound(){
         gemMetadataSourceService.loadResourceDefine();
-        return "common/notfind";
+        return "error/404";
     }
 
     @GetMapping({"/index"})
